@@ -1,3 +1,3 @@
 # my-website-v2
 
-a serverless single page restful app using AWS SDK(JS) with a react frontend
+a serverless single page restful app built with AWS SDK(JS) and React
