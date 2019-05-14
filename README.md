@@ -1,8 +1,6 @@
 # my-website-v2
 
 A serverless single page restful app built with AWS JS SDK and React
-
-backend:
 - Lambda & API Gateway for our serverless api
 - DynamoDB for our database
 - Cognito for user authentication and securing our APIs
