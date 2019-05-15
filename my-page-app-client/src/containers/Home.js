@@ -11,7 +11,7 @@ export default class Home extends Component {
             A penultimate year computer science student from UNSW
           </p>
           <p>
-            Looking for a software developer internship/part-time
+            Looking for a software developer internship/part-time job
           </p>
         </div>
       </div>
