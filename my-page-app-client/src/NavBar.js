@@ -63,9 +63,6 @@ const styles = theme => ({
       display: 'none',
     },
   },
-  //loginButton: {
-  //  marginRight: 0,
-  //},
   toolbar: {
     display: 'flex',
     alignItems: 'center',
@@ -120,17 +117,19 @@ class NavBar extends React.Component {
     this.setState({ isAuthenticated: authenticated });
   }
 
-  handleLogout = event => {
+  handleLogout = async event => {
+    await Auth.signOut();
     this.userHasAuthenticated(false);
   }
 
-  render() {
-    const { classes, theme } = this.props;
 
+  render() {
     const childProps = {
       isAuthenticated: this.state.isAuthenticated,
       userHasAuthenticated: this.userHasAuthenticated
     };
+    const { classes, theme } = this.props;
+
 
     const drawer = (
       <div>
@@ -188,10 +187,10 @@ class NavBar extends React.Component {
                 QW
             </Link>
             {this.state.isAuthenticated 
-              ? <Button component={RouterLink} to="/Login" color="inherit" onClick={this.handleLogout}>Logout</Button>
+              ? <Button color="inherit" onClick={this.handleLogout}>Logout</Button>
               : <Fragment>
                   <Button component={RouterLink} to="/signup" color="inherit">Signup</Button>
-                  <Button component={RouterLink} to="/login" className={classes.loginButton} color="inherit">Login</Button>
+                  <Button component={RouterLink} to="/login"  color="inherit">Login</Button>
                 </Fragment>
             }
           </Toolbar>
@@ -227,7 +226,6 @@ class NavBar extends React.Component {
 
         <main className={classes.content}>
           <div className={classes.toolbar} />
-          {/* i should move this out... */}
           <Routes childProps={childProps} />
         </main>
 

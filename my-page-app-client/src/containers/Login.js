@@ -94,7 +94,7 @@ class Login extends React.Component {
               <InputLabel htmlFor="email">Email Address</InputLabel>
               <Input id="email" name="email" autoComplete="email" autoFocus />
             </FormControl>
-            <FormControl  value={this.state.password} onChange={this.handleChange} margin="normal" required fullWidth>
+            <FormControl value={this.state.password} onChange={this.handleChange} margin="normal" required fullWidth>
               <InputLabel htmlFor="password">Password</InputLabel>
               <Input name="password" type="password" id="password" autoComplete="current-password" />
             </FormControl>
