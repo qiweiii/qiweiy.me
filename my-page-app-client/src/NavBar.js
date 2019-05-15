@@ -24,6 +24,7 @@ import FileDocumentBox from 'mdi-material-ui/FileDocumentBox'
 import { Link as RouterLink } from 'react-router-dom'
 import Link from '@material-ui/core/Link';
 import Routes from "./Routes";
+import { Auth } from "aws-amplify";
 
 const drawerWidth = 180;
 
@@ -82,17 +83,33 @@ const styles = theme => ({
   },
 });
 
+
+
+
 class NavBar extends React.Component {
-  state = {
-    mobileOpen: false,
-  };
 
   constructor(props) {
     super(props);
 
     this.state = {
-      isAuthenticated: false
+      mobileOpen: false,
+      isAuthenticated: false,
+      isAuthenticating: true
     };
+  }
+
+  async componentDidMount() {
+    try {
+      await Auth.currentSession();
+      this.userHasAuthenticated(true);
+    }
+    catch(e) {
+      if (e !== 'No current user') {
+        alert(e);
+      }
+    }
+
+    this.setState({ isAuthenticating: false });
   }
 
   handleDrawerToggle = () => {
@@ -154,6 +171,7 @@ class NavBar extends React.Component {
     );
 
     return (
+      !this.state.isAuthenticating &&
       <div className={classes.root}>
         <CssBaseline />
         <AppBar position="fixed" className={classes.appBar}>
