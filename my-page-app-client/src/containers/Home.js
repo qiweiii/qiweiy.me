@@ -6,8 +6,13 @@ export default class Home extends Component {
     return (
       <div className="Home">
         <div className="lander">
-          <h1>Scratch</h1>
-          <p>A simple note taking app</p>
+          <h1>Qiwei Yang</h1>
+          <p>
+            A penultimate year computer science student from UNSW
+          </p>
+          <p>
+            Looking for a software developer internship/part-time
+          </p>
         </div>
       </div>
     );

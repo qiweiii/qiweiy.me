@@ -11,7 +11,7 @@ const theme = createMuiTheme({
   palette: {
     primary: {
       light: '#757ce8',
-      main: '#6fcff1', //zima blue
+      main: '#0091ea',
       dark: '#002884',
       contrastText: '#fff',
     },
@@ -23,8 +23,7 @@ class App extends Component {
   render() {
     return (
       <MuiThemeProvider theme={theme}>
-        <NavBar />
-        {/* put Routes here later */}
+        <NavBar/>
         <Routes />
       </MuiThemeProvider>
     );
