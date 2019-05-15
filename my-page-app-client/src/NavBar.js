@@ -87,6 +87,7 @@ const styles = theme => ({
     alignItems: 'center',
     justifyContent: 'flex-end',
     padding: '0 8px',
+    paddingRight: 24, // keep right padding when drawer closed
     ...theme.mixins.toolbar,
   },
   content: {
@@ -120,7 +121,7 @@ class NavBar extends React.Component {
             [classes.appBarShift]: this.state.open,
           })}
         >
-          <Toolbar disableGutters={!this.state.open}>
+          <Toolbar disableGutters={!this.state.open} className={classes.toolbar}>
             <IconButton
               color="inherit"
               aria-label="Open drawer"
@@ -132,7 +133,7 @@ class NavBar extends React.Component {
               <MenuIcon />
             </IconButton>
             <Typography className={classes.grow} variant="h6" color="inherit" noWrap>
-              Qiwei
+              QW
             </Typography>
             <Button color="inherit">Signup</Button>
             <Button className={classes.loginButton} color="inherit">Login</Button>
@@ -191,7 +192,7 @@ class NavBar extends React.Component {
         <main className={classes.content}>
           <div className={classes.toolbar} />
           <Typography paragraph>
-            qiwei is happy
+
           </Typography>
         </main>
       </div>
