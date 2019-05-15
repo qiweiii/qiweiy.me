@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {Fragment} from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
@@ -87,17 +87,38 @@ class NavBar extends React.Component {
     mobileOpen: false,
   };
 
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      isAuthenticated: false
+    };
+  }
+
   handleDrawerToggle = () => {
     this.setState(state => ({ mobileOpen: !state.mobileOpen }));
   };
 
+  userHasAuthenticated = authenticated => {
+    this.setState({ isAuthenticated: authenticated });
+  }
+
+  handleLogout = event => {
+    this.userHasAuthenticated(false);
+  }
+
   render() {
     const { classes, theme } = this.props;
+
+    const childProps = {
+      isAuthenticated: this.state.isAuthenticated,
+      userHasAuthenticated: this.userHasAuthenticated
+    };
 
     const drawer = (
       <div>
         <div className={classes.drawerHeader}>
-          <Link href="https://qiweiii.herokuapp.com/" color='#9e9e9e'>v1.0</Link>
+          <Link href="https://qiweiii.herokuapp.com/">v1.0</Link>
         </div>
         <Divider />
         <List>
@@ -148,8 +169,13 @@ class NavBar extends React.Component {
             <Link className={classes.grow} variant="h6" color="inherit" component={RouterLink} to="/">
                 QW
             </Link>
-            <Button component={RouterLink} to="/signup" color="inherit">Signup</Button>
-            <Button component={RouterLink} to="/login"className={classes.loginButton} color="inherit">Login</Button>
+            {this.state.isAuthenticated 
+              ? <Button component={RouterLink} to="/Login" color="inherit" onClick={this.handleLogout}>Logout</Button>
+              : <Fragment>
+                  <Button component={RouterLink} to="/signup" color="inherit">Signup</Button>
+                  <Button component={RouterLink} to="/login" className={classes.loginButton} color="inherit">Login</Button>
+                </Fragment>
+            }
           </Toolbar>
         </AppBar>
         <nav className={classes.drawer}>
@@ -184,7 +210,7 @@ class NavBar extends React.Component {
         <main className={classes.content}>
           <div className={classes.toolbar} />
           {/* i should move this out... */}
-          <Routes/>
+          <Routes childProps={childProps} />
         </main>
 
       </div>
