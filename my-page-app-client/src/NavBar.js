@@ -54,9 +54,9 @@ const styles = theme => ({
       display: 'none',
     },
   },
-  loginButton: {
-    marginRight: 15,
-  },
+  //loginButton: {
+  //  marginRight: 0,
+  //},
   toolbar: {
     display: 'flex',
     alignItems: 'center',
