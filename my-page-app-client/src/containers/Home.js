@@ -15,6 +15,10 @@ const styles = theme => ({
     textAlign: "center",
     color: '#616161',
     fontSize: 14,
+    [theme.breakpoints.up(400)]: {
+      marginLeft: 'auto',
+      marginRight: 'auto',
+    },
   },
   h1: {
     font: 'Roboto',
@@ -27,14 +31,14 @@ function Home(props) {
   const { classes } = props;
 
   return (
-    <div>
+
       <div className={classes.root}>
         <h1 className={classes.h1}>Qiwei Yang</h1>
         <p>Penultimate year computer science student from UNSW Sydney</p>
         <p>Looking for a software developer internship/part-time job</p>
         <p>My email: <a href = "mailto: yangqiwei97@gmail.com">yangqiwei97@gmail.com</a></p>
       </div>
-    </div>
+
   );
 }
 
