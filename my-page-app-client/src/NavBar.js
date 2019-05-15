@@ -193,9 +193,6 @@ class NavBar extends React.Component {
           <Typography paragraph>
             qiwei is happy
           </Typography>
-          <Typography paragraph>
-            qiwei is cute
-          </Typography>
         </main>
       </div>
     );
