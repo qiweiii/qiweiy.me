@@ -21,7 +21,7 @@ import GithubFace from 'mdi-material-ui/GithubFace'
 import Lightbulb from 'mdi-material-ui/Lightbulb'
 import Linkedin from 'mdi-material-ui/Linkedin'
 import FileDocumentBox from 'mdi-material-ui/FileDocumentBox'
-import { Link as RouterLink } from 'react-router-dom'
+import { Link as RouterLink, withRouter } from 'react-router-dom'
 import Link from '@material-ui/core/Link';
 import Routes from "./Routes";
 import { Auth } from "aws-amplify";
@@ -118,9 +118,11 @@ class NavBar extends React.Component {
   }
 
   handleLogout = async event => {
-    await Auth.signOut();
-    this.userHasAuthenticated(false);
-  }
+  await Auth.signOut();
+  this.userHasAuthenticated(false);
+  this.props.history.push("/login");
+}
+
 
 
   render() {
@@ -242,7 +244,7 @@ NavBar.propTypes = {
   theme: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles, { withTheme: true })(NavBar);
+export default withRouter(withStyles(styles, { withTheme: true })(NavBar));
 
 
 
