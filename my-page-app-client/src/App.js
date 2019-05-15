@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import NavBar from "./NavBar"
 // import { Link } from "react-router-dom";
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
+import Routes from "./Routes";
 
 
 
@@ -22,8 +23,9 @@ class App extends Component {
   render() {
     return (
       <MuiThemeProvider theme={theme}>
-        <NavBar/>
+        <NavBar />
         {/* put Routes here later */}
+        <Routes />
       </MuiThemeProvider>
     );
   }
