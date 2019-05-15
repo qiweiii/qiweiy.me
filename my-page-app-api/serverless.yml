@@ -1,4 +1,4 @@
-service: my-page-app-api
+service: qiwei-page-app-v2
 
 # Use the serverless-webpack plugin to transpile ES6
 plugins:
@@ -12,7 +12,7 @@ custom:
   # commands. Or fallsback to what we have set in the provider section.
   stage: ${opt:stage, self:provider.stage}
   # Set the table name here so we can use it while testing locally
-  tableName: ${self:custom.stage}-my-page
+  tableName: ${self:custom.stage}-my-website-v2
   # Set our DynamoDB throughput for prod and all other non-prod stages.
   tableThroughputs:
     prod: 5
@@ -75,7 +75,7 @@ functions:
     handler: functions/get.main
     events:
       - http:
-          path: notes/{id}
+          path: pages/{id}
           method: get
           cors: true
           authorizer: aws_iam
@@ -86,7 +86,7 @@ functions:
     handler: functions/list.main
     events:
       - http:
-          path: notes
+          path: pages
           method: get
           cors: true
           authorizer: aws_iam
@@ -97,7 +97,7 @@ functions:
     handler: functions/update.main
     events:
       - http:
-          path: notes/{id}
+          path: pages/{id}
           method: put
           cors: true
           authorizer: aws_iam
@@ -108,7 +108,7 @@ functions:
     handler: functions/delete.main
     events:
       - http:
-          path: notes/{id}
+          path: pages/{id}
           method: delete
           cors: true
           authorizer: aws_iam
