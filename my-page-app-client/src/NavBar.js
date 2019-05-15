@@ -41,6 +41,14 @@ const styles = theme => ({
       flexShrink: 0,
     },
   },
+  drawerHeader: {
+    fontSize: 12,
+    display: 'flex',
+    alignItems: 'flex',
+    padding: '34px 15px 6px',
+    ...theme.mixins.toolbar,
+    justifyContent: 'flex-start',
+  },
   appBar: {
     marginLeft: drawerWidth,
     [theme.breakpoints.up('sm')]: {
@@ -88,34 +96,35 @@ class NavBar extends React.Component {
 
     const drawer = (
       <div>
-        <div className={classes.toolbar} />
-
+        <div className={classes.drawerHeader}>
+          <Link href="https://qiweiii.herokuapp.com/" color='#9e9e9e'>v1.0</Link>
+        </div>
         <Divider />
         <List>
             <ListItem component={RouterLink} to="/" button key='Home'>
               <ListItemIcon ><HomeIcon/></ListItemIcon>
               <ListItemText primary='Home' />
             </ListItem>
-            <ListItem button key='Blogs'>
+            <ListItem component={RouterLink} to="/" button key='Blogs'>
               <ListItemIcon><BookmarkIcon /></ListItemIcon>
               <ListItemText primary='Blogs' />
             </ListItem>
-            <ListItem button key='Resume'>
+            <ListItem component={RouterLink} to="/" button key='Resume'>
               <ListItemIcon><FileDocumentBox /></ListItemIcon>
               <ListItemText primary='Resume' />
             </ListItem>
-            <ListItem button key='GitHub'>
+            <ListItem component="a" href="https://github.com/qiweiii/my-website-v2" button key='GitHub'>
               <ListItemIcon><GithubFace /></ListItemIcon>
               <ListItemText primary='GitHub' />
             </ListItem>
-            <ListItem button key='Linkedin'>
+            <ListItem component="a" href="https://linkedin.com/in/qiwei-yang-679617142" button key='Linkedin'>
               <ListItemIcon><Linkedin /></ListItemIcon>
               <ListItemText primary='LinkedIn' />
             </ListItem>
           </List>
           <Divider />
           <List>
-            <ListItem button key='More'>
+            <ListItem component={RouterLink} to="/" button key='More'>
               <ListItemIcon><Lightbulb /></ListItemIcon>
               <ListItemText primary='More' />
             </ListItem>
