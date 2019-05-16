@@ -64,7 +64,7 @@ functions:
     handler: functions/create.main
     events:
       - http:
-          path: notes
+          path: pages
           method: post
           cors: true
           authorizer: aws_iam
