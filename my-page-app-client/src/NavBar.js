@@ -8,7 +8,7 @@ import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import List from '@material-ui/core/List';
 import CssBaseline from '@material-ui/core/CssBaseline';
-// import Typography from '@material-ui/core/Typography';
+import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
@@ -36,6 +36,7 @@ const styles = theme => ({
   },
   grow: {
     flexGrow: 1,
+    color: '#fff',
   },
   drawer: {
     [theme.breakpoints.up('sm')]: {
@@ -194,9 +195,11 @@ class NavBar extends React.Component {
             >
               <MenuIcon />
             </IconButton>
-            <Link className={classes.grow} variant="h6" color="inherit" component={RouterLink} to="/">
-                QW
-            </Link>
+            <Typography variant="h6" className={classes.grow} >
+              <Link color="inherit" component={RouterLink} to="/">
+                  QW
+              </Link>
+            </Typography>
             {this.state.isAuthenticated 
               ? <Button color="inherit" onClick={this.handleLogout}>Logout</Button>
               : <Fragment>

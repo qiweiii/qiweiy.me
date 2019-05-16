@@ -1,23 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Button from '@material-ui/core/Button';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import FormControl from '@material-ui/core/FormControl';
-import Input from '@material-ui/core/Input';
-import Paper from '@material-ui/core/Paper';
 import { withStyles } from '@material-ui/core/styles';
-import TextField from '@material-ui/core/TextField';
-import config from "../config";
 import { API } from "aws-amplify";
-import { s3Upload } from "../libs/awsLib";
 import BlogCard from "./BlogCard";
 import Divider from '@material-ui/core/Divider';
-import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
-import ListItemText from '@material-ui/core/ListItemText';
-import { Link as RouterLink, withRouter } from 'react-router-dom'
+import { Link as RouterLink} from 'react-router-dom'
 import Link from '@material-ui/core/Link';
-import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 
 const styles = theme => ({
@@ -39,13 +28,6 @@ const styles = theme => ({
     flexGrow: 1,
     alignItems: 'center',
     padding: `${theme.spacing.unit * 1}px ${theme.spacing.unit * 2}px ${theme.spacing.unit * 2}px`,
-  },
-  textField: {
-    // margin: theme.spacing.unit * 1,
-  },
-  textFieldContent: {
-    // marginRight: theme.spacing.unit * 1,
-    // height: 200,
   },
   uploads: {
     paddingBottom: '10px',

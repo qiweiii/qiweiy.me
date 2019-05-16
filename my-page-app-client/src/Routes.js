@@ -7,7 +7,8 @@ import AppliedRoute from "./components/AppliedRoute";
 import Signup from "./containers/Signup";
 import NewBlog from "./containers/NewBlog";
 import Blogs from "./containers/Blogs";
-import Blog from "./containers/Blog";
+import BlogEdit from "./containers/BlogEdit";
+import BlogView from "./containers/BlogView";
 
 export default ({ childProps }) =>
   <Switch>
@@ -16,7 +17,8 @@ export default ({ childProps }) =>
     <AppliedRoute path="/signup" exact component={Signup} props={childProps} />
 		<AppliedRoute path="/blogs/new" exact component={NewBlog} props={childProps} />
 		<AppliedRoute path="/blogs" exact component={Blogs} props={childProps} />
-		<AppliedRoute path="/blogs/:id" exact component={Blog} props={childProps} />
+		<AppliedRoute path="/blogs/:id/edit" exact component={BlogEdit} props={childProps} />
+		<AppliedRoute path="/blogs/:id/view" exact component={BlogView} props={childProps} />
     { /* Finally, catch all unmatched routes */ }
     <Route component={NotFound} />
   </Switch>;
