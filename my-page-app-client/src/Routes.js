@@ -7,6 +7,7 @@ import AppliedRoute from "./components/AppliedRoute";
 import Signup from "./containers/Signup";
 import NewBlog from "./containers/NewBlog";
 import Blogs from "./containers/Blogs";
+import Blog from "./containers/Blog";
 
 export default ({ childProps }) =>
   <Switch>

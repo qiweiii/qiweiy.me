@@ -100,7 +100,7 @@ class Blogs extends React.Component {
           <Link 
             component={RouterLink} 
             key={blog.noteId}
-            to={`/pages/${blog.noteId}`}
+            to={`/blogs/${blog.noteId}`}
           >
             <BlogCard 
               content={blog.content}

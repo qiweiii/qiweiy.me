@@ -153,7 +153,7 @@ class NewBlog extends React.Component {
                 </Button>
               </label>
               <Input 
-                accept="image/*"
+                accept="image"
                 className={classes.input}
                 id="raised-button-file"
                 single
