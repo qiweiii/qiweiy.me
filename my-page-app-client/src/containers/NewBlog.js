@@ -8,6 +8,8 @@ import Paper from '@material-ui/core/Paper';
 import { withStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import config from "../config";
+import { API } from "aws-amplify";
+import { s3Upload } from "../libs/awsLib";
 
 
 const styles = theme => ({
@@ -18,12 +20,13 @@ const styles = theme => ({
     marginRight: theme.spacing.unit * 1,
     [theme.breakpoints.up('sm')]: {
       width: 'auto',
+      maxWidth: 800,
       marginLeft: 'auto',
       marginRight: 'auto',
     },
   },
   paper: {
-    marginTop: theme.spacing.unit * 5,
+    marginTop: theme.spacing.unit * 4,
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
@@ -60,7 +63,7 @@ class NewBlog extends React.Component {
     this.file = null;
 
     this.state = {
-      isLoading: null,
+      title: "",
       content: ""
     };
   }
@@ -69,11 +72,9 @@ class NewBlog extends React.Component {
     return this.state.content.length > 0;
   }
 
-  handleChange = event => {
-    this.setState({
-      [event.target.id]: event.target.value
-    });
-  }
+  handleChange = name => event => {
+    this.setState({ [name]: event.target.value });
+  };
 
   handleFileChange = event => {
     this.file = event.target.files[0];
@@ -81,14 +82,32 @@ class NewBlog extends React.Component {
 
   handleSubmit = async event => {
     event.preventDefault();
-
     if (this.file && this.file.size > config.MAX_ATTACHMENT_SIZE) {
       alert(`Please pick a file smaller than ${config.MAX_ATTACHMENT_SIZE/1000000} MB.`);
       return;
     }
 
-    this.setState({ isLoading: true });
+    try {
+      const attachment = this.file
+        ? await s3Upload(this.file)
+        : null;
+      await this.createBlog({
+        attachment,
+        title: this.state.title,
+        content: this.state.content
+      });
+      this.props.history.push("/blogs");
+    } catch (e) {
+      alert(e.message);
+    }
   }
+
+  createBlog(page) {
+    return API.post("pages", "/pages", {
+      body: page
+    });
+  }
+
 
 
   render() {
@@ -100,7 +119,7 @@ class NewBlog extends React.Component {
         <Paper className={classes.paper}>
 
           <form onSubmit={this.handleSubmit} className={classes.container} noValidate autoComplete="off">
-            <FormControl value={this.state.title} onChange={this.handleChange} margin="normal" fullWidth>
+            <FormControl margin="normal" fullWidth>
               <TextField
                 id="filled-textarea-1"
                 label="Title"
@@ -108,9 +127,12 @@ class NewBlog extends React.Component {
                 className={classes.textField}
                 margin="normal"
                 variant="filled"
+                value={this.state.title} 
+                onChange={this.handleChange('title')}
+                required
               />
             </FormControl>
-            <FormControl value={this.state.content} onChange={this.handleChange} margin="normal" fullWidth>
+            <FormControl margin="normal" fullWidth>
               <TextField
                 id="filled-textarea"
                 label="Content"
@@ -119,30 +141,33 @@ class NewBlog extends React.Component {
                 margin="normal"
                 rows='15'
                 variant="filled"
+                value={this.state.content} 
+                onChange={this.handleChange('content')}
+                required
               />
             </FormControl>
-            <FormControl value={this.state.file} onChange={this.handleFileChange} className={classes.uploads} margin="normal" fullWidth>
+            <FormControl className={classes.uploads} margin="normal" fullWidth>
               <label htmlFor="raised-button-file">
-                <Button variant="raised" component="span">
-                  Select Files
+                <Button variant="contained" component="span">
+                  Select Image
                 </Button>
               </label>
               <Input 
                 accept="image/*"
                 className={classes.input}
                 id="raised-button-file"
-                multiple
+                single
                 type="file" 
+                value={this.state.file}
+                onChange={this.handleFileChange}
               />
             </FormControl>
             <Button
               type="submit"
-              fullWidth
               variant="contained"
               color="primary"
               className={classes.submit}
-              isLoading={this.state.isLoading}
-              loadingText="Creating…"
+              disabled={!this.validateForm()}
             >
               Create
             </Button>
