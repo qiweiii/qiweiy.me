@@ -151,7 +151,7 @@ class NavBar extends React.Component {
               <ListItemIcon ><HomeIcon/></ListItemIcon>
               <ListItemText primary='Home' />
             </ListItem>
-            <ListItem component={RouterLink} to="/" button key='Blogs'>
+            <ListItem component={RouterLink} to="/blogs" button key='Blogs'>
               <ListItemIcon><BookmarkIcon /></ListItemIcon>
               <ListItemText primary='Blogs' />
             </ListItem>
