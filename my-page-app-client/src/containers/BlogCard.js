@@ -9,8 +9,7 @@ import CardMedia from '@material-ui/core/CardMedia';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
-import zima from '../img/zima.png';
-import mediaBg from '../img/media-bg.jpg';
+
 
 const styles = {
   card: {
