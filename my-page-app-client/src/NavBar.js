@@ -25,6 +25,7 @@ import { Link as RouterLink, withRouter } from 'react-router-dom'
 import Link from '@material-ui/core/Link';
 import Routes from "./Routes";
 import { Auth } from "aws-amplify";
+import Tooltip from '@material-ui/core/Tooltip';
 
 const drawerWidth = 180;
 
@@ -77,6 +78,12 @@ const styles = theme => ({
   content: {
     flexGrow: 1,
     padding: theme.spacing.unit * 3,
+  },
+  tooltip: {
+    backgroundColor: theme.palette.common.white,
+    color: 'rgba(0, 0, 0, 0.87)',
+    boxShadow: theme.shadows[2],
+    fontSize: 12,
   },
 });
 
@@ -152,10 +159,12 @@ class NavBar extends React.Component {
               <ListItemIcon><FileDocumentBox /></ListItemIcon>
               <ListItemText primary='Resume' />
             </ListItem>
-            <ListItem component="a" href="https://github.com/qiweiii/my-website-v2" button key='GitHub'>
-              <ListItemIcon><GithubFace /></ListItemIcon>
-              <ListItemText primary='GitHub' />
-            </ListItem>
+            <Tooltip title="See Source Code" placement="right" classes={{ tooltip: classes.tooltip }}>
+              <ListItem component="a" href="https://github.com/qiweiii/my-website-v2" button key='GitHub'>
+                <ListItemIcon><GithubFace /></ListItemIcon>
+                <ListItemText primary='GitHub' />
+              </ListItem>
+            </Tooltip>
             <ListItem component="a" href="https://linkedin.com/in/qiwei-yang-679617142" button key='Linkedin'>
               <ListItemIcon><Linkedin /></ListItemIcon>
               <ListItemText primary='LinkedIn' />
