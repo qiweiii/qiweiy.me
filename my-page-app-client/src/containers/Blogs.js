@@ -64,8 +64,8 @@ class Blogs extends React.Component {
     super(props);
 
     this.state = {
-      isLoading: true,
-      blogs: []
+      blogs: [],
+      allblogs: []
     };
   }
 
@@ -76,15 +76,20 @@ class Blogs extends React.Component {
     try {
       const blogs = await this.blogs();
       this.setState({ blogs });
+      const ab = await this.getAllBlogs();
+      this.setState({ allblogs: ab });
     } catch (e) {
       alert(e);
       console.log(e);
     }
-    this.setState({ isLoading: false });
   }
 
   blogs() {
     return API.get("pages", "/pages");
+  }
+
+  getAllBlogs() {
+    return API.get("pages", "/pages/all");
   }
 
   renderBlogsList(blogs) {
@@ -110,17 +115,19 @@ class Blogs extends React.Component {
   }
 
   renderAllBlogs() {
+    const { classes } = this.props;
     return (
       <div>
         <h1>All blogs</h1>
-        <p>get all blogs here, add a blog that says how to use! login and stuff</p>
+        <Grid container spacing={24} className={classes.list}>
+          {this.renderBlogsList(this.state.allblogs)}
+        </Grid>
       </div>
     );
   }
 
   renderUserBlogs() {
     const { classes } = this.props;
-
     return (
       <main className={classes.main}>
         <h1>Your Blogs</h1>
@@ -136,7 +143,7 @@ class Blogs extends React.Component {
             </Link>
           </ListItem>
         <Grid container spacing={24} className={classes.list}>
-          {!this.state.isLoading && this.renderBlogsList(this.state.blogs)}
+          {this.renderBlogsList(this.state.blogs)}
         </Grid>
         <Divider/>
         <div>
