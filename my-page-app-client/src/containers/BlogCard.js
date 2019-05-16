@@ -8,12 +8,12 @@ import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
-import Divider from '@material-ui/core/Divider';
 
 
 const styles = {
   card: {
-    maxWidth: 300,
+    width: 'auto',
+    maxWidth: 340,
     maxHeight: 250,
   },
   media: {
@@ -21,7 +21,7 @@ const styles = {
   },
 };
 
-class BlagCard extends React.Component {
+class BlogCard extends React.Component {
   
   render() {
     const { classes } = this.props;
@@ -54,8 +54,8 @@ class BlagCard extends React.Component {
   }
 }
 
-BlagCard.propTypes = {
+BlogCard.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(BlagCard);
+export default withStyles(styles)(BlogCard);
