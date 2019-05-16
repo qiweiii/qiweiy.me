@@ -112,6 +112,17 @@ functions:
           method: delete
           cors: true
           authorizer: aws_iam
+  scan:
+    # Defines an HTTP API endpoint that calls the main function in listall.js
+    # - path: url path is /pages/all
+    # - method: GET request
+    handler: functions/scan.main
+    events:
+      - http:
+          path: pages/all
+          method: get
+          cors: true
+          authorizer: aws_iam
 
 # Create our resources with separate CloudFormation templates
 resources:
