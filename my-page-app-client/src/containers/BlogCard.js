@@ -8,13 +8,15 @@ import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
+import { Link as RouterLink} from 'react-router-dom'
 
 
 const styles = {
   card: {
     width: 'auto',
-    maxWidth: 340,
-    maxHeight: 250,
+    height: 'auto',
+    maxWidth: 330,
+    maxHeight: 240,
   },
   media: {
     height: 100,
@@ -27,7 +29,10 @@ class BlogCard extends React.Component {
     const { classes } = this.props;
     return (
       <Card className={classes.card}>
-        <CardActionArea>
+        <CardActionArea 
+          component={RouterLink}
+          to={this.props.link}
+        >
           <CardMedia
             className={classes.media}
             image={this.props.attachment}

@@ -202,7 +202,7 @@ class Signup extends React.Component {
             </FormControl>
 
             <FormControl value={this.state.confirmPassword} onChange={this.handleChange} margin="normal" required fullWidth>
-              <InputLabel htmlFor="password">Comfirm Password</InputLabel>
+              <InputLabel htmlFor="password">Confirm Password</InputLabel>
               <Input name="confirmPassword" type="password" id="confirmPassword" autoComplete="current-password" />
             </FormControl>
             <FormControlLabel

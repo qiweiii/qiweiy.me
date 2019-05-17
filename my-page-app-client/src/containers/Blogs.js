@@ -79,18 +79,14 @@ class Blogs extends React.Component {
       (blog, i) => 
         i !== 0 ?
         <Grid item xs={12} sm={6} md={3} header={blog.content.trim().split("\n")[0]}>
-          <Link 
-            component={RouterLink} 
-            key={blog.noteId}
-            to={`/blogs/${blog.noteId}`}
-          >
             <BlogCard 
               content={blog.content}
               date={new Date(blog.createdAt).toLocaleString()}
               title={blog.title}
               image={blog.attachment}
+              key={blog.noteId}
+              link={`/blogs/${blog.noteId}`}
             />
-          </Link>
         </Grid>
         : null
     );
