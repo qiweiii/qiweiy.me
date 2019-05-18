@@ -61,6 +61,7 @@ class Blogs extends React.Component {
         content: "how to build vpn",
       },
       image: "https://unsplash.com/photos/jlLDQgGSB-E",
+      noteId: "how-to-build-a-vpn",
       createdAt: Date.parse('May 11, 2019'),
     }; 
     let blog2 = {
@@ -68,6 +69,7 @@ class Blogs extends React.Component {
         title: "How To Use",
         content: "Please sign in to see more blogs and also create your own blogs.",
       },
+      noteId: "how-to-use",
       createdAt: Date.parse('May 10, 2019'),
     };
 
