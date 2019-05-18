@@ -1,5 +1,4 @@
 export default {
-  MAX_ATTACHMENT_SIZE: 5000000,
   s3: {
     REGION: "ap-southeast-2",
     BUCKET: "qiwei-page-app-v2-dev-serverlessdeploymentbucket-1psbyc4hb9s6h"

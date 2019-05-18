@@ -3,13 +3,10 @@ import PropTypes from 'prop-types';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import FormControl from '@material-ui/core/FormControl';
-import Input from '@material-ui/core/Input';
 import Paper from '@material-ui/core/Paper';
 import { withStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
-import config from "../config";
 import { API } from "aws-amplify";
-import { s3Upload } from "../libs/awsLib";
 
 
 const styles = theme => ({
@@ -35,13 +32,6 @@ const styles = theme => ({
   container: {
     display: 'flex',
     flexWrap: 'wrap',
-  },
-  textField: {
-    // margin: theme.spacing.unit * 1,
-  },
-  textFieldContent: {
-    // marginRight: theme.spacing.unit * 1,
-    // height: 200,
   },
   uploads: {
     paddingBottom: '10px',
@@ -69,32 +59,23 @@ class NewBlog extends React.Component {
   }
 
   validateForm() {
-    return this.state.content.length > 0;
+    return this.state.content.length > 0 && this.state.title.length > 0;
   }
 
   handleChange = name => event => {
     this.setState({ [name]: event.target.value });
   };
 
-  handleFileChange = event => {
-    this.file = event.target.files[0];
-  }
-
   handleSubmit = async event => {
     event.preventDefault();
-    if (this.file && this.file.size > config.MAX_ATTACHMENT_SIZE) {
-      alert(`Please pick a file smaller than ${config.MAX_ATTACHMENT_SIZE/1000000} MB.`);
-      return;
-    }
-
+    
+    console.log(this.state.title);
     try {
-      const attachment = this.file
-        ? await s3Upload(this.file)
-        : null;
       await this.createBlog({
-        attachment,
-        title: this.state.title,
-        content: this.state.content
+        content: {
+          content: this.state.content,
+          title: this.state.title,
+        }
       });
       this.props.history.push("/blogs");
     } catch (e) {
@@ -102,9 +83,9 @@ class NewBlog extends React.Component {
     }
   }
 
-  createBlog(page) {
+  createBlog(blog, title) {
     return API.post("pages", "/pages", {
-      body: page
+      body: blog,
     });
   }
 
@@ -137,29 +118,12 @@ class NewBlog extends React.Component {
                 id="filled-textarea"
                 label="Content"
                 multiline
-                className={classes.textFieldContent}
                 margin="normal"
                 rows='15'
                 variant="filled"
                 value={this.state.content} 
                 onChange={this.handleChange('content')}
                 required
-              />
-            </FormControl>
-            <FormControl className={classes.uploads} margin="normal" fullWidth>
-              <label htmlFor="raised-button-file">
-                <Button variant="contained" component="span">
-                  Select Image
-                </Button>
-              </label>
-              <Input 
-                accept="image"
-                className={classes.input}
-                id="raised-button-file"
-                single
-                type="file" 
-                value={this.state.file}
-                onChange={this.handleFileChange}
               />
             </FormControl>
             <Button
