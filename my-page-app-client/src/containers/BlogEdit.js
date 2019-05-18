@@ -1,135 +1,188 @@
 import React from "react";
-import { API, Storage } from "aws-amplify";
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
-import config from "../config";
+import { API } from "aws-amplify";
+import Button from '@material-ui/core/Button';
+import Paper from '@material-ui/core/Paper';
+import CssBaseline from '@material-ui/core/CssBaseline';
+import TextField from '@material-ui/core/TextField';
+import FormControl from '@material-ui/core/FormControl';
 
 
 const styles = theme => ({
-  main: {
+  layout: {
     width: 'auto',
-    display: 'block', // Fix IE 11 issue.
-    marginLeft: theme.spacing.unit * 1,
-    marginRight: theme.spacing.unit * 1,
-    [theme.breakpoints.up('sm')]: {
-      width: 'auto',
-      maxWidth: 800,
+    marginLeft: theme.spacing.unit * 2,
+    marginRight: theme.spacing.unit * 2,
+    [theme.breakpoints.up(600 + theme.spacing.unit * 2 * 2)]: {
+      width: 600,
       marginLeft: 'auto',
       marginRight: 'auto',
     },
   },
   paper: {
-    marginTop: theme.spacing.unit * 4,
+    marginTop: theme.spacing.unit * 3,
+    marginBottom: theme.spacing.unit * 3,
+    padding: theme.spacing.unit * 2,
+    minHeight: 500,
+    [theme.breakpoints.up(600 + theme.spacing.unit * 3 * 2)]: {
+      marginTop: theme.spacing.unit * 6,
+      marginBottom: theme.spacing.unit * 6,
+      padding: theme.spacing.unit * 3,
+      minHeight: 500,
+    },
+  },
+  content: {
+    minHeight: 400,
+  },
+  buttons: {
     display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-    padding: `${theme.spacing.unit * 2}px ${theme.spacing.unit * 2}px ${theme.spacing.unit * 2}px`,
+    justifyContent: 'flex-end',
   },
-  container: {
-    display: 'flex',
-    flexWrap: 'wrap',
+  button: {
+    marginTop: theme.spacing.unit * 3,
+    marginLeft: theme.spacing.unit,
   },
-  uploads: {
-    paddingBottom: '10px',
-  },
-  input: {
-    display: 'none',
-  },
-  submit: {
-    marginBottom: 20,
+  buttonDelete: {
+    marginTop: theme.spacing.unit * 3,
+    marginLeft: theme.spacing.unit,
   }
 });
 
 
-class BlogEdit extends React.Component {
+class BlogView extends React.Component {
   constructor(props) {
     super(props);
 
     this.file = null;
 
     this.state = {
-      note: null,
+      blog: null,
+      title: "",
       content: "",
-      attachmentURL: null
     };
   }
 
   async componentDidMount() {
-    try {
-      let attachmentURL;
-      const note = await this.getNote();
-      const { content, attachment } = note;
-
-      if (attachment) {
-        attachmentURL = await Storage.vault.get(attachment);
-      }
-
-      this.setState({
-        note,
-        content,
-        attachmentURL
-      });
-    } catch (e) {
-      alert(e);
-    }
-  }
-
-  getNote() {
-    return API.get("pages", `/pages/${this.props.match.params.id}`);
-  }
-
-  validateForm() {
-    return this.state.content.length > 0;
-  }
-
-  formatFilename(str) {
-    return str.replace(/^\w+-/, "");
-  }
-
-  handleChange = event => {
     this.setState({
-      [event.target.id]: event.target.value
+      title: this.props.location.state.title,
+      content: this.props.location.state.content,
     });
   }
 
-  handleFileChange = event => {
-    this.file = event.target.files[0];
+  handleChange = name => event => {
+    this.setState({ [name]: event.target.value });
+  };
+
+  saveNote(blog) {
+    return API.put("pages", `/pages/${this.props.match.params.id}`, {
+      body: blog
+    });
   }
 
   handleSubmit = async event => {
     event.preventDefault();
-
-    if (this.file && this.file.size > config.MAX_ATTACHMENT_SIZE) {
-      alert(`Please pick a file smaller than ${config.MAX_ATTACHMENT_SIZE/1000000} MB.`);
-      return;
-    }
-
     this.setState({ isLoading: true });
+
+    try {
+      await this.saveNote({
+        content: {
+          content: this.state.content,
+          title: this.state.title,
+        },
+      });
+      this.props.history.push("/blogs");
+    } catch (e) {
+      alert(e);
+      this.setState({ isLoading: false });
+    }
+  }
+
+  deleteNote() {
+    return API.del("pages", `/pages/${this.props.match.params.id}`);
   }
 
   handleDelete = async event => {
     event.preventDefault();
-
     const confirmed = window.confirm(
-      "Are you sure you want to delete this note?"
+      "Are you sure you want to delete this blog?"
     );
-
     if (!confirmed) {
       return;
     }
-
     this.setState({ isDeleting: true });
+    try {
+      await this.deleteNote();
+      this.props.history.push("/blogs");
+    } catch (e) {
+      alert(e);
+      this.setState({ isDeleting: false });
+    }
   }
 
   render() {
-    return 
-  }
+    const { classes } = this.props;
 
+    return (
+      <React.Fragment>
+        <CssBaseline />
+        <main className={classes.layout}>
+          <Paper className={classes.paper}>
+            <form onSubmit={this.handleSubmit} className={classes.container} noValidate autoComplete="off">
+              <FormControl margin="normal" fullWidth>
+                <TextField
+                  id="filled-textarea"
+                  label="Content"
+                  single
+                  variant="filled"
+                  value={this.state.title}
+                  onChange={this.handleChange('title')}
+                  required
+                  fullWidth
+                />
+              </FormControl>
+              <FormControl margin="normal" fullWidth>
+                <TextField
+                  id="filled-textarea"
+                  label="Content"
+                  multiline
+                  rows='15'
+                  variant="filled"
+                  value={this.state.content} 
+                  onChange={this.handleChange('content')}
+                  required
+                  fullWidth
+                />
+              </FormControl>
+              <div className={classes.buttons}>
+                <Button
+                  variant="contained"
+                  color="primary"
+                  type="submit"
+                  className={classes.button}
+                >
+                  Save
+                </Button>
+                <Button
+                  variant="contained"
+                  color="secondary"
+                  onClick={this.handleDelete}
+                  className={classes.buttonDelete}
+                >
+                  Delete
+                </Button>
+              </div>
+            </form>
+         </Paper>
+        </main>
+      </React.Fragment>
+    );
+  }
 }
 
 
-BlogEdit.propTypes = {
+BlogView.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(BlogEdit);
+export default withStyles(styles)(BlogView);

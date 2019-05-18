@@ -18,7 +18,7 @@ import ListItemText from '@material-ui/core/ListItemText';
 import HomeIcon from '@material-ui/icons/Home';
 import BookmarkIcon from '@material-ui/icons/Bookmark';
 import GithubFace from 'mdi-material-ui/GithubFace'
-import Lightbulb from 'mdi-material-ui/Lightbulb'
+// import Lightbulb from 'mdi-material-ui/Lightbulb'
 import Linkedin from 'mdi-material-ui/Linkedin'
 import FileDocumentBox from 'mdi-material-ui/FileDocumentBox'
 import { Link as RouterLink, withRouter } from 'react-router-dom'
@@ -59,8 +59,8 @@ const styles = theme => ({
     },
   },
   menuButton: {
-    marginLeft: 10,
-    marginRight: 20,
+    marginLeft: 5,
+    marginRight: 10,
     [theme.breakpoints.up('sm')]: {
       display: 'none',
     },
@@ -156,7 +156,7 @@ class NavBar extends React.Component {
               <ListItemIcon><BookmarkIcon /></ListItemIcon>
               <ListItemText primary='Blogs' />
             </ListItem>
-            <ListItem component={RouterLink} to="/" button key='Resume'>
+            <ListItem component={RouterLink} to="/resume" button key='Resume'>
               <ListItemIcon><FileDocumentBox /></ListItemIcon>
               <ListItemText primary='Resume' />
             </ListItem>
@@ -169,13 +169,6 @@ class NavBar extends React.Component {
             <ListItem component="a" href="https://linkedin.com/in/qiwei-yang-679617142" button key='Linkedin'>
               <ListItemIcon><Linkedin /></ListItemIcon>
               <ListItemText primary='LinkedIn' />
-            </ListItem>
-          </List>
-          <Divider />
-          <List>
-            <ListItem component={RouterLink} to="/" button key='More'>
-              <ListItemIcon><Lightbulb /></ListItemIcon>
-              <ListItemText primary='More' />
             </ListItem>
           </List>
       </div>

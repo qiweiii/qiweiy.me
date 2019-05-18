@@ -16,41 +16,68 @@ const styles = {
     width: 'auto',
     height: 'auto',
     maxWidth: 330,
-    maxHeight: 240,
+    minWidth: 185,
+    maxHeight: 250,
   },
   media: {
-    height: 100,
+    height: 90,
+  },
+  action: {
+    minHeight: 15,
   },
 };
 
 class BlogCard extends React.Component {
   
+
+  title() {
+    let words = this.props.content.title.trim().split("\n")[0].split(" ");
+    let t = "";
+    for (var i = 0; i < words.length; i++) {
+      t = t + " " + words[i];
+      if (t.length > 25) {
+        t = t + "...";
+        break;
+      }
+    }
+    return t;
+  }
+
   render() {
     const { classes } = this.props;
     return (
       <Card className={classes.card}>
         <CardActionArea 
           component={RouterLink}
-          to={this.props.link}
+          to={{ 
+            pathname: this.props.link, 
+            state: {
+              title: this.props.content.title,
+              content: this.props.content.content,
+              noedit: this.props.noedit,
+            } 
+          }}
         >
           <CardMedia
             className={classes.media}
-            image={this.props.attachment}
+            image={this.props.image}
           />
           <CardContent>
-            <Typography gutterBottom variant="h5" component="h2">
-              {this.props.title}
-            </Typography>
-            <Typography component="p">
-              {this.props.content}
+            <Typography gutterBottom variant="h6" component="h2">
+              {this.title()}
             </Typography>
             <Typography component="p">
               {this.props.date}
             </Typography>
           </CardContent>
         </CardActionArea>
-        <CardActions>
-          <Button size="small" color="primary">
+        <CardActions className={classes.action}>
+          <Button 
+            component={RouterLink}
+            to={this.props.link}
+            size="small" 
+            color="primary"
+          >
             Learn More
           </Button>
         </CardActions>

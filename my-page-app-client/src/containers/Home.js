@@ -26,7 +26,7 @@ const styles = theme => ({
     color: '#212121',
   },
   p: {
-    maxWidth: 400,
+    maxWidth: 380,
   }
 });
 
@@ -37,7 +37,7 @@ function Home(props) {
 
       <div className={classes.root}>
         <h1 className={classes.h1}>Qiwei Yang</h1>
-        <p className={classes.p}>Penultimate year Computer Science student from UNSW Sydney / part-time web developer</p>
+        <p className={classes.p}>Penultimate year Computer Science student from UNSW Sydney / Part-time Web Developer</p>
         <p className={classes.p}>Looking for a software developer summer internship</p>
         <p className={classes.p}>My email: <a href = "mailto: yangqiwei97@gmail.com">yangqiwei97@gmail.com</a></p>
       </div>
