@@ -9,7 +9,7 @@ import { Link as RouterLink} from 'react-router-dom'
 import Link from '@material-ui/core/Link';
 import Grid from '@material-ui/core/Grid';
 import _ from 'lodash';
-
+import { DefaultBlogs } from "./DefaultBlogs";
 
 
 const styles = theme => ({
@@ -54,33 +54,19 @@ class Blogs extends React.Component {
     };
   }
 
-  publicBlogs() {
-    let blog1 = {
-      content:{
-        title: "How to build a vpn?",
-        content: "how to build vpn",
-      },
-      image: "https://unsplash.com/photos/jlLDQgGSB-E",
-      noteId: "how-to-build-a-vpn",
-      createdAt: Date.parse('May 11, 2019'),
-    }; 
-    let blog2 = {
-      content:{
-        title: "How To Use",
-        content: "Please sign in to see more blogs and also create your own blogs.",
-      },
-      noteId: "how-to-use",
-      createdAt: Date.parse('May 10, 2019'),
-    };
-
+  addDefaultBlogs() {      
+    // console.log(blog);
+    // for (var i = 0; i < DefaultBlogs.length; i++) {
+    // let blog = DefaultBlogs[i];
+    // cannot set multiple state in for loop...
     this.setState({ 
-      allblogs :[...this.state.allblogs, blog1, blog2]
-    });  
+      allblogs :[...this.state.allblogs, DefaultBlogs[0],DefaultBlogs[1],DefaultBlogs[2],DefaultBlogs[3]]
+    }); 
   }
 
   async componentDidMount() {
     if (!this.props.isAuthenticated) {
-      this.publicBlogs();
+      this.addDefaultBlogs();
       return;
     }
     try {
@@ -92,7 +78,6 @@ class Blogs extends React.Component {
       alert(e);
       console.log(e);
     }
-
     // rmb to add the default blogs created by me
     this.publicBlogs();
   }

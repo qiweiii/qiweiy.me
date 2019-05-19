@@ -9,6 +9,11 @@ import CardMedia from '@material-ui/core/CardMedia';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import { Link as RouterLink} from 'react-router-dom'
+import qiwei from "../img/qiwei.png";
+import zima from "../img/zima.png";
+import vpn from "../img/vpn.jpg";
+import cloud from "../img/cloud.jpg";
+import niceDesk from "../img/niceDesk.jpg";
 
 
 const styles = {
@@ -20,7 +25,7 @@ const styles = {
     maxHeight: 250,
   },
   media: {
-    height: 90,
+    height: 100,
   },
   action: {
     minHeight: 15,
@@ -28,7 +33,18 @@ const styles = {
 };
 
 class BlogCard extends React.Component {
-  
+
+  getImage() {
+    let name = this.props.image;
+    if (name === "vpn")
+      return vpn;
+    if (name === "zima")
+      return zima;
+    if (name === "niceDesk")
+      return niceDesk;
+    if (name === "cloud")
+      return cloud;
+  }
 
   title() {
     let words = this.props.content.title.trim().split("\n")[0].split(" ");
@@ -60,7 +76,7 @@ class BlogCard extends React.Component {
         >
           <CardMedia
             className={classes.media}
-            image={this.props.image}
+            image={this.getImage()}
           />
           <CardContent>
             <Typography gutterBottom variant="h6" component="h2">
