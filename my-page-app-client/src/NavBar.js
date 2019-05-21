@@ -18,7 +18,6 @@ import ListItemText from '@material-ui/core/ListItemText';
 import HomeIcon from '@material-ui/icons/Home';
 import BookmarkIcon from '@material-ui/icons/Bookmark';
 import GithubFace from 'mdi-material-ui/GithubFace'
-// import Lightbulb from 'mdi-material-ui/Lightbulb'
 import Linkedin from 'mdi-material-ui/Linkedin'
 import FileDocumentBox from 'mdi-material-ui/FileDocumentBox'
 import { Link as RouterLink, withRouter } from 'react-router-dom'
@@ -26,6 +25,7 @@ import Link from '@material-ui/core/Link';
 import Routes from "./Routes";
 import { Auth } from "aws-amplify";
 import Tooltip from '@material-ui/core/Tooltip';
+import config from "./config";
 
 const drawerWidth = 180;
 
@@ -104,17 +104,34 @@ class NavBar extends React.Component {
   }
 
   async componentDidMount() {
+    this.loadFacebookSDK();
     try {
-      await Auth.currentSession();
+      await Auth.currentAuthenticatedUser();
       this.userHasAuthenticated(true);
-    }
-    catch(e) {
-      if (e !== 'No current user') {
+    } catch (e) {
+      if (e !== "not authenticated") {
         alert(e);
       }
     }
-
     this.setState({ isAuthenticating: false });
+  }
+
+  loadFacebookSDK() {
+    window.fbAsyncInit = function() {
+      window.FB.init({
+        appId            : config.social.FB,
+        autoLogAppEvents : true,
+        xfbml            : true,
+        version          : 'v3.1'
+      });
+    };
+    (function(d, s, id){
+       var js, fjs = d.getElementsByTagName(s)[0];
+       if (d.getElementById(id)) {return;}
+       js = d.createElement(s); js.id = id;
+       js.src = "https://connect.facebook.net/en_US/sdk.js";
+       fjs.parentNode.insertBefore(js, fjs);
+     }(document, 'script', 'facebook-jssdk'));
   }
 
   handleDrawerToggle = () => {

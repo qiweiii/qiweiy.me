@@ -33,12 +33,22 @@ export const DefaultBlogs = [
   }, 
   {
     content:{
-      title: "Materials for learning Web Development",
+      title: "Materials for learning Python",
       content: "Web dev is easy to learn, ",
-      author: "Qiwei"
+      author: "Qiwei",
+    },
+    noteId: "learn-python",
+    image: "python",
+    createdAt: Date.parse('May 15, 2019, 00:00:04'),
+  },
+  {
+    content:{
+      title: "Materials for learning Web Development",
+      content: "Why do you learn web dev?" + '\n' + "1. Web dev is easy to learn, I recommend Udemy, it is an online course website",
+      author: "Qiwei",
     },
     noteId: "learn-web-dev",
     image: "niceDesk",
-    createdAt: Date.parse('May 15, 2019, 00:00:04'),
-  }
+    createdAt: Date.parse('May 15, 2019, 00:00:05'),
+  },
 ];
