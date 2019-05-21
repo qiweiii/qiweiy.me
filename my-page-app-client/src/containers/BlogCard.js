@@ -16,21 +16,40 @@ import cloud from "../img/cloud.jpg";
 import niceDesk from "../img/niceDesk.jpg";
 
 
-const styles = {
+const styles = theme => ({
   card: {
     width: 'auto',
     height: 'auto',
-    maxWidth: 330,
+    maxWidth: 350,
     minWidth: 185,
-    maxHeight: 250,
+    maxHeight: 260,
+    [theme.breakpoints.up(1279)]: {
+      minHeight: 260,
+      width: 'auto',
+      height: 'auto',
+      marginLeft: 'auto',
+      marginRight: 'auto',
+    },
+    [theme.breakpoints.down(1077) && theme.breakpoints.up('sm')]: {
+      minHeight: 260,
+      width: 'auto',
+      marginLeft: 'auto',
+      marginRight: 'auto',
+    },
+    [theme.breakpoints.down('sm') && theme.breakpoints.up(1350)]: {
+      width: 'auto',
+      height: 'auto',
+      marginLeft: 'auto',
+      marginRight: 'auto',
+    },
   },
   media: {
-    height: 100,
+    height: 120,
   },
   action: {
-    minHeight: 15,
+    minHeight: 20,
   },
-};
+});
 
 class BlogCard extends React.Component {
 
@@ -46,14 +65,14 @@ class BlogCard extends React.Component {
       return cloud;
   }
 
-  title() {
-    let words = this.props.content.title.trim().split("\n")[0].split(" ");
+  trimLength(str, len) {
+    let words = str.trim().split("\n")[0].split(" ");
     let t = "";
     for (var i = 0; i < words.length; i++) {
       t = t + " " + words[i];
-      if (t.length > 25) {
+      if (t.length > len) {
         t = t + "...";
-        break;
+        return t;
       }
     }
     return t;
@@ -70,6 +89,7 @@ class BlogCard extends React.Component {
             state: {
               title: this.props.content.title,
               content: this.props.content.content,
+              author: this.props.content.author,
               noedit: this.props.noedit,
             } 
           }}
@@ -79,11 +99,11 @@ class BlogCard extends React.Component {
             image={this.getImage()}
           />
           <CardContent>
-            <Typography gutterBottom variant="h6" component="h2">
-              {this.title()}
+            <Typography gutterBottom variant="p" component="h4">
+              {this.trimLength(`${this.props.content.title}`, 40)}
             </Typography>
             <Typography component="p">
-              {this.props.date}
+              {this.props.date}, by {this.trimLength(`${this.props.content.author}`, 40)}
             </Typography>
           </CardContent>
         </CardActionArea>

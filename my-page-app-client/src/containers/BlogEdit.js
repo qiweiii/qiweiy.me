@@ -60,6 +60,7 @@ class BlogView extends React.Component {
       blog: null,
       title: "",
       content: "",
+      author: "",
     };
   }
 
@@ -67,6 +68,7 @@ class BlogView extends React.Component {
     this.setState({
       title: this.props.location.state.title,
       content: this.props.location.state.content,
+      author: this.props.location.state.author,
     });
   }
 
@@ -89,6 +91,7 @@ class BlogView extends React.Component {
         content: {
           content: this.state.content,
           title: this.state.title,
+          author: this.state.author,
         },
       });
       this.props.history.push("/blogs");
@@ -131,7 +134,7 @@ class BlogView extends React.Component {
             <form onSubmit={this.handleSubmit} className={classes.container} noValidate autoComplete="off">
               <FormControl margin="normal" fullWidth>
                 <TextField
-                  id="filled-textarea"
+                  id="filled-textarea-1"
                   label="Content"
                   single
                   variant="filled"
@@ -143,7 +146,22 @@ class BlogView extends React.Component {
               </FormControl>
               <FormControl margin="normal" fullWidth>
                 <TextField
-                  id="filled-textarea"
+                  id="filled-textarea-2"
+                  label="Author"
+                  single
+                  variant="filled"
+                  value={this.state.author}
+                  onChange={this.handleChange('author')}
+                  fullWidth
+                  inputProps={{
+                    maxLength: 50,
+                  }}
+                  required
+                />
+              </FormControl>
+              <FormControl margin="normal" fullWidth>
+                <TextField
+                  id="filled-textarea-3"
                   label="Content"
                   multiline
                   rows='15'

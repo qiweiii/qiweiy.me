@@ -35,10 +35,15 @@ const styles = theme => ({
     fontWeight: 500,
     padding: theme.spacing.unit * 3,
   },
+  author: {
+    fontSize: 14,
+    color: '#616161',
+    paddingLeft: theme.spacing.unit * 3,
+  },
   content: {
     padding: theme.spacing.unit * 3,
     minHeight: 400,
-    fontSize: 15,
+    fontSize: 16,
   },
   buttons: {
     display: 'flex',
@@ -99,8 +104,11 @@ class BlogView extends React.Component {
           <Paper className={classes.paper}>
             <Typography variant="h4" gutterBottom align="center" className={classes.title}>
               {this.props.location.state.title}
+            </Typography> 
+            <Typography gutterBottom align="left" className={classes.author}>
+              Created by {this.props.location.state.author}
             </Typography>
-            <Typography component="p" align="justify" className={classes.content}>
+            <Typography align="justify" className={classes.content}>
               {this.props.location.state.content.split("\n").map((i, key) => {
                 return <p key={key}>{i}</p>;
               })}
@@ -119,6 +127,7 @@ class BlogView extends React.Component {
                   state: {
                     title: this.props.location.state.title,
                     content: this.props.location.state.content,
+                    author: this.props.location.state.author,
                   } 
                 }}
               >

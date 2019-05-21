@@ -54,7 +54,8 @@ class NewBlog extends React.Component {
 
     this.state = {
       title: "",
-      content: ""
+      content: "",
+      author: "",
     };
   }
 
@@ -75,6 +76,7 @@ class NewBlog extends React.Component {
         content: {
           content: this.state.content,
           title: this.state.title,
+          author: this.state.author,
         }
       });
       this.props.history.push("/blogs");
@@ -111,6 +113,21 @@ class NewBlog extends React.Component {
                 value={this.state.title} 
                 onChange={this.handleChange('title')}
                 required
+              />
+            </FormControl>
+            <FormControl margin="normal" fullWidth>
+              <TextField
+                id="filled-textarea-2"
+                label="Author"
+                className={classes.textField}
+                margin="normal"
+                variant="filled"
+                value={this.state.author} 
+                onChange={this.handleChange('author')}
+                required
+                minputProps={{
+                  maxLength: 50,
+                }}
               />
             </FormControl>
             <FormControl margin="normal" fullWidth>
