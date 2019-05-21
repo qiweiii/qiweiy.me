@@ -6,7 +6,7 @@ import Paper from '@material-ui/core/Paper';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Typography from '@material-ui/core/Typography';
 import { Link as RouterLink} from 'react-router-dom'
-
+import Disqus from 'disqus-react';
 
 const styles = theme => ({
   layout: {
@@ -64,7 +64,11 @@ class BlogView extends React.Component {
 
   async componentDidMount() {
     console.log(this.props);
-  }
+    // var disqus_config = function () {
+    // this.page.url = 'https://qiweiy.me';  // Replace PAGE_URL with your page's canonical URL variable
+    // this.page.identifier = this.props.match.params.id; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+    // };
+    }
 
   // async componentDidMount() {
   //   try {
@@ -96,7 +100,11 @@ class BlogView extends React.Component {
 
   render() {
     const { classes } = this.props;
-
+    const disqusShortname = 'example';
+    const disqusConfig = {
+        url: 'https://qiweiy.me',
+        identifier: this.props.match.params.id,
+    };
     return (
       <React.Fragment>
         <CssBaseline />
@@ -134,7 +142,13 @@ class BlogView extends React.Component {
                 Edit
               </Button>
             }
-         </Paper>
+          </Paper>
+          <div>
+            <Disqus.CommentCount shortname={disqusShortname} config={disqusConfig}>
+                Comments
+            </Disqus.CommentCount>
+            <Disqus.DiscussionEmbed shortname={disqusShortname} config={disqusConfig} />
+          </div>
         </main>
       </React.Fragment>
     );
