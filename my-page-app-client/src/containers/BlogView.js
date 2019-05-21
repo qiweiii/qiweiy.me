@@ -20,9 +20,9 @@ const styles = theme => ({
     },
   },
   paper: {
-    marginTop: theme.spacing.unit * 3,
-    marginBottom: theme.spacing.unit * 3,
-    padding: theme.spacing.unit * 2,
+    marginTop: theme.spacing.unit * 2,
+    marginBottom: theme.spacing.unit * 2,
+    padding: theme.spacing.unit * 1,
     minHeight: 500,
     [theme.breakpoints.up(600 + theme.spacing.unit * 3 * 2)]: {
       marginTop: theme.spacing.unit * 5,
@@ -43,7 +43,7 @@ const styles = theme => ({
   content: {
     padding: theme.spacing.unit * 3,
     minHeight: 400,
-    fontSize: 16,
+    fontSize: 14,
   },
   buttons: {
     display: 'flex',
