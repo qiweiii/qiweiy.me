@@ -14,7 +14,7 @@ const styles = theme => ({
     marginLeft: theme.spacing.unit * 2,
     marginRight: theme.spacing.unit * 2,
     [theme.breakpoints.up(600 + theme.spacing.unit * 2 * 2)]: {
-      width: 600,
+      width: 700,
       marginLeft: 'auto',
       marginRight: 'auto',
     },
@@ -25,8 +25,8 @@ const styles = theme => ({
     padding: theme.spacing.unit * 2,
     minHeight: 500,
     [theme.breakpoints.up(600 + theme.spacing.unit * 3 * 2)]: {
-      marginTop: theme.spacing.unit * 6,
-      marginBottom: theme.spacing.unit * 6,
+      marginTop: theme.spacing.unit * 5,
+      marginBottom: theme.spacing.unit * 5,
       padding: theme.spacing.unit * 3,
       minHeight: 500,
     },
@@ -100,8 +100,10 @@ class BlogView extends React.Component {
             <Typography variant="h4" gutterBottom align="center" className={classes.title}>
               {this.props.location.state.title}
             </Typography>
-            <Typography component="p" align="left" className={classes.content}>
-              {this.props.location.state.content}
+            <Typography component="p" align="justify" className={classes.content}>
+              {this.props.location.state.content.split("\n").map((i, key) => {
+                return <p key={key}>{i}</p>;
+              })}
             </Typography>
             {this.props.location.state.noedit ? 
               <div className={classes.buttons}></div>
