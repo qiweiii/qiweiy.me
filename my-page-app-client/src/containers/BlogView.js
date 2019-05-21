@@ -11,8 +11,8 @@ import Disqus from 'disqus-react';
 const styles = theme => ({
   layout: {
     width: 'auto',
-    marginLeft: theme.spacing.unit * 2,
-    marginRight: theme.spacing.unit * 2,
+    marginLeft: theme.spacing.unit * 1,
+    marginRight: theme.spacing.unit * 1,
     [theme.breakpoints.up(600 + theme.spacing.unit * 2 * 2)]: {
       width: 700,
       marginLeft: 'auto',
@@ -21,29 +21,29 @@ const styles = theme => ({
   },
   paper: {
     marginTop: theme.spacing.unit * 2,
-    marginBottom: theme.spacing.unit * 2,
+    marginBottom: theme.spacing.unit * 4,
     padding: theme.spacing.unit * 1,
-    minHeight: 400,
+    minHeight: 350,
     [theme.breakpoints.up(600 + theme.spacing.unit * 3 * 2)]: {
       marginTop: theme.spacing.unit * 5,
       marginBottom: theme.spacing.unit * 5,
-      padding: theme.spacing.unit * 3,
+      padding: theme.spacing.unit * 2,
       minHeight: 500,
     },
   },
   title: {
-    fontWeight: 500,
+    fontWeight: 400,
     padding: theme.spacing.unit * 3,
   },
   author: {
-    fontSize: 14,
+    fontSize: 16,
     color: '#616161',
     paddingLeft: theme.spacing.unit * 3,
   },
   content: {
     padding: theme.spacing.unit * 3,
     minHeight: 400,
-    fontSize: 14,
+    fontSize: 16,
   },
   buttons: {
     display: 'flex',
@@ -100,10 +100,11 @@ class BlogView extends React.Component {
 
   render() {
     const { classes } = this.props;
-    const disqusShortname = 'example';
+    const disqusShortname = 'qiweiy';
     const disqusConfig = {
-        url: 'https://qiweiy.me',
-        identifier: this.props.match.params.id,
+        url: `https://qiweiy.me/blogs/view/${this.props.match.params.id}`,
+        identifier: `/blogs/view/${this.props.match.params.id}`,
+        title: this.props.location.state.title,
     };
     return (
       <React.Fragment>
@@ -143,9 +144,9 @@ class BlogView extends React.Component {
               </Button>
             }
           </Paper>
+
           <div>
             <Disqus.CommentCount shortname={disqusShortname} config={disqusConfig}>
-                Comments
             </Disqus.CommentCount>
             <Disqus.DiscussionEmbed shortname={disqusShortname} config={disqusConfig} />
           </div>

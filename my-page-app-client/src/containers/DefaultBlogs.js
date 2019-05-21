@@ -64,4 +64,16 @@ export const DefaultBlogs = [
     image: "niceDesk",
     createdAt: Date.parse('May 15, 2019, 00:00:06'),
   },
+  {
+    content:{
+      title: "How to add comments to your website",
+      content: "It is quite troublesome to build a comment section on my own, it will take me a lot of time to design and figure out how to handle data, so i choose to use Disqus, a third party comment system that I saw on lots of websites." 
+                + '\n' + "This is my first time using it and the implemetation on React is not very straight forward, there is also no doc on how to do it. Fortunately, I found a package (https://github.com/disqus/disqus-react) that makes my life a lot easier. I just need to change a few configuration variables and it works!"
+                ,
+      author: "Qiwei",
+    },
+    noteId: "add-comments",
+    image: "",
+    createdAt: Date.parse('May 15, 2019, 00:00:07'),
+  },
 ];
