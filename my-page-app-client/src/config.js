@@ -11,6 +11,10 @@ export default {
     REGION: "ap-southeast-2",
     USER_POOL_ID: "ap-southeast-2_qbWVifwx9",
     APP_CLIENT_ID: "4tqdidqsvsar7iocthao1960u8",
-    IDENTITY_POOL_ID: "ap-southeast-2:c3d9bdbe-ced9-44ea-b3f0-8b4515881dee"
-  }
+    IDENTITY_POOL_ID: "ap-southeast-2:c3d9bdbe-ced9-44ea-b3f0-8b4515881dee",
+  },
+  social: {
+    FB: "392850254647812",
+    GG: "368733083641-ae2t86a7fnhhefljijhj0b93u9j1fb9m.apps.googleusercontent.com",
+  },
 };

@@ -14,6 +14,7 @@ import zima from "../img/zima.png";
 import vpn from "../img/vpn.jpg";
 import cloud from "../img/cloud.jpg";
 import niceDesk from "../img/niceDesk.jpg";
+import python from "../img/python.jpg";
 
 
 const styles = theme => ({
@@ -63,6 +64,10 @@ class BlogCard extends React.Component {
       return niceDesk;
     if (name === "cloud")
       return cloud;
+    if (name === "qiwei")
+      return qiwei;
+    if (name === "python")
+      return python;
   }
 
   trimLength(str, len) {

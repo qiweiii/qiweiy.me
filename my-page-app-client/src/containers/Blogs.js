@@ -60,7 +60,7 @@ class Blogs extends React.Component {
     // let blog = DefaultBlogs[i];
     // cannot set multiple state in for loop...
     this.setState({ 
-      allblogs :[...this.state.allblogs, DefaultBlogs[0],DefaultBlogs[1],DefaultBlogs[2],DefaultBlogs[3]]
+      allblogs :[...this.state.allblogs, DefaultBlogs[0],DefaultBlogs[1],DefaultBlogs[2],DefaultBlogs[3], DefaultBlogs[4]]
     }); 
   }
 
