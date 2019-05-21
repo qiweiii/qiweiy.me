@@ -16,6 +16,7 @@ class GoogleButton extends React.Component {
             window.gapi.auth2.getAuthInstance() : 
             null;
         if (!ga) this.createScript();
+        console.log(config.social.GG);
     }
 
     signIn() {
@@ -43,6 +44,7 @@ class GoogleButton extends React.Component {
             { token: id_token, expires_at },
             user
         );
+        this.props.onLogin(credentials);
         console.log('credentials', credentials);
     }
 
@@ -60,7 +62,7 @@ class GoogleButton extends React.Component {
         const g = window.gapi;
         g.load('auth2', function() {
             g.auth2.init({
-                client_id: config.GG,
+                client_id: config.social.GG,
                 // authorized scopes
                 scope: 'profile email openid'
             });
