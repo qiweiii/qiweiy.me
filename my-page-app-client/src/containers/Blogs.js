@@ -79,7 +79,7 @@ class Blogs extends React.Component {
       console.log(e);
     }
     // rmb to add the default blogs created by me
-    this.publicBlogs();
+    this.addDefaultBlogs();
   }
 
   // showblogs() {
