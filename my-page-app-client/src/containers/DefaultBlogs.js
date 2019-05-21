@@ -34,7 +34,7 @@ export const DefaultBlogs = [
   {
     content:{
       title: "Materials for learning Web Development",
-      content: "...",
+      content: "Web dev is easy to learn, ",
       author: "Qiwei"
     },
     noteId: "learn-web-dev",
