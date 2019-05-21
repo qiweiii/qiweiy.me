@@ -54,14 +54,17 @@ class Blogs extends React.Component {
     };
   }
 
-  addDefaultBlogs() {      
+  async addDefaultBlogs() {      
     // console.log(blog);
-    // for (var i = 0; i < DefaultBlogs.length; i++) {
-    // let blog = DefaultBlogs[i];
-    // cannot set multiple state in for loop...
-    this.setState({ 
-      allblogs :[...this.state.allblogs, DefaultBlogs[0],DefaultBlogs[1],DefaultBlogs[2],DefaultBlogs[3], DefaultBlogs[4]]
-    }); 
+    for (var i = 0; i < DefaultBlogs.length; i++) {
+      // await this.updateState(DefaultBlogs[i]);
+      await this.setState({ 
+        allblogs :[...this.state.allblogs, DefaultBlogs[i]]
+      });
+    }
+    // this.setState({ 
+    //   allblogs :[...this.state.allblogs, DefaultBlogs[0],DefaultBlogs[1],DefaultBlogs[2],DefaultBlogs[3], DefaultBlogs[4],DefaultBlogs[5]]
+    // }); 
   }
 
   async componentDidMount() {

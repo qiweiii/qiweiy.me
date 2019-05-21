@@ -104,7 +104,7 @@ class BlogCard extends React.Component {
             image={this.getImage()}
           />
           <CardContent>
-            <Typography gutterBottom variant="p" component="h4">
+            <Typography gutterBottom variant="inherit" component="h4">
               {this.trimLength(`${this.props.content.title}`, 40)}
             </Typography>
             <Typography component="p">
@@ -115,7 +115,15 @@ class BlogCard extends React.Component {
         <CardActions className={classes.action}>
           <Button 
             component={RouterLink}
-            to={this.props.link}
+            to={{ 
+              pathname: this.props.link, 
+              state: {
+                title: this.props.content.title,
+                content: this.props.content.content,
+                author: this.props.content.author,
+                noedit: this.props.noedit,
+              }
+            }}
             size="small" 
             color="primary"
           >

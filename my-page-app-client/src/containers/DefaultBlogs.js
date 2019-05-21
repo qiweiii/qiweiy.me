@@ -8,13 +8,13 @@ export const DefaultBlogs = [
       author: "Qiwei"
     },
     noteId: "how-to-use",
-    image: "cloud",
+    image: "",
     createdAt: Date.parse('May 15, 2019 00:00:01'),
   },
   {
     content:{
-      title: "How to build a vpn?",
-      content: "how to build vpn",
+      title: "How to build a vpn",
+      content: "(I will do this later)",
       author: "Qiwei"
     },
     noteId: "how-to-build-a-vpn",
@@ -33,22 +33,35 @@ export const DefaultBlogs = [
   }, 
   {
     content:{
-      title: "Materials for learning Python",
-      content: "Web dev is easy to learn, ",
+      title: "How to learn cloud computing",
+      content: "",
+      author: "Qiwei"
+    },
+    noteId: "cloud-computing",
+    image: "cloud",
+    createdAt: Date.parse('May 15, 2019, 00:00:04'),
+  }, 
+  {
+    content:{
+      title: "Materials for practicing algorithms",
+      content: "",
       author: "Qiwei",
     },
     noteId: "learn-python",
     image: "python",
-    createdAt: Date.parse('May 15, 2019, 00:00:04'),
+    createdAt: Date.parse('May 15, 2019, 00:00:05'),
   },
   {
     content:{
       title: "Materials for learning Web Development",
-      content: "Why do you learn web dev?" + '\n' + "1. Web dev is easy to learn, I recommend Udemy, it is an online course website",
+      content: "It is easy to learn web dev, there are a few websites that can help you get started:" 
+                + '\n' + "1. Udemy web development courses"
+                + '\n' + "..."
+                ,
       author: "Qiwei",
     },
     noteId: "learn-web-dev",
     image: "niceDesk",
-    createdAt: Date.parse('May 15, 2019, 00:00:05'),
+    createdAt: Date.parse('May 15, 2019, 00:00:06'),
   },
 ];

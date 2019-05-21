@@ -108,11 +108,11 @@ class BlogView extends React.Component {
             <Typography gutterBottom align="left" className={classes.author}>
               Created by {this.props.location.state.author}
             </Typography>
-            <Typography align="justify" className={classes.content}>
+            <div className={classes.content}>
               {this.props.location.state.content.split("\n").map((i, key) => {
-                return <p key={key}>{i}</p>;
+                return <Typography align="justify" key={key}>{i}</Typography>;
               })}
-            </Typography>
+            </div>
             {this.props.location.state.noedit ? 
               <div className={classes.buttons}></div>
               :
