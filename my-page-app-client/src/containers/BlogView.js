@@ -154,6 +154,7 @@ class BlogView extends React.Component {
                     title: this.props.location.state.title,
                     content: this.props.location.state.content,
                     author: this.props.location.state.author,
+                    image: this.props.location.state.image,
                   } 
                 }}
               >

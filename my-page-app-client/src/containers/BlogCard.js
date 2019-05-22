@@ -59,7 +59,7 @@ class BlogCard extends React.Component {
     let img = this.props.content.image;
     if (img === "zima")
       return zima;
-    if (img === "" || img === null || img === undefined)
+    if (img === "blank" || img === "" || img === null || img === undefined)
       return blank;
 
     //if it is a valide url
@@ -91,6 +91,7 @@ class BlogCard extends React.Component {
               title: this.props.content.title,
               content: this.props.content.content,
               author: this.props.content.author,
+              image: this.props.content.image,
               noedit: this.props.noedit,
               date: this.props.date,
             } 
@@ -118,6 +119,7 @@ class BlogCard extends React.Component {
                 title: this.props.content.title,
                 content: this.props.content.content,
                 author: this.props.content.author,
+                image: this.props.content.image,
                 noedit: this.props.noedit,
                 date: this.props.date,
               }

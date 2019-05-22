@@ -16,7 +16,8 @@ const styles = theme => ({
     marginLeft: theme.spacing.unit * 2,
     marginRight: theme.spacing.unit * 2,
     [theme.breakpoints.up(600 + theme.spacing.unit * 2 * 2)]: {
-      width: 600,
+      width: 'auto',
+      maxWidth: 800,
       marginLeft: 'auto',
       marginRight: 'auto',
     },
@@ -53,13 +54,10 @@ const styles = theme => ({
 
 function checkURL(str) {
   // check the url is valid
-  if (validUrl.isUri(str) 
-    || str === ""
-    || str === null
-    || str === undefined) {
+  if (validUrl.isUri(str)) {
     return true;
   } else {
-    alert("not a valid url");
+    // alert("not a valid url");
     return false;
   }
 };
@@ -100,8 +98,14 @@ class BlogView extends React.Component {
 
   handleSubmit = async event => {
     event.preventDefault();
-    if (!checkURL(this.state.image)) {
-      return false;
+    let str = this.state.image;
+    if (!checkURL(str)) {
+      if (str === ""|| str === null || str === undefined) {
+        await this.setState({ image: 'blank' });
+      } else {
+        alert("not a valid url");
+        return false
+      }
     }
     try {
       await this.saveNote({
@@ -178,17 +182,16 @@ class BlogView extends React.Component {
                 />
               </FormControl>
               <FormControl margin="normal" fullWidth>
-              <TextField
-                id="filled-textarea-3"
-                label="ImageURL"
-                className={classes.textField}
-                margin="normal"
-                variant="filled"
-                value={this.state.image} 
-                onChange={this.handleChange('image')}
-                placeholder="Cover image of your post (need to be available online, pls put the link to that image here)"
-              />
-            </FormControl>
+                <TextField
+                  id="filled-textarea-3"
+                  label="ImageURL"
+                  margin="normal"
+                  variant="filled"
+                  value={this.state.image} 
+                  onChange={this.handleChange('image')}
+                  placeholder="Cover image of your post (need to be available online, pls put the link to that image here)"
+                />
+              </FormControl>
               <FormControl margin="normal" fullWidth>
                 <TextField
                   id="filled-textarea-4"
