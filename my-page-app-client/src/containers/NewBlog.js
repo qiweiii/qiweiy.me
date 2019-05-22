@@ -46,13 +46,10 @@ const styles = theme => ({
 
 function checkURL(str) {
   // check the url is valid
-  if (validUrl.isUri(str)
-    || str === ""
-    || str === null
-    || str === undefined) {
+  if (validUrl.isUri(str)) {
     return true;
   } else {
-    alert("not a valid url");
+    // alert("not a valid url");
     return false;
   }
 };
@@ -84,10 +81,16 @@ class NewBlog extends React.Component {
 
   handleSubmit = async event => {
     event.preventDefault();
-    if (!checkURL(this.state.image)) {
-      return false;
+    let str = this.state.image;
+    if (!checkURL(str)) {
+      if (str === ""|| str === null || str === undefined) {
+        await this.setState({ image: 'blank' });
+      } else {
+        alert("not a valid url");
+        return false
+      }
     }
-    console.log(this.state.title);
+    console.log(this.state.image);
     try {
       await this.createBlog({
         content: {
