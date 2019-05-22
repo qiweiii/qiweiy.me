@@ -146,7 +146,7 @@ class NewBlog extends React.Component {
                 value={this.state.author} 
                 onChange={this.handleChange('author')}
                 required
-                minputProps={{
+                inputProps={{
                   maxLength: 50,
                 }}
               />
