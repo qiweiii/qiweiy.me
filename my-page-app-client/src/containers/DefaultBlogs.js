@@ -68,7 +68,7 @@ export const DefaultBlogs = [
   {
     content:{
       title: "How to add comments to your website",
-      content: "It is quite troublesome to build a comment section on my own, it will take me a lot of time to design and figure out how to handle data, so i choose to use Disqus, a third party comment system that I saw on lots of websites." 
+      content: "It is quite troublesome to build a comment section on my own, it will take me a lot of time to design and figure out how to handle data, so i choose to use Disqus, a third party comment system that I saw on lots of websites."
                 + '\n' + "This is my first time using it and it is not very straight forward to implement on React. Fortunately, I found a package (https://github.com/disqus/disqus-react) that makes my life a lot easier. I just need to change a few configuration variables and it works!"
                 ,
       author: "Qiwei",

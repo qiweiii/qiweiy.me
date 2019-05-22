@@ -22,13 +22,14 @@ const styles = theme => ({
   paper: {
     marginTop: theme.spacing.unit * 2,
     marginBottom: theme.spacing.unit * 4,
-    padding: theme.spacing.unit * 1,
     minHeight: 350,
+    backgroundColor: '#f5f5f5',
     [theme.breakpoints.up(600 + theme.spacing.unit * 3 * 2)]: {
       marginTop: theme.spacing.unit * 5,
       marginBottom: theme.spacing.unit * 5,
       padding: theme.spacing.unit * 2,
       minHeight: 500,
+      backgroundColor: '#f5f5f5',
     },
   },
   title: {
