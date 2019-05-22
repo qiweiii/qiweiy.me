@@ -43,7 +43,6 @@ const styles = theme => ({
   }
 });
 
-
 class Blogs extends React.Component {
   constructor(props) {
     super(props);
@@ -111,11 +110,10 @@ class Blogs extends React.Component {
         <Grid item xs={12} sm={6} md={4} lg={3} >
             <BlogCard 
               content={blog.content}
-              date={new Date(blog.createdAt).toLocaleString('en-US', { hour12: false })}
+              date={new Date(blog.createdAt).toLocaleDateString('en-US', { hour12: false })}
               noedit={noEditButton}
               key={blog.noteId}
               link={`/blogs/view/${blog.noteId}`}
-              image={blog.image}
             />
         </Grid>
         : null

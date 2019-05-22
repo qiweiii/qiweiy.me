@@ -9,13 +9,13 @@ import Checkbox from '@material-ui/core/Checkbox';
 import Input from '@material-ui/core/Input';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import InputLabel from '@material-ui/core/InputLabel';
-import FacebookBox from 'mdi-material-ui/FacebookBox'
-import Google from 'mdi-material-ui/Google'
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import withStyles from '@material-ui/core/styles/withStyles';
 import { Auth } from "aws-amplify";
-
+import FacebookButton from "../components/FacebookButton";
+import GoogleButton from "../components/GoogleButton";
+import Fab from '@material-ui/core/Fab';
 
 const styles = theme => ({
   main: {
@@ -180,12 +180,12 @@ class Signup extends React.Component {
         <CssBaseline />
         <Paper className={classes.paper}>
           <div className={classes.avatars}>
-            <Avatar className={classes.facebook}>
-              <FacebookBox />
-            </Avatar>
-            <Avatar className={classes.google}>
-              <Google />
-            </Avatar>
+            <Fab size="small" className={classes.facebook}>
+              <FacebookButton onLogin={this.handleFbLogin} />
+            </Fab>
+            <Fab size="small" className={classes.google}>
+              <GoogleButton onLogin={this.handleGgLogin}/>
+            </Fab>
           </div>
           <Typography component="p" className={classes.p}>
             Or Be Classical

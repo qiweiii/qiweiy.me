@@ -7,7 +7,7 @@ import Paper from '@material-ui/core/Paper';
 import { withStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import { API } from "aws-amplify";
-
+import validUrl from "valid-url";
 
 const styles = theme => ({
   main: {
@@ -44,6 +44,18 @@ const styles = theme => ({
   }
 });
 
+function checkURL(str) {
+  // check the url is valid
+  if (validUrl.isUri(str)
+    || str === ""
+    || str === null
+    || str === undefined) {
+    return true;
+  } else {
+    alert("not a valid url");
+    return false;
+  }
+};
 
 class NewBlog extends React.Component {
 
@@ -56,8 +68,11 @@ class NewBlog extends React.Component {
       title: "",
       content: "",
       author: "",
+      image: "",
     };
   }
+
+  
 
   validateForm() {
     return this.state.content.length > 0 && this.state.title.length > 0;
@@ -69,7 +84,9 @@ class NewBlog extends React.Component {
 
   handleSubmit = async event => {
     event.preventDefault();
-    
+    if (!checkURL(this.state.image)) {
+      return false;
+    }
     console.log(this.state.title);
     try {
       await this.createBlog({
@@ -77,6 +94,7 @@ class NewBlog extends React.Component {
           content: this.state.content,
           title: this.state.title,
           author: this.state.author,
+          image: this.state.image,
         }
       });
       this.props.history.push("/blogs");
@@ -128,6 +146,18 @@ class NewBlog extends React.Component {
                 minputProps={{
                   maxLength: 50,
                 }}
+              />
+            </FormControl>
+            <FormControl margin="normal" fullWidth>
+              <TextField
+                id="filled-textarea-3"
+                label="ImageURL"
+                className={classes.textField}
+                margin="normal"
+                variant="filled"
+                value={this.state.image} 
+                onChange={this.handleChange('image')}
+                placeholder="Cover image of your post (need to be available online, pls put the link to that image here)"
               />
             </FormControl>
             <FormControl margin="normal" fullWidth>
