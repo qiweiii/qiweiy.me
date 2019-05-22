@@ -9,12 +9,9 @@ import CardMedia from '@material-ui/core/CardMedia';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import { Link as RouterLink} from 'react-router-dom'
-import qiwei from "../img/qiwei.png";
 import zima from "../img/zima.png";
-import vpn from "../img/vpn.jpg";
-import cloud from "../img/cloud.jpg";
-import niceDesk from "../img/niceDesk.jpg";
-import python from "../img/python.jpg";
+import blank from "../img/blank.jpg";
+
 
 
 const styles = theme => ({
@@ -54,20 +51,19 @@ const styles = theme => ({
 
 class BlogCard extends React.Component {
 
+  // try the image link, make sure it works
+  async componentDidMount() {
+  }
+
   getImage() {
-    let name = this.props.image;
-    if (name === "vpn")
-      return vpn;
-    if (name === "zima")
+    let img = this.props.content.image;
+    if (img === "zima")
       return zima;
-    if (name === "niceDesk")
-      return niceDesk;
-    if (name === "cloud")
-      return cloud;
-    if (name === "qiwei")
-      return qiwei;
-    if (name === "python")
-      return python;
+    if (img === "" || img === null || img === undefined)
+      return blank;
+
+    //if it is a valide url
+    return img;
   }
 
   trimLength(str, len) {
@@ -96,6 +92,7 @@ class BlogCard extends React.Component {
               content: this.props.content.content,
               author: this.props.content.author,
               noedit: this.props.noedit,
+              date: this.props.date,
             } 
           }}
         >
@@ -122,6 +119,7 @@ class BlogCard extends React.Component {
                 content: this.props.content.content,
                 author: this.props.content.author,
                 noedit: this.props.noedit,
+                date: this.props.date,
               }
             }}
             size="small" 

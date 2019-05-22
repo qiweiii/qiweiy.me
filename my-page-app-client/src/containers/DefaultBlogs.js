@@ -1,3 +1,4 @@
+import React from 'react';
 
 
 export const DefaultBlogs = [
@@ -5,40 +6,40 @@ export const DefaultBlogs = [
     content:{
       title: "How To Use",
       content: "Please sign in to see more blogs and also create your own blogs.",
-      author: "Qiwei"
+      author: "Qiwei",
+      image: "https://images.unsplash.com/photo-1549921296-bc643ead1e65?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=3401&q=80",
     },
     noteId: "how-to-use",
-    image: "",
     createdAt: Date.parse('May 15, 2019 00:00:01'),
   },
   {
     content:{
       title: "How to build a vpn",
       content: "(I will do this later)",
-      author: "Qiwei"
+      author: "Qiwei",
+      image: "https://images.unsplash.com/photo-1480160734175-e2209654433c?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1400&q=80",
     },
     noteId: "how-to-build-a-vpn",
-    image: "vpn",
     createdAt: Date.parse('May 15, 2019, 00:00:02'),
   },
   {
     content:{
       title: "What Is My Fav Color",
       content: "#6fcff1",
-      author: "Qiwei"
+      author: "Qiwei",
+      image: "zima",
     },
     noteId: "fav-color",
-    image: "zima",
     createdAt: Date.parse('May 15, 2019, 00:00:03'),
   }, 
   {
     content:{
       title: "How to learn cloud computing",
       content: "",
-      author: "Qiwei"
+      author: "Qiwei",
+      image: "https://images.unsplash.com/photo-1536250853075-e8504ee040b9?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2250&q=80",
     },
     noteId: "cloud-computing",
-    image: "cloud",
     createdAt: Date.parse('May 15, 2019, 00:00:04'),
   }, 
   {
@@ -46,9 +47,9 @@ export const DefaultBlogs = [
       title: "Materials for practicing algorithms",
       content: "",
       author: "Qiwei",
+      image: "https://images.unsplash.com/photo-1515879218367-8466d910aaa4?ixlib=rb-1.2.1&auto=format&fit=crop&w=2250&q=80",
     },
     noteId: "learn-python",
-    image: "python",
     createdAt: Date.parse('May 15, 2019, 00:00:05'),
   },
   {
@@ -59,21 +60,21 @@ export const DefaultBlogs = [
                 + '\n' + "..."
                 ,
       author: "Qiwei",
+      image: "https://images.unsplash.com/photo-1509718443690-d8e2fb3474b7?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2250&q=80",
     },
     noteId: "learn-web-dev",
-    image: "niceDesk",
     createdAt: Date.parse('May 15, 2019, 00:00:06'),
   },
   {
     content:{
       title: "How to add comments to your website",
       content: "It is quite troublesome to build a comment section on my own, it will take me a lot of time to design and figure out how to handle data, so i choose to use Disqus, a third party comment system that I saw on lots of websites." 
-                + '\n' + "This is my first time using it and the implemetation on React is not very straight forward, there is also no doc on how to do it. Fortunately, I found a package (https://github.com/disqus/disqus-react) that makes my life a lot easier. I just need to change a few configuration variables and it works!"
+                + '\n' + "This is my first time using it and it is not very straight forward to implement on React. Fortunately, I found a package (https://github.com/disqus/disqus-react) that makes my life a lot easier. I just need to change a few configuration variables and it works!"
                 ,
       author: "Qiwei",
+      image: "https://images.unsplash.com/photo-1483546416237-76fd26bbcdd1?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2100&q=80",
     },
     noteId: "add-comments",
-    image: "",
     createdAt: Date.parse('May 15, 2019, 00:00:07'),
   },
 ];

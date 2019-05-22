@@ -13,8 +13,8 @@ const styles = theme => ({
     width: 'auto',
     marginLeft: theme.spacing.unit * 1,
     marginRight: theme.spacing.unit * 1,
-    [theme.breakpoints.up(600 + theme.spacing.unit * 2 * 2)]: {
-      width: 700,
+    [theme.breakpoints.up(1100 + theme.spacing.unit * 2 * 2)]: {
+      width: 900,
       marginLeft: 'auto',
       marginRight: 'auto',
     },
@@ -32,18 +32,32 @@ const styles = theme => ({
     },
   },
   title: {
-    fontWeight: 400,
+    fontWeight: 500,
+    fontFamily: 'Helvetica Neue',
     padding: theme.spacing.unit * 3,
   },
   author: {
     fontSize: 16,
     color: '#616161',
     paddingLeft: theme.spacing.unit * 3,
+    [theme.breakpoints.up(600 + theme.spacing.unit * 3 * 2)]: {
+      fontSize: 16,
+      color: '#616161',
+      paddingLeft: theme.spacing.unit * 5,
+    },
   },
   content: {
     padding: theme.spacing.unit * 3,
     minHeight: 400,
-    fontSize: 16,
+    [theme.breakpoints.up(600 + theme.spacing.unit * 3 * 2)]: {
+      padding: theme.spacing.unit * 5,
+      minHeight: 400,
+    },
+  },
+  contentText: {
+    fontSize: 17,
+    fontWeight: 400,
+    fontFamily: 'Helvetica Neue',
   },
   buttons: {
     display: 'flex',
@@ -52,10 +66,12 @@ const styles = theme => ({
   button: {
     marginTop: theme.spacing.unit * 3,
     marginLeft: theme.spacing.unit,
+    marginBottom: theme.spacing.unit*3,
   },
   buttonDelete: {
     marginTop: theme.spacing.unit * 3,
     marginLeft: theme.spacing.unit,
+    marginBottom: theme.spacing.unit*3,
   }
 });
 
@@ -115,13 +131,13 @@ class BlogView extends React.Component {
               {this.props.location.state.title}
             </Typography> 
             <Typography gutterBottom align="left" className={classes.author}>
-              Created by {this.props.location.state.author}
+              Created by {this.props.location.state.author} on {this.props.location.state.date}
             </Typography>
-            <div className={classes.content}>
+            <Typography className={classes.content}>
               {this.props.location.state.content.split("\n").map((i, key) => {
-                return <Typography align="justify" key={key}>{i}</Typography>;
+                return <div><Typography align="justify" className={classes.contentText} key={key}>{i}</Typography><br/></div>;
               })}
-            </div>
+            </Typography>
             {this.props.location.state.noedit ? 
               <div className={classes.buttons}></div>
               :

@@ -7,6 +7,7 @@ import Paper from '@material-ui/core/Paper';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
 import FormControl from '@material-ui/core/FormControl';
+import validUrl from "valid-url";
 
 
 const styles = theme => ({
@@ -50,6 +51,19 @@ const styles = theme => ({
 });
 
 
+function checkURL(str) {
+  // check the url is valid
+  if (validUrl.isUri(str) 
+    || str === ""
+    || str === null
+    || str === undefined) {
+    return true;
+  } else {
+    alert("not a valid url");
+    return false;
+  }
+};
+
 class BlogView extends React.Component {
   constructor(props) {
     super(props);
@@ -61,6 +75,7 @@ class BlogView extends React.Component {
       title: "",
       content: "",
       author: "",
+      image: "",
     };
   }
 
@@ -69,6 +84,7 @@ class BlogView extends React.Component {
       title: this.props.location.state.title,
       content: this.props.location.state.content,
       author: this.props.location.state.author,
+      image: this.props.location.state.image,
     });
   }
 
@@ -84,20 +100,22 @@ class BlogView extends React.Component {
 
   handleSubmit = async event => {
     event.preventDefault();
-    this.setState({ isLoading: true });
-
+    if (!checkURL(this.state.image)) {
+      return false;
+    }
     try {
       await this.saveNote({
         content: {
           content: this.state.content,
           title: this.state.title,
           author: this.state.author,
+          image: this.state.image,
         },
       });
       this.props.history.push("/blogs");
     } catch (e) {
       alert(e);
-      this.setState({ isLoading: false });
+      // this.setState({ isLoading: false });
     }
   }
 
@@ -113,13 +131,13 @@ class BlogView extends React.Component {
     if (!confirmed) {
       return;
     }
-    this.setState({ isDeleting: true });
+    // this.setState({ isDeleting: true });
     try {
       await this.deleteNote();
       this.props.history.push("/blogs");
     } catch (e) {
       alert(e);
-      this.setState({ isDeleting: false });
+      // this.setState({ isDeleting: false });
     }
   }
 
@@ -160,8 +178,20 @@ class BlogView extends React.Component {
                 />
               </FormControl>
               <FormControl margin="normal" fullWidth>
+              <TextField
+                id="filled-textarea-3"
+                label="ImageURL"
+                className={classes.textField}
+                margin="normal"
+                variant="filled"
+                value={this.state.image} 
+                onChange={this.handleChange('image')}
+                placeholder="Cover image of your post (need to be available online, pls put the link to that image here)"
+              />
+            </FormControl>
+              <FormControl margin="normal" fullWidth>
                 <TextField
-                  id="filled-textarea-3"
+                  id="filled-textarea-4"
                   label="Content"
                   multiline
                   rows='15'
