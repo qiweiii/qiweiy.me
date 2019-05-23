@@ -3,7 +3,7 @@ export const DefaultBlogs = [
   {
     content:{
       title: "How To Use",
-      content: "Please sign in to see more blogs and also create your own blogs.",
+      content: "Please sign in to see more blogs and also post your own blogs.",
       author: "Qiwei",
       image: "https://images.unsplash.com/photo-1549921296-bc643ead1e65?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=3401&q=80",
     },

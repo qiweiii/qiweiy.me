@@ -10,6 +10,7 @@ import Blogs from "./containers/Blogs";
 import BlogEdit from "./containers/BlogEdit";
 import BlogView from "./containers/BlogView";
 import Resume from "./containers/Resume";
+import More from "./containers/More";
 import AuthenticatedRoute from "./components/AuthenticatedRoute";
 import UnauthenticatedRoute from "./components/UnauthenticatedRoute";
 
@@ -24,6 +25,7 @@ export default ({ childProps }) =>
 		<AppliedRoute path="/blogs" exact component={Blogs} props={childProps} />
 		<AuthenticatedRoute path="/blogs/edit/:id" exact component={BlogEdit} props={childProps} />
 		<AppliedRoute path="/blogs/view/:id" exact component={BlogView} props={childProps} />
+    <AppliedRoute path="/more" exact component={More} props={childProps} />
     { /* Finally, catch all unmatched routes */ }
     <Route component={NotFound} />
   </Switch>;
