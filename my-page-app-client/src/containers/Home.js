@@ -37,7 +37,6 @@ function Home(props) {
 
       <div className={classes.root}>
         <h1 className={classes.h1}>Qiwei Yang</h1>
-        <p className={classes.p}>[I am still working on this, any advise is welcomed]</p>
         <p className={classes.p}>Penultimate year Computer Science student from UNSW Sydney / Part-time Developer</p>
         <p className={classes.p}>Looking for a software developer summer internship</p>
         <p className={classes.p}>My email: <a href = "mailto: yangqiwei97@gmail.com">yangqiwei97@gmail.com</a></p>
