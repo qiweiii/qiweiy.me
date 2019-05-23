@@ -18,6 +18,7 @@ import ListItemText from '@material-ui/core/ListItemText';
 import HomeIcon from '@material-ui/icons/Home';
 import BookmarkIcon from '@material-ui/icons/Bookmark';
 import GithubFace from 'mdi-material-ui/GithubFace'
+import Lightbulb from 'mdi-material-ui/Lightbulb'
 import Linkedin from 'mdi-material-ui/Linkedin'
 import FileDocumentBox from 'mdi-material-ui/FileDocumentBox'
 import { Link as RouterLink, withRouter } from 'react-router-dom'
@@ -166,29 +167,34 @@ class NavBar extends React.Component {
         </div>
         <Divider />
         <List>
-            <ListItem component={RouterLink} to="/" button key='Home'>
-              <ListItemIcon ><HomeIcon/></ListItemIcon>
-              <ListItemText primary='Home' />
+          <ListItem component={RouterLink} to="/" button key='Home'>
+            <ListItemIcon ><HomeIcon/></ListItemIcon>
+            <ListItemText primary='Home' />
+          </ListItem>
+          <ListItem component={RouterLink} to="/blogs" button key='Blogs'>
+            <ListItemIcon><BookmarkIcon /></ListItemIcon>
+            <ListItemText primary='Blogs' />
+          </ListItem>
+          <ListItem component={RouterLink} to="/resume" button key='Resume'>
+            <ListItemIcon><FileDocumentBox /></ListItemIcon>
+            <ListItemText primary='Resume' />
+          </ListItem>
+          <Tooltip title="See Source Code" placement="right" classes={{ tooltip: classes.tooltip }}>
+            <ListItem component="a" href="https://github.com/qiweiii/my-website-v2" button key='GitHub'>
+              <ListItemIcon><GithubFace /></ListItemIcon>
+              <ListItemText primary='GitHub' />
             </ListItem>
-            <ListItem component={RouterLink} to="/blogs" button key='Blogs'>
-              <ListItemIcon><BookmarkIcon /></ListItemIcon>
-              <ListItemText primary='Blogs' />
-            </ListItem>
-            <ListItem component={RouterLink} to="/resume" button key='Resume'>
-              <ListItemIcon><FileDocumentBox /></ListItemIcon>
-              <ListItemText primary='Resume' />
-            </ListItem>
-            <Tooltip title="See Source Code" placement="right" classes={{ tooltip: classes.tooltip }}>
-              <ListItem component="a" href="https://github.com/qiweiii/my-website-v2" button key='GitHub'>
-                <ListItemIcon><GithubFace /></ListItemIcon>
-                <ListItemText primary='GitHub' />
-              </ListItem>
-            </Tooltip>
-            <ListItem component="a" href="https://linkedin.com/in/qiwei-yang-679617142" button key='Linkedin'>
-              <ListItemIcon><Linkedin /></ListItemIcon>
-              <ListItemText primary='LinkedIn' />
-            </ListItem>
-          </List>
+          </Tooltip>
+          <ListItem component="a" href="https://linkedin.com/in/qiwei-yang-679617142" button key='Linkedin'>
+            <ListItemIcon><Linkedin /></ListItemIcon>
+            <ListItemText primary='LinkedIn' />
+          </ListItem>
+        </List>
+        <Divider />
+          <ListItem component={RouterLink} to="/more" button key='More'>
+            <ListItemIcon><Lightbulb /></ListItemIcon>
+            <ListItemText primary='More' />
+          </ListItem>
       </div>
     );
 
