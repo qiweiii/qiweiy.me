@@ -40,11 +40,13 @@ function More(props) {
       <div className={classes.root}>
         <div className={classes.text}>
           <h1 className={classes.h1}>Future</h1>
-          <p className={classes.p}>Implement file upload button instead of getting an image url.</p>
-          <p className={classes.p}>Implement a blog editor, allow users to insert image, quotes, links, indentations and code.</p>
+          <p className={classes.p}>Implement file upload function.</p>
+          <p className={classes.p}>Implement blog formatting, allow users to insert image, quotes, links, lists, headers, bold text, indentation and code.</p>
           <p className={classes.p}>Allow new users to see all blogs without logging in.</p>
           <p className={classes.p}>Improve designs.</p>
-          <p className={classes.p}>Use Blogger APIs next time...</p>
+          <br/>
+          <p className={classes.p}>[Any advise is welcomed]</p>
+          <p className={classes.p}>My email: <a href = "mailto: yangqiwei97@gmail.com">yangqiwei97@gmail.com</a></p>
         </div>
       </div>
 
