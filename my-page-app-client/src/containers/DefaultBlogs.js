@@ -12,8 +12,17 @@ export const DefaultBlogs = [
   },
   {
     content:{
-      title: "How to build a vpn",
-      content: "(I will do this later)",
+      title: "How to build a VPN",
+      content: "General steps:" 
+                + '\n' + "- Buy a VPS(Virtual Private Server) on AWS/Vultr/Azure or other platforms"
+                + '\n' + "- Download shadowsocks here: https://shadowsocks.org/en/download/clients.html"
+                + '\n' + "- Go to the website you bought VPS, find the console of your VPS and open it"
+                + '\n' + "- Command 1: wget ­­no­check­certificate https://raw.githubusercontent.com/teddysun/shadowsocks_install/master/shado wsocks.sh"
+                + '\n' + "- Command 2: chmod +x shadowsocks.s"
+                + '\n' + "- Command 2: ./shadowsocks.sh 2>&1 | tee shadowsocks.log"
+                + '\n' + "- Take note of the information on the console output"
+                + '\n' + "- Open shadowsocks and add new server with information you get in previous step"
+                ,
       author: "Qiwei",
       image: "https://images.unsplash.com/photo-1480160734175-e2209654433c?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1400&q=80",
     },
@@ -23,7 +32,9 @@ export const DefaultBlogs = [
   {
     content:{
       title: "What Is My Fav Color",
-      content: "#6fcff1",
+      content: "#6fcff1"
+                + '\n' + "Google it and you will find the color"
+                ,
       author: "Qiwei",
       image: "zima",
     },
@@ -33,36 +44,18 @@ export const DefaultBlogs = [
   {
     content:{
       title: "How to learn cloud computing",
-      content: "",
+      content: "Serverless framework: https://serverless.com/"
+                + '\n' + "AWS guide: https://serverless.com/framework/docs/providers/aws/guide/"
+                + '\n' + "Example: https://github.com/serverless/examples/tree/master/aws-node-rest-api-with-dynamodb"
+                + '\n' + "Example: https://serverless-stack.com/#table-of-contents"
+                + '\n' + "Microsoft Azure: https://azure.microsoft.com/en-au/"
+                + '\n' + "Google cloud: https://cloud.google.com/",
       author: "Qiwei",
       image: "https://images.unsplash.com/photo-1536250853075-e8504ee040b9?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2250&q=80",
     },
     noteId: "cloud-computing",
     createdAt: Date.parse('May 15, 2019, 00:00:04'),
   }, 
-  {
-    content:{
-      title: "Materials for practicing algorithms",
-      content: "",
-      author: "Qiwei",
-      image: "https://images.unsplash.com/photo-1515879218367-8466d910aaa4?ixlib=rb-1.2.1&auto=format&fit=crop&w=2250&q=80",
-    },
-    noteId: "learn-python",
-    createdAt: Date.parse('May 15, 2019, 00:00:05'),
-  },
-  {
-    content:{
-      title: "Materials for learning Web Development",
-      content: "It is easy to learn web dev, there are a few websites that can help you get started:" 
-                + '\n' + "1. Udemy web development courses"
-                + '\n' + "..."
-                ,
-      author: "Qiwei",
-      image: "https://images.unsplash.com/photo-1509718443690-d8e2fb3474b7?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2250&q=80",
-    },
-    noteId: "learn-web-dev",
-    createdAt: Date.parse('May 15, 2019, 00:00:06'),
-  },
   {
     content:{
       title: "How to add comments to your website",

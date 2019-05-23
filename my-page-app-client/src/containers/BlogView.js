@@ -136,7 +136,7 @@ class BlogView extends React.Component {
             </Typography>
             <div className={classes.content}>
               {this.props.location.state.content.split("\n").map((i, key) => {
-                return <Typography paragraph align="justify" className={classes.contentText} key={key}>{i}</Typography>;
+                return <Typography paragraph align="justify-left" className={classes.contentText} key={key}>{i}</Typography>;
               })}
             </div>
             {this.props.location.state.noedit ? 
