@@ -44,6 +44,8 @@ function More(props) {
           <p className={classes.p}>Implement blog formatting, allow users to insert image, quotes, links, lists, headers, bold text, indentation and code.</p>
           <p className={classes.p}>Allow new users to see all blogs without logging in.</p>
           <p className={classes.p}>Improve designs.</p>
+          <p className={classes.p}>Add edited time after user edit a blog.</p>
+          <p className={classes.p}>Add tags to blogs, allow user to click on and see blogs under the same tag.</p>
           <br/>
           <p className={classes.p}>[Any advise is welcomed]</p>
           <p className={classes.p}>My email: <a href = "mailto: yangqiwei97@gmail.com">yangqiwei97@gmail.com</a></p>
