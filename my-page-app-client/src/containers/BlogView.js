@@ -7,6 +7,8 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import Typography from '@material-ui/core/Typography';
 import { Link as RouterLink} from 'react-router-dom'
 import Disqus from 'disqus-react';
+import ReactMarkdown from 'react-markdown';
+
 
 const styles = theme => ({
   layout: {
@@ -132,12 +134,13 @@ class BlogView extends React.Component {
               {this.props.location.state.title}
             </Typography> 
             <Typography gutterBottom align="left" className={classes.author}>
-              Created by {this.props.location.state.author} on {this.props.location.state.date}
+              Edited by {this.props.location.state.author} on {this.props.location.state.date}
             </Typography>
             <div className={classes.content}>
-              {this.props.location.state.content.split("\n").map((i, key) => {
+              {/* {this.props.location.state.content.split("\n").map((i, key) => {
                 return <Typography paragraph align="justify-left" className={classes.contentText} key={key}>{i}</Typography>;
-              })}
+              })} */}
+              <ReactMarkdown source={this.props.location.state.content}/>
             </div>
             {this.props.location.state.noedit ? 
               <div className={classes.buttons}></div>

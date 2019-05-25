@@ -8,6 +8,7 @@ import { withStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import { API } from "aws-amplify";
 import validUrl from "valid-url";
+import Link from '@material-ui/core/Link';
 
 const styles = theme => ({
   main: {
@@ -39,8 +40,18 @@ const styles = theme => ({
   input: {
     display: 'none',
   },
-  submit: {
+  buttons: {
+    display: 'flex',
+    justifyContent: 'flex-end',
+  },
+  button: {
+    marginTop: theme.spacing.unit * 3,
     marginBottom: 20,
+  },
+  link: {
+    marginTop: theme.spacing.unit * 4,
+    marginLeft: theme.spacing.unit * 3,
+    marginBottom: 10,
   }
 });
 
@@ -176,15 +187,20 @@ class NewBlog extends React.Component {
                 required
               />
             </FormControl>
-            <Button
-              type="submit"
-              variant="contained"
-              color="primary"
-              className={classes.submit}
-              disabled={!this.validateForm()}
-            >
-              Create
-            </Button>
+            <div className={classes.buttons}>
+              <Button
+                type="submit"
+                variant="contained"
+                color="primary"
+                className={classes.button}
+                disabled={!this.validateForm()}
+              >
+                Create
+              </Button>
+              <Link href="https://rexxars.github.io/react-markdown/"  target="_blank" className={classes.link}>
+                Formatting help
+              </Link>
+            </div>
           </form>
 
         </Paper>
