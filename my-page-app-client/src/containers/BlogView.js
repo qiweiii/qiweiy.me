@@ -16,7 +16,7 @@ const styles = theme => ({
     marginLeft: theme.spacing.unit * 1,
     marginRight: theme.spacing.unit * 1,
     [theme.breakpoints.up(1100 + theme.spacing.unit * 2 * 2)]: {
-      width: 900,
+      maxWidth: 900,
       marginLeft: 'auto',
       marginRight: 'auto',
     },
@@ -58,8 +58,8 @@ const styles = theme => ({
     },
   },
   contentText: {
-    fontSize: 17,
-    fontWeight: 400,
+    fontSize: 16,
+    // fontWeight: 400,
     fontFamily: 'Helvetica Neue',
   },
   buttons: {
@@ -71,11 +71,6 @@ const styles = theme => ({
     marginLeft: theme.spacing.unit,
     marginBottom: theme.spacing.unit*3,
   },
-  buttonDelete: {
-    marginTop: theme.spacing.unit * 3,
-    marginLeft: theme.spacing.unit,
-    marginBottom: theme.spacing.unit*3,
-  }
 });
 
 
@@ -136,12 +131,9 @@ class BlogView extends React.Component {
             <Typography gutterBottom align="left" className={classes.author}>
               Edited by {this.props.location.state.author} on {this.props.location.state.date}
             </Typography>
-            <div className={classes.content}>
-              {/* {this.props.location.state.content.split("\n").map((i, key) => {
-                return <Typography paragraph align="justify-left" className={classes.contentText} key={key}>{i}</Typography>;
-              })} */}
-              <ReactMarkdown source={this.props.location.state.content}/>
-            </div>
+            <Typography className={classes.content}>
+              <ReactMarkdown className={classes.contentText} source={this.props.location.state.content}/>
+            </Typography>
             {this.props.location.state.noedit ? 
               <div className={classes.buttons}></div>
               :
