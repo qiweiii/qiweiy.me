@@ -8,6 +8,7 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
 import FormControl from '@material-ui/core/FormControl';
 import validUrl from "valid-url";
+import Link from '@material-ui/core/Link';
 
 
 const styles = theme => ({
@@ -48,6 +49,11 @@ const styles = theme => ({
   buttonDelete: {
     marginTop: theme.spacing.unit * 3,
     marginLeft: theme.spacing.unit,
+  },
+  link: {
+    marginTop: theme.spacing.unit * 4,
+    marginRight: theme.spacing.unit * 3,
+    marginBottom: 10,
   }
 });
 
@@ -206,6 +212,9 @@ class BlogView extends React.Component {
                 />
               </FormControl>
               <div className={classes.buttons}>
+                <Link href="https://rexxars.github.io/react-markdown/"  target="_blank" className={classes.link}>
+                    Formatting help
+                </Link>
                 <Button
                   variant="contained"
                   color="primary"
