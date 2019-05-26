@@ -42,7 +42,7 @@ function More(props) {
           <h1 className={classes.h1}>Future</h1>
           <p className={classes.p}>Allow new users to see all blogs without logging in.</p>
           <p className={classes.p}>Improve designs.</p>
-          <p className={classes.p}>Add tags to blogs, allow user to click on and see blogs under the same tag.</p>
+          <p className={classes.p}>Add tags to blogs, allow user to click on and see blogs under the different tags.</p>
           <p className={classes.p}>Implement file upload function.</p>
           <br/>
           <p className={classes.p}>[Any advise is welcomed]</p>
