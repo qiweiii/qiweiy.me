@@ -8,6 +8,8 @@ import Typography from '@material-ui/core/Typography';
 import { Link as RouterLink} from 'react-router-dom'
 import Disqus from 'disqus-react';
 import ReactMarkdown from 'react-markdown';
+import "./BlogView.css";
+import classNames from 'classnames';
 
 
 const styles = theme => ({
@@ -124,15 +126,15 @@ class BlogView extends React.Component {
       <React.Fragment>
         <CssBaseline />
         <main className={classes.layout}>
-          <Paper className={classes.paper}>
+          <Paper elevation="6" className={classes.paper}>
             <Typography variant="h4" gutterBottom align="center" className={classes.title}>
               {this.props.location.state.title}
             </Typography> 
             <Typography gutterBottom align="left" className={classes.author}>
               Edited by {this.props.location.state.author} on {this.props.location.state.date}
             </Typography>
-            <Typography className={classes.content}>
-              <ReactMarkdown className={classes.contentText} source={this.props.location.state.content}/>
+            <Typography className={classNames(classes.contentText, classes.content)}>
+              <ReactMarkdown className="dont-break-out" source={this.props.location.state.content}/>
             </Typography>
             {this.props.location.state.noedit ? 
               <div className={classes.buttons}></div>
