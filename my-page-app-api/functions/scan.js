@@ -16,6 +16,7 @@ export async function main(event, context) {
   try {
     const result = await dynamoDbLib.call("scan", params);
     // Return the matching list of items in response body
+    console.log(result);
     return success(result.Items);
   } catch (e) {
     console.log(e);

@@ -6,11 +6,12 @@ import * as serviceWorker from './serviceWorker';
 import { BrowserRouter as Router } from "react-router-dom";
 import Amplify from "aws-amplify";
 import config from "./config";
+// import { Auth } from 'aws-amplify'
 
 // configure aws amplify, connect to client
 Amplify.configure({
   Auth: {
-    mandatorySignIn: true,
+    mandatorySignIn: false,
     region: config.cognito.REGION,
     userPoolId: config.cognito.USER_POOL_ID,
     identityPoolId: config.cognito.IDENTITY_POOL_ID,
@@ -31,6 +32,7 @@ Amplify.configure({
     ]
   }
 });
+
 
 ReactDOM.render(
   <Router>

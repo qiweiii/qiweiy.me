@@ -145,10 +145,10 @@ class NavBar extends React.Component {
   }
 
   handleLogout = async event => {
-  await Auth.signOut();
-  this.userHasAuthenticated(false);
-  this.props.history.push("/login");
-}
+    await Auth.signOut();
+    this.userHasAuthenticated(false);
+    this.props.history.push("/login");
+  }
 
 
 
