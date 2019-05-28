@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import { Typography } from "@material-ui/core";
-import zima from "../img/zima.png";
+// import zima from "../img/zima.png";
 import qiwei from "../img/qiwei.png";
 import Avatar from '@material-ui/core/Avatar';
 import Grid from '@material-ui/core/Grid';
@@ -78,7 +78,7 @@ function Home(props) {
           <Typography variant='h4' className={classes.name}>Qiwei Yang</Typography>
         </Grid>
         <Typography gutterBottom variant='body1' className={classes.p}>Penultimate year Computer Science student from UNSW Sydney / Part-time Developer</Typography>
-        <Typography gutterBottom variant='body1' className={classes.p}>Looking for a software developer summer internship</Typography>
+        <Typography gutterBottom variant='body1' className={classes.p}>Looking for a software engineer summer internship (Dec - Feb)</Typography>
         <Typography gutterBottom variant='body1' className={classes.p}>My email: <a href = "mailto: yangqiwei97@gmail.com">yangqiwei97@gmail.com</a></Typography>
       </Paper>
       </div>
