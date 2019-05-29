@@ -2,8 +2,8 @@ import React from "react";
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import { Typography } from "@material-ui/core";
-import zima from "../img/zima.png";
-// import qiwei from "../img/qiwei.png";
+// import zima from "../img/zima.png";
+import qiwei from "../img/qiwei.png";
 import Avatar from '@material-ui/core/Avatar';
 import Grid from '@material-ui/core/Grid';
 // import "./HomeView.css"
@@ -74,7 +74,7 @@ function Home(props) {
       <div className={classes.root}>
       <Paper elevation='10' className={classes.paper}>
         <Grid container justify="center" alignItems="center">
-          <Avatar alt="Qiwei Y" src={zima} className={classes.avatar} />
+          <Avatar alt="Qiwei Y" src={qiwei} className={classes.avatar} />
           <Typography variant='h4' className={classes.name}>Qiwei Yang</Typography>
         </Grid>
         <Typography gutterBottom variant='body1' className={classes.p}>Penultimate year Computer Science student from UNSW Sydney / Part-time Developer</Typography>
