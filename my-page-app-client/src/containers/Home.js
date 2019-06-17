@@ -77,7 +77,7 @@ function Home(props) {
           <Avatar alt="Qiwei Y" src={zima} className={classes.avatar} />
           <Typography variant='h4' className={classes.name}>Qiwei Yang</Typography>
         </Grid>
-        <Typography gutterBottom variant='body1' className={classes.p}>Penultimate year Computer Science student from UNSW Sydney / Part-time Developer</Typography>
+        <Typography gutterBottom variant='body1' className={classes.p}>Penultimate year Computer Science student from UNSW Sydney / Part-time Developer <br />with an interest in web technologies, cloud platforms, data management, and machine learning. </Typography>
         <Typography gutterBottom variant='body1' className={classes.p}>Looking for a software engineer summer internship (Dec - Feb)</Typography>
         <Typography gutterBottom variant='body1' className={classes.p}>My email: <a href = "mailto: yangqiwei97@gmail.com">yangqiwei97@gmail.com</a></Typography>
       </Paper>
