@@ -42,7 +42,7 @@ function More(props) {
           <h1 className={classes.h1}>Future</h1>
           <p className={classes.p}>Implement algolia search.</p>
           <p className={classes.p}>Allow new users to see all blogs without logging in.</p>
-          <p className={classes.p}>Improve designs.</p>
+          <p className={classes.p}>Improve designs (readability).</p>
           <p className={classes.p}>Add tags to blogs, allow user to click on and see blogs under the different tags.</p>
           <p className={classes.p}>Implement file upload function.</p>
           <br/>
