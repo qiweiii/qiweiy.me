@@ -77,7 +77,7 @@ class Blogs extends React.Component {
       const ab = await this.getAllBlogs();
       this.setState({ allblogs: ab });
     } catch (e) {
-      alert(e);
+      // alert(e);
       console.log(e);
     }
     // rmb to add the default blogs created by me
