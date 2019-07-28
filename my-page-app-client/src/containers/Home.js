@@ -79,7 +79,6 @@ function Home(props) {
         </Grid>
         <Typography gutterBottom variant='body1' className={classes.p}>Penultimate year Computer Science student from UNSW Sydney / Part-time Developer <br />with an interest in web technologies, cloud platforms, data management, and machine learning. </Typography>
         <Typography gutterBottom variant='body1' className={classes.p}>Looking for a software engineer summer internship (2020 Jan - Feb)</Typography>
-        <Typography gutterBottom variant='body1' className={classes.p}>我要做一个中文版大学学习资源分享平台，有同学想要加入请联系我</Typography>
         <Typography gutterBottom variant='body1' className={classes.p}>My email: <a href = "mailto: yangqiwei97@gmail.com">yangqiwei97@gmail.com</a></Typography>
       </Paper>
       </div>
