@@ -117,9 +117,11 @@ class NewBlog extends React.Component {
     }
   }
 
-  createBlog(blog, title) {
+  createBlog(blog) {
+    console.log(blog);
+
     return API.post("pages", "/pages", {
-      body: blog,
+      body: blog
     });
   }
 

@@ -14,9 +14,8 @@ export async function main(event, context) {
     },
     // 'UpdateExpression' defines the attributes to be updated
     // 'ExpressionAttributeValues' defines the value in the update expression
-    UpdateExpression: "SET content = :content, attachment = :attachment, createdAt = :createdAt",
+    UpdateExpression: "SET content = :content, createdAt = :createdAt",
     ExpressionAttributeValues: {
-      ":attachment": data.attachment || null,
       ":content": data.content || null,
       ":createdAt": Date.now()
     },
