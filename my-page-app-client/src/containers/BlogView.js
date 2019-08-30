@@ -3,11 +3,11 @@ import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import Paper from '@material-ui/core/Paper';
-import CssBaseline from '@material-ui/core/CssBaseline';
 import Typography from '@material-ui/core/Typography';
 import { Link as RouterLink} from 'react-router-dom'
 import Disqus from 'disqus-react';
 import ReactMarkdown from 'react-markdown';
+import CodeBlock from "./code-block.js";
 import "./BlogView.css";
 import classNames from 'classnames';
 
@@ -70,8 +70,11 @@ const styles = theme => ({
   },
   button: {
     marginTop: theme.spacing.unit * 3,
-    marginLeft: theme.spacing.unit,
-    marginBottom: theme.spacing.unit*3,
+    marginLeft: theme.spacing.unit * 2,
+    [theme.breakpoints.up(600 + theme.spacing.unit * 3 * 2)]: {
+      marginLeft: theme.spacing.unit * 5,
+    },
+    marginBottom: theme.spacing.unit * 3,
   },
 });
 
@@ -123,8 +126,7 @@ class BlogView extends React.Component {
         title: this.props.location.state.title,
     };
     return (
-      <React.Fragment>
-        <CssBaseline />
+      
         <main className={classes.layout}>
           <Paper elevation="6" className={classes.paper}>
             <Typography variant="h4" gutterBottom align="center" className={classes.title}>
@@ -133,9 +135,13 @@ class BlogView extends React.Component {
             <Typography gutterBottom align="left" className={classes.author}>
               Edited by {this.props.location.state.author} on {this.props.location.state.date}
             </Typography>
-            <Typography className={classNames(classes.contentText, classes.content)}>
-              <ReactMarkdown className="dont-break-out" source={this.props.location.state.content}/>
-            </Typography>
+            <div className={classNames(classes.contentText, classes.content)}>
+              <ReactMarkdown 
+                className="dont-break-out" 
+                source={this.props.location.state.content}
+                renderers={{code: CodeBlock}}
+              />
+            </div>
             {this.props.location.state.noedit ? 
               <div className={classes.buttons}></div>
               :
@@ -166,7 +172,7 @@ class BlogView extends React.Component {
             <Disqus.DiscussionEmbed shortname={disqusShortname} config={disqusConfig} />
           </div>
         </main>
-      </React.Fragment>
+
     );
   }
 }
