@@ -56,21 +56,18 @@ class Blogs extends React.Component {
   async addDefaultBlogs() {      
     // console.log(blog);
     for (var i = 0; i < DefaultBlogs.length; i++) {
-      // await this.updateState(DefaultBlogs[i]);
       await this.setState({ 
         allblogs :[...this.state.allblogs, DefaultBlogs[i]]
       });
     }
-    // this.setState({ 
-    //   allblogs :[...this.state.allblogs, DefaultBlogs[0],DefaultBlogs[1],DefaultBlogs[2],DefaultBlogs[3], DefaultBlogs[4],DefaultBlogs[5]]
-    // }); 
   }
 
   async componentDidMount() {
-    if (!this.props.isAuthenticated) {
-      this.addDefaultBlogs();
-      return;
-    }
+    // the following if block is here because amplify does not allow calling of api without authentication
+    // if (!this.props.isAuthenticated) {
+    //   this.addDefaultBlogs();
+    //   return;
+    // }
     try {
       const blogs = await this.blogs();
       this.setState({ blogs });
@@ -80,7 +77,7 @@ class Blogs extends React.Component {
       // alert(e);
       console.log(e);
     }
-    // rmb to add the default blogs created by me
+    // rmb to add the default blogs created by me to allblogs list
     this.addDefaultBlogs();
   }
 
@@ -91,10 +88,12 @@ class Blogs extends React.Component {
   // }
 
   blogs() {
+    // this user's blogs
     return API.get("pages", "/pages");
   }
 
   getAllBlogs() {
+    // all blogs in table
     return API.get("pages", "/pages/all");
   }
 
