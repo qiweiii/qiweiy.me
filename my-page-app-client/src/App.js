@@ -16,6 +16,21 @@ const theme = createMuiTheme({
     },
   },
   typography: { useNextVariants: true },
+  overrides: {
+    // Style sheet name ⚛️
+    MuiTypography: {
+      // Name of the rule
+      root: {
+        // Some CSS
+      },
+    },
+    MuiPaper: {
+      // Name of the rule
+      root: {
+        // Some CSS
+      },
+    },
+  },
 });
 
 class App extends Component {
