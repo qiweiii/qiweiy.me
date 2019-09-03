@@ -9,6 +9,7 @@ import TextField from '@material-ui/core/TextField';
 import { API } from "aws-amplify";
 import validUrl from "valid-url";
 import Link from '@material-ui/core/Link';
+import "./NB.css";
 
 const styles = theme => ({
   main: {
@@ -80,8 +81,6 @@ class NewBlog extends React.Component {
     };
   }
 
-  
-
   validateForm() {
     return this.state.content.length > 0 && this.state.title.length > 0;
   }
@@ -124,8 +123,6 @@ class NewBlog extends React.Component {
       body: blog
     });
   }
-
-
 
   render() {
     const { classes } = this.props;
