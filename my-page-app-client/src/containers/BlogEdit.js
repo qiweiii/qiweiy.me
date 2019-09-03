@@ -9,7 +9,7 @@ import TextField from '@material-ui/core/TextField';
 import FormControl from '@material-ui/core/FormControl';
 import validUrl from "valid-url";
 import Link from '@material-ui/core/Link';
-
+import "./NB.css";
 
 const styles = theme => ({
   layout: {
@@ -106,7 +106,7 @@ class BlogView extends React.Component {
     event.preventDefault();
     let str = this.state.image;
     if (!checkURL(str)) {
-      if (str === ""|| str === null || str === undefined) {
+      if (str === ""|| str === null || str === undefined || str === "blank") {
         await this.setState({ image: 'blank' });
       } else {
         alert("not a valid url");
@@ -200,7 +200,7 @@ class BlogView extends React.Component {
               </FormControl>
               <FormControl margin="normal" fullWidth>
                 <TextField
-                  id="filled-textarea-4"
+                  id="filled-textarea"
                   label="Content"
                   multiline
                   rows='15'
