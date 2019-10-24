@@ -31,11 +31,11 @@ jobs:
           - v1-dependencies-{{ checksum "my-page-app-client/package-lock.json" }}
           # fallback to using the latest cache if no exact match is found
           - v1-dependencies-
-      - run: npm ci
+      - run: cd my-page-app-client && npm ci
       - save_cache:
           paths:
             - node_modules
-          key: v1-dependencies-{{ checksum "my-page-app-clientpackage-lock.json" }}
+          key: v1-dependencies-{{ checksum "my-page-app-client/package-lock.json" }}
       - run:
           name: audit
           command: |
