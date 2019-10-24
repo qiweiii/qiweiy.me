@@ -73,11 +73,6 @@ workflows:
           name: npm_audit
           requires:
             - secrets_scan
-      - approval:
-          name: dev_approval
-          type: approval
-          requires:
-            - npm_audit
       - npm_deploy:
           name: npm_deploy_dev
           environment: dev
