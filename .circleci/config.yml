@@ -59,13 +59,10 @@ jobs:
            sudo apt install -y python-pip
            sudo pip install --upgrade awscli
            aws --version
-           aws s3 cp s3://${BUCKET_NAME}/config/${ENVIRONMENT}/config.js src/config.js
            cat src/config.js
            npm ci
-           export FRONTEND_BUCKET_ID=$(node -r esm bucket.js)
-           echo ${FRONTEND_BUCKET_ID}
            npm run deploy
-           echo "open http://${FRONTEND_BUCKET_ID}.s3-website-ap-southeast-2.amazonaws.com/"
+           echo "open http://my-page-app-v2-final-deploy.s3-website-ap-southeast-2.amazonaws.com/"
 
 workflows:
   test:
