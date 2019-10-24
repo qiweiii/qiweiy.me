@@ -1,0 +1,89 @@
+version: 2.1
+
+executors:
+  node-executor:
+    docker:
+      - image: circleci/node:8.15
+
+jobs:
+  secrets_scan:
+    executor: node-executor
+    steps:
+      - checkout
+      - run:
+         name: git-secrets scan
+         command: |
+           pushd /var/tmp
+           git clone https://github.com/awslabs/git-secrets.git
+           cd git-secrets
+           sudo make install
+           popd
+           git secrets --register-aws --global
+           git secrets --scan
+
+  # https://github.com/facebook/create-react-app/issues/6109
+  npm_audit:
+    executor: node-executor
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+          - v1-dependencies-{{ checksum "package-lock.json" }}
+          # fallback to using the latest cache if no exact match is found
+          - v1-dependencies-
+      - run: npm ci
+      - save_cache:
+          paths:
+            - node_modules
+          key: v1-dependencies-{{ checksum "package-lock.json" }}
+      - run:
+          name: audit
+          command: |
+            echo npm audit
+
+  npm_deploy:
+    executor: node-executor
+    parameters:
+      environment:
+        type: string
+    environment:
+      ENVIRONMENT: << parameters.environment >>
+    steps:
+      - checkout
+      - run:
+         name: deploy UI
+         command: |
+           sudo apt -y update
+           sudo apt install -y python-pip
+           sudo pip install --upgrade awscli
+           aws --version
+           aws s3 cp s3://${BUCKET_NAME}/config/${ENVIRONMENT}/config.js src/config.js
+           cat src/config.js
+           npm ci
+           export FRONTEND_BUCKET_ID=$(node -r esm bucket.js)
+           echo ${FRONTEND_BUCKET_ID}
+           npm run deploy
+           echo "open http://${FRONTEND_BUCKET_ID}.s3-website-ap-southeast-2.amazonaws.com/"
+
+workflows:
+  test:
+    jobs:
+      - secrets_scan:
+          name: secrets_scan
+          context: DevContext
+      - npm_audit:
+          name: npm_audit
+          context: DevContext
+          requires:
+            - secrets_scan
+      - approval:
+          name: dev_approval
+          type: approval
+          requires:
+            - npm_audit
+      - npm_deploy:
+          name: npm_deploy_dev
+          environment: dev
+          context: DevContext
+          requires:
+            - dev_approval
