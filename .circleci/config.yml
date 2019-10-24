@@ -71,10 +71,8 @@ workflows:
     jobs:
       - secrets_scan:
           name: secrets_scan
-          context: DevContext
       - npm_audit:
           name: npm_audit
-          context: DevContext
           requires:
             - secrets_scan
       - approval:
@@ -85,6 +83,5 @@ workflows:
       - npm_deploy:
           name: npm_deploy_dev
           environment: dev
-          context: DevContext
           requires:
             - dev_approval
