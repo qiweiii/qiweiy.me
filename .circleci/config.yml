@@ -53,6 +53,7 @@ jobs:
       - run:
          name: deploy UI
          command: |
+           cd my-page-app-client
            sudo apt -y update
            sudo apt install -y python-pip
            sudo pip install --upgrade awscli
