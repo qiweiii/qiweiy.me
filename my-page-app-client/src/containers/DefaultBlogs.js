@@ -6,7 +6,7 @@ export const DefaultBlogs = [
     content:{
       title: "What Is My Fav Color",
       content: "`#6fcff1`"
-                + "\n" + "Google it and you will find the color"
+                + "\n" + "is my favourite color"
                 ,
       author: "Qiwei",
       image: "zima",
