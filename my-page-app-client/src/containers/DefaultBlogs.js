@@ -85,7 +85,7 @@ export const DefaultBlogs = [
               + '\n' + '\n' + "```" 
               + '\n' + "<web-view src=\"https://yoursite.xxx\" />" 
               + '\n' +  "```" 
-              + '\n' + '\n' + "***但是*** <web-view>`这个tag只有企业版可以使用，个人版或者海外版小程序账号都无法配置业务域名。因为我的账号是个人版，qiweiy.me也没有ICP备案，所以只能放弃了，唉。"
+              + '\n' + '\n' + "***但是*** `<web-view>` 这个tag只有国内企业版小程序账号才可以使用，个人版或者海外版小程序账号都无法配置业务域名。因为我的账号是个人版，https://qiweiy.me 也没有ICP备案，所以只能放弃了。"
               ,
       author: "Qiwei",
       image: "https://upload.wikimedia.org/wikipedia/en/thumb/a/af/WeChat_logo.svg/1200px-WeChat_logo.svg.png",
