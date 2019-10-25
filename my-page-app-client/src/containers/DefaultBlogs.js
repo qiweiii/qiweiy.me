@@ -4,16 +4,6 @@
 export const DefaultBlogs = [
   {
     content:{
-      title: "How To Use",
-      content: "Please sign in to post your own blogs.",
-      author: "Qiwei",
-      image: "https://images.unsplash.com/photo-1549921296-bc643ead1e65?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=3401&q=80",
-    },
-    noteId: "how-to-use",
-    createdAt: Date.parse('May 15, 2019 00:00:01'),
-  },
-  {
-    content:{
       title: "What Is My Fav Color",
       content: "`#6fcff1`"
                 + "\n" + "Google it and you will find the color"
