@@ -25,6 +25,7 @@ blockquote {
 }
 
 img[alt="image"] { 
-  max-width:  20px; 
+  height: 200px;
+  width: auto; 
   display: block;
 }
