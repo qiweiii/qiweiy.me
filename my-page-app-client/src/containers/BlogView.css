@@ -23,3 +23,8 @@ blockquote {
   padding-left: 3em;
   border-left: 0.5em #eee solid;
 }
+
+img[alt="image"] { 
+  max-width:  20px; 
+  display: block;
+}
