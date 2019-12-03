@@ -64,8 +64,20 @@ jobs:
            npm run deploy
            echo "open http://my-page-app-v2-final-deploy.s3-website-ap-southeast-2.amazonaws.com/"
 
+  sls_deploy:
+    executor: node-executor
+    steps:
+      - checkout
+      - run:
+         name: deploy serverless api
+         command: |
+           cd my-page-app-api
+           sudo npm i -g serverless
+           npm ci
+           sls deploy
+
 workflows:
-  test:
+  deploy:
     jobs:
       - secrets_scan:
           name: secrets_scan
@@ -78,3 +90,8 @@ workflows:
           environment: dev
           requires:
             - npm_audit
+      - sls_deploy:
+          name: severless deploy
+          environment: dev
+            requires:
+              - npm_deploy
