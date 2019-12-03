@@ -49,8 +49,8 @@ function More(props) {
           <p className={classes.p}>[Any advise is welcomed]</p>
           <p className={classes.p}>My email: <a href = "mailto: yangqiwei97@gmail.com">yangqiwei97@gmail.com</a></p>
           <br/>
-          <p className={classes.p}><a href="d316o4cbhc2v3a.cloudfront.net">Sesalta game</a></p>
-          <p className={classes.p}>Chrome extension: <a href="">Markdown sticky notes</a></p>
+          <p className={classes.p}><a href="d316o4cbhc2v3a.cloudfront.net" target="_blank">Sesalta game</a></p>
+          <p className={classes.p}>Chrome extension: <a href="qiweiy.me" target="_blank">Markdown sticky notes</a></p>
         </div>
       </div>
 
