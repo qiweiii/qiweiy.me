@@ -92,6 +92,5 @@ workflows:
             - npm_audit
       - sls_deploy:
           name: severless deploy
-          environment: dev
-            requires:
-              - npm_deploy
+          requires:
+            - npm_deploy
