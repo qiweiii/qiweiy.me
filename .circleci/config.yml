@@ -86,7 +86,7 @@ workflows:
           requires:
             - secrets_scan
       - npm_deploy:
-          name: npm_deploy_dev
+          name: npm_deploy
           environment: dev
           requires:
             - npm_audit
