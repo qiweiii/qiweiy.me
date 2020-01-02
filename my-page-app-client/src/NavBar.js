@@ -180,7 +180,7 @@ class NavBar extends React.Component {
             <ListItemText primary='Resume' />
           </ListItem>
           <Tooltip title="See Source Code" placement="right" classes={{ tooltip: classes.tooltip }}>
-            <ListItem component="a" target="_blank" href="https://github.com/qiweiii/my-website-v2" button key='GitHub'>
+            <ListItem component="a" target="_blank" href="https://github.com/qiweiii" button key='GitHub'>
               <ListItemIcon><GithubFace /></ListItemIcon>
               <ListItemText primary='GitHub' />
             </ListItem>
