@@ -82,7 +82,7 @@ class BlogCard extends React.Component {
   render() {
     const { classes } = this.props;
     return (
-      <Card elevation='2' className={classes.card}>
+      <Card elevation={4} className={classes.card}>
         <CardActionArea 
           component={RouterLink}
           to={{ 
