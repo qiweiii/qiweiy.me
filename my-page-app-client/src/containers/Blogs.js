@@ -10,6 +10,7 @@ import Link from '@material-ui/core/Link';
 import Grid from '@material-ui/core/Grid';
 import _ from 'lodash';
 import { DefaultBlogs } from "./DefaultBlogs";
+import CircularProgress from "@material-ui/core/CircularProgress";
 
 
 const styles = theme => ({
@@ -40,6 +41,11 @@ const styles = theme => ({
   },
   submit: {
     marginBottom: 20,
+  },
+  spinner: {
+    display: "flex",
+    justifyContent: 'center',
+    marginTop: "15%"
   }
 });
 
@@ -48,6 +54,7 @@ class Blogs extends React.Component {
     super(props);
 
     this.state = {
+      isLoading: true,
       blogs: [],
       allblogs: []
     };
@@ -72,7 +79,10 @@ class Blogs extends React.Component {
       const blogs = await this.blogs();
       this.setState({ blogs });
       const ab = await this.getAllBlogs();
-      this.setState({ allblogs: ab });
+      this.setState({ 
+        allblogs: ab,
+        isLoading: false
+      });
     } catch (e) {
       // alert(e);
       console.log(e);
@@ -106,7 +116,7 @@ class Blogs extends React.Component {
     return [{}].concat(blogs).map(
       (blog, i) => 
         i !== 0 ?
-        <Grid item xs={12} sm={6} md={4} lg={3} >
+        <Grid item xs={12} sm={6} md={4} lg={3} key={blog.noteId}>
             <BlogCard 
               content={blog.content}
               date={new Date(blog.createdAt).toLocaleDateString('en-US', { hour12: false })}
@@ -159,13 +169,20 @@ class Blogs extends React.Component {
   }
 
   render() {
+    const { classes } = this.props;
     return (
       <div>
-        {this.props.isAuthenticated ? 
+        { this.state.isLoading ? 
+        <div className={classes.spinner}>
+          <CircularProgress />
+        </div>
+        :
+        ( this.props.isAuthenticated ? 
           this.renderUserBlogs()
           : 
           this.renderAllBlogs()
-        }
+        )
+      }
       </div>
     );
   }

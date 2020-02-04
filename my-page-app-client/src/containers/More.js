@@ -42,11 +42,9 @@ function More(props) {
           <p className={classes.p}>Add tags to blogs, allow user to click on and see blogs under the different tags.</p>
           <a href="https://github.com/rexxars/react-markdown/blob/master/demo/src/demo.js" rel="noopener noreferrer" target="_blank" className={classes.p}>Add Live Editor.</a>
           <p className={classes.p}>Implement file upload function.</p>
-          <p className={classes.p}>User dashboards.</p>
           <p className={classes.p}>Nicer font for blogs.</p>
           <p className={classes.p}>New API for getting blogs and Infinite Scroll (when i have more blogs).</p>
           <br/>
-          <p className={classes.p}>[Any advise is welcomed]</p>
           <p className={classes.p}>My email: <a href = "mailto: yangqiwei97@gmail.com">yangqiwei97@gmail.com</a></p>
         </div>
       </div>
