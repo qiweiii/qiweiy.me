@@ -20,6 +20,7 @@ import BookmarkIcon from '@material-ui/icons/Bookmark';
 import GithubFace from 'mdi-material-ui/GithubFace'
 import Lightbulb from 'mdi-material-ui/Lightbulb'
 import Linkedin from 'mdi-material-ui/Linkedin'
+import Youtube from 'mdi-material-ui/Youtube'
 import FileDocumentBox from 'mdi-material-ui/FileDocumentBox'
 import { Link as RouterLink, withRouter } from 'react-router-dom'
 import Link from '@material-ui/core/Link';
@@ -188,6 +189,10 @@ class NavBar extends React.Component {
           <ListItem component="a" target="_blank" href="https://linkedin.com/in/qiwei-yang-679617142" button key='Linkedin'>
             <ListItemIcon><Linkedin /></ListItemIcon>
             <ListItemText primary='LinkedIn' />
+          </ListItem>
+          <ListItem component="a" target="_blank" href="https://www.youtube.com/channel/UC8Lo-3YtynRLZa9b-e0JyLw" button key='Youtube'>
+            <ListItemIcon><Youtube /></ListItemIcon>
+            <ListItemText primary='Youtube' />
           </ListItem>
         </List>
         <Divider />
