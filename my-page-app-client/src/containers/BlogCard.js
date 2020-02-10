@@ -18,6 +18,7 @@ const styles = theme => ({
   card: {
     width: 'auto',
     height: 'auto',
+    // padding: theme.spacing(2),
     maxWidth: 350,
     minWidth: 185,
     maxHeight: 260,

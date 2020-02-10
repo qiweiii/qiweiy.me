@@ -80,7 +80,9 @@ const styles = theme => ({
   },
   content: {
     flexGrow: 1,
-    padding: theme.spacing.unit * 3,
+    width: "82%",
+    // marginLeft: theme.spacing(1),
+    padding: theme.spacing(1),
   },
   tooltip: {
     backgroundColor: theme.palette.common.white,
@@ -158,8 +160,6 @@ class NavBar extends React.Component {
       userHasAuthenticated: this.userHasAuthenticated
     };
     const { classes, theme } = this.props;
-
-
     const drawer = (
       <div>
         <div className={classes.drawerHeader}>

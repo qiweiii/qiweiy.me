@@ -13,12 +13,13 @@ import { getAllBlogs, getUserBlogs } from '../actions';
 import { connect } from 'react-redux';
 
 
+
 const styles = theme => ({
   main: {
     width: 'auto',
-    display: 'block', // Fix IE 11 issue.
-    marginLeft: theme.spacing.unit * 1,
-    marginRight: theme.spacing.unit * 1,
+    display: 'block',
+    marginLeft: theme.spacing(1),
+    marginRight: theme.spacing(1),
     [theme.breakpoints.up('sm')]: {
       width: 'auto',
       maxWidth: '1000',
@@ -27,11 +28,11 @@ const styles = theme => ({
     },
   },
   list: {
-    marginTop: theme.spacing.unit * 1,
+    marginTop: theme.spacing(1),
     display: 'flex',
     flexGrow: 1,
     alignItems: 'center',
-    padding: `${theme.spacing.unit * 1}px ${theme.spacing.unit * 2}px ${theme.spacing.unit * 2}px`,
+    padding: `${theme.spacing(1)}px ${theme.spacing(2)}px ${theme.spacing(2)}px`,
   },
   uploads: {
     paddingBottom: '10px',
@@ -119,7 +120,7 @@ class Blogs extends React.Component {
     return (
       <div>
         <h1>All blogs</h1>
-        <Grid container spacing={24} className={classes.list}>
+        <Grid container spacing={3} className={classes.list}>
           {this.renderBlogsList(this.sortBlogs(this.props.allBlogs), true)}
         </Grid>
       </div>
@@ -142,7 +143,7 @@ class Blogs extends React.Component {
               </h4>
             </Link>
           </ListItem>
-        <Grid container spacing={24} className={classes.list}>
+        <Grid container spacing={3} className={classes.list}>
           {this.renderBlogsList(this.sortBlogs(this.props.userBlogs), false)}
         </Grid>
         <Divider/>

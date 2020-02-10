@@ -14,9 +14,9 @@ import "./NB.css";
 const styles = theme => ({
   layout: {
     width: 'auto',
-    marginLeft: theme.spacing.unit * 2,
-    marginRight: theme.spacing.unit * 2,
-    [theme.breakpoints.up(600 + theme.spacing.unit * 2 * 2)]: {
+    marginLeft: theme.spacing(2),
+    marginRight: theme.spacing(2),
+    [theme.breakpoints.up(600 + theme.spacing(2 * 2))]: {
       width: 'auto',
       maxWidth: 800,
       marginLeft: 'auto',
@@ -24,14 +24,14 @@ const styles = theme => ({
     },
   },
   paper: {
-    marginTop: theme.spacing.unit * 3,
-    marginBottom: theme.spacing.unit * 3,
-    padding: theme.spacing.unit * 2,
+    marginTop: theme.spacing(3),
+    marginBottom: theme.spacing(3),
+    padding: theme.spacing(2),
     minHeight: 500,
-    [theme.breakpoints.up(600 + theme.spacing.unit * 3 * 2)]: {
-      marginTop: theme.spacing.unit * 6,
-      marginBottom: theme.spacing.unit * 6,
-      padding: theme.spacing.unit * 3,
+    [theme.breakpoints.up(600 + theme.spacing(3 * 2))]: {
+      marginTop: theme.spacing(6),
+      marginBottom: theme.spacing(6),
+      padding: theme.spacing(3),
       minHeight: 500,
     },
   },
@@ -43,16 +43,16 @@ const styles = theme => ({
     justifyContent: 'flex-end',
   },
   button: {
-    marginTop: theme.spacing.unit * 3,
+    marginTop: theme.spacing(3),
     marginLeft: theme.spacing.unit,
   },
   buttonDelete: {
-    marginTop: theme.spacing.unit * 3,
+    marginTop: theme.spacing(3),
     marginLeft: theme.spacing.unit,
   },
   link: {
-    marginTop: theme.spacing.unit * 4,
-    marginRight: theme.spacing.unit * 3,
+    marginTop: theme.spacing(4),
+    marginRight: theme.spacing(3),
     marginBottom: 10,
   }
 });
