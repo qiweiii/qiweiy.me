@@ -8,8 +8,8 @@ const styles = theme => ({
     width: 350,
     height: 600,
     display: 'block',
-    marginLeft: theme.spacing.unit * 1,
-    marginRight: theme.spacing.unit * 1,
+    marginLeft: theme.spacing(1),
+    marginRight: theme.spacing(1),
     [theme.breakpoints.up('sm')]: {
       width: 800,
       height: 800,

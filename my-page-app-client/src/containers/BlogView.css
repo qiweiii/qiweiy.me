@@ -1,5 +1,4 @@
 .dont-break-out {
-
   /* These are technically the same, but use both */
   overflow-wrap: break-word;
   word-wrap: break-word;
@@ -33,7 +32,7 @@ img {
 }
 
 pre {
-  border: 1px solid #ccc;
+  
 }
 
 blockquote {

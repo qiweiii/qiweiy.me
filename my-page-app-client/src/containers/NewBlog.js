@@ -15,8 +15,8 @@ const styles = theme => ({
   main: {
     width: 'auto',
     display: 'block', // Fix IE 11 issue.
-    marginLeft: theme.spacing.unit * 1,
-    marginRight: theme.spacing.unit * 1,
+    marginLeft: theme.spacing(1),
+    marginRight: theme.spacing(1),
     [theme.breakpoints.up('sm')]: {
       width: 'auto',
       maxWidth: 800,
@@ -25,11 +25,11 @@ const styles = theme => ({
     },
   },
   paper: {
-    marginTop: theme.spacing.unit * 4,
+    marginTop: theme.spacing(4),
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
-    padding: `${theme.spacing.unit * 2}px ${theme.spacing.unit * 2}px ${theme.spacing.unit * 2}px`,
+    padding: `${theme.spacing(2)}px ${theme.spacing(2)}px ${theme.spacing(2)}px`,
   },
   container: {
     display: 'flex',
@@ -46,12 +46,12 @@ const styles = theme => ({
     justifyContent: 'flex-end',
   },
   button: {
-    marginTop: theme.spacing.unit * 3,
+    marginTop: theme.spacing(3),
     marginBottom: 20,
   },
   link: {
-    marginTop: theme.spacing.unit * 4,
-    marginLeft: theme.spacing.unit * 3,
+    marginTop: theme.spacing(4),
+    marginLeft: theme.spacing(3),
     marginBottom: 10,
   }
 });

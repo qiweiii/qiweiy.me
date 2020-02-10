@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import Paper from '@material-ui/core/Paper';
+import Container from '@material-ui/core/Container';
 import Typography from '@material-ui/core/Typography';
 import { Link as RouterLink} from 'react-router-dom'
 import Disqus from 'disqus-react';
@@ -15,23 +16,24 @@ import classNames from 'classnames';
 const styles = theme => ({
   layout: {
     width: 'auto',
-    marginLeft: theme.spacing.unit * 1,
-    marginRight: theme.spacing.unit * 1,
-    [theme.breakpoints.up(1100 + theme.spacing.unit * 2 * 2)]: {
-      maxWidth: 1000,
-      marginLeft: 'auto',
-      marginRight: 'auto',
-    },
+    marginLeft: theme.spacing(1),
+    marginRight: theme.spacing(1),
+    // maxWidth: 400,
+    // [theme.breakpoints.up(1100 + theme.spacing(2 * 2)]: {
+    //   maxWidth: 1000,
+    //   marginLeft: 'auto',
+    //   marginRight: 'auto',
+    // },
   },
   paper: {
-    marginTop: theme.spacing.unit * 2,
-    marginBottom: theme.spacing.unit * 4,
+    marginTop: theme.spacing(2),
+    marginBottom: theme.spacing(4),
     minHeight: 350,
     backgroundColor: '#f5f5f5',
-    [theme.breakpoints.up(600 + theme.spacing.unit * 3 * 2)]: {
-      marginTop: theme.spacing.unit * 5,
-      marginBottom: theme.spacing.unit * 5,
-      padding: theme.spacing.unit * 2,
+    [theme.breakpoints.up(600 + theme.spacing(3 * 2))]: {
+      marginTop: theme.spacing(5),
+      marginBottom: theme.spacing(5),
+      // padding: theme.spacing(2),
       minHeight: 500,
       backgroundColor: '#f5f5f5',
     },
@@ -39,23 +41,24 @@ const styles = theme => ({
   title: {
     fontWeight: 500,
     fontFamily: 'Helvetica Neue',
-    padding: theme.spacing.unit * 3,
+    padding: theme.spacing(3),
   },
   author: {
     fontSize: 16,
     color: '#616161',
-    paddingLeft: theme.spacing.unit * 3,
-    [theme.breakpoints.up(600 + theme.spacing.unit * 3 * 2)]: {
+    paddingLeft: theme.spacing(3),
+    [theme.breakpoints.up(600 + theme.spacing(3 * 2))]: {
       fontSize: 16,
       color: '#616161',
-      paddingLeft: theme.spacing.unit * 5,
+      paddingLeft: theme.spacing(5),
     },
   },
   content: {
-    padding: theme.spacing.unit * 3,
+    overflow: 'hidden',
+    padding: theme.spacing(3),
     minHeight: 400,
-    [theme.breakpoints.up(600 + theme.spacing.unit * 3 * 2)]: {
-      padding: theme.spacing.unit * 5,
+    [theme.breakpoints.up(600 + theme.spacing(3 * 2))]: {
+      padding: theme.spacing(5),
       minHeight: 400,
     },
   },
@@ -69,12 +72,12 @@ const styles = theme => ({
     justifyContent: 'flex-end',
   },
   button: {
-    marginTop: theme.spacing.unit * 3,
-    marginLeft: theme.spacing.unit * 2,
-    [theme.breakpoints.up(600 + theme.spacing.unit * 3 * 2)]: {
-      marginLeft: theme.spacing.unit * 5,
+    marginTop: theme.spacing(3),
+    marginLeft: theme.spacing(2),
+    [theme.breakpoints.up(600 + theme.spacing(3 * 2))]: {
+      marginLeft: theme.spacing(5),
     },
-    marginBottom: theme.spacing.unit * 3,
+    marginBottom: theme.spacing(3),
   },
 });
 
@@ -127,7 +130,7 @@ class BlogView extends React.Component {
     };
     return (
       
-        <main className={classes.layout}>
+        <Container className={classes.layout}>
           <Paper elevation={6} className={classes.paper}>
             <Typography variant="h4" gutterBottom align="center" className={classes.title}>
               {this.props.location.state.title}
@@ -171,7 +174,7 @@ class BlogView extends React.Component {
             </Disqus.CommentCount>
             <Disqus.DiscussionEmbed shortname={disqusShortname} config={disqusConfig} />
           </div>
-        </main>
+        </Container>
 
     );
   }

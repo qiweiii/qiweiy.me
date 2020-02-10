@@ -12,12 +12,12 @@ import Paper from '@material-ui/core/Paper';
 
 const styles = theme => ({
   root: {
-    marginTop: theme.spacing.unit * 10,
+    marginTop: theme.spacing(10),
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
     alignContent: 'center',
-    padding: `${theme.spacing.unit * 2}px ${theme.spacing.unit * 3}px ${theme.spacing.unit * 5}px`,
+    padding: `${theme.spacing(2)}px ${theme.spacing(3)}px ${theme.spacing(5)}px`,
     textAlign: "center",
     color: '#616161',
     [theme.breakpoints.up(400)]: {
@@ -26,14 +26,14 @@ const styles = theme => ({
     },
   },
   paper: {
-    marginTop: theme.spacing.unit * 1,
-    marginBottom: theme.spacing.unit * 4,
+    marginTop: theme.spacing(1),
+    marginBottom: theme.spacing(4),
     minHeight: 350,
     backgroundColor: '#f5f5f5',
-    [theme.breakpoints.up(600 + theme.spacing.unit * 3 * 2)]: {
-      marginTop: theme.spacing.unit * 5,
-      marginBottom: theme.spacing.unit * 5,
-      padding: theme.spacing.unit * 2,
+    [theme.breakpoints.up(600 + theme.spacing(3 * 2))]: {
+      marginTop: theme.spacing(5),
+      marginBottom: theme.spacing(5),
+      padding: theme.spacing(2),
       minHeight: 450,
       backgroundColor: '#f5f5f5',
     },
@@ -42,10 +42,10 @@ const styles = theme => ({
     margin: 20,
     width: 80,
     height: 80,
-    marginTop: theme.spacing.unit * 3,
+    marginTop: theme.spacing(3),
   },
   name: {
-    padding: theme.spacing.unit * 3,
+    padding: theme.spacing(3),
     fontWeight: 300,
     fontSize: '2rem',
     lineHeight: 2,
@@ -60,9 +60,9 @@ const styles = theme => ({
     lineSpacing: 12,
     letterSpacing: 0.1,
     
-    padding: theme.spacing.unit * 3,
-    [theme.breakpoints.up(600 + theme.spacing.unit * 3 * 2)]: {
-      padding: theme.spacing.unit * 5,
+    padding: theme.spacing(3),
+    [theme.breakpoints.up(600 + theme.spacing(6))]: {
+      padding: theme.spacing(5),
     },
   }
 });
