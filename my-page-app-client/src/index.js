@@ -7,6 +7,13 @@ import { BrowserRouter as Router } from "react-router-dom";
 import Amplify from "aws-amplify";
 import config from "./config";
 // import { Auth } from 'aws-amplify'
+import { Provider } from 'react-redux'
+import { createStore, applyMiddleware } from 'redux';
+import thunk from 'redux-thunk';
+import reducers from './reducers';
+
+const store = createStore(reducers, applyMiddleware(thunk));
+
 
 // configure aws amplify, connect to client
 Amplify.configure({
@@ -35,9 +42,11 @@ Amplify.configure({
 
 
 ReactDOM.render(
+  <Provider store={store}>
   <Router>
     <App />
-  </Router>,
+  </Router>
+  </Provider>,
   document.getElementById("root")
 );
 

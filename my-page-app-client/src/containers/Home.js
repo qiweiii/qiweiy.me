@@ -72,7 +72,7 @@ function Home(props) {
 
   return (
       <div className={classes.root}>
-      <Paper elevation='10' className={classes.paper}>
+      <Paper elevation={10} className={classes.paper}>
         <Grid container justify="center" alignItems="center">
           <Avatar alt="Qiwei Y" src={zima} className={classes.avatar} />
           <Typography variant='h4' className={classes.name}>Qiwei Yang</Typography>

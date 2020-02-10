@@ -52,8 +52,8 @@ const styles = theme => ({
 class BlogCard extends React.Component {
 
   // try the image link, make sure it works
-  async componentDidMount() {
-  }
+  // async componentDidMount() {
+  // }
 
   getImage() {
     let img = this.props.content.image;
