@@ -81,13 +81,13 @@ const styles = theme => ({
 
 class BlogView extends React.Component {
 
-  async componentDidMount() {
-    console.log(this.props);
+  // async componentDidMount() {
+    // console.log(this.props);
     // var disqus_config = function () {
     // this.page.url = 'https://qiweiy.me';  // Replace PAGE_URL with your page's canonical URL variable
     // this.page.identifier = this.props.match.params.id; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
     // };
-    }
+  // }
 
   // async componentDidMount() {
   //   try {
@@ -128,7 +128,7 @@ class BlogView extends React.Component {
     return (
       
         <main className={classes.layout}>
-          <Paper elevation="6" className={classes.paper}>
+          <Paper elevation={6} className={classes.paper}>
             <Typography variant="h4" gutterBottom align="center" className={classes.title}>
               {this.props.location.state.title}
             </Typography> 
