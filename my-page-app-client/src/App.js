@@ -15,7 +15,19 @@ const theme = createMuiTheme({
       contrastText: '#fff',
     },
   },
-  typography: { useNextVariants: true },
+  typography: { 
+    useNextVariants: true,
+    fontFamily: [
+      'Roboto',
+      '"Segoe UI"',
+      'sans-serif',
+      '"Helvetica Neue"',
+      'Arial',
+      '"Apple Color Emoji"',
+      '"Segoe UI Emoji"',
+      '"Segoe UI Symbol"',
+    ].join(','),
+  },
   overrides: {
     // Style sheet name ⚛️
     MuiTypography: {

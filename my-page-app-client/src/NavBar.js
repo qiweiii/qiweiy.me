@@ -39,7 +39,7 @@ const styles = theme => ({
   },
   grow: {
     flexGrow: 1,
-    color: '#fff',
+    // color: '#fff',
   },
   drawer: {
     [theme.breakpoints.up('sm')]: {
@@ -164,7 +164,7 @@ class NavBar extends React.Component {
     const drawer = (
       <div>
         <div className={classes.drawerHeader}>
-          <Link href="https://qiweiii.herokuapp.com/">v1.0</Link>
+          <Link target="_blank" href="https://qiweiii.herokuapp.com/">view v1.0</Link>
         </div>
         <Divider />
         <List>

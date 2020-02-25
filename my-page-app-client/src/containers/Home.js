@@ -12,14 +12,14 @@ import Paper from '@material-ui/core/Paper';
 
 const styles = theme => ({
   root: {
-    marginTop: theme.spacing(10),
+    marginTop: theme.spacing(8),
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
     alignContent: 'center',
     padding: `${theme.spacing(2)}px ${theme.spacing(3)}px ${theme.spacing(5)}px`,
     textAlign: "center",
-    color: '#616161',
+    // color: '#616161',
     [theme.breakpoints.up(400)]: {
       marginLeft: 'auto',
       marginRight: 'auto',
@@ -49,12 +49,10 @@ const styles = theme => ({
     fontWeight: 300,
     fontSize: '2rem',
     lineHeight: 2,
-    fontFamily: 'Roboto,Helvetica,Arial,sans-serif',
   },
   p: {
     maxWidth: 450,
     fontSize: '1.1rem',
-    fontFamily: 'Roboto,Helvetica,Arial,sans-serif',
     fontWeight: 300,
     lineHeight: 1.7,
     lineSpacing: 12,
@@ -78,7 +76,7 @@ function Home(props) {
           <Typography variant='h4' className={classes.name}>Qiwei Yang</Typography>
         </Grid>
         <Typography gutterBottom variant='body1' className={classes.p}>Third year Computer Science student from UNSW Sydney / Part-time Node.js Developer <br />with an interest in web technologies and cloud computing. </Typography>
-        <Typography gutterBottom variant='body1' className={classes.p}>Looking for a software engineer internship (2020 Sep - 2021 Feb)</Typography>
+        <Typography gutterBottom variant='body1' className={classes.p}>Looking for a Graduate Frontend/JavaScript Developer job in Sydney</Typography>
         <Typography gutterBottom variant='body1' className={classes.p}>My email: <a href = "mailto: yangqiwei97@gmail.com">yangqiwei97@gmail.com</a></Typography>
       </Paper>
       </div>
