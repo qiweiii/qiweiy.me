@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
-import Paper from '@material-ui/core/Paper';
+// import Paper from '@material-ui/core/Paper';
 import Container from '@material-ui/core/Container';
 import Typography from '@material-ui/core/Typography';
 import { Link as RouterLink} from 'react-router-dom'
@@ -15,32 +15,30 @@ import classNames from 'classnames';
 
 const styles = theme => ({
   layout: {
-    width: 'auto',
-    marginLeft: theme.spacing(1),
-    marginRight: theme.spacing(1),
-    // maxWidth: 400,
-    // [theme.breakpoints.up(1100 + theme.spacing(2 * 2)]: {
-    //   maxWidth: 1000,
-    //   marginLeft: 'auto',
-    //   marginRight: 'auto',
-    // },
-  },
-  paper: {
-    marginTop: theme.spacing(2),
-    marginBottom: theme.spacing(4),
-    minHeight: 350,
-    backgroundColor: '#f5f5f5',
-    [theme.breakpoints.up(600 + theme.spacing(3 * 2))]: {
-      marginTop: theme.spacing(5),
-      marginBottom: theme.spacing(5),
-      // padding: theme.spacing(2),
-      minHeight: 500,
-      backgroundColor: '#f5f5f5',
+    maxWidth: 1100,
+    marginLeft: 'auto',
+    marginRight: 'auto',
+    [theme.breakpoints.up(1100 + theme.spacing(2 * 2))]: {
+      width: 'auto',
+      margin: '3% 18%',
     },
   },
+  // paper: {
+  //   marginTop: theme.spacing(2),
+  //   marginBottom: theme.spacing(4),
+  //   minHeight: 350,
+  //   backgroundColor: '#f5f5f5',
+  //   [theme.breakpoints.up(600 + theme.spacing(3 * 2))]: {
+  //     marginTop: theme.spacing(5),
+  //     marginBottom: theme.spacing(5),
+  //     // padding: theme.spacing(2),
+  //     minHeight: 500,
+  //     backgroundColor: '#f5f5f5',
+  //   },
+  // },
   title: {
-    fontWeight: 500,
-    fontFamily: 'Helvetica Neue',
+    fontSize: '2.5rem',
+    fontWeight: 'bold',
     padding: theme.spacing(3),
   },
   author: {
@@ -61,11 +59,8 @@ const styles = theme => ({
       padding: theme.spacing(5),
       minHeight: 400,
     },
-  },
-  contentText: {
-    fontSize: 16,
-    // fontWeight: 400,
-    fontFamily: 'Helvetica Neue',
+    fontSize: '1.2rem',
+    lineHeight: '1.6',
   },
   buttons: {
     display: 'flex',
@@ -131,7 +126,7 @@ class BlogView extends React.Component {
     return (
       
         <Container className={classes.layout}>
-          <Paper elevation={6} className={classes.paper}>
+          {/* <Paper elevation={6} className={classes.paper}> */}
             <Typography variant="h4" gutterBottom align="center" className={classes.title}>
               {this.props.location.state.title}
             </Typography> 
@@ -167,7 +162,7 @@ class BlogView extends React.Component {
                 Edit
               </Button>
             }
-          </Paper>
+          {/* </Paper> */}
 
           <div>
             <Disqus.CommentCount shortname={disqusShortname} config={disqusConfig}>

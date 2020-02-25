@@ -27,6 +27,9 @@ const styles = theme => ({
       marginRight: 'auto',
     },
   },
+  h1: {
+    paddingLeft: 12,
+  },
   list: {
     marginTop: theme.spacing(1),
     display: 'flex',
@@ -119,7 +122,7 @@ class Blogs extends React.Component {
     const { classes } = this.props;
     return (
       <div>
-        <h1>All blogs</h1>
+        <h1 className={classes.h1}>All blogs</h1>
         <Grid container spacing={3} className={classes.list}>
           {this.renderBlogsList(this.sortBlogs(this.props.allBlogs), true)}
         </Grid>
@@ -131,7 +134,7 @@ class Blogs extends React.Component {
     const { classes } = this.props;
     return (
       <main className={classes.main}>
-        <h1>Your Blogs</h1>
+        <h1 className={classes.h1}>Your Blogs</h1>
           <ListItem>
             <Link
               component={RouterLink}
