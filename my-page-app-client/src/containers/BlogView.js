@@ -20,7 +20,7 @@ const styles = theme => ({
     marginRight: 'auto',
     [theme.breakpoints.up(1100 + theme.spacing(2 * 2))]: {
       width: 'auto',
-      margin: '3% 18%',
+      margin: '3% 18% 3% 15%',
     },
   },
   // paper: {
