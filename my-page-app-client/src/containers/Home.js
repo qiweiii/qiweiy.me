@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import { Typography } from "@material-ui/core";
-import zima from "../img/zima.png";
+import zima from "../img/zima.jpg";
 // import qiwei from "../img/qiwei.png";
 import Avatar from '@material-ui/core/Avatar';
 import Grid from '@material-ui/core/Grid';
