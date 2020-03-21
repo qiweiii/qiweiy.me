@@ -42,7 +42,7 @@ const styles = theme => ({
     padding: theme.spacing(3),
   },
   author: {
-    fontSize: 16,
+    fontSize: 14,
     color: '#616161',
     paddingLeft: theme.spacing(3),
     [theme.breakpoints.up(600 + theme.spacing(3 * 2))]: {
@@ -59,7 +59,7 @@ const styles = theme => ({
       padding: theme.spacing(5),
       minHeight: 400,
     },
-    fontSize: '1.2rem',
+    fontSize: '1.1rem',
     lineHeight: '1.6',
   },
   buttons: {
