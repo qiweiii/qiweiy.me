@@ -68,7 +68,7 @@ class Blogs extends React.Component {
     //   this.addDefaultBlogs();
     //   return;
     // }
-
+    
     // switched to redux
     await this.props.getAllBlogs();
     await this.props.getUserBlogs();
@@ -97,12 +97,13 @@ class Blogs extends React.Component {
   
   sortBlogs(blogs) {
     // return _.sortBy(blogs, 'createdAt').reverse();
-    return _.sortBy(blogs, 'createdAt');
+    blogs = blogs[0]
+    return _.orderBy(blogs, ['createdAt'], ['desc']);
   }
 
   renderBlogsList(blogs, noEditButton) {
     // console.log(blogs[0]);
-    return [{}].concat(blogs[0]).map(
+    return [{}].concat(blogs).map(
       (blog, i) => 
         i !== 0 ?
         <Grid item xs={12} sm={6} md={4} lg={3} key={blog.noteId}>
