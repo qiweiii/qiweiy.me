@@ -1,59 +1,28 @@
-import React, { Component } from "react";
+import React, { useState } from "react";
 import NavBar from "./NavBar"
-import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
+import { AppTheme } from "./types";
+import AppThemeOptions from "./theme";
 
 
+import useMediaQuery from '@material-ui/core/useMediaQuery';
+import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
 
+export default function App() {
+  // OS's prefer dark or light
+  const prefersDarkMode = useMediaQuery('(prefers-color-scheme: dark)');
+  const defaultTheme = prefersDarkMode ? AppTheme.Dark : AppTheme.LIGHT
+  const [theme, setTheme] = useState(defaultTheme);
 
-
-const theme = createMuiTheme({
-  palette: {
-    primary: {
-      light: '#757ce8',
-      main: '#00b0ff',
-      dark: '#002884',
-      contrastText: '#fff',
-    },
-  },
-  typography: { 
-    useNextVariants: true,
-    fontFamily: [
-      'Roboto',
-      '"Segoe UI"',
-      'sans-serif',
-      '"Helvetica Neue"',
-      'Arial',
-      '"Apple Color Emoji"',
-      '"Segoe UI Emoji"',
-      '"Segoe UI Symbol"',
-    ].join(','),
-  },
-  overrides: {
-    // Style sheet name ⚛️
-    MuiTypography: {
-      // Name of the rule
-      root: {
-        // Some CSS
-      },
-    },
-    MuiPaper: {
-      // Name of the rule
-      root: {
-        // Some CSS
-      },
-    },
-  },
-});
-
-class App extends Component {
-  
-  render() {
-    return (
-      <MuiThemeProvider theme={theme}>
-        <NavBar/>
-      </MuiThemeProvider>
-    );
+  const toggleDarkTheme = () => {
+    setTheme(theme === AppTheme.LIGHT ? AppTheme.DARK: AppTheme.LIGHT)
   }
-}
-export default App;
+  
+  // we generate a MUI-theme from state's theme object
+  const muiTheme = createMuiTheme(AppThemeOptions[theme]);
 
+  return (
+    <ThemeProvider theme={muiTheme}>
+      <NavBar onToggleDark={toggleDarkTheme} isDark={theme === AppTheme.DARK}/>
+    </ThemeProvider>
+  );
+}

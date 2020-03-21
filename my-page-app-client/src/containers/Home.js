@@ -29,13 +29,11 @@ const styles = theme => ({
     marginTop: theme.spacing(1),
     marginBottom: theme.spacing(4),
     minHeight: 350,
-    backgroundColor: '#f5f5f5',
     [theme.breakpoints.up(600 + theme.spacing(3 * 2))]: {
       marginTop: theme.spacing(5),
       marginBottom: theme.spacing(5),
       padding: theme.spacing(2),
       minHeight: 450,
-      backgroundColor: '#f5f5f5',
     },
   },
   avatar: {
@@ -70,13 +68,13 @@ function Home(props) {
 
   return (
       <div className={classes.root}>
-      <Paper elevation={10} className={classes.paper}>
+      <Paper color='default' elevation={2} className={classes.paper}>
         <Grid container justify="center" alignItems="center">
           <Avatar alt="Qiwei Y" src={zima} className={classes.avatar} />
           <Typography variant='h4' className={classes.name}>Qiwei Yang</Typography>
         </Grid>
         <Typography gutterBottom variant='body1' className={classes.p}>Third year Computer Science student from UNSW Sydney / Part-time Node.js Developer <br />with an interest in web technologies and cloud computing. </Typography>
-        <Typography gutterBottom variant='body1' className={classes.p}>Looking for a Graduate Frontend/JavaScript Developer job in Sydney</Typography>
+        <Typography gutterBottom variant='body1' className={classes.p}>Looking for a Graduate JavaScript Developer job in Sydney</Typography>
         <Typography gutterBottom variant='body1' className={classes.p}>My email: <a href = "mailto: yangqiwei97@gmail.com">yangqiwei97@gmail.com</a></Typography>
       </Paper>
       </div>
