@@ -12,6 +12,8 @@ import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
+import Brightness4Icon from '@material-ui/icons/Brightness4';
+import Brightness7Icon from '@material-ui/icons/Brightness7';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
@@ -28,7 +30,6 @@ import Routes from "./Routes";
 import { Auth } from "aws-amplify";
 import Tooltip from '@material-ui/core/Tooltip';
 import config from "./config";
-
 
 const drawerWidth = 180;
 
@@ -164,7 +165,7 @@ class NavBar extends React.Component {
     const drawer = (
       <div>
         <div className={classes.drawerHeader}>
-          <Link target="_blank" href="https://qiweiii.herokuapp.com/">view v1.0</Link>
+          <Link target="_blank" href="https://qiweiii.herokuapp.com/">v1.0</Link>
         </div>
         <Divider />
         <List>
@@ -176,24 +177,30 @@ class NavBar extends React.Component {
             <ListItemIcon><BookmarkIcon /></ListItemIcon>
             <ListItemText primary='Blogs' />
           </ListItem>
-          <ListItem component={RouterLink} to="/resume" button key='Resume'>
-            <ListItemIcon><FileDocumentBox /></ListItemIcon>
-            <ListItemText primary='Resume' />
-          </ListItem>
-          <Tooltip title="See Source Code" placement="right" classes={{ tooltip: classes.tooltip }}>
+          <Tooltip title="Latest resume" placement="right" classes={{ tooltip: classes.tooltip }}>
+            <ListItem component={RouterLink} to="/resume" button key='Resume'>
+              <ListItemIcon><FileDocumentBox /></ListItemIcon>
+              <ListItemText primary='Resume' />
+            </ListItem>
+          </Tooltip>
+          <Tooltip title="My Github profile" placement="right" classes={{ tooltip: classes.tooltip }}>
             <ListItem component="a" target="_blank" href="https://github.com/qiweiii" button key='GitHub'>
               <ListItemIcon><GithubFace /></ListItemIcon>
               <ListItemText primary='GitHub' />
             </ListItem>
           </Tooltip>
-          <ListItem component="a" target="_blank" href="https://linkedin.com/in/qiwei-yang-679617142" button key='Linkedin'>
-            <ListItemIcon><Linkedin /></ListItemIcon>
-            <ListItemText primary='LinkedIn' />
-          </ListItem>
-          <ListItem component="a" target="_blank" href="https://www.youtube.com/channel/UC8Lo-3YtynRLZa9b-e0JyLw" button key='Youtube'>
-            <ListItemIcon><Youtube /></ListItemIcon>
-            <ListItemText primary='Youtube' />
-          </ListItem>
+          <Tooltip title="My LinkedIn profile" placement="right" classes={{ tooltip: classes.tooltip }}>
+            <ListItem component="a" target="_blank" href="https://linkedin.com/in/qiwei-yang-679617142" button key='Linkedin'>
+              <ListItemIcon><Linkedin /></ListItemIcon>
+              <ListItemText primary='LinkedIn' />
+            </ListItem>
+          </Tooltip>
+          <Tooltip title="My Youtube Channel" placement="right" classes={{ tooltip: classes.tooltip }}>
+            <ListItem component="a" target="_blank" href="https://www.youtube.com/channel/UC8Lo-3YtynRLZa9b-e0JyLw" button key='Youtube'>
+              <ListItemIcon><Youtube /></ListItemIcon>
+              <ListItemText primary='Youtube' />
+            </ListItem>
+          </Tooltip>
         </List>
         <Divider />
           <ListItem component={RouterLink} to="/more" button key='More'>
@@ -222,6 +229,13 @@ class NavBar extends React.Component {
                   QW
               </Link>
             </Typography>
+            <Tooltip title="Toggle dark/light mode" placement="bottom" classes={{ tooltip: classes.tooltip }}>
+              <IconButton onClick={this.props.onToggleDark}>
+                {this.props.isDark ? 
+                  <Brightness7Icon /> : <Brightness4Icon style={{ color: 'white' }} /> 
+                }
+              </IconButton>
+            </Tooltip>
             {this.state.isAuthenticated 
               ? <Button color="inherit" onClick={this.handleLogout}>Logout</Button>
               : <Fragment>
@@ -272,14 +286,8 @@ class NavBar extends React.Component {
 
 NavBar.propTypes = {
   classes: PropTypes.object.isRequired,
-  // Injected by the documentation to work in an iframe.
-  // You won't need it on your project.
   container: PropTypes.object,
   theme: PropTypes.object.isRequired,
 };
 
 export default withRouter(withStyles(styles, { withTheme: true })(NavBar));
-
-
-
-

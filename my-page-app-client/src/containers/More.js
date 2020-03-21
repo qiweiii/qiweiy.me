@@ -11,7 +11,7 @@ const styles = theme => ({
     flexDirection: 'column',
     alignItems: 'center',
     padding: `${theme.spacing(2)}px ${theme.spacing(3)}px ${theme.spacing(5)}px`,
-    color: '#616161',
+    // color: '#616161',
     fontSize: 14,
     [theme.breakpoints.down(400)]: {
       marginLeft: 'auto',
@@ -23,9 +23,9 @@ const styles = theme => ({
     textAlign: 'left',
   },
   h1: {
-    font: 'Roboto',
+    // font: 'Roboto',
     fontWeight: 300,
-    color: '#212121',
+    // color: '#212121',
   },
   p: {
     maxWidth: 450,
@@ -41,7 +41,7 @@ function More(props) {
           <h1 className={classes.h1}>Future</h1>
           <p className={classes.p}>Add tags to blogs, allow user to click on and see blogs under the different tags.</p>
           <a href="https://github.com/rexxars/react-markdown/blob/master/demo/src/demo.js" rel="noopener noreferrer" target="_blank" className={classes.p}>Add Live Editor.</a>
-          <p className={classes.p}>Implement file upload function.</p>
+          <p className={classes.p}>Nicer style.</p>
           <p className={classes.p}>New API for getting blogs and Infinite Scroll.</p>
           <br/>
           <p className={classes.p}>My email: <a href = "mailto: yangqiwei97@gmail.com">yangqiwei97@gmail.com</a></p>

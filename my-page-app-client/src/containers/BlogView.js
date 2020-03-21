@@ -46,7 +46,7 @@ const styles = theme => ({
     color: '#616161',
     paddingLeft: theme.spacing(3),
     [theme.breakpoints.up(600 + theme.spacing(3 * 2))]: {
-      fontSize: 16,
+      fontSize: 14,
       color: '#616161',
       paddingLeft: theme.spacing(5),
     },
@@ -78,42 +78,6 @@ const styles = theme => ({
 
 
 class BlogView extends React.Component {
-
-  // async componentDidMount() {
-    // console.log(this.props);
-    // var disqus_config = function () {
-    // this.page.url = 'https://qiweiy.me';  // Replace PAGE_URL with your page's canonical URL variable
-    // this.page.identifier = this.props.match.params.id; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
-    // };
-  // }
-
-  // async componentDidMount() {
-  //   try {
-  //     let attachmentURL;
-  //     const blog = await this.getNote();
-  //     const { content, attachment } = blog;
-  //     if (attachment) {
-  //       attachmentURL = await Storage.vault.get(attachment);
-  //     }
-
-  //     this.setState({
-  //       blog,
-  //       content: content.content,
-  //       title: content.title,
-  //       attachmentURL
-  //     });
-  //   } catch (e) {
-  //     alert(e);
-  //   }
-  // }
-
-  // getNote() {
-  //   return API.get("pages", `/pages/${this.props.match.params.id}`);
-  // }
-
-  // formatFilename(str) {
-  //   return str.replace(/^\w+-/, "");
-  // }
 
   render() {
     const { classes } = this.props;
