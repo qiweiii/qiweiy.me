@@ -2,10 +2,9 @@ import React, { useState } from "react";
 import NavBar from "./NavBar"
 import { AppTheme } from "./types";
 import AppThemeOptions from "./theme";
-
-
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
+
 
 export default function App() {
   // OS's prefer dark or light
