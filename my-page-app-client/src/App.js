@@ -9,8 +9,9 @@ import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
 export default function App() {
   // OS's prefer dark or light
   const prefersDarkMode = useMediaQuery('(prefers-color-scheme: dark)');
-  const defaultTheme = prefersDarkMode ? AppTheme.Dark : AppTheme.LIGHT
+  const defaultTheme = prefersDarkMode ? AppTheme.LIGHT : AppTheme.DARK
   const [theme, setTheme] = useState(defaultTheme);
+  console.log(theme)
 
   const toggleDarkTheme = () => {
     setTheme(theme === AppTheme.LIGHT ? AppTheme.DARK: AppTheme.LIGHT)
