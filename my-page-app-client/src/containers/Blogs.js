@@ -63,37 +63,13 @@ class Blogs extends React.Component {
   }
 
   async componentDidMount() {
-    // the following if block is here because amplify does not allow calling of api without authentication
-    // if (!this.props.isAuthenticated) {
-    //   this.addDefaultBlogs();
-    //   return;
-    // }
-    
     // switched to redux
+    // this should be in a HOC, but it won't be authenticated in Amplify if I do it that way
+    // So I roll back to this version. Maybe in future I will know how to solve this.
     await this.props.getAllBlogs();
     await this.props.getUserBlogs();
     this.setState({ isLoading: false });
-    
-    // try {
-    //   const blogs = await this.blogs();
-    //   this.setState({ blogs });
-    //   const ab = await this.getAllBlogs();
-    //   this.setState({ 
-    //     allblogs: ab,
-    //     isLoading: false
-    //   });
-    // } catch (e) {
-    //   // alert(e);
-    //   console.log(e);
-    // }
-    // rmb to add the default blogs created by me to allblogs list
   }
-
-  // showblogs() {
-  //   for (var i = 0; i < this.state.blogs.length; i++) {
-  //     console.log(this.state.blogs[i]);
-  //   }
-  // }
   
   sortBlogs(blogs) {
     // return _.sortBy(blogs, 'createdAt').reverse();
