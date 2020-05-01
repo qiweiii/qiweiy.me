@@ -63,9 +63,10 @@ class Blogs extends React.Component {
   }
 
   async componentDidMount() {
-    // switched to redux
-    // this should be in a HOC, but it won't be authenticated in Amplify if I do it that way
-    // So I roll back to this version. Maybe in future I will know how to solve this.
+    // I have moved these to a HOC so it don't need to load everytime I click blogs, 
+    // but then suddenly the auth is not working when I logged out, so I moved it back here (which i should not).
+    // BUT now I realised that the problem is with my browser, so incognito mode/safari/mobile devices all workds 
+    // except my chrome browser. Not sure exactly why but this part seems to work. I will investigate it more.
     await this.props.getAllBlogs();
     await this.props.getUserBlogs();
     this.setState({ isLoading: false });
