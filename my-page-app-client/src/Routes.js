@@ -9,7 +9,7 @@ import NewBlog from "./containers/NewBlog";
 import Blogs from "./containers/Blogs";
 import BlogEdit from "./containers/BlogEdit";
 import BlogView from "./containers/BlogView";
-import Resume from "./containers/Resume";
+// import Resume from "./containers/Resume";
 import More from "./containers/More";
 import AuthenticatedRoute from "./components/AuthenticatedRoute";
 import UnauthenticatedRoute from "./components/UnauthenticatedRoute";
@@ -20,7 +20,8 @@ export default ({ childProps }) =>
     <AppliedRoute path="/" exact component={Home} props={childProps} />
     <UnauthenticatedRoute path="/login" exact component={Login} props={childProps} />
     <UnauthenticatedRoute path="/signup" exact component={Signup} props={childProps} />
-    <AppliedRoute path="/resume" exact component={Resume} props={childProps} />
+    {/* removed resume section coz i am going to make customized resume for each company */}
+    {/* <AppliedRoute path="/resume" exact component={Resume} props={childProps} /> */}
 		<AuthenticatedRoute path="/blogs/new" exact component={NewBlog} props={childProps} />
 		<AppliedRoute path="/blogs" exact component={Blogs} props={childProps} />
 		<AuthenticatedRoute path="/blogs/edit/:id" exact component={BlogEdit} props={childProps} />

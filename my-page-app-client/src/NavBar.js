@@ -19,11 +19,11 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import HomeIcon from '@material-ui/icons/Home';
 import BookmarkIcon from '@material-ui/icons/Bookmark';
+import LaunchIcon from '@material-ui/icons/Launch';
 import GithubFace from 'mdi-material-ui/GithubFace'
 import Lightbulb from 'mdi-material-ui/Lightbulb'
 import Linkedin from 'mdi-material-ui/Linkedin'
 import Youtube from 'mdi-material-ui/Youtube'
-import FileDocumentBox from 'mdi-material-ui/FileDocumentBox'
 import { Link as RouterLink, withRouter } from 'react-router-dom'
 import Link from '@material-ui/core/Link';
 import Routes from "./Routes";
@@ -165,7 +165,6 @@ class NavBar extends React.Component {
     const drawer = (
       <div>
         <div className={classes.drawerHeader}>
-          <Link target="_blank" href="https://qiweiii.herokuapp.com/">v1.0</Link>
         </div>
         <Divider />
         <List>
@@ -177,28 +176,28 @@ class NavBar extends React.Component {
             <ListItemIcon><BookmarkIcon /></ListItemIcon>
             <ListItemText primary='Blogs' />
           </ListItem>
-          <Tooltip title="Latest resume" placement="right" classes={{ tooltip: classes.tooltip }}>
+          {/* <Tooltip title="Latest resume" placement="right" classes={{ tooltip: classes.tooltip }}>
             <ListItem component={RouterLink} to="/resume" button key='Resume'>
               <ListItemIcon><FileDocumentBox /></ListItemIcon>
               <ListItemText primary='Resume' />
             </ListItem>
-          </Tooltip>
+          </Tooltip> */}
           <Tooltip title="My Github profile" placement="right" classes={{ tooltip: classes.tooltip }}>
             <ListItem component="a" target="_blank" href="https://github.com/qiweiii" button key='GitHub'>
               <ListItemIcon><GithubFace /></ListItemIcon>
-              <ListItemText primary='GitHub' />
+              <ListItemText primary={<div>GitHub <LaunchIcon style={{ fontSize: 16 }} /></div>} />
             </ListItem>
           </Tooltip>
           <Tooltip title="My LinkedIn profile" placement="right" classes={{ tooltip: classes.tooltip }}>
             <ListItem component="a" target="_blank" href="https://linkedin.com/in/qiwei-yang-679617142" button key='Linkedin'>
               <ListItemIcon><Linkedin /></ListItemIcon>
-              <ListItemText primary='LinkedIn' />
+              <ListItemText primary={<div>LinkedIn <LaunchIcon style={{ fontSize: 16 }} /></div>} />
             </ListItem>
           </Tooltip>
           <Tooltip title="My Youtube Channel" placement="right" classes={{ tooltip: classes.tooltip }}>
             <ListItem component="a" target="_blank" href="https://www.youtube.com/channel/UC8Lo-3YtynRLZa9b-e0JyLw" button key='Youtube'>
               <ListItemIcon><Youtube /></ListItemIcon>
-              <ListItemText primary='Youtube' />
+              <ListItemText primary={<div>YouTube <LaunchIcon style={{ fontSize: 16 }} /></div>} />
             </ListItem>
           </Tooltip>
         </List>
