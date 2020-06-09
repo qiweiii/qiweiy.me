@@ -23,7 +23,7 @@ import LaunchIcon from '@material-ui/icons/Launch';
 import GithubFace from 'mdi-material-ui/GithubFace'
 import Lightbulb from 'mdi-material-ui/Lightbulb'
 import Linkedin from 'mdi-material-ui/Linkedin'
-import Youtube from 'mdi-material-ui/Youtube'
+// import Youtube from 'mdi-material-ui/Youtube'
 import { Link as RouterLink, withRouter } from 'react-router-dom'
 import Link from '@material-ui/core/Link';
 import Routes from "./Routes";
@@ -192,12 +192,6 @@ class NavBar extends React.Component {
             <ListItem component="a" target="_blank" href="https://linkedin.com/in/qiwei-yang-679617142" button key='Linkedin'>
               <ListItemIcon><Linkedin /></ListItemIcon>
               <ListItemText primary={<div>LinkedIn <LaunchIcon style={{ fontSize: 16 }} /></div>} />
-            </ListItem>
-          </Tooltip>
-          <Tooltip title="My Youtube Channel" placement="right" classes={{ tooltip: classes.tooltip }}>
-            <ListItem component="a" target="_blank" href="https://www.youtube.com/channel/UC8Lo-3YtynRLZa9b-e0JyLw" button key='Youtube'>
-              <ListItemIcon><Youtube /></ListItemIcon>
-              <ListItemText primary={<div>YouTube <LaunchIcon style={{ fontSize: 16 }} /></div>} />
             </ListItem>
           </Tooltip>
         </List>
