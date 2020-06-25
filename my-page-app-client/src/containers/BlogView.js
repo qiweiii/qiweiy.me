@@ -8,7 +8,7 @@ import Typography from '@material-ui/core/Typography';
 import { Link as RouterLink} from 'react-router-dom'
 import Disqus from 'disqus-react';
 import ReactMarkdown from 'react-markdown';
-import CodeBlock from "./code-block.js";
+import CodeBlock from "./CodeBlock.js";
 import "./BlogView.css";
 import classNames from 'classnames';
 
