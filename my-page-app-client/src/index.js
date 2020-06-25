@@ -13,6 +13,7 @@ import thunk from 'redux-thunk';
 import reducers from './reducers';
 import { composeWithDevTools } from 'redux-devtools-extension';
 
+
 const store = createStore(reducers, composeWithDevTools(applyMiddleware(thunk)));
 
 
@@ -44,9 +45,9 @@ Amplify.configure({
 
 ReactDOM.render(
   <Provider store={store}>
-  <Router>
-    <App />
-  </Router>
+    <Router>
+      <App />
+    </Router>
   </Provider>,
   document.getElementById("root")
 );

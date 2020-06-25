@@ -26,7 +26,7 @@ import Linkedin from 'mdi-material-ui/Linkedin'
 // import Youtube from 'mdi-material-ui/Youtube'
 import { Link as RouterLink, withRouter } from 'react-router-dom'
 import Link from '@material-ui/core/Link';
-import Routes from "./Routes";
+import MainHOC from "./MainHOC";
 import { Auth } from "aws-amplify";
 import Tooltip from '@material-ui/core/Tooltip';
 import config from "./config";
@@ -195,11 +195,12 @@ class NavBar extends React.Component {
             </ListItem>
           </Tooltip>
         </List>
+
         <Divider />
-          <ListItem component={RouterLink} to="/more" button key='More'>
-            <ListItemIcon><Lightbulb /></ListItemIcon>
-            <ListItemText primary='More' />
-          </ListItem>
+        <ListItem component={RouterLink} to="/more" button key='More'>
+          <ListItemIcon><Lightbulb /></ListItemIcon>
+          <ListItemText primary='More' />
+        </ListItem>
       </div>
     );
 
@@ -269,7 +270,7 @@ class NavBar extends React.Component {
 
         <main className={classes.content}>
           <div className={classes.toolbar} />
-          <Routes childProps={childProps} />
+          <MainHOC childProps={childProps} />
         </main>
 
       </div>

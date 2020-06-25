@@ -9,7 +9,6 @@ import Link from '@material-ui/core/Link';
 import Grid from '@material-ui/core/Grid';
 import _ from 'lodash';
 import CircularProgress from "@material-ui/core/CircularProgress";
-import { getAllBlogs, getUserBlogs } from '../actions';
 import { connect } from 'react-redux';
 
 
@@ -54,24 +53,7 @@ const styles = theme => ({
 });
 
 class Blogs extends React.Component {
-  constructor(props) {
-    super(props);
 
-    this.state = {
-      isLoading: true,
-    };
-  }
-
-  async componentDidMount() {
-    // I have moved these to a HOC so it don't need to load everytime I click blogs, 
-    // but then suddenly the auth is not working when I logged out, so I moved it back here (which i should not).
-    // BUT now I realised that the problem is with my browser, so incognito mode/safari/mobile devices all workds 
-    // except my chrome browser. Not sure exactly why but this part seems to work. I will investigate it more.
-    await this.props.getAllBlogs();
-    await this.props.getUserBlogs();
-    this.setState({ isLoading: false });
-  }
-  
   sortBlogs(blogs) {
     // return _.sortBy(blogs, 'createdAt').reverse();
     blogs = blogs[0]
@@ -139,16 +121,16 @@ class Blogs extends React.Component {
     const { classes } = this.props;
     return (
       <div>
-        { this.state.isLoading ? 
-        <div className={classes.spinner}>
-          <CircularProgress />
-        </div>
-        :
-        ( this.props.isAuthenticated ? 
-          this.renderUserBlogs()
-          : 
-          this.renderAllBlogs()
-        )
+        { this.props.blogsReady ? 
+          ( this.props.isAuthenticated ? 
+            this.renderUserBlogs()
+            : 
+            this.renderAllBlogs()
+          )
+          :
+          <div className={classes.spinner}>
+            <CircularProgress />
+          </div>
       }
       </div>
     );
@@ -162,11 +144,11 @@ Blogs.propTypes = {
 const mapStateToProps = state => {
   return { 
     userBlogs: state.userBlogs,
-    allBlogs: state.allBlogs
+    allBlogs: state.allBlogs,
+    blogsReady: state.blogsIsReady.allBlogsReady && state.blogsIsReady.userBlogsReady
   };
 };
 
 export default connect(
-  mapStateToProps,
-  { getUserBlogs, getAllBlogs }
+  mapStateToProps
 )(withStyles(styles)(Blogs));
