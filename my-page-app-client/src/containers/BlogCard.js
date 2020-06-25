@@ -21,32 +21,13 @@ const styles = theme => ({
     // padding: theme.spacing(2),
     maxWidth: 350,
     minWidth: 185,
-    maxHeight: 260,
-    [theme.breakpoints.up(1279)]: {
-      minHeight: 260,
-      width: 'auto',
-      height: 'auto',
-      marginLeft: 'auto',
-      marginRight: 'auto',
-    },
-    [theme.breakpoints.down(1077) && theme.breakpoints.up('sm')]: {
-      minHeight: 260,
-      width: 'auto',
-      marginLeft: 'auto',
-      marginRight: 'auto',
-    },
-    [theme.breakpoints.down('sm') && theme.breakpoints.up(1350)]: {
-      width: 'auto',
-      height: 'auto',
-      marginLeft: 'auto',
-      marginRight: 'auto',
-    },
+    maxHeight: 240
   },
   media: {
     height: 120,
   },
   action: {
-    minHeight: 20,
+    height: 240,
   },
 });
 
@@ -97,6 +78,7 @@ class BlogCard extends React.Component {
               date: this.props.date,
             } 
           }}
+          className={classes.action}
         >
           <CardMedia
             className={classes.media}
@@ -111,26 +93,6 @@ class BlogCard extends React.Component {
             </Typography>
           </CardContent>
         </CardActionArea>
-        <CardActions className={classes.action}>
-          <Button 
-            component={RouterLink}
-            to={{ 
-              pathname: this.props.link, 
-              state: {
-                title: this.props.content.title,
-                content: this.props.content.content,
-                author: this.props.content.author,
-                image: this.props.content.image,
-                noedit: this.props.noedit,
-                date: this.props.date,
-              }
-            }}
-            size="small" 
-            color="primary"
-          >
-            Learn More
-          </Button>
-        </CardActions>
       </Card>
     );
   }
