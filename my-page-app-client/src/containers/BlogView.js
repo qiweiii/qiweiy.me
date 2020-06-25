@@ -20,22 +20,10 @@ const styles = theme => ({
     marginRight: 'auto',
     [theme.breakpoints.up(1100 + theme.spacing(2 * 2))]: {
       width: 'auto',
-      margin: '3% 18% 3% 15%',
+      margin: '3% 15% 3% 15%',
     },
+    padding: "0px 10px"
   },
-  // paper: {
-  //   marginTop: theme.spacing(2),
-  //   marginBottom: theme.spacing(4),
-  //   minHeight: 350,
-  //   backgroundColor: '#f5f5f5',
-  //   [theme.breakpoints.up(600 + theme.spacing(3 * 2))]: {
-  //     marginTop: theme.spacing(5),
-  //     marginBottom: theme.spacing(5),
-  //     // padding: theme.spacing(2),
-  //     minHeight: 500,
-  //     backgroundColor: '#f5f5f5',
-  //   },
-  // },
   title: {
     fontSize: '2.5rem',
     fontWeight: 'bold',
@@ -53,7 +41,6 @@ const styles = theme => ({
   },
   content: {
     overflow: 'hidden',
-    padding: theme.spacing(3),
     minHeight: 400,
     [theme.breakpoints.up(600 + theme.spacing(3 * 2))]: {
       padding: theme.spacing(5),
