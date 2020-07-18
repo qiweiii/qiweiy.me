@@ -20,7 +20,7 @@ const styles = theme => ({
     marginRight: 'auto',
     [theme.breakpoints.up(1100 + theme.spacing(2 * 2))]: {
       width: 'auto',
-      margin: '3% 15% 3% 15%',
+      margin: '3% 18% 3% 18%',
     },
     padding: "0px 10px"
   },
@@ -41,13 +41,14 @@ const styles = theme => ({
   },
   content: {
     overflow: 'hidden',
+    textAlign: 'left',
     minHeight: 400,
     [theme.breakpoints.up(600 + theme.spacing(3 * 2))]: {
       padding: theme.spacing(5),
       minHeight: 400,
     },
-    fontSize: '1.1rem',
-    lineHeight: '1.6',
+    fontSize: '1.15rem',
+    lineHeight: '1.7',
   },
   buttons: {
     display: 'flex',
@@ -86,7 +87,7 @@ class BlogView extends React.Component {
             </Typography>
             <div className={classNames(classes.contentText, classes.content)}>
               <ReactMarkdown 
-                className="dont-break-out" 
+                className="markdown" 
                 source={this.props.location.state.content}
                 renderers={{code: CodeBlock}}
               />
