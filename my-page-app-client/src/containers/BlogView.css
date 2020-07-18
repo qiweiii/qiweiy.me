@@ -1,4 +1,4 @@
-.dont-break-out {
+.markdown {
   /* These are technically the same, but use both */
   overflow-wrap: break-word;
   word-wrap: break-word;
@@ -23,32 +23,37 @@ blockquote {
   border-left: 0.5em #eee solid;
 }
 
-img { 
+.markdown img { 
   /* width: 100%;
   height: auto; */
   max-width: 100%;
   height: auto;
   display: block;
-}
-
-blockquote {
-  color: #666;
-  margin: 0;
-  padding-left: 3em;
-  border-left: 0.5em #eee solid;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 tr {
   border-top: 1px solid #c6cbd1;
-  background: #fff;
+  /* background: #fff; */
 }
 
 th,
 td {
   padding: 6px 13px;
+  min-width: 140px;
   border: 1px solid #dfe2e5;
 }
 
-table tr:nth-child(2n) {
-  background: #f6f8fa;
+.markdown code {
+  font-size: 14px;
+  overflow: scroll;
 }
+
+/* table tr:nth-child(2n) {
+  background: #f6f8fa;
+} */
+
+/* .markdown a {
+  
+} */
