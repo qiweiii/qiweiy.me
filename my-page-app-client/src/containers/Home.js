@@ -74,7 +74,7 @@ function Home(props) {
           <Typography variant='h4' className={classes.name}>Qiwei Yang</Typography>
         </Grid>
         <Typography gutterBottom variant='body1' className={classes.p}>Third year Computer Science student from UNSW Sydney<br />with an interest in web technologies and cloud computing. </Typography>
-        <Typography gutterBottom variant='body1' className={classes.p}>Looking for a Graduate JavaScript Developer job</Typography>
+        <Typography gutterBottom variant='body1' className={classes.p}>Looking for a Graduate Frontend Engineer job</Typography>
         <Typography gutterBottom variant='body1' className={classes.p}>My email: <a href = "mailto: yangqiwei97@gmail.com">yangqiwei97@gmail.com</a></Typography>
       </Paper>
       </div>
