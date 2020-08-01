@@ -83,7 +83,7 @@ class BlogCard extends React.Component {
             image={this.getImage()}
           />
           <CardContent>
-            <Typography gutterBottom variant="inherit" component="h4">
+            <Typography gutterBottom variant="inherit" component="h3">
               {this.trimLength(`${this.props.content.title}`, 40)}
             </Typography>
             <Typography component="p">
