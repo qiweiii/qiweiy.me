@@ -8,10 +8,6 @@
   },
   "author": "",
   "license": "MIT",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/AnomalyInnovations/serverless-nodejs-starter.git"
-  },
   "devDependencies": {
     "aws-sdk": "^2.224.1",
     "babel-core": "^6.26.0",

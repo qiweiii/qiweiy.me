@@ -68,7 +68,8 @@ class Blogs extends React.Component {
         <Grid item xs={12} sm={6} md={4} lg={3} key={blog.noteId}>
             <BlogCard 
               content={blog.content}
-              date={new Date(blog.createdAt).toLocaleDateString('en-US', { hour12: false })}
+              edit={new Date(blog.editedAt).toLocaleDateString('en-US', { hour12: false })}
+              create={new Date(blog.createdAt).toLocaleDateString('en-US', { hour12: false })}
               noedit={noEditButton}
               key={blog.noteId}
               link={`/blogs/view/${blog.noteId}`}

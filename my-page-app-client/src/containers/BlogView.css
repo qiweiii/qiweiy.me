@@ -24,8 +24,6 @@ blockquote {
 }
 
 .markdown img { 
-  /* width: 100%;
-  height: auto; */
   max-width: 100%;
   height: auto;
   display: block;
@@ -35,7 +33,6 @@ blockquote {
 
 tr {
   border-top: 1px solid #c6cbd1;
-  /* background: #fff; */
 }
 
 th,
@@ -49,11 +46,3 @@ td {
   font-size: 14px;
   overflow: scroll;
 }
-
-/* table tr:nth-child(2n) {
-  background: #f6f8fa;
-} */
-
-/* .markdown a {
-  
-} */

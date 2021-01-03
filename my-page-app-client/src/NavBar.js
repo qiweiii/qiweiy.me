@@ -26,7 +26,7 @@ import Linkedin from 'mdi-material-ui/Linkedin'
 // import Youtube from 'mdi-material-ui/Youtube'
 import { Link as RouterLink, withRouter } from 'react-router-dom'
 import Link from '@material-ui/core/Link';
-import MainHOC from "./MainHOC";
+import Main from "./Main";
 import { Auth } from "aws-amplify";
 import Tooltip from '@material-ui/core/Tooltip';
 import config from "./config";
@@ -270,7 +270,7 @@ class NavBar extends React.Component {
 
         <main className={classes.content}>
           <div className={classes.toolbar} />
-          <MainHOC childProps={childProps} />
+          <Main childProps={childProps} />
         </main>
 
       </div>

@@ -11,7 +11,6 @@ import zima from "../img/zima.jpg";
 import blank from "../img/blank.jpg";
 
 
-
 const styles = theme => ({
   card: {
     width: 'auto',
@@ -27,6 +26,9 @@ const styles = theme => ({
   action: {
     height: 240,
   },
+  cardContent: {
+
+  }
 });
 
 class BlogCard extends React.Component {
@@ -73,7 +75,8 @@ class BlogCard extends React.Component {
               author: this.props.content.author,
               image: this.props.content.image,
               noedit: this.props.noedit,
-              date: this.props.date,
+              edit: this.props.edit,
+              create: this.props.create,
             } 
           }}
           className={classes.action}
@@ -82,12 +85,12 @@ class BlogCard extends React.Component {
             className={classes.media}
             image={this.getImage()}
           />
-          <CardContent>
+          <CardContent className={classes.cardContent}>
             <Typography gutterBottom variant="inherit" component="h3">
               {this.trimLength(`${this.props.content.title}`, 40)}
             </Typography>
             <Typography component="p">
-              {this.props.date}, by {this.trimLength(`${this.props.content.author}`, 40)}
+              {this.props.create}, by {this.trimLength(`${this.props.content.author}`, 40)}
             </Typography>
           </CardContent>
         </CardActionArea>
