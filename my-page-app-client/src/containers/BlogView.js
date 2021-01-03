@@ -83,7 +83,7 @@ class BlogView extends React.Component {
               {this.props.location.state.title}
             </Typography> 
             <Typography gutterBottom align="left" className={classes.author}>
-              Edited by {this.props.location.state.author} on {this.props.location.state.date}
+              Edited on {this.props.location.state.edit} | Created by {this.props.location.state.author} on {this.props.location.state.create}
             </Typography>
             <div className={classNames(classes.contentText, classes.content)}>
               <ReactMarkdown 
