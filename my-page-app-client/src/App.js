@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import NavBar from "./NavBar"
+import MainApp from "./MainApp"
 import { AppTheme } from "./types";
 import AppThemeOptions from "./theme";
 import useMediaQuery from '@material-ui/core/useMediaQuery';
@@ -21,7 +21,7 @@ export default function App() {
 
   return (
     <ThemeProvider theme={muiTheme}>
-      <NavBar onToggleDark={toggleDarkTheme} isDark={theme === AppTheme.DARK}/>
+      <MainApp onToggleDark={toggleDarkTheme} isDark={theme === AppTheme.DARK}/>
     </ThemeProvider>
   );
 }

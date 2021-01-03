@@ -1,6 +1,5 @@
 import React from "react";
 import { Auth } from "aws-amplify";
-import PropTypes from 'prop-types';
 import Google from 'mdi-material-ui/Google'
 import config from "../config";
 
@@ -75,9 +74,5 @@ class GoogleButton extends React.Component {
         );
     }
 }
-
-GoogleButton.propTypes = {
-  classes: PropTypes.object.isRequired,
-};
 
 export default GoogleButton;

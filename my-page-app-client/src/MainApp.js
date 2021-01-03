@@ -1,9 +1,12 @@
 import React, {Fragment} from 'react';
+import clsx from 'clsx';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import Drawer from '@material-ui/core/Drawer';
-import Hidden from '@material-ui/core/Hidden';
+// import Hidden from '@material-ui/core/Hidden';
+import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
+import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import List from '@material-ui/core/List';
@@ -20,10 +23,9 @@ import ListItemText from '@material-ui/core/ListItemText';
 import HomeIcon from '@material-ui/icons/Home';
 import BookmarkIcon from '@material-ui/icons/Bookmark';
 import LaunchIcon from '@material-ui/icons/Launch';
-import GithubFace from 'mdi-material-ui/GithubFace'
+import Github from 'mdi-material-ui/Github'
 import Lightbulb from 'mdi-material-ui/Lightbulb'
 import Linkedin from 'mdi-material-ui/Linkedin'
-// import Youtube from 'mdi-material-ui/Youtube'
 import { Link as RouterLink, withRouter } from 'react-router-dom'
 import Link from '@material-ui/core/Link';
 import Main from "./Main";
@@ -31,43 +33,50 @@ import { Auth } from "aws-amplify";
 import Tooltip from '@material-ui/core/Tooltip';
 import config from "./config";
 
-const drawerWidth = 180;
+const drawerWidth = 220;
 
 const styles = theme => ({
   root: {
     display: 'flex',
-    flexGrow: 1,
   },
   grow: {
     flexGrow: 1,
-    // color: '#fff',
-  },
-  drawer: {
-    [theme.breakpoints.up('sm')]: {
-      width: drawerWidth,
-      flexShrink: 0,
-    },
   },
   drawerHeader: {
     fontSize: 12,
     display: 'flex',
-    alignItems: 'flex',
-    padding: '34px 15px 6px',
+    padding: theme.spacing(0, 1),
     ...theme.mixins.toolbar,
-    justifyContent: 'flex-start',
+    alignItems: 'center',
+    justifyContent: 'flex-end',
   },
   appBar: {
+    transition: theme.transitions.create(['margin', 'width'], {
+      easing: theme.transitions.easing.sharp,
+      duration: theme.transitions.duration.leavingScreen,
+    }),
+  },
+  appBarShift: {
+    width: `calc(100% - ${drawerWidth}px)`,
     marginLeft: drawerWidth,
+    transition: theme.transitions.create(['margin', 'width'], {
+      easing: theme.transitions.easing.easeOut,
+      duration: theme.transitions.duration.enteringScreen,
+    }),
+  },
+  hide: {
+    display: 'none',
+  },
+  drawer: {
+    width: drawerWidth,
+    flexShrink: 0,
     [theme.breakpoints.up('sm')]: {
-      width: `calc(100% - ${drawerWidth}px)`,
-    },
+      width: drawerWidth,
+      flexShrink: 0,
+    }
   },
   menuButton: {
-    marginLeft: 5,
-    marginRight: 10,
-    [theme.breakpoints.up('sm')]: {
-      display: 'none',
-    },
+    marginRight: theme.spacing(2),
   },
   toolbar: {
     display: 'flex',
@@ -82,9 +91,19 @@ const styles = theme => ({
   },
   content: {
     flexGrow: 1,
-    width: "82%",
-    // marginLeft: theme.spacing(1),
     padding: theme.spacing(1),
+    transition: theme.transitions.create('margin', {
+      easing: theme.transitions.easing.sharp,
+      duration: theme.transitions.duration.leavingScreen,
+    }),
+    marginLeft: -drawerWidth,
+  },
+  contentShift: {
+    transition: theme.transitions.create('margin', {
+      easing: theme.transitions.easing.easeOut,
+      duration: theme.transitions.duration.enteringScreen,
+    }),
+    marginLeft: 0,
   },
   tooltip: {
     backgroundColor: theme.palette.common.white,
@@ -96,16 +115,15 @@ const styles = theme => ({
 
 
 
-
-class NavBar extends React.Component {
+class MainApp extends React.Component {
 
   constructor(props) {
     super(props);
 
     this.state = {
-      mobileOpen: false,
       isAuthenticated: false,
-      isAuthenticating: true
+      isAuthenticating: true,
+      open: false
     };
   }
 
@@ -140,9 +158,13 @@ class NavBar extends React.Component {
      }(document, 'script', 'facebook-jssdk'));
   }
 
-  handleDrawerToggle = () => {
-    this.setState(state => ({ mobileOpen: !state.mobileOpen }));
+  handleDrawerOpen = () => {
+    this.setState({ open: true });
   };
+
+  handleDrawerClose = () => {
+    this.setState({ open: false });
+  }
 
   userHasAuthenticated = authenticated => {
     this.setState({ isAuthenticated: authenticated });
@@ -154,8 +176,6 @@ class NavBar extends React.Component {
     this.props.history.push("/login");
   }
 
-
-
   render() {
     const childProps = {
       isAuthenticated: this.state.isAuthenticated,
@@ -165,6 +185,9 @@ class NavBar extends React.Component {
     const drawer = (
       <div>
         <div className={classes.drawerHeader}>
+          <IconButton onClick={this.handleDrawerClose}>
+            {theme.direction === 'ltr' ? <ChevronLeftIcon /> : <ChevronRightIcon />}
+          </IconButton>
         </div>
         <Divider />
         <List>
@@ -176,26 +199,19 @@ class NavBar extends React.Component {
             <ListItemIcon><BookmarkIcon /></ListItemIcon>
             <ListItemText primary='Blogs' />
           </ListItem>
-          {/* <Tooltip title="Latest resume" placement="right" classes={{ tooltip: classes.tooltip }}>
-            <ListItem component={RouterLink} to="/resume" button key='Resume'>
-              <ListItemIcon><FileDocumentBox /></ListItemIcon>
-              <ListItemText primary='Resume' />
-            </ListItem>
-          </Tooltip> */}
-          <Tooltip title="My Github profile" placement="right" classes={{ tooltip: classes.tooltip }}>
+          <Tooltip title="Github profile" placement="right" classes={{ tooltip: classes.tooltip }}>
             <ListItem component="a" target="_blank" href="https://github.com/qiweiii" button key='GitHub'>
-              <ListItemIcon><GithubFace /></ListItemIcon>
+              <ListItemIcon><Github /></ListItemIcon>
               <ListItemText primary={<div>GitHub <LaunchIcon style={{ fontSize: 16 }} /></div>} />
             </ListItem>
           </Tooltip>
-          <Tooltip title="My LinkedIn profile" placement="right" classes={{ tooltip: classes.tooltip }}>
-            <ListItem component="a" target="_blank" href="https://linkedin.com/in/qiwei-yang-679617142" button key='Linkedin'>
+          <Tooltip title="LinkedIn profile" placement="right" classes={{ tooltip: classes.tooltip }}>
+            <ListItem component="a" target="_blank" href="https://linkedin.com/in/qiwei-yang-679617142/" button key='Linkedin'>
               <ListItemIcon><Linkedin /></ListItemIcon>
               <ListItemText primary={<div>LinkedIn <LaunchIcon style={{ fontSize: 16 }} /></div>} />
             </ListItem>
           </Tooltip>
         </List>
-
         <Divider />
         <ListItem component={RouterLink} to="/more" button key='More'>
           <ListItemIcon><Lightbulb /></ListItemIcon>
@@ -208,13 +224,20 @@ class NavBar extends React.Component {
       !this.state.isAuthenticating &&
       <div className={classes.root}>
         <CssBaseline />
-        <AppBar position="fixed" className={classes.appBar}>
+
+        <AppBar
+          position="fixed"
+          className={clsx(classes.appBar, {
+            [classes.appBarShift]: this.state.open,
+          })}
+        >
           <Toolbar>
             <IconButton
               color="inherit"
               aria-label="Open drawer"
-              onClick={this.handleDrawerToggle}
-              className={classes.menuButton}
+              onClick={this.handleDrawerOpen}
+              edge="start"
+              className={clsx(classes.menuButton, this.state.open && classes.hide)}
             >
               <MenuIcon />
             </IconButton>
@@ -239,36 +262,24 @@ class NavBar extends React.Component {
             }
           </Toolbar>
         </AppBar>
-        <nav className={classes.drawer}>
-          {/* The implementation can be swapped with js to avoid SEO duplication of links. */}
-          <Hidden smUp implementation="css">
-            <Drawer
-              container={this.props.container}
-              variant="temporary"
-              anchor={theme.direction === 'rtl' ? 'right' : 'left'}
-              open={this.state.mobileOpen}
-              onClose={this.handleDrawerToggle}
-              classes={{
-                paper: classes.drawerPaper,
-              }}
-            >
-              {drawer}
-            </Drawer>
-          </Hidden>
-          <Hidden xsDown implementation="css">
-            <Drawer
-              classes={{
-                paper: classes.drawerPaper,
-              }}
-              variant="permanent"
-              open
-            >
-              {drawer}
-            </Drawer>
-          </Hidden>
-        </nav>
 
-        <main className={classes.content}>
+        <Drawer
+          className={classes.drawer}
+          variant="persistent"
+          anchor="left"
+          open={this.state.open}
+          classes={{
+            paper: classes.drawerPaper,
+          }}
+        >
+          {drawer}
+        </Drawer>
+
+        <main 
+          className={clsx(classes.content, {
+            [classes.contentShift]: this.state.open,
+          })}
+        >
           <div className={classes.toolbar} />
           <Main childProps={childProps} />
         </main>
@@ -278,10 +289,10 @@ class NavBar extends React.Component {
   }
 }
 
-NavBar.propTypes = {
+MainApp.propTypes = {
   classes: PropTypes.object.isRequired,
   container: PropTypes.object,
   theme: PropTypes.object.isRequired,
 };
 
-export default withRouter(withStyles(styles, { withTheme: true })(NavBar));
+export default withRouter(withStyles(styles, { withTheme: true })(MainApp));

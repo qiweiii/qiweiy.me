@@ -2,11 +2,9 @@ import React from "react";
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import { Typography } from "@material-ui/core";
-import zima from "../img/zima.jpg";
-// import qiwei from "../img/qiwei.png";
+import qiwei from "../img/qiwei.jpeg";
 import Avatar from '@material-ui/core/Avatar';
 import Grid from '@material-ui/core/Grid';
-// import "./HomeView.css"
 import Paper from '@material-ui/core/Paper';
 
 
@@ -19,7 +17,6 @@ const styles = theme => ({
     alignContent: 'center',
     padding: `${theme.spacing(2)}px ${theme.spacing(3)}px ${theme.spacing(5)}px`,
     textAlign: "center",
-    // color: '#616161',
     [theme.breakpoints.up(400)]: {
       marginLeft: 'auto',
       marginRight: 'auto',
@@ -70,11 +67,11 @@ function Home(props) {
       <div className={classes.root}>
       <Paper color='default' elevation={2} className={classes.paper}>
         <Grid container justify="center" alignItems="center">
-          <Avatar alt="Qiwei Y" src={zima} className={classes.avatar} />
+          <Avatar alt="Qiwei Y" src={qiwei} className={classes.avatar} />
           <Typography variant='h4' className={classes.name}>Qiwei Yang</Typography>
         </Grid>
         <Typography gutterBottom variant='body1' className={classes.p}>Third year Computer Science student from UNSW Sydney<br />with an interest in web technologies and cloud computing. </Typography>
-        <Typography gutterBottom variant='body1' className={classes.p}>Looking for a Graduate Frontend Engineer job</Typography>
+        <Typography gutterBottom variant='body1' className={classes.p}>Looking for a Graduate Software Engineer job</Typography>
         <Typography gutterBottom variant='body1' className={classes.p}>My email: <a href = "mailto: yangqiwei97@gmail.com">yangqiwei97@gmail.com</a></Typography>
       </Paper>
       </div>
