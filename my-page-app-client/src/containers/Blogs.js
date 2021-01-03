@@ -14,26 +14,12 @@ import { connect } from 'react-redux';
 
 
 const styles = theme => ({
-  main: {
-    width: 'auto',
-    display: 'block',
-    marginLeft: theme.spacing(1),
-    marginRight: theme.spacing(1),
-    [theme.breakpoints.up('sm')]: {
-      width: 'auto',
-      maxWidth: '1000',
-      marginLeft: 'auto',
-      marginRight: 'auto',
-    },
-  },
   h1: {
     paddingLeft: 12,
   },
   list: {
     marginTop: theme.spacing(1),
-    display: 'flex',
-    flexGrow: 1,
-    alignItems: 'center',
+    marginBottom: theme.spacing(8),
     padding: `${theme.spacing(1)}px ${theme.spacing(2)}px ${theme.spacing(2)}px`,
   },
   uploads: {
@@ -46,16 +32,15 @@ const styles = theme => ({
     marginBottom: 20,
   },
   spinner: {
-    display: "flex",
+    display: 'flex',
     justifyContent: 'center',
-    marginTop: "15%"
+    marginTop: "20%"
   }
 });
 
 class Blogs extends React.Component {
 
   sortBlogs(blogs) {
-    // return _.sortBy(blogs, 'createdAt').reverse();
     blogs = blogs[0]
     return _.orderBy(blogs, ['createdAt'], ['desc']);
   }
@@ -94,7 +79,7 @@ class Blogs extends React.Component {
   renderUserBlogs() {
     const { classes } = this.props;
     return (
-      <main className={classes.main}>
+      <div>
         <h1 className={classes.h1}>Your Blogs</h1>
           <ListItem>
             <Link
@@ -114,7 +99,7 @@ class Blogs extends React.Component {
         <div>
           {this.renderAllBlogs()}
         </div>
-      </main>
+      </div>
     );
   }
 
