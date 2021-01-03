@@ -12,9 +12,8 @@ const styles = theme => ({
   root: {
     marginTop: theme.spacing(8),
     display: 'flex',
-    flexDirection: 'column',
     alignItems: 'center',
-    alignContent: 'center',
+    justifyContent: 'center',
     padding: `${theme.spacing(2)}px ${theme.spacing(3)}px ${theme.spacing(5)}px`,
     textAlign: "center",
     [theme.breakpoints.up(400)]: {

@@ -33,7 +33,7 @@ import { Auth } from "aws-amplify";
 import Tooltip from '@material-ui/core/Tooltip';
 import config from "./config";
 
-const drawerWidth = 220;
+const drawerWidth = 200;
 
 const styles = theme => ({
   root: {
@@ -243,7 +243,7 @@ class MainApp extends React.Component {
             </IconButton>
             <Typography variant="h6" className={classes.grow} >
               <Link color="inherit" component={RouterLink} to="/">
-                  QW
+                  QIWEI
               </Link>
             </Typography>
             <Tooltip title="Toggle dark/light mode" placement="bottom" classes={{ tooltip: classes.tooltip }}>

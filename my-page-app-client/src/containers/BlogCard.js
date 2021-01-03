@@ -12,22 +12,15 @@ import blank from "../img/blank.jpg";
 
 
 const styles = theme => ({
-  card: {
-    width: 'auto',
-    height: 'auto',
-    // padding: theme.spacing(2),
-    maxWidth: 350,
-    minWidth: 185,
-    maxHeight: 240
-  },
+  // card: {
+  // },
   media: {
-    height: 120,
+    height: 180,
   },
-  action: {
-    height: 240,
-  },
+  // action: {
+  // },
   cardContent: {
-
+    height: 140,
   }
 });
 
@@ -44,7 +37,7 @@ class BlogCard extends React.Component {
     if (img === "blank" || img === "" || img === null || img === undefined)
       return blank;
 
-    //if it is a valide url
+    //if it is a valid url
     return img;
   }
 
@@ -64,7 +57,7 @@ class BlogCard extends React.Component {
   render() {
     const { classes } = this.props;
     return (
-      <Card elevation={4} className={classes.card}>
+      <Card elevation={8} className={classes.card}>
         <CardActionArea 
           component={RouterLink}
           to={{ 
@@ -86,11 +79,11 @@ class BlogCard extends React.Component {
             image={this.getImage()}
           />
           <CardContent className={classes.cardContent}>
-            <Typography gutterBottom variant="inherit" component="h3">
-              {this.trimLength(`${this.props.content.title}`, 40)}
+            <Typography gutterBottom variant="inherit" component="h2">
+              {this.trimLength(`${this.props.content.title}`, 35)}
             </Typography>
             <Typography component="p">
-              {this.props.create}, by {this.trimLength(`${this.props.content.author}`, 40)}
+              {this.props.create}, by {this.trimLength(`${this.props.content.author}`, 35)}
             </Typography>
           </CardContent>
         </CardActionArea>
