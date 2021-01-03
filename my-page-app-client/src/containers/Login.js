@@ -14,6 +14,8 @@ import { Auth } from "aws-amplify";
 import FacebookButton from "../components/FacebookButton";
 import GoogleButton from "../components/GoogleButton";
 import Fab from '@material-ui/core/Fab';
+import CircularProgress from "@material-ui/core/CircularProgress";
+
 
 const styles = theme => ({
   main: {
@@ -40,11 +42,11 @@ const styles = theme => ({
   },
   facebook: {
     margin: theme.spacing.unit,
-    backgroundColor: '#fff',
+    backgroundColor: '#3b5998',
   },
   google: {
     margin: theme.spacing.unit,
-    backgroundColor: '#fff',
+    backgroundColor: '#db3236',
   },
   form: {
     width: '100%', // Fix IE 11 issue.
@@ -57,7 +59,7 @@ const styles = theme => ({
     paddingTop: 5,
     font: 'Roboto',
     fontSize: 14,
-    color: "#424242",
+    // color: "#424242",
   }
 });
 
@@ -69,7 +71,8 @@ class Login extends React.Component {
 
     this.state = {
       email: "",
-      password: ""
+      password: "",
+      isLoading: false
     };
   }
 
@@ -81,12 +84,15 @@ class Login extends React.Component {
 
   handleSubmit = async event => {
     event.preventDefault();
+    this.setState({ isLoading: true });
     try {
       await Auth.signIn(this.state.email, this.state.password);
       this.props.userHasAuthenticated(true);
+      this.setState({ isLoading: false });
       this.props.history.push("/");
     } catch (e) {
       alert(e.message);
+      this.setState({ isLoading: false });
     }
   }
 
@@ -113,7 +119,7 @@ class Login extends React.Component {
             </Fab>
           </div>
           <Typography component="p" className={classes.p} >
-            Or Be Classical
+            Or Be Classic
           </Typography>
           <form onSubmit={this.handleSubmit} className={classes.form}>
             <FormControl value={this.state.email} onChange={this.handleChange} margin="normal" required fullWidth>
@@ -134,8 +140,9 @@ class Login extends React.Component {
               variant="contained"
               color="primary"
               className={classes.submit}
+              disabled={this.state.isLoading}
             >
-              Login
+              Login {this.state.isLoading && <CircularProgress size="1.2em"/>}
             </Button>
           </form>
         </Paper>

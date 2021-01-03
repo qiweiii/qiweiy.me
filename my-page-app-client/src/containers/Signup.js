@@ -16,6 +16,8 @@ import { Auth } from "aws-amplify";
 import FacebookButton from "../components/FacebookButton";
 import GoogleButton from "../components/GoogleButton";
 import Fab from '@material-ui/core/Fab';
+import CircularProgress from "@material-ui/core/CircularProgress";
+
 
 const styles = theme => ({
   main: {
@@ -63,7 +65,6 @@ const styles = theme => ({
     paddingTop: 5,
     font: 'Roboto',
     fontSize: 14,
-    color: "#424242",
   }
 });
 
@@ -162,10 +163,9 @@ class Signup extends React.Component {
               variant="contained"
               color="primary"
               className={classes.submit}
-              isLoading={this.state.isLoading}
-              loadingText="Verifying…"
+              disabled={this.state.isLoading}
             >
-              Send
+              Send {this.state.isLoading && <CircularProgress size="1.2em"/>}
             </Button>
           </form>
         </Paper>
@@ -188,7 +188,7 @@ class Signup extends React.Component {
             </Fab>
           </div>
           <Typography component="p" className={classes.p}>
-            Or Be Classical
+            Or Be Classic
           </Typography>
           <form onSubmit={this.handleSubmit} className={classes.form}>
             <FormControl value={this.state.email} onChange={this.handleChange} margin="normal" required fullWidth>
@@ -215,10 +215,9 @@ class Signup extends React.Component {
               variant="contained"
               color="primary"
               className={classes.submit}
-              isLoading={this.state.isLoading}
-              loadingText="Signing up…"
+              disabled={this.state.isLoading}
             >
-              Signup
+              Signup {this.state.isLoading && <CircularProgress size="1.2em"/>}
             </Button>
           </form>
         </Paper>

@@ -1,7 +1,6 @@
 import React from "react";
 import { Auth } from "aws-amplify";
-import FacebookBox from 'mdi-material-ui/FacebookBox'
-import PropTypes from 'prop-types';
+import Facebook from 'mdi-material-ui/Facebook'
 
 
 function waitForInit() {
@@ -75,17 +74,12 @@ class FacebookButton extends React.Component {
 
   render() {
     return (
-      <FacebookBox 
+      <Facebook 
         onClick={this.handleClick}
         disabled={this.state.isLoading}
       />
     );
   }
 }
-
-
-FacebookButton.propTypes = {
-  classes: PropTypes.object.isRequired,
-};
 
 export default FacebookButton;

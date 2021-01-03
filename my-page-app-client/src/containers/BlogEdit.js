@@ -227,7 +227,7 @@ class BlogView extends React.Component {
                   className={classes.button}
                   disable={this.state.isLoading}
                 >
-                  Save
+                  Save {this.state.isLoading && <CircularProgress size="1.2em"/>}
                 </Button>
                 <Button
                   variant="contained"
@@ -236,9 +236,8 @@ class BlogView extends React.Component {
                   className={classes.buttonDelete}
                   disable={this.state.isLoading}
                 >
-                  Delete
+                  Delete {this.state.isLoading && <CircularProgress size="1.2em"/>}
                 </Button>
-                {this.state.isLoading && <CircularProgress />}
               </div>
             </form>
          </Paper>
