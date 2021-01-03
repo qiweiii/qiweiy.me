@@ -9,6 +9,7 @@ import TextField from '@material-ui/core/TextField';
 import FormControl from '@material-ui/core/FormControl';
 import validUrl from "valid-url";
 import Link from '@material-ui/core/Link';
+import CircularProgress from "@material-ui/core/CircularProgress";
 import "./NB.css";
 
 const styles = theme => ({
@@ -80,6 +81,7 @@ class BlogView extends React.Component {
       content: "",
       author: "",
       image: "",
+      isLoading: false
     };
   }
 
@@ -104,6 +106,7 @@ class BlogView extends React.Component {
 
   handleSubmit = async event => {
     event.preventDefault();
+    this.setState({ isLoading: true });
     let str = this.state.image;
     if (!checkURL(str)) {
       if (str === ""|| str === null || str === undefined || str === "blank") {
@@ -122,10 +125,11 @@ class BlogView extends React.Component {
           image: this.state.image,
         },
       });
+      this.setState({ isLoading: true });
       this.props.history.push("/blogs");
     } catch (e) {
       alert(e);
-      // this.setState({ isLoading: false });
+      this.setState({ isLoading: true });
     }
   }
 
@@ -141,13 +145,14 @@ class BlogView extends React.Component {
     if (!confirmed) {
       return;
     }
-    // this.setState({ isDeleting: true });
+    this.setState({ isLoading: true });
     try {
       await this.deleteNote();
+      this.setState({ isLoading: false });
       this.props.history.push("/blogs");
     } catch (e) {
       alert(e);
-      // this.setState({ isDeleting: false });
+      this.setState({ isLoading: false });
     }
   }
 
@@ -220,6 +225,7 @@ class BlogView extends React.Component {
                   color="primary"
                   type="submit"
                   className={classes.button}
+                  disable={this.state.isLoading}
                 >
                   Save
                 </Button>
@@ -228,9 +234,11 @@ class BlogView extends React.Component {
                   color="secondary"
                   onClick={this.handleDelete}
                   className={classes.buttonDelete}
+                  disable={this.state.isLoading}
                 >
                   Delete
                 </Button>
+                {this.state.isLoading && <CircularProgress />}
               </div>
             </form>
          </Paper>
