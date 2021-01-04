@@ -18,7 +18,7 @@ const styles = theme => ({
     maxWidth: 1100,
     marginLeft: 'auto',
     marginRight: 'auto',
-    [theme.breakpoints.up(1100 + theme.spacing(2 * 2))]: {
+    [theme.breakpoints.up(600 + theme.spacing(3 * 2))]: {
       width: 'auto',
       margin: '3% 18% 3% 18%',
     },
@@ -40,11 +40,11 @@ const styles = theme => ({
     },
   },
   content: {
-    overflow: 'hidden',
+    overflow: 'scroll',
     textAlign: 'left',
     minHeight: 400,
     [theme.breakpoints.up(600 + theme.spacing(3 * 2))]: {
-      padding: theme.spacing(5),
+      padding: theme.spacing(1),
       minHeight: 400,
     },
     fontSize: '1.15rem',

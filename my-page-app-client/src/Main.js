@@ -3,7 +3,7 @@ import { getAllBlogs, getUserBlogs } from './actions';
 import { connect } from 'react-redux';
 import Routes from './Routes';
 
-/* load blogs asap, so user don't need to wait everything they go to blogs */
+/* load blogs asap, so user don't need to wait everytime when go to blogs */
 function Main(props) {
   useEffect(() => {
     props.getAllBlogs();
