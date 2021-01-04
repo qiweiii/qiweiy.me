@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 // require the highlight.js library without languages
-import hljs from 'highlight.js/lib/highlight';
+import hljs from 'highlight.js/lib/core';
 import javascript from 'highlight.js/lib/languages/javascript';
 import sql from 'highlight.js/lib/languages/sql';
 import java from 'highlight.js/lib/languages/java';

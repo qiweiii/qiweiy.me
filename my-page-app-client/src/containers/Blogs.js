@@ -68,7 +68,6 @@ class Blogs extends React.Component {
     const { classes } = this.props;
     return (
       <div>
-        <h1 className={classes.h1}>All blogs</h1>
         <Grid container spacing={3} className={classes.list}>
           {this.renderBlogsList(this.sortBlogs(this.props.allBlogs), true)}
         </Grid>
@@ -96,6 +95,7 @@ class Blogs extends React.Component {
           {this.renderBlogsList(this.sortBlogs(this.props.userBlogs), false)}
         </Grid>
         <Divider/>
+        <h1 className={classes.h1}>All blogs</h1>
         <div>
           {this.renderAllBlogs()}
         </div>
