@@ -90,6 +90,7 @@ const styles = theme => ({
     width: drawerWidth,
   },
   content: {
+    width: '100%',
     flexGrow: 1,
     padding: theme.spacing(1),
     transition: theme.transitions.create('margin', {

@@ -9,6 +9,7 @@ import TextField from '@material-ui/core/TextField';
 import { API } from "aws-amplify";
 import validUrl from "valid-url";
 import Link from '@material-ui/core/Link';
+import CircularProgress from "@material-ui/core/CircularProgress";
 import "./NB.css";
 
 const styles = theme => ({
@@ -78,6 +79,7 @@ class NewBlog extends React.Component {
       content: "",
       author: "",
       image: "",
+      isLoading: false
     };
   }
 
@@ -91,6 +93,7 @@ class NewBlog extends React.Component {
 
   handleSubmit = async event => {
     event.preventDefault();
+    this.setState({ isLoading: true });
     let str = this.state.image;
     if (!checkURL(str)) {
       if (str === ""|| str === null || str === undefined) {
@@ -110,15 +113,16 @@ class NewBlog extends React.Component {
           image: this.state.image,
         }
       });
+      this.setState({ isLoading: false });
       this.props.history.push("/blogs");
     } catch (e) {
+      this.setState({ isLoading: false });
       alert(e.message);
     }
   }
 
   createBlog(blog) {
-    console.log(blog);
-
+    // console.log(blog);
     return API.post("pages", "/pages", {
       body: blog
     });
@@ -192,11 +196,11 @@ class NewBlog extends React.Component {
                 variant="contained"
                 color="primary"
                 className={classes.button}
-                disabled={!this.validateForm()}
+                disabled={!this.validateForm() && this.state.isLoading}
               >
-                Create
+                Create {this.state.isLoading && <CircularProgress size="1.2em"/>}
               </Button>
-              <Link href="https://rexxars.github.io/react-markdown/"  target="_blank" className={classes.link}>
+              <Link href="https://remarkjs.github.io/react-markdown/"  target="_blank" className={classes.link}>
                 Formatting help
               </Link>
             </div>

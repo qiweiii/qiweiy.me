@@ -20,15 +20,7 @@ blockquote {
   color: #666;
   margin: 0;
   padding-left: 3em;
-  border-left: 0.5em #eee solid;
-}
-
-.markdown img { 
-  max-width: 100%;
-  height: auto;
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
+  border-left: 0.2em rgb(179, 179, 179) solid;
 }
 
 tr {
@@ -42,7 +34,21 @@ td {
   border: 1px solid #dfe2e5;
 }
 
+.markdown img { 
+  width: 80%;
+  height: auto;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
 .markdown code {
   font-size: 14px;
   overflow: scroll;
+}
+
+@media only screen and (max-width: 800px) {
+  .markdown img {
+    width: 100%
+  }
 }

@@ -125,11 +125,11 @@ class BlogView extends React.Component {
           image: this.state.image,
         },
       });
-      this.setState({ isLoading: true });
+      this.setState({ isLoading: false });
       this.props.history.push("/blogs");
     } catch (e) {
       alert(e);
-      this.setState({ isLoading: true });
+      this.setState({ isLoading: false });
     }
   }
 
