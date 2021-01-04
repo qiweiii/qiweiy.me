@@ -15,7 +15,6 @@ import classNames from 'classnames';
 
 const styles = theme => ({
   layout: {
-    maxWidth: 1100,
     marginLeft: 'auto',
     marginRight: 'auto',
     [theme.breakpoints.up(600 + theme.spacing(3 * 2))]: {
@@ -31,12 +30,9 @@ const styles = theme => ({
   },
   author: {
     fontSize: 14,
-    color: '#616161',
-    paddingLeft: theme.spacing(3),
+    color: "silver",
     [theme.breakpoints.up(600 + theme.spacing(3 * 2))]: {
-      fontSize: 14,
-      color: '#616161',
-      paddingLeft: theme.spacing(5),
+      padding: theme.spacing(1),
     },
   },
   content: {
@@ -83,7 +79,7 @@ class BlogView extends React.Component {
               {this.props.location.state.title}
             </Typography> 
             <Typography gutterBottom align="left" className={classes.author}>
-              Edited on {this.props.location.state.edit} | Created by {this.props.location.state.author} on {this.props.location.state.create}
+              Created by {this.props.location.state.author} on {this.props.location.state.create} | Edited on {this.props.location.state.edit}
             </Typography>
             <div className={classNames(classes.contentText, classes.content)}>
               <ReactMarkdown 

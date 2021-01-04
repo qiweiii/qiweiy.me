@@ -21,14 +21,14 @@ const styles = theme => ({
   // },
   cardContent: {
     height: 140,
+  },
+  authorDate: {
+    fontSize: "0.9em",
+    color: "silver"
   }
 });
 
 class BlogCard extends React.Component {
-
-  // try the image link, make sure it works
-  // async componentDidMount() {
-  // }
 
   getImage() {
     let img = this.props.content.image;
@@ -79,11 +79,11 @@ class BlogCard extends React.Component {
             image={this.getImage()}
           />
           <CardContent className={classes.cardContent}>
-            <Typography gutterBottom variant="inherit" component="h2">
-              {this.trimLength(`${this.props.content.title}`, 35)}
+            <Typography gutterBottom variant="inherit" component="h2" noWrap>
+              {this.props.content.title}
             </Typography>
-            <Typography component="p">
-              {this.props.create}, by {this.trimLength(`${this.props.content.author}`, 35)}
+            <Typography component="p" noWrap className={classes.authorDate}>
+              Create by {this.trimLength(this.props.content.author, 25)} on {this.props.create}
             </Typography>
           </CardContent>
         </CardActionArea>
