@@ -6,7 +6,7 @@ import qiwei from "../img/qiwei.jpeg";
 import Avatar from '@material-ui/core/Avatar';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
-
+import "./Home.css";
 
 const styles = theme => ({
   root: {
@@ -63,7 +63,7 @@ function Home(props) {
   const { classes } = props;
 
   return (
-      <div className={classes.root}>
+      <div className={classes.root + " spring"}>
       <Paper color='default' elevation={2} className={classes.paper}>
         <Grid container justify="center" alignItems="center">
           <Avatar alt="Qiwei Y" src={qiwei} className={classes.avatar} />

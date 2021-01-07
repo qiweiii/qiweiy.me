@@ -39,9 +39,9 @@ function More(props) {
       <div className={classes.root}>
         <div className={classes.text}>
           <h1 className={classes.h1}>Future</h1>
-          <p className={classes.p}>Add tags to blogs.</p>
-          <a href="https://github.com/rexxars/react-markdown/blob/master/demo/src/demo.js" rel="noopener noreferrer" target="_blank" className={classes.p}>Add live markdown preview for blog editor.</a>
+          <p className={classes.p}>Better performance.</p>
           <p className={classes.p}>Nicer style.</p>
+          <p className={classes.p}>More blogs.</p>
           <br/>
           <p className={classes.p}>My email: <a href = "mailto: yangqiwei97@gmail.com">yangqiwei97@gmail.com</a></p>
         </div>
