@@ -310,5 +310,5 @@ https://www.w3cplus.com/animation/spring-animation-in-css.html
 .spring {
   /* animation: 1s move linear; */
   animation-fill-mode: both;
-  animation: 3.5s 0.2s move linear 1;
+  animation: 3.5s move linear 1;
 }
