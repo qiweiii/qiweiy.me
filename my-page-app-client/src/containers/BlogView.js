@@ -15,11 +15,18 @@ import classNames from 'classnames';
 
 const styles = theme => ({
   layout: {
-    marginLeft: 'auto',
-    marginRight: 'auto',
-    [theme.breakpoints.up(600 + theme.spacing(3 * 2))]: {
-      width: 'auto',
+    // marginLeft: 'auto',
+    // marginRight: 'auto',
+    width: 'auto',
+    margin: '3% 22% 3% 22%',
+    [theme.breakpoints.down(1280 + theme.spacing(3 * 2))]: {
       margin: '3% 18% 3% 18%',
+    },
+    [theme.breakpoints.down(960 + theme.spacing(3 * 2))]: {
+      margin: '3% 10% 3% 10%',
+    },
+    [theme.breakpoints.down(600 + theme.spacing(3))]: {
+      margin: 'auto',
     },
     padding: "0px 10px"
   },
@@ -36,7 +43,6 @@ const styles = theme => ({
     },
   },
   content: {
-    overflow: 'scroll',
     textAlign: 'left',
     minHeight: 400,
     [theme.breakpoints.up(600 + theme.spacing(3 * 2))]: {

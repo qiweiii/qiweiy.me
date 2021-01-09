@@ -2,15 +2,6 @@
 https://medium.com/@dtinth/spring-animation-in-css-2039de6e1a03 
 https://www.w3cplus.com/animation/spring-animation-in-css.html
 */
-/* @keyframes springish {
-  0.00% {transform: translate3d(100.00px, 0, 0) scale(0);}
-  14.91% {transform: translate3d(-29.87px, 0, 0) scale(1.2987);}
-  31.93% {transform: translate3d(8.22px, 0, 0) scale(0.9178);}
-  48.94% {transform: translate3d(-2.26px, 0, 0) scale(1.0226);}
-  65.96% {transform: translate3d(0.62px, 0, 0) scale(0.9938);}
-  82.98% {transform: translate3d(-0.17px, 0, 0) scale(1.0017);}
-  100.00% {transform: translate3d(0.05px, 0, 0) scale(0.9995);}
-} */
 @keyframes move {
   0% {
     transform: scale(0, 0);
@@ -319,5 +310,5 @@ https://www.w3cplus.com/animation/spring-animation-in-css.html
 .spring {
   /* animation: 1s move linear; */
   animation-fill-mode: both;
-  animation: 3.5s move linear 1;
+  animation: 3.5s 0.8s move linear 1;
 }
