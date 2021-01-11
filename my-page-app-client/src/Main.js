@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { getAllBlogs, getUserBlogs } from './actions';
 import { connect } from 'react-redux';
-import Routes from './Routes';
+import Routes from './route/Routes';
 
 /* load blogs asap, so user don't need to wait everytime when go to blogs */
 function Main(props) {

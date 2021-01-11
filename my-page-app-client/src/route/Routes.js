@@ -1,18 +1,17 @@
 import React from "react";
 import { Route, Switch } from "react-router-dom";
-import Home from "./containers/Home";
-import NotFound from "./containers/NotFound";
-import Login from "./containers/Login";
-import AppliedRoute from "./components/AppliedRoute";
-import Signup from "./containers/Signup";
-import NewBlog from "./containers/NewBlog";
-import Blogs from "./containers/Blogs";
-import BlogEdit from "./containers/BlogEdit";
-import BlogView from "./containers/BlogView";
-// import Resume from "./containers/Resume";
-import More from "./containers/More";
-import AuthenticatedRoute from "./components/AuthenticatedRoute";
-import UnauthenticatedRoute from "./components/UnauthenticatedRoute";
+import Home from "../components/Home";
+import NotFound from "../components/NotFound";
+import Login from "../components/Login";
+import Signup from "../components/Signup";
+import NewBlog from "../components/NewBlog";
+import Blogs from "../components/Blogs";
+import BlogEdit from "../components/BlogEdit";
+import BlogView from "../components/BlogView";
+import More from "../components/More";
+import AppliedRoute from "./AppliedRoute";
+import AuthenticatedRoute from "./AuthenticatedRoute";
+import UnauthenticatedRoute from "./UnauthenticatedRoute";
 
 
 export default ({ childProps }) =>
