@@ -64,15 +64,15 @@ function Home(props) {
 
   return (
       <div className={classes.root + " spring"}>
-      <Paper color='default' elevation={2} className={classes.paper}>
-        <Grid container justify="center" alignItems="center">
-          <Avatar alt="Qiwei Y" src={qiwei} className={classes.avatar} />
-          <Typography variant='h4' className={classes.name}>Qiwei Yang</Typography>
-        </Grid>
-        <Typography gutterBottom variant='body1' className={classes.p}>Third year Computer Science student from UNSW Sydney<br />with an interest in web technologies and cloud computing. </Typography>
-        <Typography gutterBottom variant='body1' className={classes.p}>Looking for a Graduate Software Engineer job</Typography>
-        <Typography gutterBottom variant='body1' className={classes.p}>My email: <a href = "mailto: yangqiwei97@gmail.com">yangqiwei97@gmail.com</a></Typography>
-      </Paper>
+        <Paper color='default' elevation={2} className={classes.paper}>
+          <Grid container justify="center" alignItems="center">
+            <Avatar alt="Qiwei Y" src={qiwei} className={classes.avatar} />
+            <Typography variant='h4' className={classes.name}>Qiwei Yang</Typography>
+          </Grid>
+          <Typography gutterBottom variant='body1' className={classes.p}>Third year Computer Science student from UNSW Sydney<br />with an interest in web technologies and cloud computing. </Typography>
+          <Typography gutterBottom variant='body1' className={classes.p}>Looking for a Graduate Software Engineer job</Typography>
+          <Typography gutterBottom variant='body1' className={classes.p}>My email: <a href = "mailto: yangqiwei97@gmail.com">yangqiwei97@gmail.com</a></Typography>
+        </Paper>
       </div>
   );
 }

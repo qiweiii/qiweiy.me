@@ -83,6 +83,7 @@ class BlogListItem extends React.Component {
               noedit: this.props.noedit,
               edit: this.props.edit,
               create: this.props.create,
+              id: this.props.id
             } 
           }}
         >

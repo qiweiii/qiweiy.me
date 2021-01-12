@@ -32,6 +32,7 @@ import Main from "./Main";
 import { Auth } from "aws-amplify";
 import Tooltip from '@material-ui/core/Tooltip';
 import config from "./config";
+import { Helmet } from "react-helmet";
 
 const drawerWidth = 200;
 
@@ -185,6 +186,12 @@ class MainApp extends React.Component {
     const { classes, theme } = this.props;
     const drawer = (
       <div>
+        <Helmet>
+          <title>Qiwei Yang</title>
+          <meta property="og:title" content="Qiwei Yang's website" />
+          <meta property="og:type" content="website" />
+          <meta name="description" content="Qiwei Yang's website. 杨启维 个人网站" />
+        </Helmet>
         <div className={classes.drawerHeader}>
           <IconButton onClick={this.handleDrawerClose}>
             {theme.direction === 'ltr' ? <ChevronLeftIcon /> : <ChevronRightIcon />}
