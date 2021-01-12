@@ -68,8 +68,9 @@ class BlogCard extends React.Component {
               author: this.props.content.author,
               image: this.props.content.image,
               noedit: this.props.noedit,
-              edit: this.props.edit,
-              create: this.props.create,
+              edit: this.props.edit, // edited time
+              create: this.props.create, // created time
+              id: this.props.id
             } 
           }}
           className={classes.action}

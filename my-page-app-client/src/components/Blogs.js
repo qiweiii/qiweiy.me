@@ -14,6 +14,7 @@ import _ from 'lodash';
 import BlogCard from "./BlogCard";
 import BlogListItem from "./BlogListItem";
 import { setListSwitch } from "../actions";
+import { Helmet } from "react-helmet";
 
 
 const styles = theme => ({
@@ -59,6 +60,8 @@ const styles = theme => ({
   }
 });
 
+const regex = /[\s,_#/]/g // regex for title in URL
+
 class Blogs extends React.Component {
 
   sortBlogs(blogs) {
@@ -70,6 +73,7 @@ class Blogs extends React.Component {
     const { classes } = this.props;
     // console.log(blogs[0]);
     if (this.props.blogListSwitch) {
+      // show as a list
       return (
         <Grid container spacing={0} className={classes.listContainer}>
           {[{}].concat(blogs).map((blog, i) => i === 0 ? null :
@@ -80,7 +84,8 @@ class Blogs extends React.Component {
                 create={new Date(blog.createdAt).toLocaleDateString('en-US', { hour12: false })}
                 noedit={noEditButton}
                 key={blog.noteId}
-                link={`/blogs/view/${blog.noteId}`}
+                id={blog.noteId}
+                link={`/blogs/view/${blog.content.title.replace(regex, '-')}`}
               />
             </Grid>
           )}
@@ -98,7 +103,8 @@ class Blogs extends React.Component {
                 create={new Date(blog.createdAt).toLocaleDateString('en-US', { hour12: false })}
                 noedit={noEditButton}
                 key={blog.noteId}
-                link={`/blogs/view/${blog.noteId}`}
+                id={blog.noteId}
+                link={`/blogs/view/${blog.content.title.replace(regex, '-')}`}
               />
             </Grid>
           )}
@@ -147,6 +153,12 @@ class Blogs extends React.Component {
     const { classes } = this.props;
     return (
       <div>
+        <Helmet>
+          <title>Qiwei Yang - Blogs</title>
+          <meta property="og:title" content="Qiwei Yang - Blogs" />
+          <meta property="og:type" content="website" />
+          <meta name="description" content="Qiwei Yang - Blogs" />
+        </Helmet>
         <div className={classes.switch}>
           <FormControlLabel
             control={

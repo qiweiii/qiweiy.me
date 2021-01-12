@@ -81,6 +81,7 @@ class BlogView extends React.Component {
       content: "",
       author: "",
       image: "",
+      id: "",
       isLoading: false
     };
   }
@@ -91,6 +92,7 @@ class BlogView extends React.Component {
       content: this.props.location.state.content,
       author: this.props.location.state.author,
       image: this.props.location.state.image,
+      id: this.props.location.state.id
     });
   }
 
@@ -99,7 +101,7 @@ class BlogView extends React.Component {
   };
 
   saveNote(blog) {
-    return API.put("pages", `/pages/${this.props.match.params.id}`, {
+    return API.put("pages", `/pages/${this.state.id}`, {
       body: blog
     });
   }
@@ -134,7 +136,7 @@ class BlogView extends React.Component {
   }
 
   deleteNote() {
-    return API.del("pages", `/pages/${this.props.match.params.id}`);
+    return API.del("pages", `/pages/${this.state.id}`);
   }
 
   handleDelete = async event => {

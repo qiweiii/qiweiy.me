@@ -11,6 +11,7 @@ import ReactMarkdown from 'react-markdown';
 import CodeBlock from "./CodeBlock.js";
 import "./BlogView.css";
 import classNames from 'classnames';
+import { Helmet } from "react-helmet";
 
 
 const styles = theme => ({
@@ -73,13 +74,18 @@ class BlogView extends React.Component {
     const { classes } = this.props;
     const disqusShortname = 'qiweiy';
     const disqusConfig = {
-        url: `https://qiweiy.me/blogs/view/${this.props.match.params.id}`,
-        identifier: `/blogs/view/${this.props.match.params.id}`,
+        url: `https://qiweiy.me/blogs/view/${this.props.location.state.id}`,
+        identifier: `/blogs/view/${this.props.location.state.id}`,
         title: this.props.location.state.title,
     };
     return (
-      
         <Container className={classes.layout}>
+          <Helmet>
+            <title>{`${this.props.location.state.title} - ${this.props.location.state.author}`}</title>
+            <meta property="og:title" content={this.props.location.state.title} />
+            <meta property="og:type" content="blog" />
+            <meta name="description" content={this.props.location.state.content.slice(0,100)} />
+          </Helmet>
           {/* <Paper elevation={6} className={classes.paper}> */}
             <Typography variant="h4" gutterBottom align="center" className={classes.title}>
               {this.props.location.state.title}
@@ -110,6 +116,7 @@ class BlogView extends React.Component {
                     content: this.props.location.state.content,
                     author: this.props.location.state.author,
                     image: this.props.location.state.image,
+                    id: this.props.location.state.id
                   } 
                 }}
               >
