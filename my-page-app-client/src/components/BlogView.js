@@ -74,7 +74,7 @@ class BlogView extends React.Component {
     const { classes } = this.props;
     const disqusShortname = 'qiweiy';
     const disqusConfig = {
-        url: `https://qiweiy.me/blogs/view/${this.props.location.state.id}`,
+        url: `https://qiweiy.me/blogs/view/${this.props.location.pathname}`,
         identifier: `/blogs/view/${this.props.location.state.id}`,
         title: this.props.location.state.title,
     };
@@ -126,8 +126,7 @@ class BlogView extends React.Component {
           {/* </Paper> */}
 
           <div>
-            <Disqus.CommentCount shortname={disqusShortname} config={disqusConfig}>
-            </Disqus.CommentCount>
+            <Disqus.CommentCount shortname={disqusShortname} config={disqusConfig} />
             <Disqus.DiscussionEmbed shortname={disqusShortname} config={disqusConfig} />
           </div>
         </Container>
