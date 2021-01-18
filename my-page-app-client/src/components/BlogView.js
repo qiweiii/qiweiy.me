@@ -73,34 +73,35 @@ class BlogView extends React.Component {
   render() {
     const { classes } = this.props;
     const disqusShortname = 'qiweiy';
+    const content = this.props.location.state;
     const disqusConfig = {
         url: `https://qiweiy.me/blogs/view/${this.props.location.pathname}`,
-        identifier: `/blogs/view/${this.props.location.state.id}`,
-        title: this.props.location.state.title,
+        identifier: `/blogs/view/${content.id}`,
+        title: content.title,
     };
     return (
         <Container className={classes.layout}>
           <Helmet>
-            <title>{`${this.props.location.state.title} - ${this.props.location.state.author}`}</title>
-            <meta property="og:title" content={this.props.location.state.title} />
+            <title>{`${content.title} - ${content.author}`}</title>
+            <meta property="og:title" content={content.title} />
             <meta property="og:type" content="blog" />
-            <meta name="description" content={this.props.location.state.content.slice(0,100)} />
+            <meta name="description" content={content.content.slice(0,100)} />
           </Helmet>
           {/* <Paper elevation={6} className={classes.paper}> */}
             <Typography variant="h4" gutterBottom align="center" className={classes.title}>
-              {this.props.location.state.title}
+              {content.title}
             </Typography> 
             <Typography gutterBottom align="left" className={classes.author}>
-              Created by {this.props.location.state.author} on {this.props.location.state.create} | Edited on {this.props.location.state.edit}
+              Created by {content.author} on {content.create} | Edited on {content.edit}
             </Typography>
             <div className={classNames(classes.contentText, classes.content)}>
               <ReactMarkdown 
                 className="markdown" 
-                source={this.props.location.state.content}
+                source={content.content}
                 renderers={{code: CodeBlock}}
               />
             </div>
-            {this.props.location.state.noedit ? 
+            {content.noedit ? 
               <div className={classes.buttons}></div>
               :
               <Button
@@ -112,11 +113,11 @@ class BlogView extends React.Component {
                 to={{ 
                   pathname: `/blogs/edit/${this.props.match.params.id}`, 
                   state: {
-                    title: this.props.location.state.title,
-                    content: this.props.location.state.content,
-                    author: this.props.location.state.author,
-                    image: this.props.location.state.image,
-                    id: this.props.location.state.id
+                    title: content.title,
+                    content: content.content,
+                    author: content.author,
+                    image: content.image,
+                    id: content.id
                   } 
                 }}
               >

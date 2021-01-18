@@ -31,11 +31,22 @@ const allBlogsReady = () => {
   }
 }
 
-// action creator
 export const setListSwitch = (checked) => {
   return {
     type: 'SET_LIST_SWITCH',
     payload: checked
+  }
+}
+
+export const setFilter = tag => ({
+  type: 'SET_FILTER',
+  filter: tag
+});
+
+export const saveTags = tags => {
+  return {
+    type: 'SAVE_TAGS',
+    tags: tags
   }
 }
 

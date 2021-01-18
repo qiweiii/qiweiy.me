@@ -41,16 +41,16 @@ const styles = theme => ({
     flexGrow: 1,
   },
   facebook: {
-    margin: theme.spacing.unit,
+    margin: theme.spacing(1),
     backgroundColor: '#3b5998',
   },
   google: {
-    margin: theme.spacing.unit,
+    margin: theme.spacing(1),
     backgroundColor: '#db3236',
   },
   form: {
     width: '100%', // Fix IE 11 issue.
-    marginTop: theme.spacing.unit,
+    marginTop: theme.spacing(1),
   },
   submit: {
     marginTop: theme.spacing(3),
