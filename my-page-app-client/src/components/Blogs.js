@@ -6,14 +6,16 @@ import Link from '@material-ui/core/Link';
 import Grid from '@material-ui/core/Grid';
 import CircularProgress from "@material-ui/core/CircularProgress";
 import FormControlLabel from '@material-ui/core/FormControlLabel';
+import InputLabel from '@material-ui/core/InputLabel';
+import FormControl from '@material-ui/core/FormControl';
 import Switch from '@material-ui/core/Switch';
+import Select from '@material-ui/core/Select';
 import { Link as RouterLink} from 'react-router-dom'
-import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import _ from 'lodash';
 import BlogCard from "./BlogCard";
 import BlogListItem from "./BlogListItem";
-import { setListSwitch } from "../actions";
+import { setListSwitch, setFilter } from "../actions";
 import { Helmet } from "react-helmet";
 
 
@@ -53,10 +55,13 @@ const styles = theme => ({
     justifyContent: 'center',
     marginTop: "20%"
   },
-  switch: {
+  tools: {
     display: 'flex',
     justifyContent: 'flex-end',
     margin: '10px'
+  },
+  formControl: {
+    margin: '12px'
   }
 });
 
@@ -64,14 +69,17 @@ const regex = /[\s,_#/]/g // regex for title in URL
 
 class Blogs extends React.Component {
 
-  sortBlogs(blogs) {
-    blogs = blogs[0]
-    return _.orderBy(blogs, ['createdAt'], ['desc']);
+  processBlogs(blogs) {
+    return _.orderBy(blogs, ['createdAt'], ['desc']); // sort
+  }
+
+  handleFilterChange = (e) => {
+    console.log(e.target.value); 
+    this.props.setFilter(e.target.value);
   }
 
   renderBlogs(blogs, noEditButton) {
     const { classes } = this.props;
-    // console.log(blogs[0]);
     if (this.props.blogListSwitch) {
       // show as a list
       return (
@@ -117,7 +125,7 @@ class Blogs extends React.Component {
   renderAllBlogs() {
     return (
       <div>
-        {this.renderBlogs(this.sortBlogs(this.props.allBlogs), true)}
+        {this.renderBlogs(this.processBlogs(this.props.allBlogs), true)}
       </div>
     );
   }
@@ -139,7 +147,7 @@ class Blogs extends React.Component {
               </h4>
             </Link>
           </ListItem>
-          {this.renderBlogs(this.sortBlogs(this.props.userBlogs), false)}
+          {this.renderBlogs(this.processBlogs(this.props.userBlogs), false)}
         <Divider/>
         <h1 className={classes.h1}>All blogs</h1>
         <div>
@@ -153,27 +161,53 @@ class Blogs extends React.Component {
     const { classes } = this.props;
     return (
       <div>
+        {/* headings */}
         <Helmet>
           <title>Qiwei Yang - Blogs</title>
           <meta property="og:title" content="Qiwei Yang - Blogs" />
           <meta property="og:type" content="website" />
           <meta name="description" content="Qiwei Yang - Blogs" />
         </Helmet>
-        <div className={classes.switch}>
-          <FormControlLabel
-            control={
-              <Switch
-                checked={this.props.blogListSwitch}
-                onChange={() => {this.props.setListSwitch()}}
-                name="listToggle"
-                color="primary"
-              />
-            }
-            label="List"
-          />
-        </div>
+
+        {/* render blogs filter and list switch */}
+        { this.props.blogsReady && 
+          <div className={classes.tools}>
+            <FormControl variant="outlined" className={classes.formControl}>
+              <InputLabel htmlFor="outlined-age-native-simple">Tags</InputLabel>
+              <Select
+                native
+                value={this.props.blogFilter}
+                onChange={this.handleFilterChange}
+                label="Tags"
+                inputProps={{
+                  name: 'tags',
+                  id: 'outlined-age-native-simple',
+                }}
+              >
+                <option key="all-blogs" value="all">all</option>
+                {this.props.tags.map(item => 
+                  <option key={item} value={item}>{item}</option>
+                )}
+              </Select>
+            </FormControl>
+            <FormControlLabel
+              control={
+                <Switch
+                  checked={this.props.blogListSwitch}
+                  onChange={() => {this.props.setListSwitch()}}
+                  name="listToggle"
+                  color="primary"
+                />
+              }
+              label="List"
+            />
+          </div>
+        }
+
+        {/* render blogs */}
         { this.props.blogsReady ? 
-          ( this.props.isAuthenticated ? 
+          ( 
+            this.props.isAuthenticated ? 
             this.renderUserBlogs()
             : 
             this.renderAllBlogs()
@@ -188,20 +222,26 @@ class Blogs extends React.Component {
   }
 }
 
-Blogs.propTypes = {
-  classes: PropTypes.object.isRequired,
-};
+const selectVisibleBlogs = (blogs, blogfilter) => {
+  if (blogfilter === "all") return blogs;
+  return blogs.filter(b => {
+    if (b.content.tags && b.content.tags.includes(blogfilter)) return true;
+    return false;
+  })
+}
 
 const mapStateToProps = state => {
   return { 
-    userBlogs: state.userBlogs,
-    allBlogs: state.allBlogs,
+    userBlogs: selectVisibleBlogs(state.userBlogs, state.blogFilter),
+    allBlogs: selectVisibleBlogs(state.allBlogs, state.blogFilter),
     blogsReady: state.blogsIsReady.allBlogsReady && state.blogsIsReady.userBlogsReady,
-    blogListSwitch: state.blogListSwitch
+    blogListSwitch: state.blogListSwitch,
+    blogFilter: state.blogFilter,
+    tags: state.tags
   };
 };
 
 export default connect(
   mapStateToProps,
-  { setListSwitch }
+  { setListSwitch, setFilter }
 )(withStyles(styles)(Blogs));

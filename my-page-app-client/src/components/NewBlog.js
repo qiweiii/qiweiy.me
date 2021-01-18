@@ -79,6 +79,7 @@ class NewBlog extends React.Component {
       content: "",
       author: "",
       image: "",
+      tags: "",
       isLoading: false
     };
   }
@@ -111,6 +112,7 @@ class NewBlog extends React.Component {
           title: this.state.title,
           author: this.state.author,
           image: this.state.image,
+          tags: this.state.tags
         }
       });
       this.setState({ isLoading: false });
@@ -175,6 +177,20 @@ class NewBlog extends React.Component {
                 value={this.state.image} 
                 onChange={this.handleChange('image')}
                 placeholder="Cover image of your post (need to be available online, pls put the link to that image here)"
+              />
+            </FormControl>
+            <FormControl margin="normal" fullWidth>
+              <TextField
+                id="filled-textarea-4"
+                label="tags"
+                margin="normal"
+                variant="filled"
+                value={this.state.tags} 
+                inputProps={{
+                  maxLength: 50,
+                }}
+                onChange={this.handleChange('tags')}
+                placeholder="tags of this article, separated by ','"
               />
             </FormControl>
             <FormControl margin="normal" fullWidth>

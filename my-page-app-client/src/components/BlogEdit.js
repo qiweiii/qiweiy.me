@@ -45,12 +45,12 @@ const styles = theme => ({
   },
   button: {
     marginTop: theme.spacing(3),
-    marginLeft: theme.spacing.unit,
+    marginLeft: theme.spacing(1)
   },
   buttonDelete: {
     marginTop: theme.spacing(3),
-    marginLeft: theme.spacing.unit,
-    marginRight: theme.spacing.unit
+    marginLeft: theme.spacing(1),
+    marginRight: theme.spacing(1)
   },
   link: {
     marginTop: theme.spacing(4),
@@ -83,6 +83,7 @@ class BlogView extends React.Component {
       author: "",
       image: "",
       id: "",
+      tags: "",
       isLoading: false
     };
   }
@@ -93,8 +94,13 @@ class BlogView extends React.Component {
       content: this.props.location.state.content,
       author: this.props.location.state.author,
       image: this.props.location.state.image,
-      id: this.props.location.state.id
+      id: this.props.location.state.id,
+      tags: this.props.location.state.tags
     });
+  }
+
+  validateForm() {
+    return this.state.content.length > 0 && this.state.title.length > 0;
   }
 
   handleChange = name => event => {
@@ -126,6 +132,7 @@ class BlogView extends React.Component {
           title: this.state.title,
           author: this.state.author,
           image: this.state.image,
+          tags: this.state.tags
         },
       });
       this.setState({ isLoading: false });
@@ -172,7 +179,7 @@ class BlogView extends React.Component {
                 <TextField
                   id="filled-textarea-1"
                   label="Content"
-                  single
+                  single="true"
                   variant="filled"
                   value={this.state.title}
                   onChange={this.handleChange('title')}
@@ -184,7 +191,7 @@ class BlogView extends React.Component {
                 <TextField
                   id="filled-textarea-2"
                   label="Author"
-                  single
+                  single="true"
                   variant="filled"
                   value={this.state.author}
                   onChange={this.handleChange('author')}
@@ -208,6 +215,20 @@ class BlogView extends React.Component {
               </FormControl>
               <FormControl margin="normal" fullWidth>
                 <TextField
+                  id="filled-textarea-4"
+                  label="tags"
+                  margin="normal"
+                  variant="filled"
+                  value={this.state.tags} 
+                  inputProps={{
+                    maxLength: 50,
+                  }}
+                  onChange={this.handleChange('tags')}
+                  placeholder="tags of this article, separated by ','"
+                />
+              </FormControl>
+              <FormControl margin="normal" fullWidth>
+                <TextField
                   id="filled-textarea"
                   label="Content"
                   multiline
@@ -220,15 +241,15 @@ class BlogView extends React.Component {
                 />
               </FormControl>
               <div className={classes.buttons}>
-                <Link href="https://rexxars.github.io/react-markdown/"  target="_blank" className={classes.link}>
-                    Formatting help
+                <Link href="https://remarkjs.github.io/react-markdown/"  target="_blank" className={classes.link}>
+                  Formatting help
                 </Link>
                 <Button
                   variant="contained"
                   color="primary"
                   type="submit"
                   className={classes.button}
-                  disable={this.state.isLoading}
+                  disabled={!this.validateForm() && this.state.isLoading}
                 >
                   Save
                 </Button>
