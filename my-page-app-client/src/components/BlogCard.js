@@ -59,7 +59,7 @@ class BlogCard extends React.Component {
     return (
       <Card elevation={8} className={classes.card}>
         <CardActionArea 
-          component={RouterLink}
+          component={RouterLink} 
           to={{ 
             pathname: this.props.link, 
             state: {

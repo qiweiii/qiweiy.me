@@ -50,6 +50,7 @@ const styles = theme => ({
   buttonDelete: {
     marginTop: theme.spacing(3),
     marginLeft: theme.spacing.unit,
+    marginRight: theme.spacing.unit
   },
   link: {
     marginTop: theme.spacing(4),
@@ -229,7 +230,7 @@ class BlogView extends React.Component {
                   className={classes.button}
                   disable={this.state.isLoading}
                 >
-                  Save {this.state.isLoading && <CircularProgress size="1.2em"/>}
+                  Save
                 </Button>
                 <Button
                   variant="contained"
@@ -238,8 +239,9 @@ class BlogView extends React.Component {
                   className={classes.buttonDelete}
                   disable={this.state.isLoading}
                 >
-                  Delete {this.state.isLoading && <CircularProgress size="1.2em"/>}
+                  Delete
                 </Button>
+                {this.state.isLoading && <CircularProgress size="1.2em"/>}
               </div>
             </form>
          </Paper>
