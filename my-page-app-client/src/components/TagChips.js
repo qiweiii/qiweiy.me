@@ -7,17 +7,18 @@ import { setFilter } from "../actions";
 const styles = theme => ({
   root: {
     // padding: theme.spacing(1),
-    marginTop: "7px",
-    marginBottom: "8px",
+    marginTop: "6px",
+    marginBottom: "10px",
     marginRight: "2px",
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'flex-end',
-    // color: "red",
+    flexWrap: 'wrap'
   },
   chips: {
-    marginLeft: "4px",
-    fontSize: "0.9em",
+    marginLeft: '4px',
+    marginTop: '3px',
+    fontSize: '0.9em',
   }
 });
 
