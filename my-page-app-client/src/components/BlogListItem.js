@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
@@ -10,6 +9,7 @@ import Box from '@material-ui/core/Box';
 import { Link as RouterLink } from 'react-router-dom'
 import zima from "../img/zima.jpg";
 import blank from "../img/blank.jpg";
+import TagChips from "./TagChips";
 
 
 const styles = theme => ({
@@ -64,6 +64,7 @@ class BlogListItem extends React.Component {
   render() {
     const { classes } = this.props;
     return (
+      <>
       <Box 
         boxShadow={this.state.shadow}
         onMouseOver={this.onMouseOver}
@@ -78,6 +79,7 @@ class BlogListItem extends React.Component {
             state: {
               title: this.props.content.title,
               content: this.props.content.content,
+              tags: this.props.content.tags,
               author: this.props.content.author,
               image: this.props.content.image,
               noedit: this.props.noedit,
@@ -104,12 +106,10 @@ class BlogListItem extends React.Component {
           />
         </ListItem>
       </Box>
+      <TagChips tags={this.props.content.tags} />
+      </>
     );
   }
 }
-
-BlogListItem.propTypes = {
-  classes: PropTypes.object.isRequired,
-};
 
 export default withStyles(styles)(BlogListItem);

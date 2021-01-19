@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import FormControl from '@material-ui/core/FormControl';
@@ -84,7 +83,7 @@ class NewBlog extends React.Component {
     };
   }
 
-  validateForm() {
+  validateForm = () => {
     return this.state.content.length > 0 && this.state.title.length > 0;
   }
 
@@ -104,7 +103,7 @@ class NewBlog extends React.Component {
         return false
       }
     }
-    console.log(this.state.image);
+    // console.log(this.state.image);
     try {
       await this.createBlog({
         content: {
@@ -212,7 +211,7 @@ class NewBlog extends React.Component {
                 variant="contained"
                 color="primary"
                 className={classes.button}
-                disabled={!this.validateForm() && this.state.isLoading}
+                disabled={!this.validateForm() || this.state.isLoading}
               >
                 Create {this.state.isLoading && <CircularProgress size="1.2em"/>}
               </Button>
@@ -227,9 +226,5 @@ class NewBlog extends React.Component {
     );
   }
 }
-
-NewBlog.propTypes = {
-  classes: PropTypes.object.isRequired,
-};
 
 export default withStyles(styles)(NewBlog);

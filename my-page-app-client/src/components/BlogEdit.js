@@ -89,6 +89,7 @@ class BlogView extends React.Component {
   }
 
   async componentDidMount() {
+    // console.log(this.props.location.state)
     this.setState({
       title: this.props.location.state.title,
       content: this.props.location.state.content,
@@ -99,7 +100,7 @@ class BlogView extends React.Component {
     });
   }
 
-  validateForm() {
+  validateForm = () => {
     return this.state.content.length > 0 && this.state.title.length > 0;
   }
 
@@ -249,7 +250,7 @@ class BlogView extends React.Component {
                   color="primary"
                   type="submit"
                   className={classes.button}
-                  disabled={!this.validateForm() && this.state.isLoading}
+                  disabled={!this.validateForm() || this.state.isLoading}
                 >
                   Save
                 </Button>
@@ -258,7 +259,7 @@ class BlogView extends React.Component {
                   color="secondary"
                   onClick={this.handleDelete}
                   className={classes.buttonDelete}
-                  disable={this.state.isLoading}
+                  disabled={this.state.isLoading}
                 >
                   Delete
                 </Button>
