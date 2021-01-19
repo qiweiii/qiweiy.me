@@ -74,7 +74,6 @@ class Blogs extends React.Component {
   }
 
   handleFilterChange = (e) => {
-    console.log(e.target.value); 
     this.props.setFilter(e.target.value);
   }
 

@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardActionArea from '@material-ui/core/CardActionArea';
@@ -9,10 +8,12 @@ import Typography from '@material-ui/core/Typography';
 import { Link as RouterLink} from 'react-router-dom'
 import zima from "../img/zima.jpg";
 import blank from "../img/blank.jpg";
+import TagChips from "./TagChips";
 
 
 const styles = theme => ({
   // card: {
+  //   height: 320
   // },
   media: {
     height: 180,
@@ -20,7 +21,7 @@ const styles = theme => ({
   // action: {
   // },
   cardContent: {
-    height: 140,
+    height: 130,
   },
   authorDate: {
     fontSize: "0.9em",
@@ -54,9 +55,14 @@ class BlogCard extends React.Component {
     return t;
   }
 
+  // componentDidMount() {
+  //   console.log(this.props)
+  // }
+
   render() {
     const { classes } = this.props;
     return (
+      <>
       <Card elevation={8} className={classes.card}>
         <CardActionArea 
           component={RouterLink} 
@@ -66,6 +72,7 @@ class BlogCard extends React.Component {
               title: this.props.content.title,
               content: this.props.content.content,
               author: this.props.content.author,
+              tags: this.props.content.tags,
               image: this.props.content.image,
               noedit: this.props.noedit,
               edit: this.props.edit, // edited time
@@ -89,12 +96,10 @@ class BlogCard extends React.Component {
           </CardContent>
         </CardActionArea>
       </Card>
+      <TagChips tags={this.props.content.tags} />
+      </>
     );
   }
 }
-
-BlogCard.propTypes = {
-  classes: PropTypes.object.isRequired,
-};
 
 export default withStyles(styles)(BlogCard);

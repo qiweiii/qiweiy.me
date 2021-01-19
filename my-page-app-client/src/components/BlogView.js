@@ -117,6 +117,7 @@ class BlogView extends React.Component {
                     content: content.content,
                     author: content.author,
                     image: content.image,
+                    tags: content.tags,
                     id: content.id
                   } 
                 }}
