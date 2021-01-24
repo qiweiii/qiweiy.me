@@ -12,7 +12,7 @@ import Switch from '@material-ui/core/Switch';
 import Select from '@material-ui/core/Select';
 import { Link as RouterLink} from 'react-router-dom'
 import { connect } from 'react-redux';
-import _ from 'lodash';
+import { orderBy } from 'lodash-es';
 import BlogCard from "./BlogCard";
 import BlogListItem from "./BlogListItem";
 import { setListSwitch, setFilter } from "../actions";
@@ -70,7 +70,7 @@ const regex = /[\s,_#/]/g // regex for title in URL
 class Blogs extends React.Component {
 
   processBlogs(blogs) {
-    return _.orderBy(blogs, ['createdAt'], ['desc']); // sort
+    return orderBy(blogs, ['createdAt'], ['desc']); // sort
   }
 
   handleFilterChange = (e) => {
