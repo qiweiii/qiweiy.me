@@ -135,7 +135,7 @@ class MainApp extends React.Component {
       this.userHasAuthenticated(true);
     } catch (e) {
       if (e !== "not authenticated") {
-        alert(e);
+        console.log(e);
       }
     }
     this.setState({ isAuthenticating: false });
