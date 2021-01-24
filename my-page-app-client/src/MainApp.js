@@ -1,6 +1,5 @@
 import React, {Fragment} from 'react';
 import clsx from 'clsx';
-import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import Drawer from '@material-ui/core/Drawer';
@@ -296,11 +295,5 @@ class MainApp extends React.Component {
     );
   }
 }
-
-MainApp.propTypes = {
-  classes: PropTypes.object.isRequired,
-  container: PropTypes.object,
-  theme: PropTypes.object.isRequired,
-};
 
 export default withRouter(withStyles(styles, { withTheme: true })(MainApp));
