@@ -1,5 +1,4 @@
 import React from "react";
-import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import { Typography } from "@material-ui/core";
 import qiwei from "../img/qiwei.jpeg";
@@ -76,9 +75,5 @@ function Home(props) {
       </div>
   );
 }
-
-Home.propTypes = {
-  classes: PropTypes.object.isRequired,
-};
 
 export default withStyles(styles)(Home);

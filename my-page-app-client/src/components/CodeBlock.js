@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 // require the highlight.js library without languages
 import hljs from 'highlight.js/lib/core';
 import javascript from 'highlight.js/lib/languages/javascript';
@@ -70,13 +69,5 @@ class CodeBlock extends React.PureComponent {
   }
 }
 
-CodeBlock.defaultProps = {
-  language: ''
-}
-
-CodeBlock.propTypes = {
-  value: PropTypes.string.isRequired,
-  language: PropTypes.string
-}
 
 export default CodeBlock
