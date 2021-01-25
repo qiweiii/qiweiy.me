@@ -69,7 +69,7 @@ function checkURL(str) {
   }
 };
 
-class BlogView extends React.Component {
+class BlogEdit extends React.Component {
   constructor(props) {
     super(props);
 
@@ -272,4 +272,4 @@ class BlogView extends React.Component {
   }
 }
 
-export default withStyles(styles)(BlogView);
+export default withStyles(styles)(BlogEdit);
