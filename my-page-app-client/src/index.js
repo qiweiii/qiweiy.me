@@ -26,6 +26,7 @@ Amplify.configure({
     identityPoolId: config.cognito.IDENTITY_POOL_ID,
     userPoolWebClientId: config.cognito.APP_CLIENT_ID
   },
+  // actualy i am not using this bucket, it's for uploading attachment...which i don't have
   Storage: {
     region: config.s3.REGION,
     bucket: config.s3.BUCKET,
