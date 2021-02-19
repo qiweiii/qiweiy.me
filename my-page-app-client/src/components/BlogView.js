@@ -58,10 +58,6 @@ const styles = theme => ({
   },
   button: {
     marginTop: theme.spacing(3),
-    marginLeft: theme.spacing(2),
-    [theme.breakpoints.up(600 + theme.spacing(3 * 2))]: {
-      marginLeft: theme.spacing(5),
-    },
     marginBottom: theme.spacing(3),
   },
 });

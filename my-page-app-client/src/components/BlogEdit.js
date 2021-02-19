@@ -137,6 +137,7 @@ class BlogEdit extends React.Component {
       });
       this.setState({ isLoading: false });
       this.props.history.push("/blogs");
+      window.location.reload(false); // false: use cached version
     } catch (e) {
       alert(e);
       this.setState({ isLoading: false });

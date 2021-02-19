@@ -116,6 +116,7 @@ class NewBlog extends React.Component {
       });
       this.setState({ isLoading: false });
       this.props.history.push("/blogs");
+      window.location.reload(false);
     } catch (e) {
       this.setState({ isLoading: false });
       alert(e.message);
