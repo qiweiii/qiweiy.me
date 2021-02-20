@@ -4,8 +4,8 @@ import allBlogsReducer from './allBlogsReducer';
 
 // note abt reducer in case i forget again
 // 1. if i use matchPropsToState in a component, i will get the corresponding "state objects" exported from here
-// 2. each reducer function here is responsible for one "state object", i should put actions abt it inside one reducer function
-// 3. argument state is initial state, reducer function's return is the new state! 
+// 2. each reducer function here is responsible for one "state object", i should put actions for it inside one reducer function
+// 3. argument state is initial state, reducer function's return is the new state
 
 const blogsReady = (state = { 
   allBlogsReady: false,
@@ -54,10 +54,30 @@ const tags = (state = [], action) => {
   }
 }
 
+// const curBlog = (state = {}, action) => {
+//   switch (action.type) {
+//     case 'GET_BLOG_BY_ID':
+//       return action.payload;
+//     default:
+//       return state;
+//   }
+// };
+
+// const curBlogReady = (state = false, action) => {
+//   switch (action.type) {
+//     case 'CUR_BLOG_READY':
+//       return action.ready;
+//     default:
+//       return state;
+//   }
+// }
+
 export default combineReducers({
   userBlogs: userBlogsReducer,
   allBlogs: allBlogsReducer,
-  blogsIsReady: blogsReady,
+  // curBlog: curBlog,
+  blogsAreReady: blogsReady,
+  // curBlogReady: curBlogReady,
   blogListSwitch: blogListSwitch,
   blogFilter: blogFilter,
   tags: tags

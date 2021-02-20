@@ -87,8 +87,8 @@ class Blogs extends React.Component {
             <Grid item xs={12} key={blog.noteId}>
               <BlogListItem 
                 content={blog.content}
-                edit={new Date(blog.editedAt).toLocaleDateString('en-US', { hour12: false })}
-                create={new Date(blog.createdAt).toLocaleDateString('en-US', { hour12: false })}
+                editedAt={new Date(blog.editedAt).toLocaleDateString('en-US', { hour12: false })}
+                createdAt={new Date(blog.createdAt).toLocaleDateString('en-US', { hour12: false })}
                 noedit={noEditButton}
                 key={blog.noteId}
                 id={blog.noteId}
@@ -106,8 +106,8 @@ class Blogs extends React.Component {
             <Grid item xs={12} sm={6} md={4} lg={3} key={blog.noteId}>
               <BlogCard 
                 content={blog.content}
-                edit={new Date(blog.editedAt).toLocaleDateString('en-US', { hour12: false })}
-                create={new Date(blog.createdAt).toLocaleDateString('en-US', { hour12: false })}
+                editedAt={new Date(blog.editedAt).toLocaleDateString('en-US', { hour12: false })}
+                createdAt={new Date(blog.createdAt).toLocaleDateString('en-US', { hour12: false })}
                 noedit={noEditButton}
                 key={blog.noteId}
                 id={blog.noteId}
@@ -233,7 +233,7 @@ const mapStateToProps = state => {
   return { 
     userBlogs: selectVisibleBlogs(state.userBlogs, state.blogFilter),
     allBlogs: selectVisibleBlogs(state.allBlogs, state.blogFilter),
-    blogsReady: state.blogsIsReady.allBlogsReady && state.blogsIsReady.userBlogsReady,
+    blogsReady: state.blogsAreReady.allBlogsReady && state.blogsAreReady.userBlogsReady,
     blogListSwitch: state.blogListSwitch,
     blogFilter: state.blogFilter,
     tags: state.tags

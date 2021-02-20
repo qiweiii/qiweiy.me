@@ -6,10 +6,8 @@ export async function main(event, context) {
   const params = {
     TableName: process.env.tableName,
     // 'Key' defines the partition key and sort key of the item to be updated
-    // - 'userId': Identity Pool identity id of the authenticated user
     // - 'noteId': path parameter
     Key: {
-      userId: event.requestContext.identity.cognitoIdentityId,
       noteId: event.pathParameters.id
     },
     // 'UpdateExpression' defines the attributes to be updated
@@ -17,8 +15,11 @@ export async function main(event, context) {
     UpdateExpression: "SET content = :content, editedAt = :editedAt",
     ExpressionAttributeValues: {
       ":content": data.content || null,
-      ":editedAt": Date.now()
+      ":editedAt": Date.now(),
+      ":userId": event.requestContext.identity.cognitoIdentityId
     },
+    // A condition that must be satisfied in order for a conditional update to succeed.
+    ConditionExpression: "userId = :userId",
     // 'ReturnValues' specifies if and how to return the item's attributes,
     // where ALL_NEW returns all attributes of the item after the update; you
     // can inspect 'result' below to see how it works with different settings
@@ -26,7 +27,7 @@ export async function main(event, context) {
   };
 
   try {
-    const result = await dynamoDbLib.call("update", params);
+    await dynamoDbLib.call("update", params);
     return success({ status: true });
   } catch (e) {
     console.log(e);

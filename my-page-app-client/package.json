@@ -69,6 +69,7 @@
     "source-map-explorer": "^2.5.2",
     "style-loader": "0.23.1",
     "terser-webpack-plugin": "2.3.8",
+    "tocbot": "^4.12.2",
     "ts-pnp": "1.1.6",
     "url-loader": "2.3.0",
     "valid-url": "^1.0.9",
