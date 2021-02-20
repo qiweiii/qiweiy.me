@@ -32,7 +32,7 @@ const mapStateToProps = state => {
   return { 
     userBlogs: state.userBlogs,
     allBlogs: state.allBlogs,
-    blogsReady: state.blogsIsReady.allBlogsReady && state.blogsIsReady.userBlogsReady,
+    blogsReady: state.blogsAreReady.allBlogsReady && state.blogsAreReady.userBlogsReady,
   };
 };
 

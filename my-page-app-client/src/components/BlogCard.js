@@ -70,13 +70,12 @@ class BlogCard extends React.Component {
             pathname: this.props.link, 
             state: {
               title: this.props.content.title,
-              content: this.props.content.content,
               author: this.props.content.author,
               tags: this.props.content.tags,
               image: this.props.content.image,
+              edit: this.props.editedAt, // edited time
+              create: this.props.createdAt, // created time
               noedit: this.props.noedit,
-              edit: this.props.edit, // edited time
-              create: this.props.create, // created time
               id: this.props.id
             } 
           }}

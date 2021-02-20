@@ -1,0 +1,7 @@
+{
+  "name": "infrastructure",
+  "type": "@serverless-stack/resources",
+  "stage": "prod",
+  "region": "ap-southeast-1",
+  "lint": true
+}

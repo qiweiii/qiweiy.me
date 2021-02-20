@@ -78,13 +78,12 @@ class BlogListItem extends React.Component {
             pathname: this.props.link, 
             state: {
               title: this.props.content.title,
-              content: this.props.content.content,
               tags: this.props.content.tags,
               author: this.props.content.author,
               image: this.props.content.image,
+              create: this.props.createdAt, // create time
+              edit: this.props.editedAt, // edited time
               noedit: this.props.noedit,
-              edit: this.props.edit,
-              create: this.props.create,
               id: this.props.id
             } 
           }}

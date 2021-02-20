@@ -11,6 +11,12 @@ import CodeBlock from "./CodeBlock.js";
 import "./BlogView.css";
 import classNames from 'classnames';
 import { Helmet } from "react-helmet";
+import HeadingRenderer from './HeadingRenderer'
+import * as tocbot from 'tocbot';
+import { connect } from 'react-redux';
+import { getBlogsById } from "../actions";
+import { API } from "aws-amplify";
+import CircularProgress from "@material-ui/core/CircularProgress";
 
 
 const styles = theme => ({
@@ -64,64 +70,97 @@ const styles = theme => ({
 
 
 class BlogView extends React.Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      content: "",
+      contentReady: false,
+    }
+  }
+
+  componentDidMount() {
+    const res = await API.get("pages", `/pages/${this.props.location.state.id}`);
+    console.log(res);
+    this.setState({ 
+      content: res[0].content,
+      contentReady: true
+    });
+    tocbot.init({
+      // Where to render the table of contents.
+      tocSelector: '.js-toc',
+      // Where to grab the headings to build the table of contents.
+      contentSelector: '.markdown',
+      // Which headings to grab inside of the contentSelector element.
+      headingSelector: 'h1, h2, h3',
+      // For headings inside relative or absolute positioned containers within content.
+      hasInnerContainers: true,
+    });
+  }
 
   render() {
     const { classes } = this.props;
     const disqusShortname = 'qiweiy';
-    const content = this.props.location.state;
+    const blog = this.props.location.state;
     const disqusConfig = {
-        url: `https://qiweiy.me/blogs/view/${this.props.location.pathname}`,
-        identifier: `/blogs/view/${content.id}`,
-        title: content.title,
+        url: `https://qiweiy.me/blogs/view/${this.state.location.pathname}`,
+        // identifier: `/blogs/view/${blog.id}`,
+        identifier: `/blogs/view/${this.props.location.pathname}`,
+        title: this.props.location.pathname,
     };
     return (
         <Container className={classes.layout}>
           <Helmet>
-            <title>{`${content.title} - ${content.author}`}</title>
-            <meta property="og:title" content={content.title} />
+            <title>{`${blog.title} - ${blog.author}`}</title>
+            <meta property="og:title" content={blog.title} />
             <meta property="og:type" content="blog" />
-            <meta name="description" content={content.content.slice(0,100)} />
+            {/* <meta name="description" content={blog.content.slice(0,100)} /> */}
           </Helmet>
-          {/* <Paper elevation={6} className={classes.paper}> */}
-            <Typography variant="h4" gutterBottom align="center" className={classes.title}>
-              {content.title}
-            </Typography> 
-            <Typography gutterBottom align="left" className={classes.author}>
-              Created by {content.author} on {content.create} | Edited on {content.edit}
-            </Typography>
-            <div className={classNames(classes.contentText, classes.content)}>
-              <ReactMarkdown 
-                className="markdown" 
-                source={content.content}
-                renderers={{code: CodeBlock}}
-              />
+          <Typography variant="h4" gutterBottom align="center" className={classes.title}>
+            {blog.title}
+          </Typography> 
+          <Typography gutterBottom align="left" className={classes.author}>
+            Created by {blog.author} on {blog.create} | Edited on {blog.edit}
+          </Typography>
+          { 
+            this.state.contentReady ?
+            <CircularProgress />
+            :
+            <div>
+              <div className="js-toc"></div>
+              <div className={classNames(classes.contentText, classes.content)}>
+                <ReactMarkdown 
+                  className="markdown" 
+                  source={this.state.content}
+                  renderers={{code: CodeBlock, heading: HeadingRenderer}}
+                />
+              </div>
+              {
+                blog.noedit ? 
+                <div className={classes.buttons}></div>
+                :
+                <Button
+                  variant="contained"
+                  color="primary"
+                  className={classes.button}
+                  onClick={this.handleEdit}
+                  component={RouterLink}
+                  to={{ 
+                    pathname: `/blogs/edit/${this.props.match.params.id}`, 
+                    state: {
+                      title: blog.title,
+                      content: this.state.content,
+                      author: blog.author,
+                      image: blog.image,
+                      tags: blog.tags,
+                      id: blog.id
+                    } 
+                  }}
+                >
+                  Edit
+                </Button>
+              }
             </div>
-            {content.noedit ? 
-              <div className={classes.buttons}></div>
-              :
-              <Button
-                variant="contained"
-                color="primary"
-                className={classes.button}
-                onClick={this.handleEdit}
-                component={RouterLink}
-                to={{ 
-                  pathname: `/blogs/edit/${this.props.match.params.id}`, 
-                  state: {
-                    title: content.title,
-                    content: content.content,
-                    author: content.author,
-                    image: content.image,
-                    tags: content.tags,
-                    id: content.id
-                  } 
-                }}
-              >
-                Edit
-              </Button>
-            }
-          {/* </Paper> */}
-
+          }
           <div>
             <Disqus.CommentCount shortname={disqusShortname} config={disqusConfig} />
             <Disqus.DiscussionEmbed shortname={disqusShortname} config={disqusConfig} />
@@ -132,4 +171,7 @@ class BlogView extends React.Component {
   }
 }
 
-export default withStyles(styles)(BlogView);
+export default connect(
+  mapStateToProps,
+  { getBlogsById }
+)(withStyles(styles)(BlogView));
