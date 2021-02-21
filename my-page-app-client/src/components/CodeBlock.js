@@ -16,6 +16,8 @@ import shell from 'highlight.js/lib/languages/shell';
 import yaml from 'highlight.js/lib/languages/yaml';
 import json from 'highlight.js/lib/languages/json';
 import nginx from 'highlight.js/lib/languages/nginx';
+import glsl from 'highlight.js/lib/languages/glsl';
+import plaintext from 'highlight.js/lib/languages/plaintext';
 // style
 import 'highlight.js/styles/monokai-sublime.css';
 
@@ -34,6 +36,8 @@ hljs.registerLanguage('shell', shell);
 hljs.registerLanguage('yaml', yaml);
 hljs.registerLanguage('json', json);
 hljs.registerLanguage('nginx', nginx);
+hljs.registerLanguage('glsl', glsl);
+hljs.registerLanguage('text', plaintext);
 
 
 class CodeBlock extends React.PureComponent {

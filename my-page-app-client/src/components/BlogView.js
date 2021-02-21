@@ -20,14 +20,12 @@ import { connect } from 'react-redux';
 
 const styles = theme => ({
   layout: {
-    // marginLeft: 'auto',
-    // marginRight: 'auto',
     width: 'auto',
-    margin: '3% 22% 3% 22%',
+    margin: '3% 25% 3% 18%',
     [theme.breakpoints.down(1280 + theme.spacing(3 * 2))]: {
-      margin: '3% 18% 3% 18%',
+      margin: '3% 24% 3% 16%',
     },
-    [theme.breakpoints.down(960 + theme.spacing(3 * 2))]: {
+    [theme.breakpoints.down(1100)]: {
       margin: '3% 10% 3% 10%',
     },
     [theme.breakpoints.down(600 + theme.spacing(3))]: {
@@ -54,8 +52,8 @@ const styles = theme => ({
       padding: theme.spacing(1),
       minHeight: 400,
     },
-    fontSize: '1.15rem',
-    lineHeight: '1.7',
+    fontSize: '1.2rem',
+    lineHeight: '1.8',
   },
   buttons: {
     display: 'flex',
@@ -68,8 +66,8 @@ const styles = theme => ({
   spinner: {
     display: "flex",
     justifyContent: "center",
-    marginTop: "100px"
-  }
+    marginTop: "150px"
+  },
 });
 
 
@@ -113,8 +111,9 @@ class BlogView extends React.Component {
         contentSelector: '.markdown',
         // Which headings to grab inside of the contentSelector element.
         headingSelector: 'h1, h2, h3',
-        // For headings inside relative or absolute positioned containers within content.
-        hasInnerContainers: true,
+        collapseDepth: 4,
+        headingsOffset: 64,
+        scrollSmoothOffset: -64
       });
     } catch (e) {
       console.log(e);
@@ -127,9 +126,14 @@ class BlogView extends React.Component {
     const { classes } = this.props;
     const disqusShortname = 'qiweiy';
     return (
-        <Container className={classes.layout}>
-          { 
-            this.state.contentReady ?
+      <div>
+        <div>
+          <div className="js-toc"></div>
+        </div>
+          
+        { 
+          this.state.contentReady ?
+            <Container className={classes.layout}>
             <div>
               <Helmet>
                 <title>{`${this.state.title} - ${this.state.author}`}</title>
@@ -143,7 +147,7 @@ class BlogView extends React.Component {
               <Typography gutterBottom align="left" className={classes.author}>
                 Created by {this.state.author} on {this.state.createdAt} | Edited on {this.state.editedAt}
               </Typography>
-              <div className="js-toc"></div>
+              
               <div className={classNames(classes.contentText, classes.content)}>
                 <ReactMarkdown 
                   className="markdown" 
@@ -190,13 +194,13 @@ class BlogView extends React.Component {
                 />
               </div>
             </div>
-            :
-            <div className={classes.spinner}>
-              <CircularProgress />
-            </div>
-          }
-        </Container>
-
+          </Container>
+          :
+          <div className={classes.spinner}>
+            <CircularProgress />
+          </div>
+        }
+      </div>
     );
   }
 }
