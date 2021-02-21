@@ -1,42 +1,41 @@
 import React, { useEffect } from 'react';
-import { getAllBlogs, getUserBlogs, saveTags } from './actions';
+import { getAllBlogs, saveTags } from './actions';
 import { connect } from 'react-redux';
 import Routes from './route/Routes';
 
 /* load blogs asap, so user don't need to wait everytime when go to blogs */
-function Main({childProps, getAllBlogs, getUserBlogs, blogsReady, userBlogs, allBlogs, saveTags}) {
+function Main({ getAllBlogs, allBlogsReady, allBlogs, saveTags }) {
   useEffect(() => {
+    // console.log(childProps.isAuthenticated);
     getAllBlogs();
-    getUserBlogs();
     // get all tags
-    if (blogsReady) {
+    if (allBlogsReady) {
       let alltags = new Set();
-      for (const blog of [...userBlogs, ...allBlogs]) {
+      for (const blog of [...allBlogs]) {
         if (blog.content.tags) { // some early blogs did not have tags (value is undefined)
           blog.content.tags.split(/\s*[,，]\s*/).forEach(elem => {
-            alltags.add(elem);
+            alltags.add(elem.toLocaleLowerCase());
           });
         }
       }
       saveTags(Array.from(alltags));
     }
   // eslint-disable-next-line 
-  }, [blogsReady]); // if i put in all dependencies, it runs infinitely, am i changing userBlogs and allBlogs constantly?
+  }, [allBlogsReady]);
 
   return (
-    <Routes childProps={childProps}/>
+    <Routes />
   );
 }
 
 const mapStateToProps = state => {
   return { 
-    userBlogs: state.userBlogs,
     allBlogs: state.allBlogs,
-    blogsReady: state.blogsAreReady.allBlogsReady && state.blogsAreReady.userBlogsReady,
+    allBlogsReady: state.allBlogsReady
   };
 };
 
 export default connect(
   mapStateToProps,
-  { getUserBlogs, getAllBlogs, saveTags }
+  { getAllBlogs, saveTags }
 )(Main);

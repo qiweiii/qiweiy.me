@@ -1,23 +1,25 @@
 import * as dynamoDbLib from "../libs/dynamodb-lib";
 import { success, failure } from "../libs/response-lib";
 
+// get all blogs of an user
 export async function main(event, context) {
   const params = {
     TableName: process.env.tableName,
+    // filter
+    FilterExpression: "userId = :userId",
     // 'KeyConditionExpression' defines the condition for the query
-    // - 'userId = :userId': only return items with matching 'userId'
-    //   partition key
-    // 'ExpressionAttributeValues' defines the value in the condition
-    // - ':userId': defines 'userId' to be Identity Pool identity id
-    //   of the authenticated user
-    KeyConditionExpression: "userId = :userId",
     ExpressionAttributeValues: {
       ":userId": event.requestContext.identity.cognitoIdentityId
     }
   };
 
   try {
-    const result = await dynamoDbLib.call("query", params);
+    // const result = await dynamoDbLib.call("query", params)
+    // I have to use scan...(either here or in getItem)
+    const result = await dynamoDbLib.call("scan", params);
+    for (let item of result.Items) {
+      delete item.content.content;
+    }
     // Return the matching list of items in response body
     return success(result.Items);
   } catch (e) {

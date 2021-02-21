@@ -14,7 +14,8 @@ import FacebookButton from "../components/FacebookButton";
 import GoogleButton from "../components/GoogleButton";
 import Fab from '@material-ui/core/Fab';
 import CircularProgress from "@material-ui/core/CircularProgress";
-
+import { userAuthSuccess } from "../actions"
+import { connect } from 'react-redux';
 
 const styles = theme => ({
   main: {
@@ -86,7 +87,7 @@ class Login extends React.Component {
     this.setState({ isLoading: true });
     try {
       await Auth.signIn(this.state.email, this.state.password);
-      this.props.userHasAuthenticated(true);
+      this.props.userAuthSuccess();
       this.setState({ isLoading: false });
       this.props.history.push("/");
     } catch (e) {
@@ -96,10 +97,10 @@ class Login extends React.Component {
   }
 
   handleFbLogin = () => {
-    this.props.userHasAuthenticated(true);
+    this.props.userAuthSuccess();
   }
   handleGgLogin = () => {
-    this.props.userHasAuthenticated(true);
+    this.props.userAuthSuccess();
   }
 
   render() {
@@ -141,7 +142,7 @@ class Login extends React.Component {
               className={classes.submit}
               disabled={this.state.isLoading}
             >
-              Login {this.state.isLoading && <CircularProgress size="1.2em"/>}
+              Login {this.state.isLoading && <span style={{paddingLeft:"10px", display: "flex", alignItems:"center"}}><CircularProgress size="1.1em"/></span>}
             </Button>
           </form>
         </Paper>
@@ -150,4 +151,7 @@ class Login extends React.Component {
   }
 }
 
-export default withStyles(styles)(Login);
+export default connect(
+  null,
+  { userAuthSuccess }
+)(withStyles(styles)(Login));

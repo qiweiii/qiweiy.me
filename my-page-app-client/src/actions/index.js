@@ -1,30 +1,32 @@
 import { API } from "aws-amplify";
 
 
-// how do we use the synchronous action creators we defined earlier together with network requests? 
-// The standard way to do it with Redux is to use the Redux Thunk middleware.
+// how do we use the synchronous action creators together with network requests? 
+// Use the Redux Thunk middleware
 export const getUserBlogs = () => async (dispatch, getState) => {
-  // current logged in user's blogs
-  const response = await API.get("pages", "/pages");
-  dispatch({ type: 'GET_USER_BLOGS', payload: response });
+  // get current user's blogs
+  const response = await API.get("pages", "/pages").catch(e => {});
+  if (response)
+    dispatch({ type: 'GET_USER_BLOGS', payload: response });
   dispatch(userBlogsReady());
 }
 
 export const getAllBlogs = () => async (dispatch, getState) => {
-  // all blogs in table
-  const response = await API.get("pages", "/pages/all");
-  dispatch({ type: 'GET_ALL_BLOGS', payload: response });
+  // get all blogs in the table
+  const response = await API.get("pages", "/pages/all").catch(e => {});
+  if (response)
+    dispatch({ type: 'GET_ALL_BLOGS', payload: response });
   dispatch(allBlogsReady());
 }
 
-const userBlogsReady = () => {
+export const userBlogsReady = () => {
   return {
     type: 'USER_BLOGS_READY',
     ready: true
   }
 }
 
-const allBlogsReady = () => {
+export const allBlogsReady = () => {
   return {
     type: 'ALL_BLOGS_READY',
     ready: true
@@ -50,6 +52,19 @@ export const saveTags = tags => {
   }
 }
 
+export const userAuthSuccess = () => {
+  return {
+    type: 'USER_AUTH_SUCCESS',
+    status: true
+  }
+}
+
+export const userLogout = () => {
+  return {
+    type: 'USER_LOGOUT',
+    status: false
+  }
+}
 
 // export const fetchUser = id => dispatch => _fetchUser(id, dispatch);
 // const _fetchUser = _.memoize(async (id, dispatch) => {

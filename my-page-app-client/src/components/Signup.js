@@ -12,9 +12,6 @@ import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import withStyles from '@material-ui/core/styles/withStyles';
 import { Auth } from "aws-amplify";
-import FacebookButton from "../components/FacebookButton";
-import GoogleButton from "../components/GoogleButton";
-import Fab from '@material-ui/core/Fab';
 import CircularProgress from "@material-ui/core/CircularProgress";
 
 
@@ -125,7 +122,7 @@ class Signup extends React.Component {
       await Auth.confirmSignUp(this.state.email, this.state.confirmationCode);
       await Auth.signIn(this.state.email, this.state.password);
 
-      this.props.userHasAuthenticated(true);
+      this.props.userAuthSuccess();
       this.props.history.push("/");
     } catch (e) {
       alert(e.message);
@@ -164,7 +161,7 @@ class Signup extends React.Component {
               className={classes.submit}
               disabled={this.state.isLoading}
             >
-              Send {this.state.isLoading && <CircularProgress size="1.2em"/>}
+              Send {this.state.isLoading && <span style={{paddingLeft:"10px", display: "flex", alignItems:"center"}}><CircularProgress size="1.1em"/></span>}
             </Button>
           </form>
         </Paper>
@@ -178,17 +175,6 @@ class Signup extends React.Component {
       <main className={classes.main}>
         <CssBaseline />
         <Paper className={classes.paper}>
-          <div className={classes.avatars}>
-            <Fab size="small" className={classes.facebook}>
-              <FacebookButton onLogin={this.handleFbLogin} />
-            </Fab>
-            <Fab size="small" className={classes.google}>
-              <GoogleButton onLogin={this.handleGgLogin}/>
-            </Fab>
-          </div>
-          <Typography component="p" className={classes.p}>
-            Or Be Classic
-          </Typography>
           <form onSubmit={this.handleSubmit} className={classes.form}>
             <FormControl value={this.state.email} onChange={this.handleChange} margin="normal" required fullWidth>
               <InputLabel htmlFor="email">Email Address</InputLabel>
@@ -216,7 +202,7 @@ class Signup extends React.Component {
               className={classes.submit}
               disabled={this.state.isLoading}
             >
-              Signup {this.state.isLoading && <CircularProgress size="1.2em"/>}
+              Signup {this.state.isLoading && <span style={{paddingLeft:"10px", display: "flex", alignItems:"center"}}><CircularProgress size="1.1em"/></span>}
             </Button>
           </form>
         </Paper>

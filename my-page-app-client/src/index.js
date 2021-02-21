@@ -13,10 +13,6 @@ import thunk from 'redux-thunk';
 import reducers from './reducers';
 import { composeWithDevTools } from 'redux-devtools-extension';
 
-
-const store = createStore(reducers, composeWithDevTools(applyMiddleware(thunk)));
-
-
 // configure aws amplify, connect to client
 Amplify.configure({
   Auth: {
@@ -42,6 +38,9 @@ Amplify.configure({
     ]
   }
 });
+
+// set up redux store
+const store = createStore(reducers, composeWithDevTools(applyMiddleware(thunk)));
 
 
 ReactDOM.render(

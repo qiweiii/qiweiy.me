@@ -10,7 +10,7 @@ export default class DynamoDBStack extends sst.Stack {
 
     const table = new dynamodb.Table(this, "qiweiy-me-Table", {
       billingMode: dynamodb.BillingMode.PAY_PER_REQUEST, // Use on-demand billing mode
-      partitionKey: { name: "userId", type: dynamodb.AttributeType.STRING },
+      partitionKey: { name: "noteId", type: dynamodb.AttributeType.STRING },
     });
 
     // Output values
