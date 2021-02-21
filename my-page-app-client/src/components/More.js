@@ -22,9 +22,7 @@ const styles = theme => ({
     textAlign: 'left',
   },
   h1: {
-    // font: 'Roboto',
     fontWeight: 300,
-    // color: '#212121',
   },
   p: {
     maxWidth: 450,

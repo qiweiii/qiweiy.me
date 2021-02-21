@@ -14,9 +14,9 @@ const appThemeOptions = {
     typography: { 
       useNextVariants: true,
       fontFamily: [
+        'sans-serif',
         'Roboto',
         '"Segoe UI"',
-        'sans-serif',
         '"Helvetica Neue"',
         'Arial',
         '"Apple Color Emoji"',
@@ -38,10 +38,10 @@ const appThemeOptions = {
     typography: { 
       useNextVariants: true,
       fontFamily: [
-        'Roboto',
-        '"Segoe UI"',
         'sans-serif',
         '"Helvetica Neue"',
+        'Roboto',
+        '"Segoe UI"',
         'Arial',
         '"Apple Color Emoji"',
         '"Segoe UI Emoji"',

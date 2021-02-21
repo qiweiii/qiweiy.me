@@ -59,7 +59,6 @@ const styles = theme => ({
   },
   p: {
     paddingTop: 5,
-    font: 'Roboto',
     fontSize: 14,
   }
 });
