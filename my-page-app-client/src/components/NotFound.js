@@ -1,13 +1,6 @@
 import React from "react";
 import { withStyles } from '@material-ui/core/styles';
 
-// export default () =>
-//   <div className="NotFound">
-//     <h3>Sorry, page not found!</h3>
-//   </div>;
-
-
-
 const styles = theme => ({
   root: {
     marginTop: theme.spacing(20),
@@ -26,7 +19,7 @@ function NotFound(props) {
 
   return (
     <div className={classes.root}>
-    	<h3>Sorry, page not found!</h3>
+    	<h3>Sorry, page not found</h3>
   	</div>
   );
 }

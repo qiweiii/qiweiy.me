@@ -13,10 +13,9 @@ import classNames from 'classnames';
 import { Helmet } from "react-helmet";
 import HeadingRenderer from './HeadingRenderer'
 import * as tocbot from 'tocbot';
-import { connect } from 'react-redux';
-import { getBlogsById } from "../actions";
 import { API } from "aws-amplify";
 import CircularProgress from "@material-ui/core/CircularProgress";
+import { connect } from 'react-redux';
 
 
 const styles = theme => ({
@@ -66,6 +65,11 @@ const styles = theme => ({
     marginTop: theme.spacing(3),
     marginBottom: theme.spacing(3),
   },
+  spinner: {
+    display: "flex",
+    justifyContent: "center",
+    marginTop: "100px"
+  }
 });
 
 
@@ -73,59 +77,72 @@ class BlogView extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
+      editedAt: "",
+      createdAt: "",
       content: "",
+      author: "",
+      title: "",
+      imageUrl: "",
+      tags: "",
+      id: "",
       contentReady: false,
     }
   }
 
-  componentDidMount() {
-    const res = await API.get("pages", `/pages/${this.props.location.state.id}`);
-    console.log(res);
-    this.setState({ 
-      content: res[0].content,
-      contentReady: true
-    });
-    tocbot.init({
-      // Where to render the table of contents.
-      tocSelector: '.js-toc',
-      // Where to grab the headings to build the table of contents.
-      contentSelector: '.markdown',
-      // Which headings to grab inside of the contentSelector element.
-      headingSelector: 'h1, h2, h3',
-      // For headings inside relative or absolute positioned containers within content.
-      hasInnerContainers: true,
-    });
+  async componentDidMount() {
+    // maybe i should do string compression and decompression
+    const id = this.props.location.pathname.split('-').slice(-5).join('-');
+    try {
+      const res = await API.get("pages", `/pages/${id}`);
+      // console.log(res);
+      this.setState({ 
+        editedAt: new Date(res.editedAt).toLocaleDateString('en-US', { hour12: false }),
+        createdAt: new Date(res.createdAt).toLocaleDateString('en-US', { hour12: false }),
+        content: res.content.content,
+        author: res.content.author,
+        title: res.content.title,
+        imageUrl: res.content.image,
+        tags: res.content.tags,
+        id: res.noteId,
+        contentReady: true
+      });
+      tocbot.init({
+        // Where to render the table of contents.
+        tocSelector: '.js-toc',
+        // Where to grab the headings to build the table of contents.
+        contentSelector: '.markdown',
+        // Which headings to grab inside of the contentSelector element.
+        headingSelector: 'h1, h2, h3',
+        // For headings inside relative or absolute positioned containers within content.
+        hasInnerContainers: true,
+      });
+    } catch (e) {
+      console.log(e);
+      alert("Blog does not exist.");
+      this.props.history.push("/blogs");
+    }
   }
 
   render() {
     const { classes } = this.props;
     const disqusShortname = 'qiweiy';
-    const blog = this.props.location.state;
-    const disqusConfig = {
-        url: `https://qiweiy.me/blogs/view/${this.state.location.pathname}`,
-        // identifier: `/blogs/view/${blog.id}`,
-        identifier: `/blogs/view/${this.props.location.pathname}`,
-        title: this.props.location.pathname,
-    };
     return (
         <Container className={classes.layout}>
-          <Helmet>
-            <title>{`${blog.title} - ${blog.author}`}</title>
-            <meta property="og:title" content={blog.title} />
-            <meta property="og:type" content="blog" />
-            {/* <meta name="description" content={blog.content.slice(0,100)} /> */}
-          </Helmet>
-          <Typography variant="h4" gutterBottom align="center" className={classes.title}>
-            {blog.title}
-          </Typography> 
-          <Typography gutterBottom align="left" className={classes.author}>
-            Created by {blog.author} on {blog.create} | Edited on {blog.edit}
-          </Typography>
           { 
             this.state.contentReady ?
-            <CircularProgress />
-            :
             <div>
+              <Helmet>
+                <title>{`${this.state.title} - ${this.state.author}`}</title>
+                <meta property="og:title" content={this.state.title} />
+                <meta property="og:type" content="blog" />
+                {/* <meta name="description" content={blog.content.slice(0,100)} /> */}
+              </Helmet>
+              <Typography variant="h4" gutterBottom align="center" className={classes.title}>
+                {this.state.title}
+              </Typography> 
+              <Typography gutterBottom align="left" className={classes.author}>
+                Created by {this.state.author} on {this.state.createdAt} | Edited on {this.state.editedAt}
+              </Typography>
               <div className="js-toc"></div>
               <div className={classNames(classes.contentText, classes.content)}>
                 <ReactMarkdown 
@@ -135,7 +152,7 @@ class BlogView extends React.Component {
                 />
               </div>
               {
-                blog.noedit ? 
+                !this.props.userHasAuthenticated ? 
                 <div className={classes.buttons}></div>
                 :
                 <Button
@@ -145,33 +162,52 @@ class BlogView extends React.Component {
                   onClick={this.handleEdit}
                   component={RouterLink}
                   to={{ 
-                    pathname: `/blogs/edit/${this.props.match.params.id}`, 
+                    pathname: `/blogs/edit/${this.state.id}`, 
                     state: {
-                      title: blog.title,
+                      title: this.state.title,
                       content: this.state.content,
-                      author: blog.author,
-                      image: blog.image,
-                      tags: blog.tags,
-                      id: blog.id
+                      author: this.state.author,
+                      image: this.state.imageUrl,
+                      tags: this.state.tags,
+                      id: this.state.id
                     } 
                   }}
                 >
                   Edit
                 </Button>
               }
+
+              {/* Load Disqus */}
+              <div>
+                {/* <Disqus.CommentCount shortname={disqusShortname} config={disqusConfig} /> */}
+                <Disqus.DiscussionEmbed 
+                  shortname={disqusShortname} 
+                  config={{
+                    url: `https://qiweiy.me/blogs/view/${this.props.location.pathname}`,
+                    identifier: `/blogs/view/${this.props.location.pathname}`,
+                    title: this.state.title,
+                  }}
+                />
+              </div>
+            </div>
+            :
+            <div className={classes.spinner}>
+              <CircularProgress />
             </div>
           }
-          <div>
-            <Disqus.CommentCount shortname={disqusShortname} config={disqusConfig} />
-            <Disqus.DiscussionEmbed shortname={disqusShortname} config={disqusConfig} />
-          </div>
         </Container>
 
     );
   }
 }
 
+const mapStateToProps = state => {
+  return {
+    userHasAuthenticated: state.userHasAuthenticated
+  };
+};
+
 export default connect(
   mapStateToProps,
-  { getBlogsById }
+  null
 )(withStyles(styles)(BlogView));

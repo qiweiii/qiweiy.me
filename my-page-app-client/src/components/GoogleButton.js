@@ -15,7 +15,7 @@ class GoogleButton extends React.Component {
             window.gapi.auth2.getAuthInstance() : 
             null;
         if (!ga) this.createScript();
-        console.log(config.social.GG);
+        // console.log(config.social.GG);
     }
 
     signIn() {

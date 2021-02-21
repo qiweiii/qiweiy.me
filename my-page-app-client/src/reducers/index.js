@@ -7,21 +7,30 @@ import allBlogsReducer from './allBlogsReducer';
 // 2. each reducer function here is responsible for one "state object", i should put actions for it inside one reducer function
 // 3. argument state is initial state, reducer function's return is the new state
 
-const blogsReady = (state = { 
-  allBlogsReady: false,
-  userBlogsReady: false
-}, action) => {
+const userHasAuthenticated = (state = false, action) => {
+  switch (action.type) {
+    case 'USER_AUTH_SUCCESS':
+      return action.status
+    case 'USER_LOGOUT':
+      return action.status
+    default:
+      return state;
+  }
+}
+
+const userBlogsReady = (state = false, action) => {
   switch (action.type) {
     case 'USER_BLOGS_READY':
-      return {
-        ...state,
-        userBlogsReady: action.ready
-      }
+      return action.ready
+    default:
+      return state;
+  }
+}
+
+const allBlogsReady = (state = false, action) => {
+  switch (action.type) {
     case 'ALL_BLOGS_READY':
-      return {
-        ...state,
-        allBlogsReady: action.ready
-      }
+      return action.ready
     default:
       return state;
   }
@@ -54,31 +63,13 @@ const tags = (state = [], action) => {
   }
 }
 
-// const curBlog = (state = {}, action) => {
-//   switch (action.type) {
-//     case 'GET_BLOG_BY_ID':
-//       return action.payload;
-//     default:
-//       return state;
-//   }
-// };
-
-// const curBlogReady = (state = false, action) => {
-//   switch (action.type) {
-//     case 'CUR_BLOG_READY':
-//       return action.ready;
-//     default:
-//       return state;
-//   }
-// }
-
 export default combineReducers({
   userBlogs: userBlogsReducer,
   allBlogs: allBlogsReducer,
-  // curBlog: curBlog,
-  blogsAreReady: blogsReady,
-  // curBlogReady: curBlogReady,
+  userBlogsReady: userBlogsReady,
+  allBlogsReady: allBlogsReady,
   blogListSwitch: blogListSwitch,
   blogFilter: blogFilter,
-  tags: tags
+  tags: tags,
+  userHasAuthenticated: userHasAuthenticated
 });

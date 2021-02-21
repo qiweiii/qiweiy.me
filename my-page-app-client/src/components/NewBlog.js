@@ -214,7 +214,7 @@ class NewBlog extends React.Component {
                 className={classes.button}
                 disabled={!this.validateForm() || this.state.isLoading}
               >
-                Create {this.state.isLoading && <CircularProgress size="1.2em"/>}
+                Create {this.state.isLoading && <span style={{paddingLeft:"10px", display: "flex", alignItems:"center"}}><CircularProgress size="1.1em"/></span>}
               </Button>
               <Link href="https://remarkjs.github.io/react-markdown/"  target="_blank" className={classes.link}>
                 Formatting help

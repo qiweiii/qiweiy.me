@@ -76,16 +76,15 @@ class BlogListItem extends React.Component {
           component={RouterLink}
           to={{ 
             pathname: this.props.link, 
-            state: {
-              title: this.props.content.title,
-              tags: this.props.content.tags,
-              author: this.props.content.author,
-              image: this.props.content.image,
-              create: this.props.createdAt, // create time
-              edit: this.props.editedAt, // edited time
-              noedit: this.props.noedit,
-              id: this.props.id
-            } 
+            // state: {
+            //   title: this.props.content.title,
+            //   tags: this.props.content.tags,
+            //   author: this.props.content.author,
+            //   image: this.props.content.image,
+            //   create: this.props.createdAt, // create time
+            //   edit: this.props.editedAt, // edited time
+            //   id: this.props.id
+            // } 
           }}
         >
           <ListItemAvatar>
@@ -99,7 +98,7 @@ class BlogListItem extends React.Component {
             }
             secondary={
               <Typography component="p" align="right" className={classes.authorDate} noWrap>
-                Create by {this.trimLength(this.props.content.author, 30)} on {this.props.create}
+                Create by {this.trimLength(this.props.content.author, 30)} on {this.props.createdAt}
               </Typography>
             }
           />

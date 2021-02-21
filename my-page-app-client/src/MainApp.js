@@ -32,6 +32,9 @@ import { Auth } from "aws-amplify";
 import Tooltip from '@material-ui/core/Tooltip';
 import config from "./config";
 import { Helmet } from "react-helmet";
+import { userAuthSuccess, userLogout } from "./actions"
+import { connect } from 'react-redux';
+
 
 const drawerWidth = 200;
 
@@ -45,7 +48,7 @@ const styles = theme => ({
   drawerHeader: {
     fontSize: 12,
     display: 'flex',
-    padding: theme.spacing(0, 1),
+    // padding: theme.spacing(0, 1),
     ...theme.mixins.toolbar,
     alignItems: 'center',
     justifyContent: 'flex-end',
@@ -90,9 +93,9 @@ const styles = theme => ({
     width: drawerWidth,
   },
   content: {
-    width: '100%',
+    width: '100vw',
     flexGrow: 1,
-    padding: theme.spacing(1),
+    // padding: theme.spacing(1),
     transition: theme.transitions.create('margin', {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.leavingScreen,
@@ -122,7 +125,6 @@ class MainApp extends React.Component {
     super(props);
 
     this.state = {
-      isAuthenticated: false,
       isAuthenticating: true,
       open: false
     };
@@ -132,7 +134,7 @@ class MainApp extends React.Component {
     this.loadFacebookSDK();
     try {
       await Auth.currentAuthenticatedUser();
-      this.userHasAuthenticated(true);
+      this.props.userAuthSuccess();
     } catch (e) {
       if (e !== "not authenticated") {
         console.log(e);
@@ -167,21 +169,13 @@ class MainApp extends React.Component {
     this.setState({ open: false });
   }
 
-  userHasAuthenticated = authenticated => {
-    this.setState({ isAuthenticated: authenticated });
-  }
-
   handleLogout = async event => {
     await Auth.signOut();
-    this.userHasAuthenticated(false);
+    this.props.userLogout();
     this.props.history.push("/login");
   }
 
   render() {
-    const childProps = {
-      isAuthenticated: this.state.isAuthenticated,
-      userHasAuthenticated: this.userHasAuthenticated
-    };
     const { classes, theme } = this.props;
     const drawer = (
       <div>
@@ -260,7 +254,7 @@ class MainApp extends React.Component {
                 }
               </IconButton>
             </Tooltip>
-            {this.state.isAuthenticated 
+            {this.props.userHasAuthenticated 
               ? <Button color="inherit" onClick={this.handleLogout}>Logout</Button>
               : <Fragment>
                   <Button component={RouterLink} to="/signup" color="inherit">Signup</Button>
@@ -288,7 +282,7 @@ class MainApp extends React.Component {
           })}
         >
           <div className={classes.toolbar} />
-          <Main childProps={childProps} />
+          <Main />
         </main>
 
       </div>
@@ -296,4 +290,13 @@ class MainApp extends React.Component {
   }
 }
 
-export default withRouter(withStyles(styles, { withTheme: true })(MainApp));
+const mapStateToProps = state => {
+  return { 
+    userHasAuthenticated: state.userHasAuthenticated
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  { userAuthSuccess, userLogout }
+)(withRouter(withStyles(styles, { withTheme: true })(MainApp)));

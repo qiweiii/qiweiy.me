@@ -41,13 +41,14 @@ const styles = theme => ({
   buttons: {
     display: 'flex',
     justifyContent: 'flex-end',
+    alignItems: 'center'
   },
   button: {
-    marginTop: theme.spacing(3),
+    marginTop: theme.spacing(1),
     marginLeft: theme.spacing(1)
   },
   buttonDelete: {
-    marginTop: theme.spacing(3),
+    marginTop: theme.spacing(1),
     marginLeft: theme.spacing(1),
     marginRight: theme.spacing(1)
   },
@@ -89,14 +90,18 @@ class BlogEdit extends React.Component {
 
   async componentDidMount() {
     // console.log(this.props.location.state)
-    this.setState({
-      title: this.props.location.state.title,
-      content: this.props.location.state.content,
-      author: this.props.location.state.author,
-      image: this.props.location.state.image,
-      id: this.props.location.state.id,
-      tags: this.props.location.state.tags
-    });
+    if (!this.props.location.state) {
+      this.props.history.push("/blogs");
+    } else {
+      this.setState({
+        title: this.props.location.state.title,
+        content: this.props.location.state.content,
+        author: this.props.location.state.author,
+        image: this.props.location.state.image,
+        id: this.props.location.state.id,
+        tags: this.props.location.state.tags
+      });
+    }
   }
 
   validateForm = () => {
@@ -137,7 +142,7 @@ class BlogEdit extends React.Component {
       });
       this.setState({ isLoading: false });
       this.props.history.push("/blogs");
-      window.location.reload(false); // false: use cached version
+      window.location.reload(false); // false means use cached version
     } catch (e) {
       alert(e);
       this.setState({ isLoading: false });
@@ -161,6 +166,7 @@ class BlogEdit extends React.Component {
       await this.deleteNote();
       this.setState({ isLoading: false });
       this.props.history.push("/blogs");
+      window.location.reload(false);
     } catch (e) {
       alert(e);
       this.setState({ isLoading: false });
@@ -263,7 +269,7 @@ class BlogEdit extends React.Component {
                 >
                   Delete
                 </Button>
-                {this.state.isLoading && <CircularProgress size="1.2em"/>}
+                {this.state.isLoading && <span style={{paddingLeft: "10px", alignSelf: "center"}}><CircularProgress size="1.5em"/></span>}
               </div>
             </form>
          </Paper>

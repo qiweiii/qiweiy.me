@@ -1,6 +1,5 @@
 import React from 'react';
 import { withStyles } from '@material-ui/core/styles';
-import Divider from '@material-ui/core/Divider';
 import ListItem from '@material-ui/core/ListItem';
 import Link from '@material-ui/core/Link';
 import Grid from '@material-ui/core/Grid';
@@ -15,13 +14,13 @@ import { connect } from 'react-redux';
 import { orderBy } from 'lodash-es';
 import BlogCard from "./BlogCard";
 import BlogListItem from "./BlogListItem";
-import { setListSwitch, setFilter } from "../actions";
+import { getUserBlogs, setListSwitch, setFilter } from "../actions";
 import { Helmet } from "react-helmet";
 
 
 const styles = theme => ({
   h1: {
-    paddingLeft: 12,
+    paddingLeft: theme.spacing(3),
   },
   listContainer: {
     marginTop: theme.spacing(1),
@@ -39,7 +38,9 @@ const styles = theme => ({
   cardContainer: {
     marginTop: theme.spacing(1),
     marginBottom: theme.spacing(8),
-    padding: `${theme.spacing(1)}px ${theme.spacing(2)}px ${theme.spacing(2)}px`,
+    // marginLeft: theme.spacing(2),
+    width: '100%',
+    padding: `${theme.spacing(1)}px 0 ${theme.spacing(2)}px ${theme.spacing(3)}px`,
   },
   uploads: {
     paddingBottom: '10px',
@@ -53,7 +54,9 @@ const styles = theme => ({
   spinner: {
     display: 'flex',
     justifyContent: 'center',
-    marginTop: "20%"
+    alignItems: "center",
+    marginTop: "30px",
+    marginBottom: "30px"
   },
   tools: {
     display: 'flex',
@@ -69,6 +72,10 @@ const regex = /[\s,_#/]/g // regex for title in URL
 
 class Blogs extends React.Component {
 
+  componentDidMount() {
+    if (this.props.userHasAuthenticated) this.props.getUserBlogs();
+  }
+
   processBlogs(blogs) {
     return orderBy(blogs, ['createdAt'], ['desc']); // sort
   }
@@ -77,7 +84,8 @@ class Blogs extends React.Component {
     this.props.setFilter(e.target.value);
   }
 
-  renderBlogs(blogs, noEditButton) {
+  // helper function
+  renderBlogs(blogs) {
     const { classes } = this.props;
     if (this.props.blogListSwitch) {
       // show as a list
@@ -89,10 +97,9 @@ class Blogs extends React.Component {
                 content={blog.content}
                 editedAt={new Date(blog.editedAt).toLocaleDateString('en-US', { hour12: false })}
                 createdAt={new Date(blog.createdAt).toLocaleDateString('en-US', { hour12: false })}
-                noedit={noEditButton}
                 key={blog.noteId}
                 id={blog.noteId}
-                link={`/blogs/view/${blog.content.title.replace(regex, '-')}`}
+                link={`/blogs/view/${blog.content.title.replace(regex, '-')}-${blog.noteId}`}
               />
             </Grid>
           )}
@@ -108,10 +115,9 @@ class Blogs extends React.Component {
                 content={blog.content}
                 editedAt={new Date(blog.editedAt).toLocaleDateString('en-US', { hour12: false })}
                 createdAt={new Date(blog.createdAt).toLocaleDateString('en-US', { hour12: false })}
-                noedit={noEditButton}
                 key={blog.noteId}
                 id={blog.noteId}
-                link={`/blogs/view/${blog.content.title.replace(regex, '-')}`}
+                link={`/blogs/view/${blog.content.title.replace(regex, '-')}-${blog.noteId}`}
               />
             </Grid>
           )}
@@ -120,38 +126,49 @@ class Blogs extends React.Component {
     }
   }
 
-  // content for guests (when user is not logged in)
+  // defualt content for all users
   renderAllBlogs() {
+    const { classes } = this.props;
     return (
       <div>
-        {this.renderBlogs(this.processBlogs(this.props.allBlogs), true)}
+        <h1 className={classes.h1}>All blogs</h1>
+        { this.props.allBlogsReady ?
+          this.renderBlogs(this.processBlogs(this.props.allBlogs))
+          :
+          <div className={classes.spinner}>
+            <CircularProgress />
+          </div>
+        }
       </div>
     );
   }
 
-  // content for user who logged in
+  // add content for users who logged in
   renderUserBlogs() {
     const { classes } = this.props;
     return (
       <div>
         <h1 className={classes.h1}>Your Blogs</h1>
-          <ListItem>
-            <Link
-              component={RouterLink}
-              key="new"
-              to="/blogs/new"
-            >
-              <h4>
-                <b>{"\uFF0B"}</b> Create a new blog
-              </h4>
-            </Link>
-          </ListItem>
-          {this.renderBlogs(this.processBlogs(this.props.userBlogs), false)}
-        <Divider/>
-        <h1 className={classes.h1}>All blogs</h1>
-        <div>
-          {this.renderAllBlogs()}
-        </div>
+        <ListItem className={classes.h1}>
+          <Link
+            component={RouterLink}
+            key="new"
+            to="/blogs/new"
+          >
+            <h3>
+              <b>{"\uFF0B"}</b> Create a new blog
+            </h3>
+          </Link>
+        </ListItem>
+        { this.props.userBlogsReady ?
+          <div>
+            {this.renderBlogs(this.processBlogs(this.props.userBlogs))}
+          </div>
+          :
+          <div className={classes.spinner}>
+            <CircularProgress />
+          </div>
+        }
       </div>
     );
   }
@@ -160,7 +177,7 @@ class Blogs extends React.Component {
     const { classes } = this.props;
     return (
       <div>
-        {/* headings */}
+        {/* change meta */}
         <Helmet>
           <title>Qiwei Yang - Blogs</title>
           <meta property="og:title" content="Qiwei Yang - Blogs" />
@@ -169,7 +186,7 @@ class Blogs extends React.Component {
         </Helmet>
 
         {/* render blogs filter and list switch */}
-        { this.props.blogsReady && 
+        { this.props.allBlogsReady && // only show when tags are ready
           <div className={classes.tools}>
             <FormControl variant="outlined" className={classes.formControl}>
               <InputLabel htmlFor="outlined-age-native-simple">Tags</InputLabel>
@@ -204,18 +221,8 @@ class Blogs extends React.Component {
         }
 
         {/* render blogs */}
-        { this.props.blogsReady ? 
-          ( 
-            this.props.isAuthenticated ? 
-            this.renderUserBlogs()
-            : 
-            this.renderAllBlogs()
-          )
-          :
-          <div className={classes.spinner}>
-            <CircularProgress />
-          </div>
-        }
+        { this.props.userHasAuthenticated && this.renderUserBlogs() }
+        { this.renderAllBlogs() }
       </div>
     );
   }
@@ -233,14 +240,16 @@ const mapStateToProps = state => {
   return { 
     userBlogs: selectVisibleBlogs(state.userBlogs, state.blogFilter),
     allBlogs: selectVisibleBlogs(state.allBlogs, state.blogFilter),
-    blogsReady: state.blogsAreReady.allBlogsReady && state.blogsAreReady.userBlogsReady,
+    userBlogsReady: state.userBlogsReady,
+    allBlogsReady: state.allBlogsReady,
     blogListSwitch: state.blogListSwitch,
     blogFilter: state.blogFilter,
-    tags: state.tags
+    tags: state.tags,
+    userHasAuthenticated: state.userHasAuthenticated
   };
 };
 
 export default connect(
   mapStateToProps,
-  { setListSwitch, setFilter }
+  { getUserBlogs, setListSwitch, setFilter }
 )(withStyles(styles)(Blogs));

@@ -68,16 +68,15 @@ class BlogCard extends React.Component {
           component={RouterLink} 
           to={{ 
             pathname: this.props.link, 
-            state: {
-              title: this.props.content.title,
-              author: this.props.content.author,
-              tags: this.props.content.tags,
-              image: this.props.content.image,
-              edit: this.props.editedAt, // edited time
-              create: this.props.createdAt, // created time
-              noedit: this.props.noedit,
-              id: this.props.id
-            } 
+            // state: {
+            //   title: this.props.content.title,
+            //   author: this.props.content.author,
+            //   tags: this.props.content.tags,
+            //   image: this.props.content.image,
+            //   edit: this.props.editedAt, // edited time
+            //   create: this.props.createdAt, // created time
+            //   id: this.props.id
+            // } 
           }}
           className={classes.action}
         >
@@ -90,7 +89,7 @@ class BlogCard extends React.Component {
               {this.props.content.title}
             </Typography>
             <Typography component="p" noWrap className={classes.authorDate}>
-              Create by {this.trimLength(this.props.content.author, 25)} on {this.props.create}
+              Create by {this.trimLength(this.props.content.author, 25)} on {this.props.createdAt}
             </Typography>
           </CardContent>
         </CardActionArea>
