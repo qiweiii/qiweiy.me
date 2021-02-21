@@ -44,8 +44,11 @@ td {
 
 .markdown code {
   font-size: 16px;
-  overflow: scroll;
   border-radius: 4px;
+  overflow: scroll;
+  /* still doesn't work on webkit */
+  -webkit-overflow: auto;
+  -webkit-overflow-scrolling: touch;
 }
 
 @media only screen and (max-width: 800px) {

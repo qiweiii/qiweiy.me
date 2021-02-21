@@ -3,9 +3,7 @@ import clsx from 'clsx';
 import { withStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import Drawer from '@material-ui/core/Drawer';
-// import Hidden from '@material-ui/core/Hidden';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
-import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import List from '@material-ui/core/List';
@@ -48,7 +46,6 @@ const styles = theme => ({
   drawerHeader: {
     fontSize: 12,
     display: 'flex',
-    // padding: theme.spacing(0, 1),
     ...theme.mixins.toolbar,
     alignItems: 'center',
     justifyContent: 'flex-end',
@@ -95,19 +92,6 @@ const styles = theme => ({
   content: {
     width: '100vw',
     flexGrow: 1,
-    // padding: theme.spacing(1),
-    transition: theme.transitions.create('margin', {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.leavingScreen,
-    }),
-    marginLeft: -drawerWidth,
-  },
-  contentShift: {
-    transition: theme.transitions.create('margin', {
-      easing: theme.transitions.easing.easeOut,
-      duration: theme.transitions.duration.enteringScreen,
-    }),
-    marginLeft: 0,
   },
   tooltip: {
     backgroundColor: theme.palette.common.white,
@@ -176,18 +160,12 @@ class MainApp extends React.Component {
   }
 
   render() {
-    const { classes, theme } = this.props;
+    const { classes } = this.props;
     const drawer = (
       <div>
-        <Helmet>
-          <title>Qiwei Yang</title>
-          <meta property="og:title" content="Qiwei Yang's website" />
-          <meta property="og:type" content="website" />
-          <meta name="description" content="Qiwei Yang's website. 杨启维 个人网站" />
-        </Helmet>
         <div className={classes.drawerHeader}>
           <IconButton onClick={this.handleDrawerClose}>
-            {theme.direction === 'ltr' ? <ChevronLeftIcon /> : <ChevronRightIcon />}
+            <ChevronLeftIcon />
           </IconButton>
         </div>
         <Divider />
@@ -224,7 +202,28 @@ class MainApp extends React.Component {
     return (
       !this.state.isAuthenticating &&
       <div className={classes.root}>
+        <Helmet>
+          <title>Qiwei Yang</title>
+          <meta property="og:title" content="Qiwei Yang's website" />
+          <meta property="og:type" content="website" />
+          <meta name="description" content="Qiwei Yang's website. 杨启维 个人网站" />
+        </Helmet>
         <CssBaseline />
+
+        {/* temporary is the best way */}
+        <Drawer
+          className={classes.drawer}
+          variant="temporary"
+          anchor="left"
+          open={this.state.open}
+          onClick={this.handleDrawerClose}
+          onClose={this.handleDrawerClose}
+          classes={{
+            paper: classes.drawerPaper,
+          }}
+        >
+          {drawer}
+        </Drawer>
 
         <AppBar
           position="fixed"
@@ -264,23 +263,7 @@ class MainApp extends React.Component {
           </Toolbar>
         </AppBar>
 
-        <Drawer
-          className={classes.drawer}
-          variant="persistent"
-          anchor="left"
-          open={this.state.open}
-          classes={{
-            paper: classes.drawerPaper,
-          }}
-        >
-          {drawer}
-        </Drawer>
-
-        <main 
-          className={clsx(classes.content, {
-            [classes.contentShift]: this.state.open,
-          })}
-        >
+        <main className={classes.content}>
           <div className={classes.toolbar} />
           <Main />
         </main>
