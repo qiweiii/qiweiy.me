@@ -14,7 +14,7 @@ function Main({ getAllBlogs, allBlogsReady, allBlogs, saveTags }) {
       for (const blog of [...allBlogs]) {
         if (blog.content.tags) { // some early blogs did not have tags (value is undefined)
           blog.content.tags.split(/\s*[,，]\s*/).forEach(elem => {
-            alltags.add(elem.toLocaleLowerCase());
+            alltags.add(elem);
           });
         }
       }
