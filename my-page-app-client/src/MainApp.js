@@ -21,6 +21,7 @@ import HomeIcon from '@material-ui/icons/Home';
 import BookmarkIcon from '@material-ui/icons/Bookmark';
 import LaunchIcon from '@material-ui/icons/Launch';
 import Github from 'mdi-material-ui/Github'
+import NoteMultiple from 'mdi-material-ui/NoteMultiple';
 import Lightbulb from 'mdi-material-ui/Lightbulb'
 import Linkedin from 'mdi-material-ui/Linkedin'
 import { Link as RouterLink, withRouter } from 'react-router-dom'
@@ -34,7 +35,7 @@ import { userAuthSuccess, userLogout } from "./actions"
 import { connect } from 'react-redux';
 
 
-const drawerWidth = 200;
+const drawerWidth = 240;
 
 const styles = theme => ({
   root: {
@@ -190,6 +191,14 @@ class MainApp extends React.Component {
               <ListItemText primary={<div>LinkedIn <LaunchIcon style={{ fontSize: 16 }} /></div>} />
             </ListItem>
           </Tooltip>
+          <ListItem component="a" target="_blank" href="https://www.notion.so/qiweiiii/Algo-questions-c00a88934a2d4b1da83ce271bacf531b" button key='Algo'>
+            <ListItemIcon><NoteMultiple fontSize="small" /></ListItemIcon>
+            <ListItemText primary={<div>Algo practice <LaunchIcon style={{ fontSize: 16 }} /></div>} />
+          </ListItem>
+          <ListItem component="a" target="_blank" href="https://www.notion.so/qiweiiii/e14c3b22d12c4ffbba8b22b2bfeccc6f" button key='Tech'>
+            <ListItemIcon><NoteMultiple fontSize="small" /></ListItemIcon>
+            <ListItemText primary={<div>Tech knowledge <LaunchIcon style={{ fontSize: 16 }} /></div>} />
+          </ListItem>
         </List>
         <Divider />
         <ListItem component={RouterLink} to="/more" button key='More'>
