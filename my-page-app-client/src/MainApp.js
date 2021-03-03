@@ -197,7 +197,7 @@ class MainApp extends React.Component {
           </ListItem>
           <ListItem component="a" target="_blank" href="https://www.notion.so/qiweiiii/e14c3b22d12c4ffbba8b22b2bfeccc6f" button key='Tech'>
             <ListItemIcon><NoteMultiple fontSize="small" /></ListItemIcon>
-            <ListItemText primary={<div>Tech knowledge <LaunchIcon style={{ fontSize: 16 }} /></div>} />
+            <ListItemText primary={<div>Learning <LaunchIcon style={{ fontSize: 16 }} /></div>} />
           </ListItem>
         </List>
         <Divider />
