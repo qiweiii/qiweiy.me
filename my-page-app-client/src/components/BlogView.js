@@ -21,9 +21,9 @@ import { connect } from 'react-redux';
 const styles = theme => ({
   layout: {
     width: 'auto',
-    margin: '3% 25% 3% 18%',
+    margin: '3% 26% 3% 20%',
     [theme.breakpoints.down(1280 + theme.spacing(3 * 2))]: {
-      margin: '3% 24% 3% 16%',
+      margin: '3% 23% 3% 17%',
     },
     [theme.breakpoints.down(1100)]: {
       margin: '3% 10% 3% 10%',
@@ -34,7 +34,7 @@ const styles = theme => ({
     padding: "0px 10px"
   },
   title: {
-    fontSize: '2.5rem',
+    fontSize: '2.2rem',
     fontWeight: 'bold',
     padding: theme.spacing(3),
   },
@@ -52,7 +52,7 @@ const styles = theme => ({
       padding: theme.spacing(1),
       minHeight: 400,
     },
-    fontSize: '1.2rem',
+    fontSize: '1.1rem',
     lineHeight: '1.8',
   },
   buttons: {
