@@ -9,7 +9,7 @@ import InputLabel from '@material-ui/core/InputLabel';
 import FormControl from '@material-ui/core/FormControl';
 import Switch from '@material-ui/core/Switch';
 import Select from '@material-ui/core/Select';
-import { Link as RouterLink} from 'react-router-dom'
+import { Link as RouterLink} from 'react-router-dom';
 import { connect } from 'react-redux';
 import { orderBy } from 'lodash-es';
 import BlogCard from "./BlogCard";
