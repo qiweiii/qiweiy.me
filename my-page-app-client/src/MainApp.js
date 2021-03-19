@@ -191,10 +191,6 @@ class MainApp extends React.Component {
               <ListItemText primary={<div>LinkedIn <LaunchIcon style={{ fontSize: 16 }} /></div>} />
             </ListItem>
           </Tooltip>
-          <ListItem component="a" target="_blank" href="https://www.notion.so/qiweiiii/Algo-questions-c00a88934a2d4b1da83ce271bacf531b" button key='Algo'>
-            <ListItemIcon><NoteMultiple fontSize="small" /></ListItemIcon>
-            <ListItemText primary={<div>Algo practice <LaunchIcon style={{ fontSize: 16 }} /></div>} />
-          </ListItem>
           <ListItem component="a" target="_blank" href="https://www.notion.so/qiweiiii/e14c3b22d12c4ffbba8b22b2bfeccc6f" button key='Tech'>
             <ListItemIcon><NoteMultiple fontSize="small" /></ListItemIcon>
             <ListItemText primary={<div>Learning <LaunchIcon style={{ fontSize: 16 }} /></div>} />
