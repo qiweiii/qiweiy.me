@@ -191,10 +191,14 @@ class MainApp extends React.Component {
               <ListItemText primary={<div>LinkedIn <LaunchIcon style={{ fontSize: 16 }} /></div>} />
             </ListItem>
           </Tooltip>
-          <ListItem component="a" target="_blank" href="https://www.notion.so/qiweiiii/e14c3b22d12c4ffbba8b22b2bfeccc6f" button key='Tech'>
+          <ListItem component="a" target="_blank" href="https://www.notion.so/qiweiiii/e14c3b22d12c4ffbba8b22b2bfeccc6f" button key='Learning'>
             <ListItemIcon><NoteMultiple fontSize="small" /></ListItemIcon>
             <ListItemText primary={<div>Learning <LaunchIcon style={{ fontSize: 16 }} /></div>} />
           </ListItem>
+          {/* <ListItem component="a" target="_blank" href="" button key='Algo'>
+            <ListItemIcon><NoteMultiple fontSize="small" /></ListItemIcon>
+            <ListItemText primary={<div>Algo <LaunchIcon style={{ fontSize: 16 }} /></div>} />
+          </ListItem> */}
         </List>
         <Divider />
         <ListItem component={RouterLink} to="/more" button key='More'>
