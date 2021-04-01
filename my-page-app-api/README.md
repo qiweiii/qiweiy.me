@@ -1,9 +1,9 @@
 # Serverless Stack API
 
-learn from [Serverless Stack](http://serverless-stack.com)
+learn from [Serverless Stack](https://serverless-stack.com/)
 
 ```sh
-# deploy resources
+# deploy/update resources
 cd infrastructure
 npx sst deploy
 
