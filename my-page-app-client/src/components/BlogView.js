@@ -21,12 +21,12 @@ import { connect } from 'react-redux';
 const styles = theme => ({
   layout: {
     width: 'auto',
-    margin: '3% 26% 3% 20%',
+    margin: '3% 28% 3% 24%',
     [theme.breakpoints.down(1280 + theme.spacing(3 * 2))]: {
       margin: '3% 23% 3% 17%',
     },
     [theme.breakpoints.down(1100)]: {
-      margin: '3% 10% 3% 10%',
+      margin: '3% 12%',
     },
     [theme.breakpoints.down(600 + theme.spacing(3))]: {
       margin: 'auto',
