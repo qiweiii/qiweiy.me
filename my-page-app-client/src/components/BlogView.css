@@ -42,11 +42,21 @@ td {
   margin-right: auto;
 }
 
+.markdown pre {
+  font-size: 1rem;
+  color: inherit;
+}
+
+code {
+  color: bisque;
+  padding: 4px 5px;
+  font-size: 0.9em;
+  /* background-color: #c5c5c5; */
+}
+
 .markdown code {
-  font-size: 14px;
   border-radius: 5px;
   overflow: auto;
-  /* still doesn't work on webkit */
   -webkit-overflow: auto;
   -webkit-overflow-scrolling: touch;
 }
