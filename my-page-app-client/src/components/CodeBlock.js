@@ -2,6 +2,7 @@ import React from 'react';
 // require the highlight.js library without languages
 import hljs from 'highlight.js/lib/core';
 import javascript from 'highlight.js/lib/languages/javascript';
+import typescipt from 'highlight.js/lib/languages/typescipt';
 import sql from 'highlight.js/lib/languages/sql';
 import java from 'highlight.js/lib/languages/java';
 import python from 'highlight.js/lib/languages/python';
@@ -18,10 +19,12 @@ import json from 'highlight.js/lib/languages/json';
 import nginx from 'highlight.js/lib/languages/nginx';
 import glsl from 'highlight.js/lib/languages/glsl';
 import plaintext from 'highlight.js/lib/languages/plaintext';
+import swift from 'highlight.js/lib/languages/swift';
 // style
 import 'highlight.js/styles/monokai-sublime.css';
 
 hljs.registerLanguage('javascript', javascript);
+hljs.registerLanguage('typescipt', typescipt);
 hljs.registerLanguage('sql', sql);
 hljs.registerLanguage('java', java);
 hljs.registerLanguage('python', python);
@@ -38,6 +41,7 @@ hljs.registerLanguage('json', json);
 hljs.registerLanguage('nginx', nginx);
 hljs.registerLanguage('glsl', glsl);
 hljs.registerLanguage('text', plaintext);
+hljs.registerLanguage('swift', swift);
 
 
 class CodeBlock extends React.PureComponent {
