@@ -46,6 +46,7 @@ const blogListSwitch = (checked = false, action) => {
 const blogFilter = (state = "all", action) => {
   switch(action.type) {
     case 'SET_FILTER': {
+      if (state === action.filter) return 'all';
       return action.filter;
     }
     default:
