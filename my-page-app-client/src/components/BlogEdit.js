@@ -9,7 +9,7 @@ import FormControl from '@material-ui/core/FormControl';
 import validUrl from "valid-url";
 import Link from '@material-ui/core/Link';
 import CircularProgress from "@material-ui/core/CircularProgress";
-import "./NB.css";
+import "./NewBlog.css";
 
 const styles = theme => ({
   layout: {

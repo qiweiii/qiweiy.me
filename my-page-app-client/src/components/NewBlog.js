@@ -9,7 +9,7 @@ import { API } from "aws-amplify";
 import validUrl from "valid-url";
 import Link from '@material-ui/core/Link';
 import CircularProgress from "@material-ui/core/CircularProgress";
-import "./NB.css";
+import "./NewBlog.css";
 
 const styles = theme => ({
   main: {
