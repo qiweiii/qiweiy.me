@@ -10,8 +10,8 @@ import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import withStyles from '@material-ui/core/styles/withStyles';
 import { Auth } from "aws-amplify";
-import FacebookButton from "../components/FacebookButton";
-import GoogleButton from "../components/GoogleButton";
+import FacebookButton from "./FacebookButton";
+import GoogleButton from "./GoogleButton";
 import Fab from '@material-ui/core/Fab';
 import CircularProgress from "@material-ui/core/CircularProgress";
 import { userAuthSuccess } from "../actions"

@@ -2,19 +2,18 @@
   "name": "my-page-app-client",
   "version": "0.1.0",
   "private": true,
+  "scripts": {
+    "analyze": "source-map-explorer 'build/static/js/*.js'",
+    "start": "vite",
+    "build": "node scripts/build.js",
+    "predeploy": "npm run build",
+    "deploy": "aws s3 sync build/ s3://my-page-app-v2-final-deploy --delete",
+    "postdeploy": "aws cloudfront create-invalidation --distribution-id EW5317GJ38G7K --paths '/*'"
+  },
   "dependencies": {
-    "@babel/core": "7.9.0",
     "@material-ui/core": "^4.11.2",
     "@material-ui/icons": "^4.11.2",
-    "@svgr/webpack": "4.3.3",
-    "@typescript-eslint/eslint-plugin": "^2.10.0",
-    "@typescript-eslint/parser": "^2.10.0",
     "aws-amplify": "^3.3.14",
-    "babel-eslint": "10.1.0",
-    "babel-jest": "^24.9.0",
-    "babel-loader": "8.1.0",
-    "babel-plugin-named-asset-import": "^0.3.6",
-    "babel-preset-react-app": "^9.1.2",
     "camelcase": "^5.3.1",
     "case-sensitive-paths-webpack-plugin": "2.3.0",
     "classnames": "^2.2.6",
@@ -23,14 +22,6 @@
     "disqus-react": "^1.0.10",
     "dotenv": "8.2.0",
     "dotenv-expand": "5.1.0",
-    "eslint": "^6.6.0",
-    "eslint-config-react-app": "^5.2.1",
-    "eslint-loader": "3.0.3",
-    "eslint-plugin-flowtype": "4.6.0",
-    "eslint-plugin-import": "2.20.1",
-    "eslint-plugin-jsx-a11y": "6.2.3",
-    "eslint-plugin-react": "7.19.0",
-    "eslint-plugin-react-hooks": "^1.6.1",
     "file-loader": "4.3.0",
     "fs-extra": "^8.1.0",
     "highlight.js": "^10.4.1",
@@ -72,20 +63,33 @@
     "tocbot": "^4.12.2",
     "ts-pnp": "1.1.6",
     "url-loader": "2.3.0",
-    "valid-url": "^1.0.9",
+    "valid-url": "^1.0.9"
+  },
+  "devDependencies": {
+    "@babel/core": "7.9.0",
+    "@svgr/webpack": "4.3.3",
+    "@typescript-eslint/eslint-plugin": "^2.10.0",
+    "@typescript-eslint/parser": "^2.10.0",
+    "@vitejs/plugin-react-refresh": "^1.3.6",
+    "babel-eslint": "10.1.0",
+    "babel-jest": "^24.9.0",
+    "babel-loader": "8.1.0",
+    "babel-plugin-named-asset-import": "^0.3.6",
+    "babel-preset-react-app": "^9.1.2",
+    "eslint": "^6.6.0",
+    "eslint-config-react-app": "^5.2.1",
+    "eslint-loader": "3.0.3",
+    "eslint-plugin-flowtype": "4.6.0",
+    "eslint-plugin-import": "2.20.1",
+    "eslint-plugin-jsx-a11y": "6.2.3",
+    "eslint-plugin-react": "7.19.0",
+    "eslint-plugin-react-hooks": "^1.6.1",
+    "vite": "^2.6.7",
+    "redux-devtools": "^3.7.0",
     "webpack": "4.42.0",
     "webpack-dev-server": "3.11.0",
     "webpack-manifest-plugin": "2.2.0",
     "workbox-webpack-plugin": "4.3.1"
-  },
-  "scripts": {
-    "analyze": "source-map-explorer 'build/static/js/*.js'",
-    "start": "node scripts/start.js",
-    "build": "node scripts/build.js",
-    "test": "node scripts/test.js",
-    "predeploy": "npm run build",
-    "deploy": "aws s3 sync build/ s3://my-page-app-v2-final-deploy --delete",
-    "postdeploy": "aws cloudfront create-invalidation --distribution-id EW5317GJ38G7K --paths '/*'"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -101,9 +105,6 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  },
-  "devDependencies": {
-    "redux-devtools": "^3.7.0"
   },
   "jest": {
     "roots": [
