@@ -215,6 +215,7 @@ class Blogs extends React.Component {
                   color="primary"
                 />
               }
+              style={{ marginLeft: 4 }}
               label="List"
             />
           </div>

@@ -9,7 +9,7 @@ import "./Home.css";
 
 const styles = theme => ({
   root: {
-    marginTop: theme.spacing(8),
+    marginTop: theme.spacing(9),
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
