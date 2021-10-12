@@ -10,7 +10,6 @@ import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import withStyles from '@material-ui/core/styles/withStyles';
 import { Auth } from "aws-amplify";
-import FacebookButton from "./FacebookButton";
 import GoogleButton from "./GoogleButton";
 import Fab from '@material-ui/core/Fab';
 import CircularProgress from "@material-ui/core/CircularProgress";
@@ -39,10 +38,6 @@ const styles = theme => ({
   avatars: {
     display: 'flex',
     flexGrow: 1,
-  },
-  facebook: {
-    margin: theme.spacing(1),
-    backgroundColor: '#3b5998',
   },
   google: {
     margin: theme.spacing(1),
@@ -110,9 +105,6 @@ class Login extends React.Component {
         <CssBaseline />
         <Paper className={classes.paper}>
           <div className={classes.avatars}>
-            <Fab size="small" className={classes.facebook}>
-              <FacebookButton onLogin={this.handleFbLogin} />
-            </Fab>
             <Fab size="small" className={classes.google}>
               <GoogleButton onLogin={this.handleGgLogin}/>
             </Fab>
