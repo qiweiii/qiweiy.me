@@ -7,7 +7,7 @@ import Typography from '@material-ui/core/Typography';
 import { Link as RouterLink} from 'react-router-dom'
 import Disqus from 'disqus-react';
 import ReactMarkdown from 'react-markdown';
-import CodeBlock from "./CodeBlock.js";
+import CodeBlock from "./CodeBlock.jsx";
 import "./BlogView.css";
 import classNames from 'classnames';
 import { Helmet } from "react-helmet";
@@ -88,7 +88,7 @@ class BlogView extends React.Component {
   }
 
   async componentDidMount() {
-    // maybe i should do string compression and decompression
+    // maybe should do string compression and decompression
     const id = this.props.location.pathname.split('-').slice(-5).join('-');
     try {
       const res = await API.get("pages", `/pages/${id}`);
