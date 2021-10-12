@@ -42,10 +42,6 @@ const styles = theme => ({
     margin: theme.spacing(1),
     backgroundColor: theme.palette.secondary.main,
   },
-  facebook: {
-    margin: theme.spacing(1),
-    backgroundColor: '#3b5998',
-  },
   google: {
     margin: theme.spacing(1),
     backgroundColor: '#db3236',

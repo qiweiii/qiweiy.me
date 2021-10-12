@@ -116,7 +116,6 @@ class MainApp extends React.Component {
   }
 
   async componentDidMount() {
-    this.loadFacebookSDK();
     try {
       await Auth.currentAuthenticatedUser();
       this.props.userAuthSuccess();
@@ -126,24 +125,6 @@ class MainApp extends React.Component {
       }
     }
     this.setState({ isAuthenticating: false });
-  }
-
-  loadFacebookSDK() {
-    window.fbAsyncInit = function() {
-      window.FB.init({
-        appId            : config.social.FB,
-        autoLogAppEvents : true,
-        xfbml            : true,
-        version          : 'v3.1'
-      });
-    };
-    (function(d, s, id){
-       var js, fjs = d.getElementsByTagName(s)[0];
-       if (d.getElementById(id)) {return;}
-       js = d.createElement(s); js.id = id;
-       js.src = "https://connect.facebook.net/en_US/sdk.js";
-       fjs.parentNode.insertBefore(js, fjs);
-     }(document, 'script', 'facebook-jssdk'));
   }
 
   handleDrawerOpen = () => {
@@ -265,8 +246,8 @@ class MainApp extends React.Component {
             {this.props.userHasAuthenticated 
               ? <Button color="inherit" onClick={this.handleLogout}>Logout</Button>
               : <Fragment>
-                  <Button component={RouterLink} to="/signup" color="inherit">Signup</Button>
-                  <Button component={RouterLink} to="/login"  color="inherit">Login</Button>
+                  <Button component={RouterLink} to="/signup" color="inherit">Sign up</Button>
+                  <Button component={RouterLink} to="/login"  color="inherit">Log in</Button>
                 </Fragment>
             }
           </Toolbar>
