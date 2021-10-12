@@ -29,7 +29,6 @@ import Link from '@material-ui/core/Link';
 import Main from "./Main";
 import { Auth } from "aws-amplify";
 import Tooltip from '@material-ui/core/Tooltip';
-import config from "./config";
 import { Helmet } from "react-helmet";
 import { userAuthSuccess, userLogout } from "./actions"
 import { connect } from 'react-redux';
