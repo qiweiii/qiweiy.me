@@ -14,7 +14,6 @@ export default {
     IDENTITY_POOL_ID: "ap-southeast-1:a57d7f69-f032-45dc-a093-3df28d657a18",
   },
   social: {
-    FB: "392850254647812",
     GG: "368733083641-ae2t86a7fnhhefljijhj0b93u9j1fb9m.apps.googleusercontent.com",
   },
 };

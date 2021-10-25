@@ -90,9 +90,6 @@ class Login extends React.Component {
     }
   }
 
-  handleFbLogin = () => {
-    this.props.userAuthSuccess();
-  }
   handleGgLogin = () => {
     this.props.userAuthSuccess();
   }
