@@ -153,6 +153,7 @@ class BlogView extends React.Component {
                   className="markdown" 
                   source={this.state.content}
                   renderers={{code: CodeBlock, heading: HeadingRenderer}}
+                  escapeHtml={false}
                 />
               </div>
               {
