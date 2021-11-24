@@ -20,6 +20,7 @@ import nginx from 'highlight.js/lib/languages/nginx';
 import glsl from 'highlight.js/lib/languages/glsl';
 import plaintext from 'highlight.js/lib/languages/plaintext';
 import swift from 'highlight.js/lib/languages/swift';
+import go from 'highlight.js/lib/languages/go';
 // style
 import 'highlight.js/styles/monokai-sublime.css';
 
@@ -42,6 +43,7 @@ hljs.registerLanguage('nginx', nginx);
 hljs.registerLanguage('glsl', glsl);
 hljs.registerLanguage('text', plaintext);
 hljs.registerLanguage('swift', swift);
+hljs.registerLanguage('go', go);
 
 
 class CodeBlock extends React.PureComponent {
