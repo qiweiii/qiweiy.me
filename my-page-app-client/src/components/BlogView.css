@@ -39,7 +39,7 @@ td {
   border: 1px solid #dfe2e5;
 }
 
-.markdown img { 
+.markdown img {
   width: 90%;
   height: auto;
   display: block;
@@ -55,7 +55,7 @@ td {
 code {
   padding: 4px 5px;
   font-size: 0.9em;
-  background-color: rgba(255, 229, 100, 0.2);
+  background-color: rgba(255, 229, 100, 0.205);
 }
 
 .markdown code {
@@ -85,65 +85,77 @@ code {
   font-size: 15px;
   margin-right: 5%;
 }
+
 .js-toc ol {
   list-style-type: none;
 }
+
 .js-toc a {
   text-decoration: none;
   line-height: 1.5em;
 }
 
 /* copied css for tocbot */
-.toc{
-  overflow-y:auto
+.toc {
+  overflow-y: auto
 }
-.toc>.toc-list{
-  overflow:hidden;
-  position:relative
+
+.toc>.toc-list {
+  overflow: hidden;
+  position: relative
 }
-.toc>.toc-list li{
-  list-style:none
+
+.toc>.toc-list li {
+  list-style: none
 }
-.toc-list{
-  margin:0;
-  padding-left:10px
+
+.toc-list {
+  margin: 0;
+  padding-left: 10px
 }
-a.toc-link{
-  color:currentColor;
-  height:100%;
+
+a.toc-link {
+  color: currentColor;
+  height: 100%;
 }
-.is-collapsible{
-  max-height:800px;
-  overflow:hidden;
-  transition:all 300ms ease-in-out
+
+.is-collapsible {
+  max-height: 800px;
+  overflow: hidden;
+  transition: all 300ms ease-in-out
 }
-.is-collapsed{
-  max-height:0
+
+.is-collapsed {
+  max-height: 0
 }
-.is-position-fixed{
-  position:fixed !important;
-  top:0
+
+.is-position-fixed {
+  position: fixed !important;
+  top: 0
 }
-.is-active-link{
+
+.is-active-link {
   font-weight: 700;
 }
-.toc-list::before{
-  background-color:rgb(238, 238, 238);
-  content:' ';
-  display:inline-block;
+
+.toc-list::before {
+  background-color: rgb(238, 238, 238);
+  content: ' ';
+  display: inline-block;
   height: 100%;
-  left:0;
-  margin-top:-1px;
-  position:absolute;
-  width:2px
+  left: 0;
+  margin-top: -1px;
+  position: absolute;
+  width: 2px
 }
-.is-active-link::before{
+
+.is-active-link::before {
   background-color: #00b0ff;
-  content:' ';
-  display:inline-block;
+  content: ' ';
+  display: inline-block;
   height: 1.5em;
-  left:0;
-  margin-top:-1px;
-  position:absolute;
-  width:2px
+  left: 0;
+  margin-top: -1px;
+  position: absolute;
+  width: 2px
 }

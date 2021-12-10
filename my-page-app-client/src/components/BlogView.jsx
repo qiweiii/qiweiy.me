@@ -21,9 +21,13 @@ import { connect } from 'react-redux';
 const styles = theme => ({
   layout: {
     width: 'auto',
-    margin: '3% 28% 3% 24%',
+    maxWidth: 900,
+    margin: 'auto',
+    [theme.breakpoints.down(1600)]: {
+      margin: '3% 23% 3% 15%',
+    },
     [theme.breakpoints.down(1280 + theme.spacing(3 * 2))]: {
-      margin: '3% 23% 3% 17%',
+      margin: '3% 23% 3% 15%',
     },
     [theme.breakpoints.down(1100)]: {
       margin: '3% 12%',
@@ -46,14 +50,18 @@ const styles = theme => ({
     },
   },
   content: {
-    textAlign: 'left',
+    display: 'flex',
+    alignItems: 'center',
+    textAlign: 'justify',
     minHeight: 400,
-    [theme.breakpoints.up(600 + theme.spacing(3 * 2))]: {
-      padding: theme.spacing(1),
-      minHeight: 400,
-    },
+    maxWidth: 900,
     fontSize: '1.1rem',
     lineHeight: '1.8',
+    [theme.breakpoints.up(600 + theme.spacing(3 * 2))]: {
+      padding: theme.spacing(1),
+      maxWidth: 900,
+      minHeight: 400,
+    },
   },
   buttons: {
     display: 'flex',
