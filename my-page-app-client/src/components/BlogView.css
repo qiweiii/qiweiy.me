@@ -10,10 +10,10 @@
   word-break: break-word;
 
   /* Adds a hyphen where the word breaks, if supported (No Blink) */
-  -ms-hyphens: auto;
+  /* -ms-hyphens: auto;
   -moz-hyphens: auto;
   -webkit-hyphens: auto;
-  hyphens: auto;
+  hyphens: auto; */
 }
 
 .markdown a {
@@ -81,7 +81,7 @@ code {
 .js-toc {
   position: fixed;
   top: 20%;
-  left: 80%;
+  left: 82%;
   font-size: 15px;
   margin-right: 5%;
 }

@@ -21,7 +21,7 @@ import { connect } from 'react-redux';
 const styles = theme => ({
   layout: {
     width: 'auto',
-    maxWidth: 900,
+    maxWidth: 880,
     margin: 'auto',
     [theme.breakpoints.down(1600)]: {
       margin: '3% 23% 3% 15%',
@@ -50,16 +50,14 @@ const styles = theme => ({
     },
   },
   content: {
-    display: 'flex',
-    alignItems: 'center',
-    textAlign: 'justify',
     minHeight: 400,
-    maxWidth: 900,
-    fontSize: '1.1rem',
+    maxWidth: 880,
+    textAlign: 'justify',
+    fontSize: '1.15rem',
     lineHeight: '1.8',
     [theme.breakpoints.up(600 + theme.spacing(3 * 2))]: {
       padding: theme.spacing(1),
-      maxWidth: 900,
+      maxWidth: 880,
       minHeight: 400,
     },
   },
