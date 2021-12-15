@@ -52,14 +52,9 @@ const styles = theme => ({
   content: {
     minHeight: 400,
     maxWidth: 880,
-    textAlign: 'justify',
     fontSize: '1.15rem',
     lineHeight: '1.8',
-    [theme.breakpoints.up(600 + theme.spacing(3 * 2))]: {
-      padding: theme.spacing(1),
-      maxWidth: 880,
-      minHeight: 400,
-    },
+    padding: theme.spacing(1),
   },
   buttons: {
     display: 'flex',
