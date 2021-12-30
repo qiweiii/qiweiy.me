@@ -44,7 +44,7 @@ const styles = theme => ({
     lineHeight: 2,
   },
   p: {
-    maxWidth: 450,
+    maxWidth: 460,
     fontSize: '1.1rem',
     fontWeight: 300,
     lineHeight: 1.7,
@@ -53,7 +53,7 @@ const styles = theme => ({
     
     padding: theme.spacing(3),
     [theme.breakpoints.up(600 + theme.spacing(6))]: {
-      padding: theme.spacing(5),
+      padding: theme.spacing(4),
     },
   }
 });
@@ -68,8 +68,9 @@ function Home(props) {
             <Avatar alt="Qiwei Y" src={qiwei} className={classes.avatar} />
             <Typography variant='h4' className={classes.name}>Qiwei Yang</Typography>
           </Grid>
-          <Typography gutterBottom variant='body1' className={classes.p}>Software developer at SAP<br />with an interest in web technologies and cloud computing. </Typography>
+          <Typography gutterBottom variant='body1' className={classes.p}>Software developer at SAP<br />with an interest in web, cloud and blockchain. </Typography>
           <Typography gutterBottom variant='body1' className={classes.p}>Computer Science student from UNSW Sydney</Typography>
+          <Typography gutterBottom variant='body1' className={classes.p}>My tech stack: JS/TS, React, Go, Swift </Typography>
           <Typography gutterBottom variant='body1' className={classes.p}>My email: <a href = "mailto: yangqiwei97@gmail.com">yangqiwei97@gmail.com</a></Typography>
         </Paper>
       </div>
