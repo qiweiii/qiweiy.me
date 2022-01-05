@@ -70,6 +70,7 @@ function Home(props) {
           </Grid>
           <Typography gutterBottom variant='body1' className={classes.p}>Software developer at SAP<br />with an interest in web, cloud and blockchain. </Typography>
           <Typography gutterBottom variant='body1' className={classes.p}>Computer Science student from UNSW Sydney</Typography>
+          <Typography gutterBottom variant='body1' className={classes.p}>My tech stack: JS/TS, React, Swift, Go, Solidity </Typography>
           <Typography gutterBottom variant='body1' className={classes.p}>My email: <a href = "mailto: yangqiwei97@gmail.com">yangqiwei97@gmail.com</a></Typography>
         </Paper>
       </div>
