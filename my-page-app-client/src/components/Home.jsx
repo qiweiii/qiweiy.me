@@ -9,7 +9,7 @@ import "./Home.css";
 
 const styles = theme => ({
   root: {
-    marginTop: theme.spacing(9),
+    height: '90vh',
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
@@ -21,13 +21,10 @@ const styles = theme => ({
     },
   },
   paper: {
-    marginTop: theme.spacing(1),
-    marginBottom: theme.spacing(4),
     minHeight: 350,
+    padding: theme.spacing(2),
     [theme.breakpoints.up(600 + theme.spacing(3 * 2))]: {
-      marginTop: theme.spacing(5),
-      marginBottom: theme.spacing(5),
-      padding: theme.spacing(2),
+      padding: theme.spacing(3),
       minHeight: 450,
     },
   },
@@ -48,12 +45,10 @@ const styles = theme => ({
     fontSize: '1.1rem',
     fontWeight: 300,
     lineHeight: 1.7,
-    lineSpacing: 12,
     letterSpacing: 0.1,
-    
-    padding: theme.spacing(3),
-    [theme.breakpoints.up(600 + theme.spacing(6))]: {
-      padding: theme.spacing(4),
+    padding: theme.spacing(2),
+    [theme.breakpoints.up(600 + theme.spacing(4))]: {
+      padding: theme.spacing(2.5),
     },
   }
 });
@@ -68,9 +63,18 @@ function Home(props) {
             <Avatar alt="Qiwei Y" src={qiwei} className={classes.avatar} />
             <Typography variant='h4' className={classes.name}>Qiwei Yang</Typography>
           </Grid>
-          <Typography gutterBottom variant='body1' className={classes.p}>Software developer at SAP<br />with an interest in web, cloud and blockchain. </Typography>
-          <Typography gutterBottom variant='body1' className={classes.p}>Computer Science student from UNSW Sydney</Typography>
-          <Typography gutterBottom variant='body1' className={classes.p}>My email: <a href = "mailto: yangqiwei97@gmail.com">yangqiwei97@gmail.com</a></Typography>
+          <Typography gutterBottom variant='body1' className={classes.p}>Fullstack engineer working from home, with an interest in web, cloud and blockchain. </Typography>
+          <Typography gutterBottom variant='body1' className={classes.p}>
+            Worked at 
+            <span> <a target="_blank" href="https://www.nervos.org">Nervos</a>, </span>
+            <span> <a target="_blank" href="https://www.crimsoneducation.org">Crimson Education</a>, </span>
+            <span> <a target="_blank" href="https://www.sap.com">SAP</a>, </span>
+            and
+            <span> <a target="_blank" href="https://www.huawei.com">Huawei</a></span>
+            .
+          </Typography>
+          <Typography gutterBottom variant='body1' className={classes.p}>Computer Science graduate (2021) from UNSW Sydney.</Typography>
+          <Typography gutterBottom variant='body1' className={classes.p}>My email: <a href = "mailto: yangqiwei97@gmail.com">yangqiwei97@gmail.com</a>.</Typography>
         </Paper>
       </div>
   );

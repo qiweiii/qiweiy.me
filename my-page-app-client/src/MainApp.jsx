@@ -1,9 +1,10 @@
-import React, {Fragment} from 'react';
+import React, { Fragment, useEffect, useState, useCallback } from 'react';
 import clsx from 'clsx';
-import { withStyles } from '@material-ui/core/styles';
+import { makeStyles, useTheme } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import Drawer from '@material-ui/core/Drawer';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
+import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import List from '@material-ui/core/List';
@@ -24,7 +25,7 @@ import Github from 'mdi-material-ui/Github'
 import NoteMultiple from 'mdi-material-ui/NoteMultiple';
 import Lightbulb from 'mdi-material-ui/Lightbulb'
 import Linkedin from 'mdi-material-ui/Linkedin'
-import { Link as RouterLink, withRouter } from 'react-router-dom'
+import { Link as RouterLink, useHistory } from 'react-router-dom'
 import Link from '@material-ui/core/Link';
 import Main from "./Main";
 import { Auth } from "aws-amplify";
@@ -34,9 +35,9 @@ import { userAuthSuccess, userLogout } from "./actions"
 import { connect } from 'react-redux';
 
 
-const drawerWidth = 240;
+const drawerWidth = 220;
 
-const styles = theme => ({
+const useStyles = makeStyles(theme => ({
   root: {
     display: 'flex',
   },
@@ -44,13 +45,14 @@ const styles = theme => ({
     flexGrow: 1,
   },
   drawerHeader: {
-    fontSize: 12,
     display: 'flex',
-    ...theme.mixins.toolbar,
     alignItems: 'center',
     justifyContent: 'flex-end',
+    padding: theme.spacing(0, 1),
+    ...theme.mixins.toolbar,
   },
   appBar: {
+    zIndex: theme.zIndex.drawer + 1,
     transition: theme.transitions.create(['margin', 'width'], {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.leavingScreen,
@@ -60,7 +62,7 @@ const styles = theme => ({
     width: `calc(100% - ${drawerWidth}px)`,
     marginLeft: drawerWidth,
     transition: theme.transitions.create(['margin', 'width'], {
-      easing: theme.transitions.easing.easeOut,
+      easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.enteringScreen,
     }),
   },
@@ -70,27 +72,39 @@ const styles = theme => ({
   drawer: {
     width: drawerWidth,
     flexShrink: 0,
-    [theme.breakpoints.up('sm')]: {
-      width: drawerWidth,
-      flexShrink: 0,
-    }
+    whiteSpace: 'nowrap',
   },
   menuButton: {
-    marginRight: theme.spacing(2),
+    marginRight: theme.spacing(2.5),
   },
   toolbar: {
+    // as a placeholder for layout
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'flex-end',
-    padding: '0 8px',
-    paddingRight: 20, // keep right padding when drawer closed
+    padding: theme.spacing(0, 1),
     ...theme.mixins.toolbar,
   },
-  drawerPaper: {
+  drawerOpen: {
     width: drawerWidth,
+    transition: theme.transitions.create('width', {
+      easing: theme.transitions.easing.sharp,
+      duration: theme.transitions.duration.enteringScreen,
+    }),
+  },
+  drawerClose: {
+    transition: theme.transitions.create('width', {
+      easing: theme.transitions.easing.sharp,
+      duration: theme.transitions.duration.leavingScreen,
+    }),
+    overflowX: 'hidden',
+    width: 0,
+    [theme.breakpoints.up('sm')]: {
+      width: theme.spacing(7) + 1,
+    },
   },
   content: {
-    width: '100vw',
+    width: `calc(100vw - ${theme.spacing(7) + 1}px)`,
     flexGrow: 1,
   },
   tooltip: {
@@ -99,167 +113,175 @@ const styles = theme => ({
     boxShadow: theme.shadows[2],
     fontSize: 12,
   },
-});
+}));
 
 
 
-class MainApp extends React.Component {
+const MainApp = (props) => {
+  const [open, setOpen] = useState(false);
+  const [isAuthenticating, setIsAuthenticating] = useState(true);
+  const theme = useTheme();
+  const classes = useStyles();
+  const history = useHistory();
 
-  constructor(props) {
-    super(props);
+  const authUser = useCallback(async () => {
+    await Auth.currentAuthenticatedUser();
+    props.userAuthSuccess();
+  }, [])
 
-    this.state = {
-      isAuthenticating: true,
-      open: false
-    };
-  }
-
-  async componentDidMount() {
-    try {
-      await Auth.currentAuthenticatedUser();
-      this.props.userAuthSuccess();
-    } catch (e) {
-      if (e !== "not authenticated") {
+  useEffect(() => {
+    // refactor async calls: https://devtrium.com/posts/async-functions-useeffect
+    authUser()
+      .catch((e) => {
         console.log(e);
-      }
-    }
-    this.setState({ isAuthenticating: false });
-  }
+      })
+      .finally(() => {
+        setIsAuthenticating(false);
+      })
+  }, [authUser]);
 
-  handleDrawerOpen = () => {
-    this.setState({ open: true });
+  const handleDrawerOpen = () => {
+    setOpen(true);
   };
 
-  handleDrawerClose = () => {
-    this.setState({ open: false });
+  const handleDrawerClose = () => {
+    setOpen(false);
   }
 
-  handleLogout = async event => {
+  const handleToggleDrawer = () => {
+    if (open) {
+      handleDrawerClose();
+    } else {
+      handleDrawerOpen();
+    }
+  }
+
+  const handleLogout = async () => {
     await Auth.signOut();
-    this.props.userLogout();
-    this.props.history.push("/login");
+    props.userLogout();
+    history.push("/login");
   }
 
-  render() {
-    const { classes } = this.props;
-    const drawer = (
-      <div>
-        <div className={classes.drawerHeader}>
-          <IconButton onClick={this.handleDrawerClose}>
-            <ChevronLeftIcon />
-          </IconButton>
-        </div>
-        <Divider />
-        <List>
-          <ListItem component={RouterLink} to="/" button key='Home'>
-            <ListItemIcon ><HomeIcon/></ListItemIcon>
-            <ListItemText primary='Home' />
-          </ListItem>
-          <ListItem component={RouterLink} to="/blogs" button key='Blogs'>
+  const drawer = (
+    <div>
+      <div className={classes.drawerHeader}>
+        <IconButton onClick={handleToggleDrawer}>
+          {theme.direction === 'rtl' ? <ChevronRightIcon /> : <ChevronLeftIcon />}
+        </IconButton>
+      </div>
+      <Divider />
+      <List>
+        <ListItem component={RouterLink} to="/" button key='Home' onClick={handleDrawerClose}>
+          <ListItemIcon ><HomeIcon/></ListItemIcon>
+          <ListItemText primary='Home' />
+        </ListItem>
+        <Tooltip title="Blogs" placement="right" classes={{ tooltip: classes.tooltip }}>
+          <ListItem component={RouterLink} to="/blogs" button key='Blogs' onClick={handleDrawerClose}>
             <ListItemIcon><BookmarkIcon /></ListItemIcon>
             <ListItemText primary='Blogs' />
           </ListItem>
-          <Tooltip title="Github profile" placement="right" classes={{ tooltip: classes.tooltip }}>
-            <ListItem component="a" target="_blank" href="https://github.com/qiweiii" button key='GitHub'>
-              <ListItemIcon><Github /></ListItemIcon>
-              <ListItemText primary={<div>GitHub <LaunchIcon style={{ fontSize: 16 }} /></div>} />
-            </ListItem>
-          </Tooltip>
-          <Tooltip title="LinkedIn profile" placement="right" classes={{ tooltip: classes.tooltip }}>
-            <ListItem component="a" target="_blank" href="https://linkedin.com/in/qiwei-yang-679617142/" button key='Linkedin'>
-              <ListItemIcon><Linkedin /></ListItemIcon>
-              <ListItemText primary={<div>LinkedIn <LaunchIcon style={{ fontSize: 16 }} /></div>} />
-            </ListItem>
-          </Tooltip>
-          <ListItem component="a" target="_blank" href="https://www.notion.so/qiweiiii/e14c3b22d12c4ffbba8b22b2bfeccc6f" button key='Learning'>
+        </Tooltip>
+        <Tooltip title="Github profile" placement="right" classes={{ tooltip: classes.tooltip }}>
+          <ListItem component="a" target="_blank" href="https://github.com/qiweiii" button key='GitHub' onClick={handleDrawerClose}>
+            <ListItemIcon><Github /></ListItemIcon>
+            <ListItemText primary={<div>GitHub <LaunchIcon style={{ fontSize: 16 }} /></div>} />
+          </ListItem>
+        </Tooltip>
+        <Tooltip title="LinkedIn profile" placement="right" classes={{ tooltip: classes.tooltip }}>
+          <ListItem component="a" target="_blank" href="https://linkedin.com/in/qiwei-yang-679617142/" button key='Linkedin' onClick={handleDrawerClose}>
+            <ListItemIcon><Linkedin /></ListItemIcon>
+            <ListItemText primary={<div>LinkedIn <LaunchIcon style={{ fontSize: 16 }} /></div>} />
+          </ListItem>
+        </Tooltip>
+        <Tooltip title="Learning" placement="right" classes={{ tooltip: classes.tooltip }}>
+          <ListItem component="a" target="_blank" href="https://www.notion.so/qiweiiii/e14c3b22d12c4ffbba8b22b2bfeccc6f" button key='Learning' onClick={handleDrawerClose}>
             <ListItemIcon><NoteMultiple fontSize="small" /></ListItemIcon>
             <ListItemText primary={<div>Learning <LaunchIcon style={{ fontSize: 16 }} /></div>} />
           </ListItem>
-          {/* <ListItem component="a" target="_blank" href="" button key='Algo'>
-            <ListItemIcon><NoteMultiple fontSize="small" /></ListItemIcon>
-            <ListItemText primary={<div>Algo <LaunchIcon style={{ fontSize: 16 }} /></div>} />
-          </ListItem> */}
-        </List>
-        <Divider />
-        <ListItem component={RouterLink} to="/more" button key='More'>
-          <ListItemIcon><Lightbulb /></ListItemIcon>
-          <ListItemText primary='More' />
-        </ListItem>
-      </div>
-    );
+        </Tooltip>
+      </List>
+      <Divider />
+      <ListItem component={RouterLink} to="/more" button key='More' onClick={handleDrawerClose}>
+        <ListItemIcon><Lightbulb /></ListItemIcon>
+        <ListItemText primary='More' />
+      </ListItem>
+    </div>
+  );
 
-    return (
-      !this.state.isAuthenticating &&
-      <div className={classes.root}>
-        <Helmet>
-          <title>Qiwei Yang</title>
-          <meta property="og:title" content="Qiwei Yang's website" />
-          <meta property="og:type" content="website" />
-          <meta name="description" content="Qiwei Yang's website. 杨启维 个人网站" />
-        </Helmet>
-        <CssBaseline />
+  return (
+    !isAuthenticating &&
+    <div className={classes.root}>
+      <Helmet>
+        <title>Qiwei Yang</title>
+        <meta property="og:title" content="Qiwei Yang's website" />
+        <meta property="og:type" content="website" />
+        <meta name="description" content="Qiwei Yang's website. 杨启维 个人网站" />
+      </Helmet>
+      <CssBaseline />
 
-        {/* temporary is the best way */}
-        <Drawer
-          className={classes.drawer}
-          variant="temporary"
-          anchor="left"
-          open={this.state.open}
-          onClick={this.handleDrawerClose}
-          onClose={this.handleDrawerClose}
-          classes={{
-            paper: classes.drawerPaper,
-          }}
-        >
-          {drawer}
-        </Drawer>
+      <Drawer
+        variant="permanent"
+        anchor="left"
+        open={open}
+        className={clsx(classes.drawer, {
+          [classes.drawerOpen]: open,
+          [classes.drawerClose]: !open,
+        })}
+        classes={{
+          paper: clsx({
+            [classes.drawerOpen]: open,
+            [classes.drawerClose]: !open,
+          }),
+        }}
+      >
+        {drawer}
+      </Drawer>
 
-        <AppBar
-          position="fixed"
-          className={clsx(classes.appBar, {
-            [classes.appBarShift]: this.state.open,
-          })}
-        >
-          <Toolbar>
-            <IconButton
-              color="inherit"
-              aria-label="Open drawer"
-              onClick={this.handleDrawerOpen}
-              edge="start"
-              className={clsx(classes.menuButton, this.state.open && classes.hide)}
-            >
-              <MenuIcon />
+      <AppBar
+        position="fixed"
+        className={clsx(classes.appBar, {
+          [classes.appBarShift]: open,
+        })}
+      >
+        <Toolbar>
+          <IconButton
+            color="inherit"
+            aria-label="Open drawer"
+            onClick={handleDrawerOpen}
+            edge="start"
+            className={clsx(classes.menuButton, open && classes.hide)}
+          >
+            <MenuIcon />
+          </IconButton>
+          <Typography variant="h6" className={classes.grow} >
+            <Link color="inherit" component={RouterLink} to="/">
+                QIWEI
+            </Link>
+          </Typography>
+          <Tooltip title="Toggle dark/light mode" placement="bottom" classes={{ tooltip: classes.tooltip }}>
+            <IconButton onClick={props.onToggleDark}>
+              {props.isDark ? 
+                <Brightness7Icon /> : <Brightness4Icon style={{ color: 'white' }} /> 
+              }
             </IconButton>
-            <Typography variant="h6" className={classes.grow} >
-              <Link color="inherit" component={RouterLink} to="/">
-                  QIWEI
-              </Link>
-            </Typography>
-            <Tooltip title="Toggle dark/light mode" placement="bottom" classes={{ tooltip: classes.tooltip }}>
-              <IconButton onClick={this.props.onToggleDark}>
-                {this.props.isDark ? 
-                  <Brightness7Icon /> : <Brightness4Icon style={{ color: 'white' }} /> 
-                }
-              </IconButton>
-            </Tooltip>
-            {this.props.userHasAuthenticated 
-              ? <Button color="inherit" onClick={this.handleLogout}>Logout</Button>
-              : <Fragment>
-                  <Button component={RouterLink} to="/signup" color="inherit">Sign up</Button>
-                  <Button component={RouterLink} to="/login"  color="inherit">Log in</Button>
-                </Fragment>
-            }
-          </Toolbar>
-        </AppBar>
+          </Tooltip>
+          {props.userHasAuthenticated 
+            ? <Button color="inherit" onClick={handleLogout}>Logout</Button>
+            : <Fragment>
+                <Button component={RouterLink} to="/signup" color="inherit">Sign up</Button>
+                <Button component={RouterLink} to="/login"  color="inherit">Log in</Button>
+              </Fragment>
+          }
+        </Toolbar>
+      </AppBar>
 
-        <main className={classes.content}>
-          <div className={classes.toolbar} />
-          <Main />
-        </main>
+      <main className={classes.content}>
+        <div className={classes.toolbar} />
+        <Main />
+      </main>
 
-      </div>
-    );
-  }
+    </div>
+  );
 }
 
 const mapStateToProps = state => {
@@ -271,4 +293,4 @@ const mapStateToProps = state => {
 export default connect(
   mapStateToProps,
   { userAuthSuccess, userLogout }
-)(withRouter(withStyles(styles, { withTheme: true })(MainApp)));
+)(MainApp);

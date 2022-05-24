@@ -38,7 +38,6 @@ const styles = theme => ({
   cardContainer: {
     marginTop: theme.spacing(1),
     marginBottom: theme.spacing(8),
-    // marginLeft: theme.spacing(2),
     width: '100%',
     padding: `${theme.spacing(1)}px 0 ${theme.spacing(2)}px ${theme.spacing(3)}px`,
   },
@@ -68,7 +67,7 @@ const styles = theme => ({
   }
 });
 
-const regex = /[\s,_#/]/g // regex for title in URL
+const regex = /[\s,_#?/]/g // regex for title in URL
 
 class Blogs extends React.Component {
 

@@ -11,6 +11,8 @@
     "postdeploy": "aws cloudfront create-invalidation --distribution-id EW5317GJ38G7K --paths '/*'"
   },
   "dependencies": {
+    "@fontsource/material-icons": "^4.5.4",
+    "@fontsource/roboto": "^4.5.7",
     "@material-ui/core": "^4.11.2",
     "@material-ui/icons": "^4.11.2",
     "aws-amplify": "^3.3.14",
@@ -84,8 +86,8 @@
     "eslint-plugin-jsx-a11y": "6.2.3",
     "eslint-plugin-react": "7.19.0",
     "eslint-plugin-react-hooks": "^1.6.1",
-    "vite": "^2.6.7",
     "redux-devtools": "^3.7.0",
+    "vite": "^2.6.7",
     "webpack": "4.42.0",
     "webpack-dev-server": "3.11.0",
     "webpack-manifest-plugin": "2.2.0",

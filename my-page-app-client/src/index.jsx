@@ -1,17 +1,21 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
+import { BrowserRouter as Router } from "react-router-dom";
+import { createStore, applyMiddleware } from 'redux';
+import { composeWithDevTools } from 'redux-devtools-extension';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
-import { BrowserRouter as Router } from "react-router-dom";
-import Amplify from "aws-amplify";
+import { Amplify } from "aws-amplify";
 import config from "./config";
-// import { Auth } from 'aws-amplify'
 import { Provider } from 'react-redux'
-import { createStore, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
 import reducers from './reducers';
-import { composeWithDevTools } from 'redux-devtools-extension';
+import '@fontsource/roboto/300.css'
+import '@fontsource/roboto/400.css'
+import '@fontsource/roboto/500.css'
+import '@fontsource/roboto/700.css'
+import '@fontsource/material-icons'
+import './index.css';
 
 // configure aws amplify, connect to client
 Amplify.configure({
@@ -41,7 +45,6 @@ Amplify.configure({
 
 // set up redux store
 const store = createStore(reducers, composeWithDevTools(applyMiddleware(thunk)));
-
 
 ReactDOM.render(
   <Provider store={store}>
