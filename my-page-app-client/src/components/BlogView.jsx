@@ -6,11 +6,12 @@ import Typography from '@material-ui/core/Typography'
 import { Link as RouterLink, useLocation, useNavigate } from 'react-router-dom'
 import Disqus from 'disqus-react'
 import ReactMarkdown from 'react-markdown'
-import CodeBlock from './CodeBlock.jsx'
-import './BlogView.css'
-import classNames from 'classnames'
-import { Helmet } from 'react-helmet'
+import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter'
+import { lucario } from 'react-syntax-highlighter/dist/esm/styles/prism'
+import rehypeRaw from 'rehype-raw'
 import HeadingRenderer from './HeadingRenderer'
+import './BlogView.css'
+import { Helmet } from 'react-helmet'
 import tocbot from 'tocbot'
 import { API } from 'aws-amplify'
 import CircularProgress from '@material-ui/core/CircularProgress'
@@ -108,17 +109,21 @@ const BlogView = (props) => {
   useEffect(() => {
     getBlogData()
       .then(() => {
-        tocbot.init({
-          // Where to render the table of contents.
-          tocSelector: '.js-toc',
-          // Where to grab the headings to build the table of contents.
-          contentSelector: '.markdown',
-          // Which headings to grab inside of the contentSelector element.
-          headingSelector: 'h1, h2, h3',
-          collapseDepth: 4,
-          headingsOffset: 64,
-          scrollSmoothOffset: -64
-        })
+        // add a timeout here because some times tocbot runs before
+        // the markdown content is ready
+        setTimeout(() => {
+          tocbot.init({
+            // Where to render the table of contents.
+            tocSelector: '.js-toc',
+            // Where to grab the headings to build the table of contents.
+            contentSelector: '.markdown',
+            // Which headings to grab inside of the contentSelector element.
+            headingSelector: 'h1, h2, h3',
+            collapseDepth: 4,
+            headingsOffset: 64,
+            scrollSmoothOffset: -64
+          })
+        }, 100)
       })
       .catch((e) => {
         console.log(e)
@@ -140,7 +145,7 @@ const BlogView = (props) => {
               <title>{`${state.title} - ${state.author}`}</title>
               <meta property="og:title" content={state.title} />
               <meta property="og:type" content="blog" />
-              {/* <meta name="description" content={blog.content.slice(0,100)} /> */}
+              <meta name="description" content={state.title} />
             </Helmet>
             <Typography variant="h4" gutterBottom align="center" className={classes.title}>
               {state.title}
@@ -149,13 +154,35 @@ const BlogView = (props) => {
               Created by {state.author} on {state.createdAt} | Edited on {state.editedAt}
             </Typography>
 
-            <div className={classNames(classes.contentText, classes.content)}>
+            <div className={classes.content}>
               <ReactMarkdown
                 className="markdown"
-                source={state.content}
-                renderers={{ code: CodeBlock, heading: HeadingRenderer }}
-                escapeHtml={false}
-              />
+                // https://github.com/remarkjs/react-markdown#use-custom-components-syntax-highlight
+                components={{
+                  code: ({ inline, className, children, ...props }) => {
+                    const match = /language-(\w+)/.exec(className || '')
+                    return !inline && match ? (
+                      // lucario and zTouch are the best:
+                      // https://react-syntax-highlighter.github.io/react-syntax-highlighter/demo/prism.html
+                      <SyntaxHighlighter style={lucario} language={match[1]} PreTag="div" {...props}>
+                        {String(children).replace(/\n$/, '')}
+                      </SyntaxHighlighter>
+                    ) : (
+                      <code className={className} {...props}>
+                        {children}
+                      </code>
+                    )
+                  },
+                  h1: HeadingRenderer,
+                  h2: HeadingRenderer,
+                  h3: HeadingRenderer
+                }}
+                rehypePlugins={[rehypeRaw]}
+                skipHtml={false}
+                linkTarget="_blank"
+              >
+                {state.content}
+              </ReactMarkdown>
             </div>
             {!props.userHasAuthenticated ? (
               <div className={classes.buttons}></div>
@@ -165,17 +192,7 @@ const BlogView = (props) => {
                 color="primary"
                 className={classes.button}
                 component={RouterLink}
-                to={{
-                  pathname: `/blogs/edit/${state.id}`
-                  // state: {
-                  //   title: state.title,
-                  //   content: state.content,
-                  //   author: state.author,
-                  //   image: state.imageUrl,
-                  //   tags: state.tags,
-                  //   id: state.id
-                  // }
-                }}
+                to={{ pathname: `/blogs/edit/${state.id}` }}
               >
                 Edit
               </Button>

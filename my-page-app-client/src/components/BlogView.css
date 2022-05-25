@@ -48,21 +48,22 @@ td {
 }
 
 .markdown pre {
-  font-size: 1rem;
   color: inherit;
 }
 
-code {
+.markdown code {
   padding: 4px 5px;
   font-size: 0.9em;
   background-color: rgba(255, 229, 100, 0.205);
-}
-
-.markdown code {
   border-radius: 5px;
   overflow: auto;
   -webkit-overflow: auto;
   -webkit-overflow-scrolling: touch;
+}
+
+.markdown pre code {
+  background-color: initial;
+  font-size: 0.8em;
 }
 
 @media only screen and (max-width: 800px) {
@@ -100,12 +101,12 @@ code {
   overflow-y: auto;
 }
 
-.toc > .toc-list {
+.toc>.toc-list {
   overflow: hidden;
   position: relative;
 }
 
-.toc > .toc-list li {
+.toc>.toc-list li {
   list-style: none;
 }
 

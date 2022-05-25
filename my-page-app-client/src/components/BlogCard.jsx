@@ -11,14 +11,10 @@ import blank from '../img/blank.jpg'
 import TagChips from './TagChips'
 
 const styles = () => ({
-  // card: {
-  //   height: 320
-  // },
+  card: {},
   media: {
     height: 180
   },
-  // action: {
-  // },
   cardContent: {
     height: 130
   },
@@ -33,8 +29,6 @@ class BlogCard extends React.Component {
     let img = this.props.content.image
     if (img === 'zima') return zima
     if (img === 'blank' || img === '' || img === null || img === undefined) return blank
-
-    //if it is a valid url
     return img
   }
 
@@ -51,23 +45,13 @@ class BlogCard extends React.Component {
     return t
   }
 
-  // componentDidMount() {
-  //   console.log(this.props)
-  // }
-
   render() {
     const { classes } = this.props
     return (
       <>
-        <Card elevation={8} className={classes.card}>
-          <CardActionArea
-            component={RouterLink}
-            to={{
-              pathname: this.props.link
-            }}
-            className={classes.action}
-          >
-            <CardMedia className={classes.media} image={this.getImage()} />
+        <Card elevation={4} className={classes.card}>
+          <CardActionArea component={RouterLink} to={{ pathname: this.props.link }}>
+            <CardMedia className={classes.media} component="img" image={this.getImage()} loading="lazy" />
             <CardContent className={classes.cardContent}>
               <Typography gutterBottom variant="inherit" component="h2" noWrap>
                 {this.props.content.title}

@@ -16,7 +16,8 @@ const styles = (theme) => ({
     minHeight: '120px',
     [theme.breakpoints.down(600 + theme.spacing(3 * 2))]: {
       minHeight: '150px'
-    }
+    },
+    border: '1px solid #e0e0e0'
   },
   authorDate: {
     fontSize: '0.9em',
@@ -33,15 +34,13 @@ class BlogListItem extends React.Component {
   }
 
   // fake hover behaviour
-  onMouseOver = () => this.setState({ shadow: 10 })
+  onMouseOver = () => this.setState({ shadow: 4 })
   onMouseOut = () => this.setState({ shadow: 0 })
 
   getImage() {
     let img = this.props.content.image
     if (img === 'zima') return zima
     if (img === 'blank' || img === '' || img === null || img === undefined) return blank
-
-    //if it is a valid url
     return img
   }
 
@@ -63,25 +62,9 @@ class BlogListItem extends React.Component {
     return (
       <>
         <Box boxShadow={this.state.shadow} onMouseOver={this.onMouseOver} onMouseOut={this.onMouseOut}>
-          <ListItem
-            className={classes.listItem}
-            button
-            component={RouterLink}
-            to={{
-              pathname: this.props.link
-              // state: {
-              //   title: this.props.content.title,
-              //   tags: this.props.content.tags,
-              //   author: this.props.content.author,
-              //   image: this.props.content.image,
-              //   create: this.props.createdAt, // create time
-              //   edit: this.props.editedAt, // edited time
-              //   id: this.props.id
-              // }
-            }}
-          >
+          <ListItem className={classes.listItem} button component={RouterLink} to={{ pathname: this.props.link }}>
             <ListItemAvatar>
-              <Avatar variant="rounded" src={this.getImage()} />
+              <Avatar variant="rounded" src={this.getImage()} component="img" imgProps={{ loading: 'lazy' }} />
             </ListItemAvatar>
             <ListItemText
               primary={

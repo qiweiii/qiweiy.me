@@ -13,6 +13,7 @@ const githubId = (val) => {
       // single chars that are removed
       .replace(/[`~!@#$%^&*()+=<>?,./:;"'|{}[\]\\–—]/g, '')
       // CJK punctuations that are removed
+      // eslint-disable-next-line no-irregular-whitespace
       .replace(/[　。？！，、；：“”【】（）〔〕［］﹃﹄“”‘’﹁﹂—…－～《》〈〉「」]/g, '')
   )
 }
@@ -22,8 +23,8 @@ const githubId = (val) => {
  * It parses the heading and attaches an id to it to be used as an anchor
  */
 const HeadingRenderer = (props) => {
-  const children = React.Children.toArray(props.children)
-  const text = children.reduce(flatten, '')
+  const chd = React.Children.toArray(props.children)
+  const text = chd.reduce(flatten, '')
   const slug = githubId(text)
   return React.createElement('h' + props.level, { id: slug }, props.children)
 }

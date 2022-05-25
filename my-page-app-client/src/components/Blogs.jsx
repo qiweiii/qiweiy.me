@@ -27,11 +27,11 @@ const useStyles = makeStyles((theme) => ({
     padding: `${theme.spacing(1)}px ${theme.spacing(2)}px ${theme.spacing(2)}px`,
     [theme.breakpoints.up(600 + theme.spacing(3 * 2))]: {
       width: 'auto',
-      margin: '3% 18% 3% 18%'
+      margin: '3% 14% 3% 14%'
     },
     [theme.breakpoints.up(1000 + theme.spacing(3 * 2))]: {
       width: 'auto',
-      margin: '3% 21% 3% 21%'
+      margin: '3% 18% 3% 18%'
     }
   },
   cardContainer: {
