@@ -1,10 +1,10 @@
 import React from 'react'
-import { withStyles } from '@material-ui/core/styles'
-import { Typography } from '@material-ui/core'
+import withStyles from '@mui/styles/withStyles'
+import { Typography } from '@mui/material'
 import qiwei from '../img/zima.jpg'
-import Avatar from '@material-ui/core/Avatar'
-import Grid from '@material-ui/core/Grid'
-import Paper from '@material-ui/core/Paper'
+import Avatar from '@mui/material/Avatar'
+import Grid from '@mui/material/Grid'
+import Paper from '@mui/material/Paper'
 import './Home.css'
 
 const styles = (theme) => ({
@@ -13,7 +13,7 @@ const styles = (theme) => ({
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
-    padding: `${theme.spacing(2)}px ${theme.spacing(3)}px ${theme.spacing(5)}px`,
+    padding: `${theme.spacing(2)} ${theme.spacing(3)} ${theme.spacing(5)}`,
     textAlign: 'center',
     [theme.breakpoints.up(400)]: {
       marginLeft: 'auto',
@@ -23,9 +23,8 @@ const styles = (theme) => ({
   paper: {
     minHeight: 350,
     padding: theme.spacing(2),
-    [theme.breakpoints.up(600 + theme.spacing(3 * 2))]: {
-      padding: theme.spacing(3),
-      minHeight: 450
+    [theme.breakpoints.up('sm')]: {
+      padding: theme.spacing(3)
     }
   },
   avatar: {
@@ -46,10 +45,7 @@ const styles = (theme) => ({
     fontWeight: 300,
     lineHeight: 1.7,
     letterSpacing: 0.1,
-    padding: theme.spacing(2),
-    [theme.breakpoints.up(600 + theme.spacing(4))]: {
-      padding: theme.spacing(2.5)
-    }
+    padding: theme.spacing(2)
   }
 })
 
@@ -59,7 +55,7 @@ function Home(props) {
   return (
     <div className={classes.root + ' spring'}>
       <Paper color="default" elevation={2} className={classes.paper}>
-        <Grid container justify="center" alignItems="center">
+        <Grid container justifyContent="center" alignItems="center">
           <Avatar alt="Qiwei Y" src={qiwei} className={classes.avatar} />
           <Typography variant="h4" className={classes.name}>
             Qiwei Yang
@@ -72,21 +68,21 @@ function Home(props) {
           Worked at
           <span>
             {' '}
-            <a target="_blank" href="https://www.nervos.org">
+            <a target="_blank" href="https://www.nervos.org" rel="noreferrer">
               Nervos
             </a>
             ,{' '}
           </span>
           <span>
             {' '}
-            <a target="_blank" href="https://www.crimsoneducation.org">
+            <a target="_blank" href="https://www.crimsoneducation.org" rel="noreferrer">
               Crimson Education
             </a>
             ,{' '}
           </span>
           <span>
             {' '}
-            <a target="_blank" href="https://www.sap.com">
+            <a target="_blank" href="https://www.sap.com" rel="noreferrer">
               SAP
             </a>
             ,{' '}
@@ -94,14 +90,18 @@ function Home(props) {
           and
           <span>
             {' '}
-            <a target="_blank" href="https://www.huawei.com">
+            <a target="_blank" href="https://www.huawei.com" rel="noreferrer">
               Huawei
             </a>
           </span>
           .
         </Typography>
         <Typography gutterBottom variant="body1" className={classes.p}>
-          Computer Science graduate (2021) from UNSW Sydney.
+          Computer Science graduate (2021) from{' '}
+          <a target="_blank" href="https://www.unsw.edu.au/" rel="noreferrer">
+            UNSW Sydney
+          </a>
+          .
         </Typography>
         <Typography gutterBottom variant="body1" className={classes.p}>
           My email: <a href="mailto: yangqiwei97@gmail.com">yangqiwei97@gmail.com</a>.

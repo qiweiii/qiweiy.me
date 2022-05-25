@@ -1,5 +1,5 @@
 import React from 'react'
-import { withStyles } from '@material-ui/core/styles'
+import withStyles from '@mui/styles/withStyles'
 
 const styles = (theme) => ({
   root: {
@@ -7,7 +7,7 @@ const styles = (theme) => ({
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
-    padding: `${theme.spacing(2)}px ${theme.spacing(3)}px ${theme.spacing(5)}px`,
+    padding: `${theme.spacing(2)} ${theme.spacing(3)} ${theme.spacing(5)}`,
     // color: '#616161',
     fontSize: 14,
     [theme.breakpoints.down(400)]: {

@@ -1,38 +1,40 @@
-import React, { Fragment, useEffect, useState, useCallback } from 'react'
+import React, { Fragment, useEffect, useState, useCallback, useContext } from 'react'
 import clsx from 'clsx'
-import { makeStyles, useTheme } from '@material-ui/core/styles'
-import Button from '@material-ui/core/Button'
-import Drawer from '@material-ui/core/Drawer'
-import ChevronLeftIcon from '@material-ui/icons/ChevronLeft'
-import ChevronRightIcon from '@material-ui/icons/ChevronRight'
-import AppBar from '@material-ui/core/AppBar'
-import Toolbar from '@material-ui/core/Toolbar'
-import List from '@material-ui/core/List'
-import CssBaseline from '@material-ui/core/CssBaseline'
-import Typography from '@material-ui/core/Typography'
-import Divider from '@material-ui/core/Divider'
-import IconButton from '@material-ui/core/IconButton'
-import MenuIcon from '@material-ui/icons/Menu'
-import Brightness4Icon from '@material-ui/icons/Brightness4'
-import Brightness7Icon from '@material-ui/icons/Brightness7'
-import ListItem from '@material-ui/core/ListItem'
-import ListItemIcon from '@material-ui/core/ListItemIcon'
-import ListItemText from '@material-ui/core/ListItemText'
-import HomeIcon from '@material-ui/icons/Home'
-import BookmarkIcon from '@material-ui/icons/Bookmark'
-import LaunchIcon from '@material-ui/icons/Launch'
+import { useTheme } from '@mui/material/styles'
+import makeStyles from '@mui/styles/makeStyles'
+import Button from '@mui/material/Button'
+import Drawer from '@mui/material/Drawer'
+import ChevronLeftIcon from '@mui/icons-material/ChevronLeft'
+import ChevronRightIcon from '@mui/icons-material/ChevronRight'
+import AppBar from '@mui/material/AppBar'
+import Toolbar from '@mui/material/Toolbar'
+import List from '@mui/material/List'
+import CssBaseline from '@mui/material/CssBaseline'
+import Typography from '@mui/material/Typography'
+import Divider from '@mui/material/Divider'
+import IconButton from '@mui/material/IconButton'
+import MenuIcon from '@mui/icons-material/Menu'
+import Brightness4Icon from '@mui/icons-material/Brightness4'
+import Brightness7Icon from '@mui/icons-material/Brightness7'
+import ListItem from '@mui/material/ListItem'
+import ListItemIcon from '@mui/material/ListItemIcon'
+import ListItemText from '@mui/material/ListItemText'
+import HomeIcon from '@mui/icons-material/Home'
+import BookmarkIcon from '@mui/icons-material/Bookmark'
+import LaunchIcon from '@mui/icons-material/Launch'
 import Github from 'mdi-material-ui/Github'
 import NoteMultiple from 'mdi-material-ui/NoteMultiple'
 import Lightbulb from 'mdi-material-ui/Lightbulb'
 import Linkedin from 'mdi-material-ui/Linkedin'
 import { Link as RouterLink, useNavigate } from 'react-router-dom'
-import Link from '@material-ui/core/Link'
+import Link from '@mui/material/Link'
 import Main from './Main'
 import { Auth } from 'aws-amplify'
-import Tooltip from '@material-ui/core/Tooltip'
+import Tooltip from '@mui/material/Tooltip'
 import { Helmet } from 'react-helmet'
 import { userAuthSuccess, userLogout } from './actions'
 import { connect } from 'react-redux'
+import { ColorModeContext } from './App'
 
 const drawerWidth = 220
 
@@ -99,11 +101,11 @@ const useStyles = makeStyles((theme) => ({
     overflowX: 'hidden',
     width: 0,
     [theme.breakpoints.up('sm')]: {
-      width: theme.spacing(7) + 1
+      width: `calc(${theme.spacing(7)} + 1px)`
     }
   },
   content: {
-    width: `calc(100vw - ${theme.spacing(7) + 1}px)`,
+    width: `calc(100vw - calc(${theme.spacing(7)} + 1px))`,
     flexGrow: 1
   },
   tooltip: {
@@ -119,6 +121,7 @@ const MainApp = (props) => {
   const [isAuthenticating, setIsAuthenticating] = useState(true)
   const theme = useTheme()
   const classes = useStyles()
+  const colorMode = useContext(ColorModeContext)
   let navigate = useNavigate()
 
   const authUser = useCallback(async () => {
@@ -162,12 +165,12 @@ const MainApp = (props) => {
   const drawer = (
     <div>
       <div className={classes.drawerHeader}>
-        <IconButton onClick={handleToggleDrawer}>
+        <IconButton onClick={handleToggleDrawer} size="large">
           {theme.direction === 'rtl' ? <ChevronRightIcon /> : <ChevronLeftIcon />}
         </IconButton>
       </div>
       <Divider />
-      <List>
+      <List sx={{ paddingTop: 0 }}>
         <ListItem component={RouterLink} to="/" button key="Home" onClick={handleDrawerClose}>
           <ListItemIcon>
             <HomeIcon />
@@ -290,6 +293,7 @@ const MainApp = (props) => {
           className={clsx(classes.appBar, {
             [classes.appBarShift]: open
           })}
+          enableColorOnDark
         >
           <Toolbar>
             <IconButton
@@ -298,19 +302,16 @@ const MainApp = (props) => {
               onClick={handleDrawerOpen}
               edge="start"
               className={clsx(classes.menuButton, open && classes.hide)}
+              size="large"
             >
               <MenuIcon />
             </IconButton>
             <Typography variant="h6" className={classes.grow}>
-              <Link color="inherit" component={RouterLink} to="/">
+              <Link color="inherit" underline="hover" component={RouterLink} to="/">
                 QIWEI
               </Link>
             </Typography>
-            <Tooltip title="Toggle dark/light mode" placement="bottom" classes={{ tooltip: classes.tooltip }}>
-              <IconButton onClick={props.onToggleDark}>
-                {props.isDark ? <Brightness7Icon /> : <Brightness4Icon style={{ color: 'white' }} />}
-              </IconButton>
-            </Tooltip>
+
             {props.userHasAuthenticated ? (
               <Button color="inherit" onClick={handleLogout}>
                 Logout
@@ -318,13 +319,19 @@ const MainApp = (props) => {
             ) : (
               <Fragment>
                 <Button component={RouterLink} to="/signup" color="inherit">
-                  Sign up
+                  Signup
                 </Button>
                 <Button component={RouterLink} to="/login" color="inherit">
-                  Log in
+                  Login
                 </Button>
               </Fragment>
             )}
+
+            <Tooltip title="Toggle dark/light mode" placement="bottom" classes={{ tooltip: classes.tooltip }}>
+              <IconButton onClick={colorMode.toggleColorMode} size="large">
+                {theme.palette.mode === 'dark' ? <Brightness7Icon /> : <Brightness4Icon />}
+              </IconButton>
+            </Tooltip>
           </Toolbar>
         </AppBar>
 

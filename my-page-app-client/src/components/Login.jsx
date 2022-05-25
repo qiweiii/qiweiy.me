@@ -1,20 +1,20 @@
 import React, { useState } from 'react'
-import Button from '@material-ui/core/Button'
-import CssBaseline from '@material-ui/core/CssBaseline'
-import FormControl from '@material-ui/core/FormControl'
-import FormControlLabel from '@material-ui/core/FormControlLabel'
-import Checkbox from '@material-ui/core/Checkbox'
-import Input from '@material-ui/core/Input'
-import InputLabel from '@material-ui/core/InputLabel'
-import Paper from '@material-ui/core/Paper'
-import Typography from '@material-ui/core/Typography'
+import Button from '@mui/material/Button'
+import CssBaseline from '@mui/material/CssBaseline'
+import FormControl from '@mui/material/FormControl'
+import FormControlLabel from '@mui/material/FormControlLabel'
+import Checkbox from '@mui/material/Checkbox'
+import Input from '@mui/material/Input'
+import InputLabel from '@mui/material/InputLabel'
+import Paper from '@mui/material/Paper'
+import Typography from '@mui/material/Typography'
 import { Auth } from 'aws-amplify'
 import GoogleButton from './GoogleButton'
-import Fab from '@material-ui/core/Fab'
-import CircularProgress from '@material-ui/core/CircularProgress'
+import Fab from '@mui/material/Fab'
+import CircularProgress from '@mui/material/CircularProgress'
 import { userAuthSuccess } from '../actions'
 import { connect } from 'react-redux'
-import { makeStyles } from '@material-ui/core'
+import makeStyles from '@mui/styles/makeStyles'
 import { useNavigate } from 'react-router-dom'
 
 const useStyles = makeStyles((theme) => ({
@@ -23,7 +23,7 @@ const useStyles = makeStyles((theme) => ({
     display: 'block', // Fix IE 11 issue.
     marginLeft: theme.spacing(2),
     marginRight: theme.spacing(2),
-    [theme.breakpoints.up(400 + theme.spacing(3 * 2))]: {
+    [theme.breakpoints.up('sm')]: {
       width: 400,
       marginLeft: 'auto',
       marginRight: 'auto'
@@ -34,7 +34,7 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
-    padding: `${theme.spacing(2)}px ${theme.spacing(3)}px ${theme.spacing(3)}px`
+    padding: `${theme.spacing(2)} ${theme.spacing(3)} ${theme.spacing(3)}`
   },
   avatars: {
     display: 'flex',

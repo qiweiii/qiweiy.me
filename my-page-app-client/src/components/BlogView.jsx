@@ -1,20 +1,20 @@
 import React, { useEffect, useState, useCallback } from 'react'
-import { makeStyles } from '@material-ui/core/styles'
-import Button from '@material-ui/core/Button'
-import Container from '@material-ui/core/Container'
-import Typography from '@material-ui/core/Typography'
+import makeStyles from '@mui/styles/makeStyles'
+import Button from '@mui/material/Button'
+import Container from '@mui/material/Container'
+import Typography from '@mui/material/Typography'
 import { Link as RouterLink, useLocation, useNavigate } from 'react-router-dom'
 import Disqus from 'disqus-react'
 import ReactMarkdown from 'react-markdown'
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter'
-import { lucario } from 'react-syntax-highlighter/dist/esm/styles/prism'
+import { nightOwl } from 'react-syntax-highlighter/dist/esm/styles/prism'
 import rehypeRaw from 'rehype-raw'
 import HeadingRenderer from './HeadingRenderer'
 import './BlogView.css'
 import { Helmet } from 'react-helmet'
 import tocbot from 'tocbot'
 import { API } from 'aws-amplify'
-import CircularProgress from '@material-ui/core/CircularProgress'
+import CircularProgress from '@mui/material/CircularProgress'
 import { connect } from 'react-redux'
 
 const useStyles = makeStyles((theme) => ({
@@ -25,13 +25,13 @@ const useStyles = makeStyles((theme) => ({
     [theme.breakpoints.down(1600)]: {
       margin: '3% 23% 3% 15%'
     },
-    [theme.breakpoints.down(1280 + theme.spacing(3 * 2))]: {
+    [theme.breakpoints.down(1300)]: {
       margin: '3% 23% 3% 15%'
     },
     [theme.breakpoints.down(1100)]: {
-      margin: '3% 12%'
+      margin: '3% 10% 3% 8%'
     },
-    [theme.breakpoints.down(600 + theme.spacing(3))]: {
+    [theme.breakpoints.down(720)]: {
       margin: 'auto'
     },
     padding: '0px 10px'
@@ -44,9 +44,7 @@ const useStyles = makeStyles((theme) => ({
   author: {
     fontSize: 14,
     color: 'silver',
-    [theme.breakpoints.up(600 + theme.spacing(3 * 2))]: {
-      padding: theme.spacing(1)
-    }
+    padding: theme.spacing(1)
   },
   content: {
     minHeight: 400,
@@ -157,14 +155,15 @@ const BlogView = (props) => {
             <div className={classes.content}>
               <ReactMarkdown
                 className="markdown"
+                linkTarget="_blank"
                 // https://github.com/remarkjs/react-markdown#use-custom-components-syntax-highlight
                 components={{
                   code: ({ inline, className, children, ...props }) => {
                     const match = /language-(\w+)/.exec(className || '')
                     return !inline && match ? (
-                      // lucario and zTouch are the best:
+                      // lucario and nightOwl are the best:
                       // https://react-syntax-highlighter.github.io/react-syntax-highlighter/demo/prism.html
-                      <SyntaxHighlighter style={lucario} language={match[1]} PreTag="div" {...props}>
+                      <SyntaxHighlighter style={nightOwl} language={match[1]} PreTag="div" {...props}>
                         {String(children).replace(/\n$/, '')}
                       </SyntaxHighlighter>
                     ) : (
@@ -179,7 +178,6 @@ const BlogView = (props) => {
                 }}
                 rehypePlugins={[rehypeRaw]}
                 skipHtml={false}
-                linkTarget="_blank"
               >
                 {state.content}
               </ReactMarkdown>

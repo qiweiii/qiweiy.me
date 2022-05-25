@@ -1,5 +1,6 @@
 import React from 'react'
-import { createRoot } from 'react-dom/client'
+import ReactDOM from 'react-dom'
+// import { createRoot } from 'react-dom/client'
 import { BrowserRouter as Router } from 'react-router-dom'
 import { createStore, applyMiddleware } from 'redux'
 import { composeWithDevTools } from 'redux-devtools-extension'
@@ -46,15 +47,25 @@ Amplify.configure({
 // set up redux store
 const store = createStore(reducers, composeWithDevTools(applyMiddleware(thunk)))
 
-const root = createRoot(document.getElementById('root'))
-
-root.render(
+ReactDOM.render(
   <Provider store={store}>
     <Router>
       <App />
     </Router>
-  </Provider>
+  </Provider>,
+  document.getElementById('root')
 )
+
+// for React 18 upgrade later on:
+// const root = createRoot(document.getElementById('root'))
+
+// root.render(
+//   <Provider store={store}>
+//     <Router>
+//       <App />
+//     </Router>
+//   </Provider>
+// )
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.

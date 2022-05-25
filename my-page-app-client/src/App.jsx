@@ -1,26 +1,37 @@
-import React, { useState } from 'react'
+import React, { useState, useMemo, createContext } from 'react'
 import MainApp from './MainApp'
 import { AppTheme } from './types'
-import AppThemeOptions from './theme'
-import useMediaQuery from '@material-ui/core/useMediaQuery'
-import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles'
+import { getDesignTokens } from './theme'
+import useMediaQuery from '@mui/material/useMediaQuery'
+import { createTheme, ThemeProvider, StyledEngineProvider } from '@mui/material/styles'
+
+export const ColorModeContext = createContext({ toggleColorMode: () => {} })
 
 export default function App() {
   // OS's prefer dark or light
   const prefersDarkMode = useMediaQuery('(prefers-color-scheme: dark)')
   const defaultTheme = prefersDarkMode ? AppTheme.LIGHT : AppTheme.DARK
-  const [theme, setTheme] = useState(defaultTheme)
+  const [mode, setMode] = useState(defaultTheme)
+  const colorMode = useMemo(
+    () => ({
+      // The dark mode switch would invoke this method
+      toggleColorMode: () => {
+        setMode((prevMode) => (prevMode === 'light' ? 'dark' : 'light'))
+      }
+    }),
+    []
+  )
 
-  const toggleDarkTheme = () => {
-    setTheme(theme === AppTheme.LIGHT ? AppTheme.DARK : AppTheme.LIGHT)
-  }
-
-  // we generate a MUI-theme from state's theme object
-  const muiTheme = createMuiTheme(AppThemeOptions[theme])
+  // Update the theme only if the mode changes
+  const theme = useMemo(() => createTheme(getDesignTokens(mode)), [mode])
 
   return (
-    <ThemeProvider theme={muiTheme}>
-      <MainApp onToggleDark={toggleDarkTheme} isDark={theme === AppTheme.DARK} />
-    </ThemeProvider>
+    <StyledEngineProvider injectFirst>
+      <ColorModeContext.Provider value={colorMode}>
+        <ThemeProvider theme={theme}>
+          <MainApp />
+        </ThemeProvider>
+      </ColorModeContext.Provider>
+    </StyledEngineProvider>
   )
 }

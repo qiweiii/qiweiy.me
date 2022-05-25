@@ -1,22 +1,19 @@
 import React from 'react'
-import { withStyles } from '@material-ui/core/styles'
-import ListItem from '@material-ui/core/ListItem'
-import ListItemText from '@material-ui/core/ListItemText'
-import ListItemAvatar from '@material-ui/core/ListItemAvatar'
-import Avatar from '@material-ui/core/Avatar'
-import Typography from '@material-ui/core/Typography'
-import Box from '@material-ui/core/Box'
+import withStyles from '@mui/styles/withStyles'
+import ListItem from '@mui/material/ListItem'
+import ListItemText from '@mui/material/ListItemText'
+import ListItemAvatar from '@mui/material/ListItemAvatar'
+import Avatar from '@mui/material/Avatar'
+import Typography from '@mui/material/Typography'
+import Box from '@mui/material/Box'
 import { Link as RouterLink } from 'react-router-dom'
 import zima from '../img/zima.jpg'
 import blank from '../img/blank.jpg'
 import TagChips from './TagChips'
 
-const styles = (theme) => ({
+const styles = () => ({
   listItem: {
     minHeight: '120px',
-    [theme.breakpoints.down(600 + theme.spacing(3 * 2))]: {
-      minHeight: '150px'
-    },
     border: '1px solid #e0e0e0'
   },
   authorDate: {
@@ -64,7 +61,11 @@ class BlogListItem extends React.Component {
         <Box boxShadow={this.state.shadow} onMouseOver={this.onMouseOver} onMouseOut={this.onMouseOut}>
           <ListItem className={classes.listItem} button component={RouterLink} to={{ pathname: this.props.link }}>
             <ListItemAvatar>
-              <Avatar variant="rounded" src={this.getImage()} component="img" imgProps={{ loading: 'lazy' }} />
+              <Avatar
+                variant="rounded"
+                src={this.getImage()}
+                imgProps={{ loading: 'lazy', width: '60px', height: '60px' }}
+              />
             </ListItemAvatar>
             <ListItemText
               primary={

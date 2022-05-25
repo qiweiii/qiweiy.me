@@ -1,13 +1,13 @@
 import React, { useEffect } from 'react'
-import ListItem from '@material-ui/core/ListItem'
-import Link from '@material-ui/core/Link'
-import Grid from '@material-ui/core/Grid'
-import CircularProgress from '@material-ui/core/CircularProgress'
-import FormControlLabel from '@material-ui/core/FormControlLabel'
-import InputLabel from '@material-ui/core/InputLabel'
-import FormControl from '@material-ui/core/FormControl'
-import Switch from '@material-ui/core/Switch'
-import Select from '@material-ui/core/Select'
+import ListItem from '@mui/material/ListItem'
+import Link from '@mui/material/Link'
+import Grid from '@mui/material/Grid'
+import CircularProgress from '@mui/material/CircularProgress'
+import FormControlLabel from '@mui/material/FormControlLabel'
+import InputLabel from '@mui/material/InputLabel'
+import FormControl from '@mui/material/FormControl'
+import Switch from '@mui/material/Switch'
+import Select from '@mui/material/Select'
 import { Link as RouterLink } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { orderBy } from 'lodash-es'
@@ -15,7 +15,7 @@ import BlogCard from './BlogCard'
 import BlogListItem from './BlogListItem'
 import { getUserBlogs, setListSwitch, setFilter } from '../actions'
 import { Helmet } from 'react-helmet'
-import { makeStyles } from '@material-ui/core'
+import makeStyles from '@mui/styles/makeStyles'
 
 const useStyles = makeStyles((theme) => ({
   h1: {
@@ -24,21 +24,21 @@ const useStyles = makeStyles((theme) => ({
   listContainer: {
     marginTop: theme.spacing(1),
     marginBottom: theme.spacing(8),
-    padding: `${theme.spacing(1)}px ${theme.spacing(2)}px ${theme.spacing(2)}px`,
-    [theme.breakpoints.up(600 + theme.spacing(3 * 2))]: {
+    padding: `${theme.spacing(1)} ${theme.spacing(3)} ${theme.spacing(2)}`,
+    [theme.breakpoints.up('md')]: {
       width: 'auto',
-      margin: '3% 14% 3% 14%'
+      margin: '3% 12% 3% 12%'
     },
-    [theme.breakpoints.up(1000 + theme.spacing(3 * 2))]: {
+    [theme.breakpoints.up('lg')]: {
       width: 'auto',
-      margin: '3% 18% 3% 18%'
+      margin: '3% 16% 3% 16%'
     }
   },
   cardContainer: {
     marginTop: theme.spacing(1),
     marginBottom: theme.spacing(8),
     width: '100%',
-    padding: `${theme.spacing(1)}px 0 ${theme.spacing(2)}px ${theme.spacing(3)}px`
+    padding: `${theme.spacing(1)} 0 ${theme.spacing(2)} ${theme.spacing(3)}`
   },
   uploads: {
     paddingBottom: '10px'

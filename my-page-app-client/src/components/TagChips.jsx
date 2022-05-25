@@ -1,10 +1,10 @@
 import React from 'react'
-import { withStyles } from '@material-ui/core/styles'
-import Chip from '@material-ui/core/Chip'
+import withStyles from '@mui/styles/withStyles'
+import Chip from '@mui/material/Chip'
 import { connect } from 'react-redux'
 import { setFilter } from '../actions'
 
-const styles = (theme) => ({
+const styles = () => ({
   root: {
     // padding: theme.spacing(1),
     marginTop: '6px',
