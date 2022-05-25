@@ -1,5 +1,4 @@
-import React from 'react'
-import { withStyles } from '@material-ui/core/styles'
+import React, { useState, useEffect, useCallback } from 'react'
 import { API } from 'aws-amplify'
 import Button from '@material-ui/core/Button'
 import Paper from '@material-ui/core/Paper'
@@ -9,9 +8,11 @@ import FormControl from '@material-ui/core/FormControl'
 import validUrl from 'valid-url'
 import Link from '@material-ui/core/Link'
 import CircularProgress from '@material-ui/core/CircularProgress'
+import { makeStyles } from '@material-ui/core'
+import { useLocation, useNavigate } from 'react-router-dom'
 import './NewBlog.css'
 
-const styles = (theme) => ({
+const useStyles = makeStyles((theme) => ({
   layout: {
     width: 'auto',
     marginLeft: theme.spacing(2),
@@ -57,7 +58,7 @@ const styles = (theme) => ({
     marginRight: theme.spacing(3),
     marginBottom: 10
   }
-})
+}))
 
 function checkURL(str) {
   // check the url is valid
@@ -69,215 +70,212 @@ function checkURL(str) {
   }
 }
 
-class BlogEdit extends React.Component {
-  constructor(props) {
-    super(props)
+const BlogEdit = () => {
+  const [data, setData] = useState({
+    blog: null,
+    title: '',
+    content: '',
+    author: '',
+    image: '',
+    id: '',
+    tags: ''
+  })
+  const [isLoading, setIsLoading] = useState(false)
+  const classes = useStyles()
+  const location = useLocation()
+  const navigate = useNavigate()
 
-    this.file = null
+  const getBlogData = useCallback(async () => {
+    const id = location.pathname.split('/').slice(-1)
+    const res = await API.get('pages', `/pages/${id}`)
+    setData({
+      ...data,
+      title: res.content.title,
+      content: res.content.content,
+      author: res.content.author,
+      image: res.content.image,
+      id: res.noteId,
+      tags: res.content.tags
+    })
+  }, [])
 
-    this.state = {
-      blog: null,
-      title: '',
-      content: '',
-      author: '',
-      image: '',
-      id: '',
-      tags: '',
-      isLoading: false
-    }
+  useEffect(() => {
+    getBlogData().catch((e) => {
+      console.log(e)
+      alert('Blog does not exist.')
+      navigate('/blogs')
+    })
+  }, [])
+
+  const validateForm = () => {
+    return data.content.length > 0 && data.title.length > 0
   }
 
-  async componentDidMount() {
-    // console.log(this.props.location.state)
-    if (!this.props.location.state) {
-      this.props.history.push('/blogs')
-    } else {
-      this.setState({
-        title: this.props.location.state.title,
-        content: this.props.location.state.content,
-        author: this.props.location.state.author,
-        image: this.props.location.state.image,
-        id: this.props.location.state.id,
-        tags: this.props.location.state.tags
-      })
-    }
+  const handleChange = (name) => (event) => {
+    setData({ ...data, [name]: event.target.value })
   }
 
-  validateForm = () => {
-    return this.state.content.length > 0 && this.state.title.length > 0
-  }
-
-  handleChange = (name) => (event) => {
-    this.setState({ [name]: event.target.value })
-  }
-
-  saveNote(blog) {
-    return API.put('pages', `/pages/${this.state.id}`, {
+  const saveNote = (blog) => {
+    return API.put('pages', `/pages/${data.id}`, {
       body: blog
     })
   }
 
-  handleSubmit = async (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault()
-    this.setState({ isLoading: true })
-    let str = this.state.image
+    setIsLoading(true)
+    let str = data.image
     if (!checkURL(str)) {
       if (str === '' || str === null || str === undefined || str === 'blank') {
-        await this.setState({ image: 'blank' })
+        setData({ ...data, image: 'blank' })
       } else {
         alert('not a valid url')
         return false
       }
     }
     try {
-      await this.saveNote({
+      await saveNote({
         content: {
-          content: this.state.content,
-          title: this.state.title,
-          author: this.state.author,
-          image: this.state.image,
-          tags: this.state.tags
+          content: data.content,
+          title: data.title,
+          author: data.author,
+          image: data.image,
+          tags: data.tags
         }
       })
-      this.setState({ isLoading: false })
-      this.props.history.push('/blogs')
-      window.location.reload(false) // false means use cached version
+      setIsLoading(false)
+      navigate('/blogs')
     } catch (e) {
       alert(e)
-      this.setState({ isLoading: false })
+      setIsLoading(false)
     }
   }
 
-  deleteNote() {
-    return API.del('pages', `/pages/${this.state.id}`)
+  const deleteNote = () => {
+    return API.del('pages', `/pages/${data.id}`)
   }
 
-  handleDelete = async (event) => {
+  const handleDelete = async (event) => {
     event.preventDefault()
     const confirmed = window.confirm('Are you sure you want to delete this blog?')
     if (!confirmed) {
       return
     }
-    this.setState({ isLoading: true })
+    setIsLoading(true)
     try {
-      await this.deleteNote()
-      this.setState({ isLoading: false })
-      this.props.history.push('/blogs')
-      window.location.reload(false)
+      await deleteNote()
+      setIsLoading(false)
+      navigate('/blogs')
     } catch (e) {
       alert(e)
-      this.setState({ isLoading: false })
+      setIsLoading(false)
     }
   }
 
-  render() {
-    const { classes } = this.props
-
-    return (
-      <React.Fragment>
-        <CssBaseline />
-        <main className={classes.layout}>
-          <Paper className={classes.paper}>
-            <form onSubmit={this.handleSubmit} className={classes.container} noValidate autoComplete="off">
-              <FormControl margin="normal" fullWidth>
-                <TextField
-                  id="filled-textarea-1"
-                  label="Content"
-                  single="true"
-                  variant="filled"
-                  value={this.state.title}
-                  onChange={this.handleChange('title')}
-                  required
-                  fullWidth
-                />
-              </FormControl>
-              <FormControl margin="normal" fullWidth>
-                <TextField
-                  id="filled-textarea-2"
-                  label="Author"
-                  single="true"
-                  variant="filled"
-                  value={this.state.author}
-                  onChange={this.handleChange('author')}
-                  fullWidth
-                  inputProps={{
-                    maxLength: 50
-                  }}
-                  required
-                />
-              </FormControl>
-              <FormControl margin="normal" fullWidth>
-                <TextField
-                  id="filled-textarea-3"
-                  label="ImageURL"
-                  margin="normal"
-                  variant="filled"
-                  value={this.state.image}
-                  onChange={this.handleChange('image')}
-                  placeholder="Cover image of your post (need to be available online, pls put the link to that image here)"
-                />
-              </FormControl>
-              <FormControl margin="normal" fullWidth>
-                <TextField
-                  id="filled-textarea-4"
-                  label="tags"
-                  margin="normal"
-                  variant="filled"
-                  value={this.state.tags}
-                  inputProps={{
-                    maxLength: 50
-                  }}
-                  onChange={this.handleChange('tags')}
-                  placeholder="tags of this article, separated by ','"
-                />
-              </FormControl>
-              <FormControl margin="normal" fullWidth>
-                <TextField
-                  id="filled-textarea"
-                  label="Content"
-                  multiline
-                  rows="15"
-                  variant="filled"
-                  value={this.state.content}
-                  onChange={this.handleChange('content')}
-                  required
-                  fullWidth
-                />
-              </FormControl>
-              <div className={classes.buttons}>
-                <Link href="https://remarkjs.github.io/react-markdown/" target="_blank" className={classes.link}>
-                  Formatting help
-                </Link>
-                <Button
-                  variant="contained"
-                  color="primary"
-                  type="submit"
-                  className={classes.button}
-                  disabled={!this.validateForm() || this.state.isLoading}
-                >
-                  Save
-                </Button>
-                <Button
-                  variant="contained"
-                  color="secondary"
-                  onClick={this.handleDelete}
-                  className={classes.buttonDelete}
-                  disabled={this.state.isLoading}
-                >
-                  Delete
-                </Button>
-                {this.state.isLoading && (
-                  <span style={{ paddingLeft: '10px', alignSelf: 'center' }}>
-                    <CircularProgress size="1.5em" />
-                  </span>
-                )}
-              </div>
-            </form>
-          </Paper>
-        </main>
-      </React.Fragment>
-    )
-  }
+  return (
+    <React.Fragment>
+      <CssBaseline />
+      <main className={classes.layout}>
+        <Paper className={classes.paper}>
+          <form onSubmit={handleSubmit} className={classes.container} noValidate autoComplete="off">
+            <FormControl margin="normal" fullWidth>
+              <TextField
+                id="filled-textarea-1"
+                label="Content"
+                single="true"
+                variant="filled"
+                value={data.title}
+                onChange={handleChange('title')}
+                required
+                fullWidth
+              />
+            </FormControl>
+            <FormControl margin="normal" fullWidth>
+              <TextField
+                id="filled-textarea-2"
+                label="Author"
+                single="true"
+                variant="filled"
+                value={data.author}
+                onChange={handleChange('author')}
+                fullWidth
+                inputProps={{
+                  maxLength: 50
+                }}
+                required
+              />
+            </FormControl>
+            <FormControl margin="normal" fullWidth>
+              <TextField
+                id="filled-textarea-3"
+                label="ImageURL"
+                margin="normal"
+                variant="filled"
+                value={data.image}
+                onChange={handleChange('image')}
+                placeholder="Cover image of your post (need to be available online, pls put the link to that image here)"
+              />
+            </FormControl>
+            <FormControl margin="normal" fullWidth>
+              <TextField
+                id="filled-textarea-4"
+                label="tags"
+                margin="normal"
+                variant="filled"
+                value={data.tags}
+                inputProps={{
+                  maxLength: 50
+                }}
+                onChange={handleChange('tags')}
+                placeholder="tags of this article, separated by ','"
+              />
+            </FormControl>
+            <FormControl margin="normal" fullWidth>
+              <TextField
+                id="filled-textarea"
+                label="Content"
+                multiline
+                rows="15"
+                variant="filled"
+                value={data.content}
+                onChange={handleChange('content')}
+                required
+                fullWidth
+              />
+            </FormControl>
+            <div className={classes.buttons}>
+              <Link href="https://remarkjs.github.io/react-markdown/" target="_blank" className={classes.link}>
+                Formatting help
+              </Link>
+              <Button
+                variant="contained"
+                color="primary"
+                type="submit"
+                className={classes.button}
+                disabled={!validateForm() || isLoading}
+              >
+                Save
+              </Button>
+              <Button
+                variant="contained"
+                color="secondary"
+                onClick={handleDelete}
+                className={classes.buttonDelete}
+                disabled={isLoading}
+              >
+                Delete
+              </Button>
+              {isLoading && (
+                <span style={{ paddingLeft: '10px', alignSelf: 'center' }}>
+                  <CircularProgress size="1.5em" />
+                </span>
+              )}
+            </div>
+          </form>
+        </Paper>
+      </main>
+    </React.Fragment>
+  )
 }
 
-export default withStyles(styles)(BlogEdit)
+export default BlogEdit

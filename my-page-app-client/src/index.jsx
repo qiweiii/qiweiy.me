@@ -46,13 +46,14 @@ Amplify.configure({
 // set up redux store
 const store = createStore(reducers, composeWithDevTools(applyMiddleware(thunk)))
 
-createRoot(
+const root = createRoot(document.getElementById('root'))
+
+root.render(
   <Provider store={store}>
     <Router>
       <App />
     </Router>
-  </Provider>,
-  document.getElementById('root')
+  </Provider>
 )
 
 // If you want your app to work offline and load faster, you can change

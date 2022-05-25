@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Button from '@material-ui/core/Button'
 import CssBaseline from '@material-ui/core/CssBaseline'
 import FormControl from '@material-ui/core/FormControl'
@@ -8,15 +8,16 @@ import Input from '@material-ui/core/Input'
 import InputLabel from '@material-ui/core/InputLabel'
 import Paper from '@material-ui/core/Paper'
 import Typography from '@material-ui/core/Typography'
-import withStyles from '@material-ui/core/styles/withStyles'
 import { Auth } from 'aws-amplify'
 import GoogleButton from './GoogleButton'
 import Fab from '@material-ui/core/Fab'
 import CircularProgress from '@material-ui/core/CircularProgress'
 import { userAuthSuccess } from '../actions'
 import { connect } from 'react-redux'
+import { makeStyles } from '@material-ui/core'
+import { useNavigate } from 'react-router-dom'
 
-const styles = (theme) => ({
+const useStyles = makeStyles((theme) => ({
   main: {
     width: 'auto',
     display: 'block', // Fix IE 11 issue.
@@ -55,88 +56,82 @@ const styles = (theme) => ({
     fontSize: 14
     // color: "#424242",
   }
-})
+}))
 
-class Login extends React.Component {
-  constructor(props) {
-    super(props)
+const Login = (props) => {
+  const [state, setState] = useState({
+    email: '',
+    password: '',
+    isLoading: false
+  })
+  const classes = useStyles()
+  const navigate = useNavigate()
 
-    this.state = {
-      email: '',
-      password: '',
-      isLoading: false
-    }
-  }
-
-  handleChange = (event) => {
-    this.setState({
+  const handleChange = (event) => {
+    setState({
+      ...state,
       [event.target.id]: event.target.value
     })
   }
 
-  handleSubmit = async (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault()
-    this.setState({ isLoading: true })
+    setState({ ...state, isLoading: true })
     try {
-      await Auth.signIn(this.state.email, this.state.password)
-      this.props.userAuthSuccess()
-      this.setState({ isLoading: false })
-      this.props.history.push('/')
+      await Auth.signIn(state.email, state.password)
+      props.userAuthSuccess()
+      setState({ ...state, isLoading: false })
+      navigate('/')
     } catch (e) {
       alert(e.message)
-      this.setState({ isLoading: false })
+      setState({ ...state, isLoading: false })
     }
   }
 
-  handleGgLogin = () => {
-    this.props.userAuthSuccess()
+  const handleGgLogin = () => {
+    props.userAuthSuccess()
   }
-
-  render() {
-    const { classes } = this.props
-
-    return (
-      <main className={classes.main}>
-        <CssBaseline />
-        <Paper className={classes.paper}>
-          <div className={classes.avatars}>
-            <Fab size="small" className={classes.google}>
-              <GoogleButton onLogin={this.handleGgLogin} />
-            </Fab>
-          </div>
-          <Typography component="p" className={classes.p}>
-            Or Be Classic
-          </Typography>
-          <form onSubmit={this.handleSubmit} className={classes.form}>
-            <FormControl value={this.state.email} onChange={this.handleChange} margin="normal" required fullWidth>
-              <InputLabel htmlFor="email">Email Address</InputLabel>
-              <Input id="email" name="email" autoComplete="email" autoFocus />
-            </FormControl>
-            <FormControl value={this.state.password} onChange={this.handleChange} margin="normal" required fullWidth>
-              <InputLabel htmlFor="password">Password</InputLabel>
-              <Input name="password" type="password" id="password" autoComplete="current-password" />
-            </FormControl>
-            <FormControlLabel control={<Checkbox value="remember" color="primary" />} label="Remember me" />
-            <Button
-              type="submit"
-              fullWidth
-              variant="contained"
-              color="primary"
-              className={classes.submit}
-              disabled={this.state.isLoading}
-            >
-              Login{' '}
-              {this.state.isLoading && (
-                <span style={{ paddingLeft: '10px', display: 'flex', alignItems: 'center' }}>
-                  <CircularProgress size="1.1em" />
-                </span>
-              )}
-            </Button>
-          </form>
-        </Paper>
-      </main>
-    )
-  }
+  return (
+    <main className={classes.main}>
+      <CssBaseline />
+      <Paper className={classes.paper}>
+        <div className={classes.avatars}>
+          <Fab size="small" className={classes.google}>
+            <GoogleButton onLogin={handleGgLogin} />
+          </Fab>
+        </div>
+        <Typography component="p" className={classes.p}>
+          Or Be Classic
+        </Typography>
+        <form onSubmit={handleSubmit} className={classes.form}>
+          <FormControl value={state.email} onChange={handleChange} margin="normal" required fullWidth>
+            <InputLabel htmlFor="email">Email Address</InputLabel>
+            <Input id="email" name="email" autoComplete="email" autoFocus />
+          </FormControl>
+          <FormControl value={state.password} onChange={handleChange} margin="normal" required fullWidth>
+            <InputLabel htmlFor="password">Password</InputLabel>
+            <Input name="password" type="password" id="password" autoComplete="current-password" />
+          </FormControl>
+          <FormControlLabel control={<Checkbox value="remember" color="primary" />} label="Remember me" />
+          <Button
+            type="submit"
+            fullWidth
+            variant="contained"
+            color="primary"
+            className={classes.submit}
+            disabled={state.isLoading}
+          >
+            Login{' '}
+            {state.isLoading && (
+              <span style={{ paddingLeft: '10px', display: 'flex', alignItems: 'center' }}>
+                <CircularProgress size="1.1em" />
+              </span>
+            )}
+          </Button>
+        </form>
+      </Paper>
+    </main>
+  )
 }
 
-export default connect(null, { userAuthSuccess })(withStyles(styles)(Login))
+export default connect(null, { userAuthSuccess })(Login)

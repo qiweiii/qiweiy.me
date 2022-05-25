@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Avatar from '@material-ui/core/Avatar'
 import Button from '@material-ui/core/Button'
 import CssBaseline from '@material-ui/core/CssBaseline'
@@ -10,11 +10,12 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined'
 import InputLabel from '@material-ui/core/InputLabel'
 import Paper from '@material-ui/core/Paper'
 import Typography from '@material-ui/core/Typography'
-import withStyles from '@material-ui/core/styles/withStyles'
 import { Auth } from 'aws-amplify'
 import CircularProgress from '@material-ui/core/CircularProgress'
+import { makeStyles } from '@material-ui/core'
+import { useNavigate } from 'react-router-dom'
 
-const styles = (theme) => ({
+const useStyles = makeStyles((theme) => ({
   main: {
     width: 'auto',
     display: 'block',
@@ -56,74 +57,69 @@ const styles = (theme) => ({
     paddingTop: 5,
     fontSize: 14
   }
-})
+}))
 
-class Signup extends React.Component {
-  constructor(props) {
-    super(props)
+const Signup = (props) => {
+  const classes = useStyles()
+  const navigate = useNavigate()
+  const [data, setData] = useState({
+    email: '',
+    password: '',
+    confirmPassword: '',
+    confirmationCode: '',
+    newUser: null
+  })
+  const [isLoading, setIsLoading] = useState(false)
 
-    this.state = {
-      isLoading: false,
-      email: '',
-      password: '',
-      confirmPassword: '',
-      confirmationCode: '',
-      newUser: null
-    }
+  const validateForm = () => {
+    return data.email.length > 0 && data.password.length > 0 && data.password === data.confirmPassword
   }
 
-  validateForm() {
-    return (
-      this.state.email.length > 0 &&
-      this.state.password.length > 0 &&
-      this.state.password === this.state.confirmPassword
-    )
+  const validateConfirmationForm = () => {
+    return data.confirmationCode.length > 0
   }
 
-  validateConfirmationForm() {
-    return this.state.confirmationCode.length > 0
-  }
-
-  handleChange = (event) => {
-    this.setState({
+  const handleChange = (event) => {
+    setData({
+      ...data,
       [event.target.id]: event.target.value
     })
   }
 
-  handleSubmit = async (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault()
-    this.setState({ isLoading: true })
+    setIsLoading(true)
     try {
       const newUser = await Auth.signUp({
-        username: this.state.email,
-        password: this.state.password
+        username: data.email,
+        password: data.password
       })
-      this.setState({
+      setData({
+        ...data,
         newUser
       })
     } catch (e) {
       alert(e.message)
     }
-    this.setState({ isLoading: false })
+    setIsLoading(false)
   }
 
-  handleConfirmationSubmit = async (event) => {
+  const handleConfirmationSubmit = async (event) => {
     event.preventDefault()
-    this.setState({ isLoading: true })
+    setIsLoading(true)
     try {
-      await Auth.confirmSignUp(this.state.email, this.state.confirmationCode)
-      await Auth.signIn(this.state.email, this.state.password)
+      await Auth.confirmSignUp(data.email, data.confirmationCode)
+      await Auth.signIn(data.email, data.password)
 
-      this.props.userAuthSuccess()
-      this.props.history.push('/')
+      props.userAuthSuccess()
+      navigate('/')
     } catch (e) {
       alert(e.message)
-      this.setState({ isLoading: false })
+      setIsLoading(false)
     }
   }
 
-  renderConfirmationForm() {
-    const { classes } = this.props
+  const renderConfirmationForm = () => {
     return (
       <main className={classes.main}>
         <CssBaseline />
@@ -134,14 +130,8 @@ class Signup extends React.Component {
           <Typography component="h1" variant="h5">
             Confirmation Code
           </Typography>
-          <form onSubmit={this.handleConfirmationSubmit} className={classes.form}>
-            <FormControl
-              value={this.state.confirmationCode}
-              onChange={this.handleChange}
-              margin="normal"
-              required
-              fullWidth
-            >
+          <form onSubmit={handleConfirmationSubmit} className={classes.form}>
+            <FormControl value={data.confirmationCode} onChange={handleChange} margin="normal" required fullWidth>
               <InputLabel htmlFor="password">Code</InputLabel>
               <Input name="confirmationCode" type="password" id="confirmationCode" />
             </FormControl>
@@ -152,10 +142,10 @@ class Signup extends React.Component {
               variant="contained"
               color="primary"
               className={classes.submit}
-              disabled={this.state.isLoading}
+              disabled={!validateConfirmationForm() || isLoading}
             >
               Send{' '}
-              {this.state.isLoading && (
+              {isLoading && (
                 <span style={{ paddingLeft: '10px', display: 'flex', alignItems: 'center' }}>
                   <CircularProgress size="1.1em" />
                 </span>
@@ -167,30 +157,23 @@ class Signup extends React.Component {
     )
   }
 
-  renderForm() {
-    const { classes } = this.props
+  const renderForm = () => {
     return (
       <main className={classes.main}>
         <CssBaseline />
         <Paper className={classes.paper}>
-          <form onSubmit={this.handleSubmit} className={classes.form}>
-            <FormControl value={this.state.email} onChange={this.handleChange} margin="normal" required fullWidth>
+          <form onSubmit={handleSubmit} className={classes.form}>
+            <FormControl value={data.email} onChange={handleChange} margin="normal" required fullWidth>
               <InputLabel htmlFor="email">Email Address</InputLabel>
               <Input id="email" name="email" autoComplete="email" autoFocus />
             </FormControl>
 
-            <FormControl value={this.state.password} onChange={this.handleChange} margin="normal" required fullWidth>
+            <FormControl value={data.password} onChange={handleChange} margin="normal" required fullWidth>
               <InputLabel htmlFor="password">Password</InputLabel>
               <Input name="password" type="password" id="password" autoComplete="current-password" />
             </FormControl>
 
-            <FormControl
-              value={this.state.confirmPassword}
-              onChange={this.handleChange}
-              margin="normal"
-              required
-              fullWidth
-            >
+            <FormControl value={data.confirmPassword} onChange={handleChange} margin="normal" required fullWidth>
               <InputLabel htmlFor="password">Confirm Password</InputLabel>
               <Input name="confirmPassword" type="password" id="confirmPassword" autoComplete="current-password" />
             </FormControl>
@@ -201,10 +184,10 @@ class Signup extends React.Component {
               variant="contained"
               color="primary"
               className={classes.submit}
-              disabled={this.state.isLoading}
+              disabled={!validateForm() || isLoading}
             >
               Signup{' '}
-              {this.state.isLoading && (
+              {isLoading && (
                 <span style={{ paddingLeft: '10px', display: 'flex', alignItems: 'center' }}>
                   <CircularProgress size="1.1em" />
                 </span>
@@ -216,11 +199,7 @@ class Signup extends React.Component {
     )
   }
 
-  render() {
-    return (
-      <div className="Signup">{this.state.newUser === null ? this.renderForm() : this.renderConfirmationForm()}</div>
-    )
-  }
+  return <div className="Signup">{data.newUser === null ? renderForm() : renderConfirmationForm()}</div>
 }
 
-export default withStyles(styles)(Signup)
+export default Signup

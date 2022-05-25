@@ -10,7 +10,7 @@ import zima from '../img/zima.jpg'
 import blank from '../img/blank.jpg'
 import TagChips from './TagChips'
 
-const styles = (theme) => ({
+const styles = () => ({
   // card: {
   //   height: 320
   // },
@@ -64,15 +64,6 @@ class BlogCard extends React.Component {
             component={RouterLink}
             to={{
               pathname: this.props.link
-              // state: {
-              //   title: this.props.content.title,
-              //   author: this.props.content.author,
-              //   tags: this.props.content.tags,
-              //   image: this.props.content.image,
-              //   edit: this.props.editedAt, // edited time
-              //   create: this.props.createdAt, // created time
-              //   id: this.props.id
-              // }
             }}
             className={classes.action}
           >

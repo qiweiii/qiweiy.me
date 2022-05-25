@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import { getAllBlogs, saveTags } from './actions'
 import { useSelector, useDispatch } from 'react-redux'
-import Routes from './route/Routes'
+import MyRoutes from './route/MyRoutes'
 
 // load blogs asap, so user don't need to wait everytime when go to blogs
 function Main() {
@@ -31,7 +31,7 @@ function Main() {
     }
   }, [allBlogsReady, allBlogs, dispatch])
 
-  return <Routes />
+  return <MyRoutes />
 }
 
 export default Main
