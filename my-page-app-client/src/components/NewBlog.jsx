@@ -1,17 +1,17 @@
-import React from 'react';
-import Button from '@material-ui/core/Button';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import FormControl from '@material-ui/core/FormControl';
-import Paper from '@material-ui/core/Paper';
-import { withStyles } from '@material-ui/core/styles';
-import TextField from '@material-ui/core/TextField';
-import { API } from "aws-amplify";
-import validUrl from "valid-url";
-import Link from '@material-ui/core/Link';
-import CircularProgress from "@material-ui/core/CircularProgress";
-import "./NewBlog.css";
+import React from 'react'
+import Button from '@material-ui/core/Button'
+import CssBaseline from '@material-ui/core/CssBaseline'
+import FormControl from '@material-ui/core/FormControl'
+import Paper from '@material-ui/core/Paper'
+import { withStyles } from '@material-ui/core/styles'
+import TextField from '@material-ui/core/TextField'
+import { API } from 'aws-amplify'
+import validUrl from 'valid-url'
+import Link from '@material-ui/core/Link'
+import CircularProgress from '@material-ui/core/CircularProgress'
+import './NewBlog.css'
 
-const styles = theme => ({
+const styles = (theme) => ({
   main: {
     width: 'auto',
     display: 'block', // Fix IE 11 issue.
@@ -21,85 +21,84 @@ const styles = theme => ({
       width: 'auto',
       maxWidth: 800,
       marginLeft: 'auto',
-      marginRight: 'auto',
-    },
+      marginRight: 'auto'
+    }
   },
   paper: {
     marginTop: theme.spacing(4),
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
-    padding: `${theme.spacing(2)}px ${theme.spacing(2)}px ${theme.spacing(2)}px`,
+    padding: `${theme.spacing(2)}px ${theme.spacing(2)}px ${theme.spacing(2)}px`
   },
   container: {
     display: 'flex',
-    flexWrap: 'wrap',
+    flexWrap: 'wrap'
   },
   uploads: {
-    paddingBottom: '10px',
+    paddingBottom: '10px'
   },
   input: {
-    display: 'none',
+    display: 'none'
   },
   buttons: {
     display: 'flex',
-    justifyContent: 'flex-end',
+    justifyContent: 'flex-end'
   },
   button: {
     marginTop: theme.spacing(3),
-    marginBottom: 20,
+    marginBottom: 20
   },
   link: {
     marginTop: theme.spacing(4),
     marginLeft: theme.spacing(3),
-    marginBottom: 10,
+    marginBottom: 10
   }
-});
+})
 
 function checkURL(str) {
   // check the url is valid
   if (validUrl.isUri(str)) {
-    return true;
+    return true
   } else {
     // alert("not a valid url");
-    return false;
+    return false
   }
-};
+}
 
 class NewBlog extends React.Component {
-
   constructor(props) {
-    super(props);
+    super(props)
 
-    this.file = null;
+    this.file = null
 
     this.state = {
-      title: "",
-      content: "",
-      author: "",
-      image: "",
-      tags: "",
+      title: '',
+      content: '',
+      author: '',
+      image: '',
+      tags: '',
       isLoading: false
-    };
+    }
   }
 
   validateForm = () => {
-    return this.state.content.length > 0 && this.state.title.length > 0;
+    return this.state.content.length > 0 && this.state.title.length > 0
   }
 
-  handleChange = name => event => {
-    this.setState({ [name]: event.target.value });
-  };
+  handleChange = (name) => (event) => {
+    this.setState({ [name]: event.target.value })
+  }
 
-  handleSubmit = async event => {
-    event.preventDefault();
-    this.setState({ isLoading: true });
-    let str = this.state.image;
+  handleSubmit = async (event) => {
+    event.preventDefault()
+    this.setState({ isLoading: true })
+    let str = this.state.image
     if (!checkURL(str)) {
-      if (str === ""|| str === null || str === undefined) {
-        await this.setState({ image: 'blank' });
+      if (str === '' || str === null || str === undefined) {
+        await this.setState({ image: 'blank' })
       } else {
-        alert("not a valid url");
+        alert('not a valid url')
         return false
       }
     }
@@ -113,31 +112,30 @@ class NewBlog extends React.Component {
           image: this.state.image,
           tags: this.state.tags
         }
-      });
-      this.setState({ isLoading: false });
-      this.props.history.push("/blogs");
-      window.location.reload(false);
+      })
+      this.setState({ isLoading: false })
+      this.props.history.push('/blogs')
+      window.location.reload(false)
     } catch (e) {
-      this.setState({ isLoading: false });
-      alert(e.message);
+      this.setState({ isLoading: false })
+      alert(e.message)
     }
   }
 
   createBlog(blog) {
     // console.log(blog);
-    return API.post("pages", "/pages", {
+    return API.post('pages', '/pages', {
       body: blog
-    });
+    })
   }
 
   render() {
-    const { classes } = this.props;
+    const { classes } = this.props
 
     return (
       <main className={classes.main}>
         <CssBaseline />
         <Paper className={classes.paper}>
-
           <form onSubmit={this.handleSubmit} className={classes.container} noValidate autoComplete="off">
             <FormControl margin="normal" fullWidth>
               <TextField
@@ -147,7 +145,7 @@ class NewBlog extends React.Component {
                 className={classes.textField}
                 margin="normal"
                 variant="filled"
-                value={this.state.title} 
+                value={this.state.title}
                 onChange={this.handleChange('title')}
                 required
               />
@@ -159,11 +157,11 @@ class NewBlog extends React.Component {
                 className={classes.textField}
                 margin="normal"
                 variant="filled"
-                value={this.state.author} 
+                value={this.state.author}
                 onChange={this.handleChange('author')}
                 required
                 inputProps={{
-                  maxLength: 50,
+                  maxLength: 50
                 }}
               />
             </FormControl>
@@ -174,7 +172,7 @@ class NewBlog extends React.Component {
                 className={classes.textField}
                 margin="normal"
                 variant="filled"
-                value={this.state.image} 
+                value={this.state.image}
                 onChange={this.handleChange('image')}
                 placeholder="Cover image of your post (need to be available online, pls put the link to that image here)"
               />
@@ -185,9 +183,9 @@ class NewBlog extends React.Component {
                 label="tags"
                 margin="normal"
                 variant="filled"
-                value={this.state.tags} 
+                value={this.state.tags}
                 inputProps={{
-                  maxLength: 50,
+                  maxLength: 50
                 }}
                 onChange={this.handleChange('tags')}
                 placeholder="tags of this article, separated by ','"
@@ -199,9 +197,9 @@ class NewBlog extends React.Component {
                 label="Content"
                 multiline
                 margin="normal"
-                rows='15'
+                rows="15"
                 variant="filled"
-                value={this.state.content} 
+                value={this.state.content}
                 onChange={this.handleChange('content')}
                 required
               />
@@ -214,18 +212,22 @@ class NewBlog extends React.Component {
                 className={classes.button}
                 disabled={!this.validateForm() || this.state.isLoading}
               >
-                Create {this.state.isLoading && <span style={{paddingLeft:"10px", display: "flex", alignItems:"center"}}><CircularProgress size="1.1em"/></span>}
+                Create{' '}
+                {this.state.isLoading && (
+                  <span style={{ paddingLeft: '10px', display: 'flex', alignItems: 'center' }}>
+                    <CircularProgress size="1.1em" />
+                  </span>
+                )}
               </Button>
-              <Link href="https://remarkjs.github.io/react-markdown/"  target="_blank" className={classes.link}>
+              <Link href="https://remarkjs.github.io/react-markdown/" target="_blank" className={classes.link}>
                 Formatting help
               </Link>
             </div>
           </form>
-
         </Paper>
       </main>
-    );
+    )
   }
 }
 
-export default withStyles(styles)(NewBlog);
+export default withStyles(styles)(NewBlog)

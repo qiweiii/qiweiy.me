@@ -1,17 +1,17 @@
-import React from "react";
-import { withStyles } from '@material-ui/core/styles';
-import { API } from "aws-amplify";
-import Button from '@material-ui/core/Button';
-import Paper from '@material-ui/core/Paper';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import TextField from '@material-ui/core/TextField';
-import FormControl from '@material-ui/core/FormControl';
-import validUrl from "valid-url";
-import Link from '@material-ui/core/Link';
-import CircularProgress from "@material-ui/core/CircularProgress";
-import "./NewBlog.css";
+import React from 'react'
+import { withStyles } from '@material-ui/core/styles'
+import { API } from 'aws-amplify'
+import Button from '@material-ui/core/Button'
+import Paper from '@material-ui/core/Paper'
+import CssBaseline from '@material-ui/core/CssBaseline'
+import TextField from '@material-ui/core/TextField'
+import FormControl from '@material-ui/core/FormControl'
+import validUrl from 'valid-url'
+import Link from '@material-ui/core/Link'
+import CircularProgress from '@material-ui/core/CircularProgress'
+import './NewBlog.css'
 
-const styles = theme => ({
+const styles = (theme) => ({
   layout: {
     width: 'auto',
     marginLeft: theme.spacing(2),
@@ -20,8 +20,8 @@ const styles = theme => ({
       width: 'auto',
       maxWidth: 800,
       marginLeft: 'auto',
-      marginRight: 'auto',
-    },
+      marginRight: 'auto'
+    }
   },
   paper: {
     marginTop: theme.spacing(3),
@@ -32,11 +32,11 @@ const styles = theme => ({
       marginTop: theme.spacing(6),
       marginBottom: theme.spacing(6),
       padding: theme.spacing(3),
-      minHeight: 500,
-    },
+      minHeight: 500
+    }
   },
   content: {
-    minHeight: 400,
+    minHeight: 400
   },
   buttons: {
     display: 'flex',
@@ -55,43 +55,42 @@ const styles = theme => ({
   link: {
     marginTop: theme.spacing(4),
     marginRight: theme.spacing(3),
-    marginBottom: 10,
+    marginBottom: 10
   }
-});
-
+})
 
 function checkURL(str) {
   // check the url is valid
   if (validUrl.isUri(str)) {
-    return true;
+    return true
   } else {
     // alert("not a valid url");
-    return false;
+    return false
   }
-};
+}
 
 class BlogEdit extends React.Component {
   constructor(props) {
-    super(props);
+    super(props)
 
-    this.file = null;
+    this.file = null
 
     this.state = {
       blog: null,
-      title: "",
-      content: "",
-      author: "",
-      image: "",
-      id: "",
-      tags: "",
+      title: '',
+      content: '',
+      author: '',
+      image: '',
+      id: '',
+      tags: '',
       isLoading: false
-    };
+    }
   }
 
   async componentDidMount() {
     // console.log(this.props.location.state)
     if (!this.props.location.state) {
-      this.props.history.push("/blogs");
+      this.props.history.push('/blogs')
     } else {
       this.setState({
         title: this.props.location.state.title,
@@ -100,33 +99,33 @@ class BlogEdit extends React.Component {
         image: this.props.location.state.image,
         id: this.props.location.state.id,
         tags: this.props.location.state.tags
-      });
+      })
     }
   }
 
   validateForm = () => {
-    return this.state.content.length > 0 && this.state.title.length > 0;
+    return this.state.content.length > 0 && this.state.title.length > 0
   }
 
-  handleChange = name => event => {
-    this.setState({ [name]: event.target.value });
-  };
+  handleChange = (name) => (event) => {
+    this.setState({ [name]: event.target.value })
+  }
 
   saveNote(blog) {
-    return API.put("pages", `/pages/${this.state.id}`, {
+    return API.put('pages', `/pages/${this.state.id}`, {
       body: blog
-    });
+    })
   }
 
-  handleSubmit = async event => {
-    event.preventDefault();
-    this.setState({ isLoading: true });
-    let str = this.state.image;
+  handleSubmit = async (event) => {
+    event.preventDefault()
+    this.setState({ isLoading: true })
+    let str = this.state.image
     if (!checkURL(str)) {
-      if (str === ""|| str === null || str === undefined || str === "blank") {
-        await this.setState({ image: 'blank' });
+      if (str === '' || str === null || str === undefined || str === 'blank') {
+        await this.setState({ image: 'blank' })
       } else {
-        alert("not a valid url");
+        alert('not a valid url')
         return false
       }
     }
@@ -138,43 +137,41 @@ class BlogEdit extends React.Component {
           author: this.state.author,
           image: this.state.image,
           tags: this.state.tags
-        },
-      });
-      this.setState({ isLoading: false });
-      this.props.history.push("/blogs");
-      window.location.reload(false); // false means use cached version
+        }
+      })
+      this.setState({ isLoading: false })
+      this.props.history.push('/blogs')
+      window.location.reload(false) // false means use cached version
     } catch (e) {
-      alert(e);
-      this.setState({ isLoading: false });
+      alert(e)
+      this.setState({ isLoading: false })
     }
   }
 
   deleteNote() {
-    return API.del("pages", `/pages/${this.state.id}`);
+    return API.del('pages', `/pages/${this.state.id}`)
   }
 
-  handleDelete = async event => {
-    event.preventDefault();
-    const confirmed = window.confirm(
-      "Are you sure you want to delete this blog?"
-    );
+  handleDelete = async (event) => {
+    event.preventDefault()
+    const confirmed = window.confirm('Are you sure you want to delete this blog?')
     if (!confirmed) {
-      return;
+      return
     }
-    this.setState({ isLoading: true });
+    this.setState({ isLoading: true })
     try {
-      await this.deleteNote();
-      this.setState({ isLoading: false });
-      this.props.history.push("/blogs");
-      window.location.reload(false);
+      await this.deleteNote()
+      this.setState({ isLoading: false })
+      this.props.history.push('/blogs')
+      window.location.reload(false)
     } catch (e) {
-      alert(e);
-      this.setState({ isLoading: false });
+      alert(e)
+      this.setState({ isLoading: false })
     }
   }
 
   render() {
-    const { classes } = this.props;
+    const { classes } = this.props
 
     return (
       <React.Fragment>
@@ -204,7 +201,7 @@ class BlogEdit extends React.Component {
                   onChange={this.handleChange('author')}
                   fullWidth
                   inputProps={{
-                    maxLength: 50,
+                    maxLength: 50
                   }}
                   required
                 />
@@ -215,7 +212,7 @@ class BlogEdit extends React.Component {
                   label="ImageURL"
                   margin="normal"
                   variant="filled"
-                  value={this.state.image} 
+                  value={this.state.image}
                   onChange={this.handleChange('image')}
                   placeholder="Cover image of your post (need to be available online, pls put the link to that image here)"
                 />
@@ -226,9 +223,9 @@ class BlogEdit extends React.Component {
                   label="tags"
                   margin="normal"
                   variant="filled"
-                  value={this.state.tags} 
+                  value={this.state.tags}
                   inputProps={{
-                    maxLength: 50,
+                    maxLength: 50
                   }}
                   onChange={this.handleChange('tags')}
                   placeholder="tags of this article, separated by ','"
@@ -239,16 +236,16 @@ class BlogEdit extends React.Component {
                   id="filled-textarea"
                   label="Content"
                   multiline
-                  rows='15'
+                  rows="15"
                   variant="filled"
-                  value={this.state.content} 
+                  value={this.state.content}
                   onChange={this.handleChange('content')}
                   required
                   fullWidth
                 />
               </FormControl>
               <div className={classes.buttons}>
-                <Link href="https://remarkjs.github.io/react-markdown/"  target="_blank" className={classes.link}>
+                <Link href="https://remarkjs.github.io/react-markdown/" target="_blank" className={classes.link}>
                   Formatting help
                 </Link>
                 <Button
@@ -269,14 +266,18 @@ class BlogEdit extends React.Component {
                 >
                   Delete
                 </Button>
-                {this.state.isLoading && <span style={{paddingLeft: "10px", alignSelf: "center"}}><CircularProgress size="1.5em"/></span>}
+                {this.state.isLoading && (
+                  <span style={{ paddingLeft: '10px', alignSelf: 'center' }}>
+                    <CircularProgress size="1.5em" />
+                  </span>
+                )}
               </div>
             </form>
-         </Paper>
+          </Paper>
         </main>
       </React.Fragment>
-    );
+    )
   }
 }
 
-export default withStyles(styles)(BlogEdit);
+export default withStyles(styles)(BlogEdit)

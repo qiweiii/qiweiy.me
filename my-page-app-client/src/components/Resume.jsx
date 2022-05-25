@@ -1,8 +1,8 @@
-import React from "react";
-import { withStyles } from '@material-ui/core/styles';
-import resume from "../Resume.pdf";
+import React from 'react'
+import { withStyles } from '@material-ui/core/styles'
+import resume from '../Resume.pdf'
 
-const styles = theme => ({
+const styles = (theme) => ({
   iframe: {
     width: 350,
     height: 600,
@@ -14,21 +14,16 @@ const styles = theme => ({
       height: 800,
       maxWidth: 1000,
       marginLeft: 'auto',
-      marginRight: 'auto',
-    },
+      marginRight: 'auto'
+    }
   }
-});
+})
 
 class Resume extends React.Component {
-
   render() {
-    const { classes } = this.props;
-    return (
-      <iframe title="resume" className={classes.iframe} src={resume}>
-      </iframe>
-    );
+    const { classes } = this.props
+    return <iframe title="resume" className={classes.iframe} src={resume}></iframe>
   }
 }
 
-
-export default withStyles(styles)(Resume);
+export default withStyles(styles)(Resume)

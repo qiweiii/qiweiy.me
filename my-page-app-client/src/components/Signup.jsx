@@ -1,21 +1,20 @@
-import React from 'react';
-import Avatar from '@material-ui/core/Avatar';
-import Button from '@material-ui/core/Button';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import FormControl from '@material-ui/core/FormControl';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Checkbox from '@material-ui/core/Checkbox';
-import Input from '@material-ui/core/Input';
-import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
-import InputLabel from '@material-ui/core/InputLabel';
-import Paper from '@material-ui/core/Paper';
-import Typography from '@material-ui/core/Typography';
-import withStyles from '@material-ui/core/styles/withStyles';
-import { Auth } from "aws-amplify";
-import CircularProgress from "@material-ui/core/CircularProgress";
+import React from 'react'
+import Avatar from '@material-ui/core/Avatar'
+import Button from '@material-ui/core/Button'
+import CssBaseline from '@material-ui/core/CssBaseline'
+import FormControl from '@material-ui/core/FormControl'
+import FormControlLabel from '@material-ui/core/FormControlLabel'
+import Checkbox from '@material-ui/core/Checkbox'
+import Input from '@material-ui/core/Input'
+import LockOutlinedIcon from '@material-ui/icons/LockOutlined'
+import InputLabel from '@material-ui/core/InputLabel'
+import Paper from '@material-ui/core/Paper'
+import Typography from '@material-ui/core/Typography'
+import withStyles from '@material-ui/core/styles/withStyles'
+import { Auth } from 'aws-amplify'
+import CircularProgress from '@material-ui/core/CircularProgress'
 
-
-const styles = theme => ({
+const styles = (theme) => ({
   main: {
     width: 'auto',
     display: 'block',
@@ -24,55 +23,53 @@ const styles = theme => ({
     [theme.breakpoints.up(400 + theme.spacing(3 * 2))]: {
       width: 400,
       marginLeft: 'auto',
-      marginRight: 'auto',
-    },
+      marginRight: 'auto'
+    }
   },
   paper: {
     marginTop: theme.spacing(8),
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
-    padding: `${theme.spacing(2)}px ${theme.spacing(3)}px ${theme.spacing(3)}px`,
+    padding: `${theme.spacing(2)}px ${theme.spacing(3)}px ${theme.spacing(3)}px`
   },
   avatars: {
     display: 'flex',
-    flexGrow: 1,
+    flexGrow: 1
   },
   lock: {
     margin: theme.spacing(1),
-    backgroundColor: theme.palette.secondary.main,
+    backgroundColor: theme.palette.secondary.main
   },
   google: {
     margin: theme.spacing(1),
-    backgroundColor: '#db3236',
+    backgroundColor: '#db3236'
   },
   form: {
     width: '100%', // Fix IE 11 issue.
-    marginTop: theme.spacing(1),
+    marginTop: theme.spacing(1)
   },
   submit: {
-    marginTop: theme.spacing(3),
+    marginTop: theme.spacing(3)
   },
   p: {
     paddingTop: 5,
-    fontSize: 14,
+    fontSize: 14
   }
-});
-
+})
 
 class Signup extends React.Component {
-
   constructor(props) {
-    super(props);
+    super(props)
 
     this.state = {
       isLoading: false,
-      email: "",
-      password: "",
-      confirmPassword: "",
-      confirmationCode: "",
+      email: '',
+      password: '',
+      confirmPassword: '',
+      confirmationCode: '',
       newUser: null
-    };
+    }
   }
 
   validateForm() {
@@ -80,54 +77,53 @@ class Signup extends React.Component {
       this.state.email.length > 0 &&
       this.state.password.length > 0 &&
       this.state.password === this.state.confirmPassword
-    );
+    )
   }
 
   validateConfirmationForm() {
-    return this.state.confirmationCode.length > 0;
+    return this.state.confirmationCode.length > 0
   }
 
-  handleChange = event => {
+  handleChange = (event) => {
     this.setState({
       [event.target.id]: event.target.value
-    });
+    })
   }
 
-  handleSubmit = async event => {
-    event.preventDefault();
-    this.setState({ isLoading: true });
+  handleSubmit = async (event) => {
+    event.preventDefault()
+    this.setState({ isLoading: true })
     try {
       const newUser = await Auth.signUp({
         username: this.state.email,
         password: this.state.password
-      });
+      })
       this.setState({
         newUser
-      });
+      })
     } catch (e) {
-      alert(e.message);
+      alert(e.message)
     }
-    this.setState({ isLoading: false });
+    this.setState({ isLoading: false })
   }
 
-  handleConfirmationSubmit = async event => {
-    event.preventDefault();
-    this.setState({ isLoading: true });
+  handleConfirmationSubmit = async (event) => {
+    event.preventDefault()
+    this.setState({ isLoading: true })
     try {
-      await Auth.confirmSignUp(this.state.email, this.state.confirmationCode);
-      await Auth.signIn(this.state.email, this.state.password);
+      await Auth.confirmSignUp(this.state.email, this.state.confirmationCode)
+      await Auth.signIn(this.state.email, this.state.password)
 
-      this.props.userAuthSuccess();
-      this.props.history.push("/");
+      this.props.userAuthSuccess()
+      this.props.history.push('/')
     } catch (e) {
-      alert(e.message);
-      this.setState({ isLoading: false });
+      alert(e.message)
+      this.setState({ isLoading: false })
     }
   }
-
 
   renderConfirmationForm() {
-    const { classes } = this.props;
+    const { classes } = this.props
     return (
       <main className={classes.main}>
         <CssBaseline />
@@ -139,15 +135,17 @@ class Signup extends React.Component {
             Confirmation Code
           </Typography>
           <form onSubmit={this.handleConfirmationSubmit} className={classes.form}>
-
-            <FormControl value={this.state.confirmationCode} onChange={this.handleChange} margin="normal" required fullWidth>
+            <FormControl
+              value={this.state.confirmationCode}
+              onChange={this.handleChange}
+              margin="normal"
+              required
+              fullWidth
+            >
               <InputLabel htmlFor="password">Code</InputLabel>
               <Input name="confirmationCode" type="password" id="confirmationCode" />
             </FormControl>
-            <FormControlLabel
-              control={<Checkbox value="remember" color="primary" />}
-              label="Remember me"
-            />
+            <FormControlLabel control={<Checkbox value="remember" color="primary" />} label="Remember me" />
             <Button
               type="submit"
               fullWidth
@@ -156,16 +154,21 @@ class Signup extends React.Component {
               className={classes.submit}
               disabled={this.state.isLoading}
             >
-              Send {this.state.isLoading && <span style={{paddingLeft:"10px", display: "flex", alignItems:"center"}}><CircularProgress size="1.1em"/></span>}
+              Send{' '}
+              {this.state.isLoading && (
+                <span style={{ paddingLeft: '10px', display: 'flex', alignItems: 'center' }}>
+                  <CircularProgress size="1.1em" />
+                </span>
+              )}
             </Button>
           </form>
         </Paper>
       </main>
-    );
+    )
   }
 
   renderForm() {
-    const { classes } = this.props;
+    const { classes } = this.props
     return (
       <main className={classes.main}>
         <CssBaseline />
@@ -181,14 +184,17 @@ class Signup extends React.Component {
               <Input name="password" type="password" id="password" autoComplete="current-password" />
             </FormControl>
 
-            <FormControl value={this.state.confirmPassword} onChange={this.handleChange} margin="normal" required fullWidth>
+            <FormControl
+              value={this.state.confirmPassword}
+              onChange={this.handleChange}
+              margin="normal"
+              required
+              fullWidth
+            >
               <InputLabel htmlFor="password">Confirm Password</InputLabel>
               <Input name="confirmPassword" type="password" id="confirmPassword" autoComplete="current-password" />
             </FormControl>
-            <FormControlLabel
-              control={<Checkbox value="remember" color="primary" />}
-              label="Remember me"
-            />
+            <FormControlLabel control={<Checkbox value="remember" color="primary" />} label="Remember me" />
             <Button
               type="submit"
               fullWidth
@@ -197,24 +203,24 @@ class Signup extends React.Component {
               className={classes.submit}
               disabled={this.state.isLoading}
             >
-              Signup {this.state.isLoading && <span style={{paddingLeft:"10px", display: "flex", alignItems:"center"}}><CircularProgress size="1.1em"/></span>}
+              Signup{' '}
+              {this.state.isLoading && (
+                <span style={{ paddingLeft: '10px', display: 'flex', alignItems: 'center' }}>
+                  <CircularProgress size="1.1em" />
+                </span>
+              )}
             </Button>
           </form>
         </Paper>
       </main>
-    );
+    )
   }
 
   render() {
     return (
-      <div className="Signup">
-        {this.state.newUser === null
-          ? this.renderForm()
-          : this.renderConfirmationForm()}
-      </div>
-    );
+      <div className="Signup">{this.state.newUser === null ? this.renderForm() : this.renderConfirmationForm()}</div>
+    )
   }
 }
 
-
-export default withStyles(styles)(Signup);
+export default withStyles(styles)(Signup)

@@ -1,58 +1,54 @@
-import React from 'react';
-import { withStyles } from '@material-ui/core/styles';
-import Card from '@material-ui/core/Card';
-import CardActionArea from '@material-ui/core/CardActionArea';
-import CardContent from '@material-ui/core/CardContent';
-import CardMedia from '@material-ui/core/CardMedia';
-import Typography from '@material-ui/core/Typography';
-import { Link as RouterLink} from 'react-router-dom'
-import zima from "../img/zima.jpg";
-import blank from "../img/blank.jpg";
-import TagChips from "./TagChips";
+import React from 'react'
+import { withStyles } from '@material-ui/core/styles'
+import Card from '@material-ui/core/Card'
+import CardActionArea from '@material-ui/core/CardActionArea'
+import CardContent from '@material-ui/core/CardContent'
+import CardMedia from '@material-ui/core/CardMedia'
+import Typography from '@material-ui/core/Typography'
+import { Link as RouterLink } from 'react-router-dom'
+import zima from '../img/zima.jpg'
+import blank from '../img/blank.jpg'
+import TagChips from './TagChips'
 
-
-const styles = theme => ({
+const styles = (theme) => ({
   // card: {
   //   height: 320
   // },
   media: {
-    height: 180,
+    height: 180
   },
   // action: {
   // },
   cardContent: {
-    height: 130,
+    height: 130
   },
   authorDate: {
-    fontSize: "0.9em",
-    color: "silver"
+    fontSize: '0.9em',
+    color: 'silver'
   }
-});
+})
 
 class BlogCard extends React.Component {
-
   getImage() {
-    let img = this.props.content.image;
-    if (img === "zima")
-      return zima;
-    if (img === "blank" || img === "" || img === null || img === undefined)
-      return blank;
+    let img = this.props.content.image
+    if (img === 'zima') return zima
+    if (img === 'blank' || img === '' || img === null || img === undefined) return blank
 
     //if it is a valid url
-    return img;
+    return img
   }
 
   trimLength(str, len) {
-    let words = str.trim().split("\n")[0].split(" ");
-    let t = "";
+    let words = str.trim().split('\n')[0].split(' ')
+    let t = ''
     for (var i = 0; i < words.length; i++) {
-      t = t + " " + words[i];
+      t = t + ' ' + words[i]
       if (t.length > len) {
-        t = t + "...";
-        return t;
+        t = t + '...'
+        return t
       }
     }
-    return t;
+    return t
   }
 
   // componentDidMount() {
@@ -60,14 +56,14 @@ class BlogCard extends React.Component {
   // }
 
   render() {
-    const { classes } = this.props;
+    const { classes } = this.props
     return (
       <>
         <Card elevation={8} className={classes.card}>
-          <CardActionArea 
-            component={RouterLink} 
-            to={{ 
-              pathname: this.props.link, 
+          <CardActionArea
+            component={RouterLink}
+            to={{
+              pathname: this.props.link
               // state: {
               //   title: this.props.content.title,
               //   author: this.props.content.author,
@@ -76,14 +72,11 @@ class BlogCard extends React.Component {
               //   edit: this.props.editedAt, // edited time
               //   create: this.props.createdAt, // created time
               //   id: this.props.id
-              // } 
+              // }
             }}
             className={classes.action}
           >
-            <CardMedia
-              className={classes.media}
-              image={this.getImage()}
-            />
+            <CardMedia className={classes.media} image={this.getImage()} />
             <CardContent className={classes.cardContent}>
               <Typography gutterBottom variant="inherit" component="h2" noWrap>
                 {this.props.content.title}
@@ -96,8 +89,8 @@ class BlogCard extends React.Component {
         </Card>
         <TagChips tags={this.props.content.tags} />
       </>
-    );
+    )
   }
 }
 
-export default withStyles(styles)(BlogCard);
+export default withStyles(styles)(BlogCard)

@@ -1,22 +1,22 @@
-import React from 'react';
-import Button from '@material-ui/core/Button';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import FormControl from '@material-ui/core/FormControl';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Checkbox from '@material-ui/core/Checkbox';
-import Input from '@material-ui/core/Input';
-import InputLabel from '@material-ui/core/InputLabel';
-import Paper from '@material-ui/core/Paper';
-import Typography from '@material-ui/core/Typography';
-import withStyles from '@material-ui/core/styles/withStyles';
-import { Auth } from "aws-amplify";
-import GoogleButton from "./GoogleButton";
-import Fab from '@material-ui/core/Fab';
-import CircularProgress from "@material-ui/core/CircularProgress";
-import { userAuthSuccess } from "../actions"
-import { connect } from 'react-redux';
+import React from 'react'
+import Button from '@material-ui/core/Button'
+import CssBaseline from '@material-ui/core/CssBaseline'
+import FormControl from '@material-ui/core/FormControl'
+import FormControlLabel from '@material-ui/core/FormControlLabel'
+import Checkbox from '@material-ui/core/Checkbox'
+import Input from '@material-ui/core/Input'
+import InputLabel from '@material-ui/core/InputLabel'
+import Paper from '@material-ui/core/Paper'
+import Typography from '@material-ui/core/Typography'
+import withStyles from '@material-ui/core/styles/withStyles'
+import { Auth } from 'aws-amplify'
+import GoogleButton from './GoogleButton'
+import Fab from '@material-ui/core/Fab'
+import CircularProgress from '@material-ui/core/CircularProgress'
+import { userAuthSuccess } from '../actions'
+import { connect } from 'react-redux'
 
-const styles = theme => ({
+const styles = (theme) => ({
   main: {
     width: 'auto',
     display: 'block', // Fix IE 11 issue.
@@ -25,77 +25,75 @@ const styles = theme => ({
     [theme.breakpoints.up(400 + theme.spacing(3 * 2))]: {
       width: 400,
       marginLeft: 'auto',
-      marginRight: 'auto',
-    },
+      marginRight: 'auto'
+    }
   },
   paper: {
     marginTop: theme.spacing(8),
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
-    padding: `${theme.spacing(2)}px ${theme.spacing(3)}px ${theme.spacing(3)}px`,
+    padding: `${theme.spacing(2)}px ${theme.spacing(3)}px ${theme.spacing(3)}px`
   },
   avatars: {
     display: 'flex',
-    flexGrow: 1,
+    flexGrow: 1
   },
   google: {
     margin: theme.spacing(1),
-    backgroundColor: '#db3236',
+    backgroundColor: '#db3236'
   },
   form: {
     width: '100%', // Fix IE 11 issue.
-    marginTop: theme.spacing(1),
+    marginTop: theme.spacing(1)
   },
   submit: {
-    marginTop: theme.spacing(3),
+    marginTop: theme.spacing(3)
   },
   p: {
     paddingTop: 5,
-    fontSize: 14,
+    fontSize: 14
     // color: "#424242",
   }
-});
-
+})
 
 class Login extends React.Component {
-
   constructor(props) {
-    super(props);
+    super(props)
 
     this.state = {
-      email: "",
-      password: "",
+      email: '',
+      password: '',
       isLoading: false
-    };
+    }
   }
 
-  handleChange = event => {
+  handleChange = (event) => {
     this.setState({
       [event.target.id]: event.target.value
-    });
+    })
   }
 
-  handleSubmit = async event => {
-    event.preventDefault();
-    this.setState({ isLoading: true });
+  handleSubmit = async (event) => {
+    event.preventDefault()
+    this.setState({ isLoading: true })
     try {
-      await Auth.signIn(this.state.email, this.state.password);
-      this.props.userAuthSuccess();
-      this.setState({ isLoading: false });
-      this.props.history.push("/");
+      await Auth.signIn(this.state.email, this.state.password)
+      this.props.userAuthSuccess()
+      this.setState({ isLoading: false })
+      this.props.history.push('/')
     } catch (e) {
-      alert(e.message);
-      this.setState({ isLoading: false });
+      alert(e.message)
+      this.setState({ isLoading: false })
     }
   }
 
   handleGgLogin = () => {
-    this.props.userAuthSuccess();
+    this.props.userAuthSuccess()
   }
 
   render() {
-    const { classes } = this.props;
+    const { classes } = this.props
 
     return (
       <main className={classes.main}>
@@ -103,10 +101,10 @@ class Login extends React.Component {
         <Paper className={classes.paper}>
           <div className={classes.avatars}>
             <Fab size="small" className={classes.google}>
-              <GoogleButton onLogin={this.handleGgLogin}/>
+              <GoogleButton onLogin={this.handleGgLogin} />
             </Fab>
           </div>
-          <Typography component="p" className={classes.p} >
+          <Typography component="p" className={classes.p}>
             Or Be Classic
           </Typography>
           <form onSubmit={this.handleSubmit} className={classes.form}>
@@ -118,10 +116,7 @@ class Login extends React.Component {
               <InputLabel htmlFor="password">Password</InputLabel>
               <Input name="password" type="password" id="password" autoComplete="current-password" />
             </FormControl>
-            <FormControlLabel
-              control={<Checkbox value="remember" color="primary" />}
-              label="Remember me"
-            />
+            <FormControlLabel control={<Checkbox value="remember" color="primary" />} label="Remember me" />
             <Button
               type="submit"
               fullWidth
@@ -130,16 +125,18 @@ class Login extends React.Component {
               className={classes.submit}
               disabled={this.state.isLoading}
             >
-              Login {this.state.isLoading && <span style={{paddingLeft:"10px", display: "flex", alignItems:"center"}}><CircularProgress size="1.1em"/></span>}
+              Login{' '}
+              {this.state.isLoading && (
+                <span style={{ paddingLeft: '10px', display: 'flex', alignItems: 'center' }}>
+                  <CircularProgress size="1.1em" />
+                </span>
+              )}
             </Button>
           </form>
         </Paper>
       </main>
-    );
+    )
   }
 }
 
-export default connect(
-  null,
-  { userAuthSuccess }
-)(withStyles(styles)(Login));
+export default connect(null, { userAuthSuccess })(withStyles(styles)(Login))

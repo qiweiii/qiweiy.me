@@ -1,6 +1,6 @@
-import { combineReducers } from 'redux';
-import userBlogsReducer from './userBlogsReducer';
-import allBlogsReducer from './allBlogsReducer';
+import { combineReducers } from 'redux'
+import userBlogsReducer from './userBlogsReducer'
+import allBlogsReducer from './allBlogsReducer'
 
 // note abt reducer in case i forget again
 // 1. if i use matchPropsToState in a component, i will get the corresponding "state objects" exported from here
@@ -14,7 +14,7 @@ const userHasAuthenticated = (state = false, action) => {
     case 'USER_LOGOUT':
       return action.status
     default:
-      return state;
+      return state
   }
 }
 
@@ -23,7 +23,7 @@ const userBlogsReady = (state = false, action) => {
     case 'USER_BLOGS_READY':
       return action.ready
     default:
-      return state;
+      return state
   }
 }
 
@@ -32,35 +32,35 @@ const allBlogsReady = (state = false, action) => {
     case 'ALL_BLOGS_READY':
       return action.ready
     default:
-      return state;
+      return state
   }
 }
 
 const blogListSwitch = (checked = false, action) => {
   if (action.type === 'SET_LIST_SWITCH') {
-    return !checked;
+    return !checked
   }
-  return checked;
+  return checked
 }
 
-const blogFilter = (state = "all", action) => {
-  switch(action.type) {
+const blogFilter = (state = 'all', action) => {
+  switch (action.type) {
     case 'SET_FILTER': {
-      if (state === action.filter) return 'all';
-      return action.filter;
+      if (state === action.filter) return 'all'
+      return action.filter
     }
     default:
-      return state;
+      return state
   }
 }
 
 const tags = (state = [], action) => {
-  switch(action.type) {
+  switch (action.type) {
     case 'SAVE_TAGS': {
-      return action.tags;
+      return action.tags
     }
     default:
-      return state;
+      return state
   }
 }
 
@@ -73,4 +73,4 @@ export default combineReducers({
   blogFilter: blogFilter,
   tags: tags,
   userHasAuthenticated: userHasAuthenticated
-});
+})

@@ -1,22 +1,19 @@
-import { API } from "aws-amplify";
+import { API } from 'aws-amplify'
 
-
-// how do we use the synchronous action creators together with network requests? 
+// how do we use the synchronous action creators together with network requests?
 // Use the Redux Thunk middleware
 export const getUserBlogs = () => async (dispatch, getState) => {
   // get current user's blogs
-  const response = await API.get("pages", "/pages").catch(e => {});
-  if (response)
-    dispatch({ type: 'GET_USER_BLOGS', payload: response });
-  dispatch(userBlogsReady());
+  const response = await API.get('pages', '/pages').catch((e) => {})
+  if (response) dispatch({ type: 'GET_USER_BLOGS', payload: response })
+  dispatch(userBlogsReady())
 }
 
 export const getAllBlogs = () => async (dispatch, getState) => {
   // get all blogs in the table
-  const response = await API.get("pages", "/pages/all").catch(e => {});
-  if (response)
-    dispatch({ type: 'GET_ALL_BLOGS', payload: response });
-  dispatch(allBlogsReady());
+  const response = await API.get('pages', '/pages/all').catch((e) => {})
+  if (response) dispatch({ type: 'GET_ALL_BLOGS', payload: response })
+  dispatch(allBlogsReady())
 }
 
 export const userBlogsReady = () => {
@@ -40,12 +37,12 @@ export const setListSwitch = (checked) => {
   }
 }
 
-export const setFilter = tag => ({
+export const setFilter = (tag) => ({
   type: 'SET_FILTER',
   filter: tag
-});
+})
 
-export const saveTags = tags => {
+export const saveTags = (tags) => {
   return {
     type: 'SAVE_TAGS',
     tags: tags
