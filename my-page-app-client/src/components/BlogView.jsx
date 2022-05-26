@@ -6,6 +6,7 @@ import Typography from '@mui/material/Typography'
 import { Link as RouterLink, useLocation, useNavigate } from 'react-router-dom'
 import Disqus from 'disqus-react'
 import ReactMarkdown from 'react-markdown'
+import remarkGfm from 'remark-gfm'
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter'
 import { nightOwl } from 'react-syntax-highlighter/dist/esm/styles/prism'
 import rehypeRaw from 'rehype-raw'
@@ -174,6 +175,9 @@ const BlogView = (props) => {
               <ReactMarkdown
                 className="markdown"
                 linkTarget="_blank"
+                rehypePlugins={[rehypeRaw]}
+                remarkPlugins={[remarkGfm]}
+                skipHtml={false}
                 // https://github.com/remarkjs/react-markdown#use-custom-components-syntax-highlight
                 components={{
                   code: ({ inline, className, children, ...props }) => {
@@ -194,8 +198,6 @@ const BlogView = (props) => {
                   h2: HeadingRenderer,
                   h3: HeadingRenderer
                 }}
-                rehypePlugins={[rehypeRaw]}
-                skipHtml={false}
               >
                 {state.content}
               </ReactMarkdown>
