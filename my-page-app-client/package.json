@@ -1,6 +1,6 @@
 {
-  "name": "my-website-web-frontend",
-  "version": "0.1.0",
+  "name": "my-website-frontend",
+  "version": "1.0.0",
   "private": true,
   "type": "module",
   "scripts": {
@@ -33,7 +33,7 @@
     "@fontsource/roboto": "^4.5.7",
     "@mui/icons-material": "^5.8.0",
     "@mui/material": "^5.8.1",
-    "aws-amplify": "^3.3.14",
+    "aws-amplify": "^4.3.23",
     "clsx": "^1.1.1",
     "disqus-react": "^1.0.10",
     "lodash-es": "^4.17.20",
