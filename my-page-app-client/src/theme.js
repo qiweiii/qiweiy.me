@@ -35,6 +35,7 @@ export const appThemeOptions = {
 }
 
 // new theme using mui v5 createTheme
+// https://mui.com/material-ui/customization/palette/#providing-the-colors-directly
 export const getDesignTokens = (mode) => ({
   palette: {
     mode, // mode passed in
@@ -53,6 +54,7 @@ export const getDesignTokens = (mode) => ({
     // Used by the functions below to shift a color's luminance by approximately
     // two indexes within its tonal palette.
     // E.g., shift from Red 500 to Red 300 or Red 700.
+    // A higher value for "tonalOffset" will make calculated values for "light" lighter, and "dark" darker.
     tonalOffset: 0.3
   }
 })

@@ -46,7 +46,7 @@ const Root = styled('div')(({ theme }) => ({
     [theme.breakpoints.down(720)]: {
       margin: 'auto'
     },
-    padding: '0px 10px'
+    padding: '0px 8px'
   },
 
   [`& .${classes.title}`]: {
@@ -75,14 +75,14 @@ const Root = styled('div')(({ theme }) => ({
   },
 
   [`& .${classes.button}`]: {
-    marginTop: theme.spacing(3),
-    marginBottom: theme.spacing(3)
+    margin: theme.spacing(3)
   },
 
   [`& .${classes.spinner}`]: {
+    height: '90vh',
     display: 'flex',
     justifyContent: 'center',
-    marginTop: '150px'
+    alignItems: 'center'
   }
 }))
 

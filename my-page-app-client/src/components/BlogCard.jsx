@@ -5,6 +5,7 @@ import CardActionArea from '@mui/material/CardActionArea'
 import CardContent from '@mui/material/CardContent'
 import CardMedia from '@mui/material/CardMedia'
 import Typography from '@mui/material/Typography'
+import Tooltip, { tooltipClasses } from '@mui/material/Tooltip'
 import { Link as RouterLink } from 'react-router-dom'
 import zima from '../img/zima.jpg'
 import blank from '../img/blank.jpg'
@@ -36,6 +37,16 @@ const Root = styled('div')(() => ({
   }
 }))
 
+const HtmlTooltip = styled(({ className, ...props }) => <Tooltip {...props} classes={{ popper: className }} />)(
+  ({ theme }) => ({
+    [`& .${tooltipClasses.tooltip}`]: {
+      maxWidth: 300,
+      fontSize: theme.typography.pxToRem(12),
+      border: '1px solid #dadde9'
+    }
+  })
+)
+
 class BlogCard extends React.Component {
   getImage() {
     let img = this.props.content.image
@@ -60,19 +71,32 @@ class BlogCard extends React.Component {
   render() {
     return (
       <Root>
-        <Card elevation={4} className={classes.card}>
-          <CardActionArea component={RouterLink} to={{ pathname: this.props.link }}>
-            <CardMedia className={classes.media} component="img" image={this.getImage()} loading="lazy" />
-            <CardContent className={classes.cardContent}>
-              <Typography gutterBottom variant="inherit" component="h2" noWrap>
-                {this.props.content.title}
-              </Typography>
-              <Typography component="p" noWrap className={classes.authorDate}>
-                Create by {this.trimLength(this.props.content.author, 25)} on {this.props.createdAt}
-              </Typography>
-            </CardContent>
-          </CardActionArea>
-        </Card>
+        <HtmlTooltip
+          placement="top"
+          title={
+            <>
+              <Typography color="inherit">{this.props.content.title}</Typography>
+              <em>
+                {'By'}
+                <u> {this.props.content.author}</u>
+              </em>
+            </>
+          }
+        >
+          <Card elevation={4} className={classes.card}>
+            <CardActionArea component={RouterLink} to={{ pathname: this.props.link }}>
+              <CardMedia className={classes.media} component="img" image={this.getImage()} loading="lazy" />
+              <CardContent className={classes.cardContent}>
+                <Typography gutterBottom variant="inherit" component="h2" noWrap>
+                  {this.props.content.title}
+                </Typography>
+                <Typography component="p" noWrap className={classes.authorDate}>
+                  Create by {this.trimLength(this.props.content.author, 25)} on {this.props.createdAt}
+                </Typography>
+              </CardContent>
+            </CardActionArea>
+          </Card>
+        </HtmlTooltip>
         <TagChips tags={this.props.content.tags} />
       </Root>
     )

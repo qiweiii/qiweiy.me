@@ -2,6 +2,7 @@ import React, { Suspense, lazy } from 'react'
 import { Route, Routes } from 'react-router-dom'
 import Home from '../components/Home'
 import { useSelector } from 'react-redux'
+import CircularProgress from '@mui/material/CircularProgress'
 
 // https://reactjs.org/docs/code-splitting.html#route-based-code-splitting
 const NotFound = lazy(() => import('../components/NotFound'))
@@ -16,16 +17,29 @@ const More = lazy(() => import('../components/More'))
 const MyRoutes = () => {
   const userHasAuthenticated = useSelector((state) => state.userHasAuthenticated)
   return (
-    <Suspense fallback={<div></div>}>
+    <Suspense
+      fallback={
+        <div
+          style={{
+            height: '90vh',
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center'
+          }}
+        >
+          <CircularProgress />
+        </div>
+      }
+    >
       <Routes>
         <Route path="/" exact element={<Home />} />
         <Route path="/login" exact element={<Login />} />
         <Route path="/signup" exact element={<Signup />} />
         <Route path="/blogs" exact element={<Blogs />} />
         <Route path="/blogs/view/:id" exact element={<BlogView />} />
+        {/* Next time I will use https://reactrouter.com/docs/en/v6/examples/auth */}
         {/* <AuthenticatedRoute path="/blogs/new" exact element={NewBlog} /> */}
         {/* <AuthenticatedRoute path="/blogs/edit/:id" exact element={BlogEdit} /> */}
-        {/* Next time I will use https://reactrouter.com/docs/en/v6/examples/auth */}
         <Route path="/blogs/new" exact element={userHasAuthenticated ? <NewBlog /> : <Login />} />
         <Route path="/blogs/edit/:id" exact element={userHasAuthenticated ? <BlogEdit /> : <Login />} />
         <Route path="/more" exact element={<More />} />

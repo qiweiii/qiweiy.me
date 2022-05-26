@@ -103,6 +103,7 @@ const BlogEdit = () => {
   const navigate = useNavigate()
 
   const getBlogData = useCallback(async () => {
+    setIsLoading(true)
     const id = location.pathname.split('/').slice(-1)
     const res = await API.get('pages', `/pages/${id}`)
     setData({
@@ -114,10 +115,12 @@ const BlogEdit = () => {
       id: res.noteId,
       tags: res.content.tags
     })
+    setIsLoading(false)
   }, [])
 
   useEffect(() => {
     getBlogData().catch((e) => {
+      setIsLoading(false)
       console.log(e)
       alert('Blog does not exist.')
       navigate('/blogs')
@@ -205,6 +208,7 @@ const BlogEdit = () => {
                 onChange={handleChange('title')}
                 required
                 fullWidth
+                disabled={isLoading}
               />
             </FormControl>
             <FormControl margin="normal" fullWidth>
@@ -220,6 +224,7 @@ const BlogEdit = () => {
                   maxLength: 50
                 }}
                 required
+                disabled={isLoading}
               />
             </FormControl>
             <FormControl margin="normal" fullWidth>
@@ -231,6 +236,7 @@ const BlogEdit = () => {
                 value={data.image}
                 onChange={handleChange('image')}
                 placeholder="Cover image of your post (need to be available online, pls put the link to that image here)"
+                disabled={isLoading}
               />
             </FormControl>
             <FormControl margin="normal" fullWidth>
@@ -245,6 +251,7 @@ const BlogEdit = () => {
                 }}
                 onChange={handleChange('tags')}
                 placeholder="tags of this article, separated by ','"
+                disabled={isLoading}
               />
             </FormControl>
             <FormControl margin="normal" fullWidth>
@@ -258,6 +265,7 @@ const BlogEdit = () => {
                 onChange={handleChange('content')}
                 required
                 fullWidth
+                disabled={isLoading}
               />
             </FormControl>
             <div className={classes.buttons}>

@@ -35,7 +35,6 @@ const Root = styled('div')(({ theme }) => ({
   [`& .${classes.h1}`]: {
     paddingLeft: theme.spacing(3)
   },
-
   [`& .${classes.listContainer}`]: {
     marginTop: theme.spacing(1),
     marginBottom: theme.spacing(8),
@@ -49,40 +48,33 @@ const Root = styled('div')(({ theme }) => ({
       margin: '3% 16% 3% 16%'
     }
   },
-
   [`& .${classes.cardContainer}`]: {
     marginTop: theme.spacing(1),
     marginBottom: theme.spacing(8),
     width: '100%',
     padding: `${theme.spacing(1)} 0 ${theme.spacing(2)} ${theme.spacing(3)}`
   },
-
   [`& .${classes.uploads}`]: {
     paddingBottom: '10px'
   },
-
   [`& .${classes.input}`]: {
     display: 'none'
   },
-
   [`& .${classes.submit}`]: {
     marginBottom: 20
   },
-
   [`& .${classes.spinner}`]: {
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
-    marginTop: '30px',
+    marginTop: '80px',
     marginBottom: '30px'
   },
-
   [`& .${classes.tools}`]: {
     display: 'flex',
     justifyContent: 'flex-end',
     margin: '10px'
   },
-
   [`& .${classes.formControl}`]: {
     margin: '12px'
   }
