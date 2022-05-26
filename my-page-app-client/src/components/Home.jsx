@@ -1,7 +1,7 @@
 import React from 'react'
 import { styled } from '@mui/material/styles'
 import { Typography } from '@mui/material'
-import qiwei from '../img/zima.jpg'
+import qiwei from '../img/5bc2e7.png'
 import Avatar from '@mui/material/Avatar'
 import Grid from '@mui/material/Grid'
 import Paper from '@mui/material/Paper'

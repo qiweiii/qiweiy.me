@@ -7,7 +7,7 @@ import Avatar from '@mui/material/Avatar'
 import Typography from '@mui/material/Typography'
 import Box from '@mui/material/Box'
 import { Link as RouterLink } from 'react-router-dom'
-import zima from '../img/zima.jpg'
+import zima from '../img/5bc2e7.png'
 import blank from '../img/blank.jpg'
 import TagChips from './TagChips'
 

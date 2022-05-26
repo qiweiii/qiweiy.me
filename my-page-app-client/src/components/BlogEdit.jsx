@@ -235,7 +235,7 @@ const BlogEdit = () => {
                 variant="filled"
                 value={data.image}
                 onChange={handleChange('image')}
-                placeholder="Cover image of your post (need to be available online, pls put the link to that image here)"
+                placeholder='Cover image url: "blank", "zima" or "https://..."'
                 disabled={isLoading}
               />
             </FormControl>

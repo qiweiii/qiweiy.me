@@ -7,7 +7,7 @@ import CardMedia from '@mui/material/CardMedia'
 import Typography from '@mui/material/Typography'
 import Tooltip, { tooltipClasses } from '@mui/material/Tooltip'
 import { Link as RouterLink } from 'react-router-dom'
-import zima from '../img/zima.jpg'
+import zima from '../img/5bc2e7.png'
 import blank from '../img/blank.jpg'
 import TagChips from './TagChips'
 
