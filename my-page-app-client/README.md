@@ -1,3 +1,3 @@
 # Readme
 
-Ejected from create-react-app, to add some more customization.
+React + mui + aws-amplify + vite + react-markdown
