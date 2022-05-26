@@ -3,6 +3,7 @@ import { styled } from '@mui/material/styles'
 import ListItem from '@mui/material/ListItem'
 import Link from '@mui/material/Link'
 import Grid from '@mui/material/Grid'
+import MenuItem from '@mui/material/MenuItem'
 import CircularProgress from '@mui/material/CircularProgress'
 import FormControlLabel from '@mui/material/FormControlLabel'
 import InputLabel from '@mui/material/InputLabel'
@@ -99,7 +100,7 @@ const Blogs = (props) => {
     if (props.blogListSwitch) {
       // show as a list
       return (
-        <Grid container spacing={0} className={classes.listContainer}>
+        <Grid container spacing={0} className={classes.listContainer} sx={{ m: 1, minWidth: 120 }}>
           {[{}].concat(blogs).map((blog, i) =>
             i === 0 ? null : (
               <Grid item xs={12} key={blog.noteId}>
@@ -195,25 +196,16 @@ const Blogs = (props) => {
       {/* render blogs filter and list switch */}
       {props.allBlogsReady && ( // only show when tags are ready
         <div className={classes.tools}>
-          <FormControl variant="outlined" className={classes.formControl}>
-            <InputLabel htmlFor="outlined-age-native-simple">Tags</InputLabel>
-            <Select
-              native
-              value={props.blogFilter}
-              onChange={handleFilterChange}
-              label="Tags"
-              inputProps={{
-                name: 'tags',
-                id: 'outlined-age-native-simple'
-              }}
-            >
-              <option key="all-blogs" value="all">
+          <FormControl variant="outlined" className={classes.formControl} sx={{ minWidth: 120 }} size="small">
+            <InputLabel id="simple-select-label">Tags</InputLabel>
+            <Select value={props.blogFilter} onChange={handleFilterChange} label="Tags" labelId="simple-select-label">
+              <MenuItem key="all-blogs" value="all">
                 all
-              </option>
+              </MenuItem>
               {props.tags.map((item) => (
-                <option key={item} value={item}>
+                <MenuItem key={item} value={item}>
                   {item}
-                </option>
+                </MenuItem>
               ))}
             </Select>
           </FormControl>
