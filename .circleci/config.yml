@@ -1,36 +1,34 @@
 version: 2.1
 
-executors:
-  node-executor:
-    docker:
-      - image: circleci/node:12
+orbs:
+  node: circleci/node@5.0.2
 
 jobs:
   secrets_scan:
-    executor: node-executor
+    executor: node/default
     steps:
       - checkout
       - run:
-         name: git-secrets scan
-         command: |
-           pushd /var/tmp
-           git clone https://github.com/awslabs/git-secrets.git
-           cd git-secrets
-           sudo make install
-           popd
-           git secrets --register-aws --global
-           git secrets --scan
+          name: git-secrets scan
+          command: |
+            pushd /var/tmp
+            git clone https://github.com/awslabs/git-secrets.git
+            cd git-secrets
+            sudo make install
+            popd
+            git secrets --register-aws --global
+            git secrets --scan
 
   # https://github.com/facebook/create-react-app/issues/6109
   npm_audit:
-    executor: node-executor
+    executor: node/default
     steps:
       - checkout
       - restore_cache:
           keys:
-          - v1-dependencies-{{ checksum "my-page-app-client/package-lock.json" }}
-          # fallback to using the latest cache if no exact match is found
-          - v1-dependencies-
+            - v1-dependencies-{{ checksum "my-page-app-client/package-lock.json" }}
+            # fallback to using the latest cache if no exact match is found
+            - v1-dependencies-
       - run: cd my-page-app-client && npm ci
       - save_cache:
           paths:
@@ -43,7 +41,7 @@ jobs:
             echo npm audit
 
   npm_deploy:
-    executor: node-executor
+    executor: node/default
     parameters:
       environment:
         type: string
@@ -52,16 +50,16 @@ jobs:
     steps:
       - checkout
       - run:
-         name: deploy UI
-         command: |
-           cd my-page-app-client
-           sudo apt -y update
-           sudo apt install -y python-pip
-           sudo pip install --upgrade awscli
-           aws --version
-           cat src/config.js
-           npm ci
-           npm run deploy
+          name: deploy UI
+          command: |
+            cd my-page-app-client
+            sudo apt -y update
+            sudo apt install -y python-pip
+            sudo pip install --upgrade awscli
+            aws --version
+            cat src/config.js
+            npm ci
+            npm run deploy
 
   # sls_deploy:
   #   executor: node-executor
