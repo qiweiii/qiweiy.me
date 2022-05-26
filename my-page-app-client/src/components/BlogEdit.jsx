@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react'
+import { styled } from '@mui/material/styles'
 import { API } from 'aws-amplify'
 import Button from '@mui/material/Button'
 import Paper from '@mui/material/Paper'
@@ -8,12 +9,23 @@ import FormControl from '@mui/material/FormControl'
 import validUrl from 'valid-url'
 import Link from '@mui/material/Link'
 import CircularProgress from '@mui/material/CircularProgress'
-import makeStyles from '@mui/styles/makeStyles'
 import { useLocation, useNavigate } from 'react-router-dom'
 import './NewBlog.css'
 
-const useStyles = makeStyles((theme) => ({
-  layout: {
+const PREFIX = 'BlogEdit'
+
+const classes = {
+  layout: `${PREFIX}-layout`,
+  paper: `${PREFIX}-paper`,
+  content: `${PREFIX}-content`,
+  buttons: `${PREFIX}-buttons`,
+  button: `${PREFIX}-button`,
+  buttonDelete: `${PREFIX}-buttonDelete`,
+  link: `${PREFIX}-link`
+}
+
+const Root = styled('div')(({ theme }) => ({
+  [`& .${classes.layout}`]: {
     width: 'auto',
     marginLeft: theme.spacing(2),
     marginRight: theme.spacing(2),
@@ -24,7 +36,8 @@ const useStyles = makeStyles((theme) => ({
       marginRight: 'auto'
     }
   },
-  paper: {
+
+  [`& .${classes.paper}`]: {
     marginTop: theme.spacing(3),
     marginBottom: theme.spacing(3),
     padding: theme.spacing(2),
@@ -36,24 +49,29 @@ const useStyles = makeStyles((theme) => ({
       minHeight: 500
     }
   },
-  content: {
+
+  [`& .${classes.content}`]: {
     minHeight: 400
   },
-  buttons: {
+
+  [`& .${classes.buttons}`]: {
     display: 'flex',
     justifyContent: 'flex-end',
     alignItems: 'center'
   },
-  button: {
+
+  [`& .${classes.button}`]: {
     marginTop: theme.spacing(1),
     marginLeft: theme.spacing(1)
   },
-  buttonDelete: {
+
+  [`& .${classes.buttonDelete}`]: {
     marginTop: theme.spacing(1),
     marginLeft: theme.spacing(1),
     marginRight: theme.spacing(1)
   },
-  link: {
+
+  [`& .${classes.link}`]: {
     marginTop: theme.spacing(4),
     marginRight: theme.spacing(3),
     marginBottom: 10
@@ -81,7 +99,6 @@ const BlogEdit = () => {
     tags: ''
   })
   const [isLoading, setIsLoading] = useState(false)
-  const classes = useStyles()
   const location = useLocation()
   const navigate = useNavigate()
 
@@ -173,7 +190,7 @@ const BlogEdit = () => {
   }
 
   return (
-    <React.Fragment>
+    <Root>
       <CssBaseline />
       <main className={classes.layout}>
         <Paper className={classes.paper}>
@@ -274,7 +291,7 @@ const BlogEdit = () => {
           </form>
         </Paper>
       </main>
-    </React.Fragment>
+    </Root>
   )
 }
 

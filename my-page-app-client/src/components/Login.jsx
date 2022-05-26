@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { styled } from '@mui/material/styles'
 import Button from '@mui/material/Button'
 import CssBaseline from '@mui/material/CssBaseline'
 import FormControl from '@mui/material/FormControl'
@@ -14,11 +15,22 @@ import Fab from '@mui/material/Fab'
 import CircularProgress from '@mui/material/CircularProgress'
 import { userAuthSuccess } from '../actions'
 import { connect } from 'react-redux'
-import makeStyles from '@mui/styles/makeStyles'
 import { useNavigate } from 'react-router-dom'
 
-const useStyles = makeStyles((theme) => ({
-  main: {
+const PREFIX = 'Login'
+
+const classes = {
+  main: `${PREFIX}-main`,
+  paper: `${PREFIX}-paper`,
+  avatars: `${PREFIX}-avatars`,
+  google: `${PREFIX}-google`,
+  form: `${PREFIX}-form`,
+  submit: `${PREFIX}-submit`,
+  p: `${PREFIX}-p`
+}
+
+const Root = styled('main')(({ theme }) => ({
+  [`&.${classes.main}`]: {
     width: 'auto',
     display: 'block', // Fix IE 11 issue.
     marginLeft: theme.spacing(2),
@@ -29,29 +41,29 @@ const useStyles = makeStyles((theme) => ({
       marginRight: 'auto'
     }
   },
-  paper: {
+  [`& .${classes.paper}`]: {
     marginTop: theme.spacing(8),
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
     padding: `${theme.spacing(2)} ${theme.spacing(3)} ${theme.spacing(3)}`
   },
-  avatars: {
+  [`& .${classes.avatars}`]: {
     display: 'flex',
     flexGrow: 1
   },
-  google: {
+  [`& .${classes.google}`]: {
     margin: theme.spacing(1),
     backgroundColor: '#db3236'
   },
-  form: {
+  [`& .${classes.form}`]: {
     width: '100%', // Fix IE 11 issue.
     marginTop: theme.spacing(1)
   },
-  submit: {
+  [`& .${classes.submit}`]: {
     marginTop: theme.spacing(3)
   },
-  p: {
+  [`& .${classes.p}`]: {
     paddingTop: 5,
     fontSize: 14
     // color: "#424242",
@@ -64,7 +76,7 @@ const Login = (props) => {
     password: '',
     isLoading: false
   })
-  const classes = useStyles()
+
   const navigate = useNavigate()
 
   const handleChange = (event) => {
@@ -92,7 +104,7 @@ const Login = (props) => {
     props.userAuthSuccess()
   }
   return (
-    <main className={classes.main}>
+    <Root className={classes.main}>
       <CssBaseline />
       <Paper className={classes.paper}>
         <div className={classes.avatars}>
@@ -130,7 +142,7 @@ const Login = (props) => {
           </Button>
         </form>
       </Paper>
-    </main>
+    </Root>
   )
 }
 

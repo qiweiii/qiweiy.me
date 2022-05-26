@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { styled } from '@mui/material/styles'
 import Button from '@mui/material/Button'
 import CssBaseline from '@mui/material/CssBaseline'
 import FormControl from '@mui/material/FormControl'
@@ -9,11 +10,23 @@ import validUrl from 'valid-url'
 import Link from '@mui/material/Link'
 import CircularProgress from '@mui/material/CircularProgress'
 import './NewBlog.css'
-import { makeStyles } from '@mui/styles'
 import { useNavigate } from 'react-router-dom'
 
-const useStyles = makeStyles((theme) => ({
-  main: {
+const PREFIX = 'NewBlog'
+
+const classes = {
+  main: `${PREFIX}-main`,
+  paper: `${PREFIX}-paper`,
+  container: `${PREFIX}-container`,
+  uploads: `${PREFIX}-uploads`,
+  input: `${PREFIX}-input`,
+  buttons: `${PREFIX}-buttons`,
+  button: `${PREFIX}-button`,
+  link: `${PREFIX}-link`
+}
+
+const Root = styled('main')(({ theme }) => ({
+  [`&.${classes.main}`]: {
     width: 'auto',
     display: 'block', // Fix IE 11 issue.
     marginLeft: theme.spacing(1),
@@ -25,32 +38,32 @@ const useStyles = makeStyles((theme) => ({
       marginRight: 'auto'
     }
   },
-  paper: {
+  [`& .${classes.paper}`]: {
     marginTop: theme.spacing(4),
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
     padding: `${theme.spacing(2)} ${theme.spacing(2)} ${theme.spacing(2)}`
   },
-  container: {
+  [`& .${classes.container}`]: {
     display: 'flex',
     flexWrap: 'wrap'
   },
-  uploads: {
+  [`& .${classes.uploads}`]: {
     paddingBottom: '10px'
   },
-  input: {
+  [`& .${classes.input}`]: {
     display: 'none'
   },
-  buttons: {
+  [`& .${classes.buttons}`]: {
     display: 'flex',
     justifyContent: 'flex-end'
   },
-  button: {
+  [`& .${classes.button}`]: {
     marginTop: theme.spacing(3),
     marginBottom: 20
   },
-  link: {
+  [`& .${classes.link}`]: {
     marginTop: theme.spacing(4),
     marginLeft: theme.spacing(3),
     marginBottom: 10
@@ -76,7 +89,7 @@ const NewBlog = () => {
     tags: ''
   })
   const [isLoading, setIsLoading] = useState(false)
-  const classes = useStyles()
+
   const navigate = useNavigate()
 
   const validateForm = () => {
@@ -126,7 +139,7 @@ const NewBlog = () => {
   }
 
   return (
-    <main className={classes.main}>
+    <Root className={classes.main}>
       <CssBaseline />
       <Paper className={classes.paper}>
         <form onSubmit={handleSubmit} className={classes.container} noValidate autoComplete="off">
@@ -218,7 +231,7 @@ const NewBlog = () => {
           </div>
         </form>
       </Paper>
-    </main>
+    </Root>
   )
 }
 

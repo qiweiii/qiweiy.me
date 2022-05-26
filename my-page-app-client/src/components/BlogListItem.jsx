@@ -1,5 +1,5 @@
 import React from 'react'
-import withStyles from '@mui/styles/withStyles'
+import { styled } from '@mui/material/styles'
 import ListItem from '@mui/material/ListItem'
 import ListItemText from '@mui/material/ListItemText'
 import ListItemAvatar from '@mui/material/ListItemAvatar'
@@ -11,16 +11,23 @@ import zima from '../img/zima.jpg'
 import blank from '../img/blank.jpg'
 import TagChips from './TagChips'
 
-const styles = () => ({
-  listItem: {
+const PREFIX = 'BlogListItem'
+
+const classes = {
+  listItem: `${PREFIX}-listItem`,
+  authorDate: `${PREFIX}-authorDate`
+}
+
+const Root = styled('div')(() => ({
+  [`& .${classes.listItem}`]: {
     minHeight: '120px',
     border: '1px solid #e0e0e0'
   },
-  authorDate: {
+  [`& .${classes.authorDate}`]: {
     fontSize: '0.9em',
     color: 'silver'
   }
-})
+}))
 
 class BlogListItem extends React.Component {
   constructor(props) {
@@ -55,9 +62,8 @@ class BlogListItem extends React.Component {
   }
 
   render() {
-    const { classes } = this.props
     return (
-      <>
+      <Root>
         <Box boxShadow={this.state.shadow} onMouseOver={this.onMouseOver} onMouseOut={this.onMouseOut}>
           <ListItem className={classes.listItem} button component={RouterLink} to={{ pathname: this.props.link }}>
             <ListItemAvatar>
@@ -82,9 +88,9 @@ class BlogListItem extends React.Component {
           </ListItem>
         </Box>
         <TagChips tags={this.props.content.tags} />
-      </>
+      </Root>
     )
   }
 }
 
-export default withStyles(styles)(BlogListItem)
+export default BlogListItem

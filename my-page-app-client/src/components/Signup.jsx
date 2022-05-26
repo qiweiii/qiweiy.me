@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { styled } from '@mui/material/styles'
 import Avatar from '@mui/material/Avatar'
 import Button from '@mui/material/Button'
 import CssBaseline from '@mui/material/CssBaseline'
@@ -12,11 +13,23 @@ import Paper from '@mui/material/Paper'
 import Typography from '@mui/material/Typography'
 import { Auth } from 'aws-amplify'
 import CircularProgress from '@mui/material/CircularProgress'
-import makeStyles from '@mui/styles/makeStyles'
 import { useNavigate } from 'react-router-dom'
 
-const useStyles = makeStyles((theme) => ({
-  main: {
+const PREFIX = 'Signup'
+
+const classes = {
+  main: `${PREFIX}-main`,
+  paper: `${PREFIX}-paper`,
+  avatars: `${PREFIX}-avatars`,
+  lock: `${PREFIX}-lock`,
+  google: `${PREFIX}-google`,
+  form: `${PREFIX}-form`,
+  submit: `${PREFIX}-submit`,
+  p: `${PREFIX}-p`
+}
+
+const Root = styled('div')(({ theme }) => ({
+  [`& .${classes.main}`]: {
     width: 'auto',
     display: 'block',
     marginLeft: theme.spacing(2),
@@ -27,40 +40,39 @@ const useStyles = makeStyles((theme) => ({
       marginRight: 'auto'
     }
   },
-  paper: {
+  [`& .${classes.paper}`]: {
     marginTop: theme.spacing(8),
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
     padding: `${theme.spacing(2)} ${theme.spacing(3)} ${theme.spacing(3)}`
   },
-  avatars: {
+  [`& .${classes.avatars}`]: {
     display: 'flex',
     flexGrow: 1
   },
-  lock: {
+  [`& .${classes.lock}`]: {
     margin: theme.spacing(1),
     backgroundColor: theme.palette.secondary.main
   },
-  google: {
+  [`& .${classes.google}`]: {
     margin: theme.spacing(1),
     backgroundColor: '#db3236'
   },
-  form: {
+  [`& .${classes.form}`]: {
     width: '100%', // Fix IE 11 issue.
     marginTop: theme.spacing(1)
   },
-  submit: {
+  [`& .${classes.submit}`]: {
     marginTop: theme.spacing(3)
   },
-  p: {
+  [`& .${classes.p}`]: {
     paddingTop: 5,
     fontSize: 14
   }
 }))
 
 const Signup = (props) => {
-  const classes = useStyles()
   const navigate = useNavigate()
   const [data, setData] = useState({
     email: '',
@@ -199,7 +211,7 @@ const Signup = (props) => {
     )
   }
 
-  return <div className="Signup">{data.newUser === null ? renderForm() : renderConfirmationForm()}</div>
+  return <Root className="Signup">{data.newUser === null ? renderForm() : renderConfirmationForm()}</Root>
 }
 
 export default Signup

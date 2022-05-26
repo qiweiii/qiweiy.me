@@ -28,8 +28,8 @@ const MyRoutes = () => {
         {/* Next time I will use https://reactrouter.com/docs/en/v6/examples/auth */}
         <Route path="/blogs/new" exact element={userHasAuthenticated ? <NewBlog /> : <Login />} />
         <Route path="/blogs/edit/:id" exact element={userHasAuthenticated ? <BlogEdit /> : <Login />} />
-        <Route path="/more" exact element={<More></More>} />
-        <Route element={<NotFound />} />
+        <Route path="/more" exact element={<More />} />
+        <Route path="*" element={<NotFound />} />
       </Routes>
     </Suspense>
   )

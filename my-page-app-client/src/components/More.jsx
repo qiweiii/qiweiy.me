@@ -1,8 +1,16 @@
 import React from 'react'
-import withStyles from '@mui/styles/withStyles'
+import { styled } from '@mui/material/styles'
+const PREFIX = 'More'
 
-const styles = (theme) => ({
-  root: {
+const classes = {
+  root: `${PREFIX}-root`,
+  text: `${PREFIX}-text`,
+  h1: `${PREFIX}-h1`,
+  p: `${PREFIX}-p`
+}
+
+const Root = styled('div')(({ theme }) => ({
+  [`&.${classes.root}`]: {
     marginTop: theme.spacing(10),
     display: 'flex',
     flexDirection: 'column',
@@ -15,22 +23,21 @@ const styles = (theme) => ({
       marginRight: 'auto'
     }
   },
-  text: {
+  [`& .${classes.text}`]: {
     alignContent: 'center',
     textAlign: 'left'
   },
-  h1: {
+  [`& .${classes.h1}`]: {
     fontWeight: 300
   },
-  p: {
+  [`& .${classes.p}`]: {
     maxWidth: 450
   }
-})
+}))
 
-function More(props) {
-  const { classes } = props
+function More() {
   return (
-    <div className={classes.root}>
+    <Root className={classes.root}>
       <div className={classes.text}>
         <h1 className={classes.h1}>Future</h1>
         <p className={classes.p}>Better performance.</p>
@@ -41,8 +48,8 @@ function More(props) {
           My email: <a href="mailto: yangqiwei97@gmail.com">yangqiwei97@gmail.com</a>
         </p>
       </div>
-    </div>
+    </Root>
   )
 }
 
-export default withStyles(styles)(More)
+export default More

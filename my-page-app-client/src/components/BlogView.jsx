@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useCallback } from 'react'
-import makeStyles from '@mui/styles/makeStyles'
+import { styled } from '@mui/material/styles'
 import Button from '@mui/material/Button'
 import Container from '@mui/material/Container'
 import Typography from '@mui/material/Typography'
@@ -17,8 +17,20 @@ import { API } from 'aws-amplify'
 import CircularProgress from '@mui/material/CircularProgress'
 import { connect } from 'react-redux'
 
-const useStyles = makeStyles((theme) => ({
-  layout: {
+const PREFIX = 'BlogView'
+
+const classes = {
+  layout: `${PREFIX}-layout`,
+  title: `${PREFIX}-title`,
+  author: `${PREFIX}-author`,
+  content: `${PREFIX}-content`,
+  buttons: `${PREFIX}-buttons`,
+  button: `${PREFIX}-button`,
+  spinner: `${PREFIX}-spinner`
+}
+
+const Root = styled('div')(({ theme }) => ({
+  [`& .${classes.layout}`]: {
     width: 'auto',
     maxWidth: 880,
     margin: 'auto',
@@ -36,32 +48,38 @@ const useStyles = makeStyles((theme) => ({
     },
     padding: '0px 10px'
   },
-  title: {
+
+  [`& .${classes.title}`]: {
     fontSize: '2.2rem',
     fontWeight: 'bold',
     padding: theme.spacing(3)
   },
-  author: {
+
+  [`& .${classes.author}`]: {
     fontSize: 14,
     color: 'silver',
     padding: theme.spacing(1)
   },
-  content: {
+
+  [`& .${classes.content}`]: {
     minHeight: 400,
     maxWidth: 880,
     fontSize: '1.15rem',
     lineHeight: '1.8',
     padding: theme.spacing(1)
   },
-  buttons: {
+
+  [`& .${classes.buttons}`]: {
     display: 'flex',
     justifyContent: 'flex-end'
   },
-  button: {
+
+  [`& .${classes.button}`]: {
     marginTop: theme.spacing(3),
     marginBottom: theme.spacing(3)
   },
-  spinner: {
+
+  [`& .${classes.spinner}`]: {
     display: 'flex',
     justifyContent: 'center',
     marginTop: '150px'
@@ -81,7 +99,7 @@ const BlogView = (props) => {
     contentReady: false
   })
   const disqusShortname = 'qiweiy'
-  const classes = useStyles()
+
   const location = useLocation()
   const navigate = useNavigate()
 
@@ -131,7 +149,7 @@ const BlogView = (props) => {
   }, [])
 
   return (
-    <div>
+    <Root>
       <div>
         <div className="js-toc"></div>
       </div>
@@ -215,7 +233,7 @@ const BlogView = (props) => {
           <CircularProgress />
         </div>
       )}
-    </div>
+    </Root>
   )
 }
 

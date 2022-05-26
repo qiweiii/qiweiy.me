@@ -1,5 +1,5 @@
 import React from 'react'
-import withStyles from '@mui/styles/withStyles'
+import { styled } from '@mui/material/styles'
 import Card from '@mui/material/Card'
 import CardActionArea from '@mui/material/CardActionArea'
 import CardContent from '@mui/material/CardContent'
@@ -10,19 +10,31 @@ import zima from '../img/zima.jpg'
 import blank from '../img/blank.jpg'
 import TagChips from './TagChips'
 
-const styles = () => ({
-  card: {},
-  media: {
+const PREFIX = 'BlogCard'
+
+const classes = {
+  card: `${PREFIX}-card`,
+  media: `${PREFIX}-media`,
+  cardContent: `${PREFIX}-cardContent`,
+  authorDate: `${PREFIX}-authorDate`
+}
+
+const Root = styled('div')(() => ({
+  [`& .${classes.card}`]: {},
+
+  [`& .${classes.media}`]: {
     height: 180
   },
-  cardContent: {
+
+  [`& .${classes.cardContent}`]: {
     height: 130
   },
-  authorDate: {
+
+  [`& .${classes.authorDate}`]: {
     fontSize: '0.9em',
     color: 'silver'
   }
-})
+}))
 
 class BlogCard extends React.Component {
   getImage() {
@@ -46,9 +58,8 @@ class BlogCard extends React.Component {
   }
 
   render() {
-    const { classes } = this.props
     return (
-      <>
+      <Root>
         <Card elevation={4} className={classes.card}>
           <CardActionArea component={RouterLink} to={{ pathname: this.props.link }}>
             <CardMedia className={classes.media} component="img" image={this.getImage()} loading="lazy" />
@@ -63,9 +74,9 @@ class BlogCard extends React.Component {
           </CardActionArea>
         </Card>
         <TagChips tags={this.props.content.tags} />
-      </>
+      </Root>
     )
   }
 }
 
-export default withStyles(styles)(BlogCard)
+export default BlogCard

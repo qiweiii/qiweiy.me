@@ -1,11 +1,18 @@
 import React from 'react'
-import withStyles from '@mui/styles/withStyles'
+import { styled } from '@mui/material/styles'
 import Chip from '@mui/material/Chip'
 import { connect } from 'react-redux'
 import { setFilter } from '../actions'
 
-const styles = () => ({
-  root: {
+const PREFIX = 'TagChips'
+
+const classes = {
+  root: `${PREFIX}-root`,
+  chips: `${PREFIX}-chips`
+}
+
+const Root = styled('div')(() => ({
+  [`&.${classes.root}`]: {
     // padding: theme.spacing(1),
     marginTop: '6px',
     marginBottom: '10px',
@@ -15,18 +22,17 @@ const styles = () => ({
     justifyContent: 'flex-end',
     flexWrap: 'wrap'
   },
-  chips: {
+  [`& .${classes.chips}`]: {
     marginLeft: '4px',
     marginTop: '3px',
     fontSize: '0.9em'
   }
-})
+}))
 
 function TagChips(props) {
-  const { classes } = props
   const tags = props.tags ? props.tags.split(/\s*[,，]\s*/) : []
   return (
-    <div className={classes.root}>
+    <Root className={classes.root}>
       {tags &&
         tags.map((tag) => (
           <Chip
@@ -39,8 +45,8 @@ function TagChips(props) {
             color="primary"
           />
         ))}
-    </div>
+    </Root>
   )
 }
 
-export default connect(null, { setFilter })(withStyles(styles)(TagChips))
+export default connect(null, { setFilter })(TagChips)

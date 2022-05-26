@@ -1,7 +1,6 @@
 import React, { Fragment, useEffect, useState, useCallback, useContext } from 'react'
+import { styled, useTheme } from '@mui/material/styles'
 import clsx from 'clsx'
-import { useTheme } from '@mui/material/styles'
-import makeStyles from '@mui/styles/makeStyles'
 import Button from '@mui/material/Button'
 import Drawer from '@mui/material/Drawer'
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft'
@@ -37,29 +36,46 @@ import { connect } from 'react-redux'
 import { ColorModeContext } from './App'
 
 const drawerWidth = 220
+const PREFIX = 'MainApp'
 
-const useStyles = makeStyles((theme) => ({
-  root: {
+const classes = {
+  root: `${PREFIX}-root`,
+  grow: `${PREFIX}-grow`,
+  drawerHeader: `${PREFIX}-drawerHeader`,
+  appBar: `${PREFIX}-appBar`,
+  appBarShift: `${PREFIX}-appBarShift`,
+  hide: `${PREFIX}-hide`,
+  drawer: `${PREFIX}-drawer`,
+  menuButton: `${PREFIX}-menuButton`,
+  toolbar: `${PREFIX}-toolbar`,
+  drawerOpen: `${PREFIX}-drawerOpen`,
+  drawerClose: `${PREFIX}-drawerClose`,
+  content: `${PREFIX}-content`,
+  tooltip: `${PREFIX}-tooltip`
+}
+
+const Root = styled('div')(({ theme }) => ({
+  [`& .${classes.root}`]: {
     display: 'flex'
   },
-  grow: {
+  [`& .${classes.grow}`]: {
     flexGrow: 1
   },
-  drawerHeader: {
+  [`& .${classes.drawerHeader}`]: {
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'flex-end',
     padding: theme.spacing(0, 1),
     ...theme.mixins.toolbar
   },
-  appBar: {
+  [`& .${classes.appBar}`]: {
     zIndex: theme.zIndex.drawer + 1,
     transition: theme.transitions.create(['margin', 'width'], {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.leavingScreen
     })
   },
-  appBarShift: {
+  [`& .${classes.appBarShift}`]: {
     width: `calc(100% - ${drawerWidth}px)`,
     marginLeft: drawerWidth,
     transition: theme.transitions.create(['margin', 'width'], {
@@ -67,18 +83,18 @@ const useStyles = makeStyles((theme) => ({
       duration: theme.transitions.duration.enteringScreen
     })
   },
-  hide: {
+  [`& .${classes.hide}`]: {
     display: 'none'
   },
-  drawer: {
+  [`& .${classes.drawer}`]: {
     width: drawerWidth,
     flexShrink: 0,
     whiteSpace: 'nowrap'
   },
-  menuButton: {
+  [`& .${classes.menuButton}`]: {
     marginRight: theme.spacing(2.5)
   },
-  toolbar: {
+  [`& .${classes.toolbar}`]: {
     // as a placeholder for layout
     display: 'flex',
     alignItems: 'center',
@@ -86,14 +102,14 @@ const useStyles = makeStyles((theme) => ({
     padding: theme.spacing(0, 1),
     ...theme.mixins.toolbar
   },
-  drawerOpen: {
+  [`& .${classes.drawerOpen}`]: {
     width: drawerWidth,
     transition: theme.transitions.create('width', {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.enteringScreen
     })
   },
-  drawerClose: {
+  [`& .${classes.drawerClose}`]: {
     transition: theme.transitions.create('width', {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.leavingScreen
@@ -104,11 +120,11 @@ const useStyles = makeStyles((theme) => ({
       width: `calc(${theme.spacing(7)} + 1px)`
     }
   },
-  content: {
+  [`& .${classes.content}`]: {
     width: `calc(100vw - calc(${theme.spacing(7)} + 1px))`,
     flexGrow: 1
   },
-  tooltip: {
+  [`& .${classes.tooltip}`]: {
     backgroundColor: theme.palette.common.white,
     color: 'rgba(0, 0, 0, 0.87)',
     boxShadow: theme.shadows[2],
@@ -120,7 +136,7 @@ const MainApp = (props) => {
   const [open, setOpen] = useState(false)
   const [isAuthenticating, setIsAuthenticating] = useState(true)
   const theme = useTheme()
-  const classes = useStyles()
+
   const colorMode = useContext(ColorModeContext)
   let navigate = useNavigate()
 
@@ -185,7 +201,15 @@ const MainApp = (props) => {
             <ListItemText primary="Blogs" />
           </ListItem>
         </Tooltip>
-        <Tooltip title="Github profile" placement="right" classes={{ tooltip: classes.tooltip }}>
+        <Tooltip
+          title={
+            <div>
+              GitHub <LaunchIcon style={{ fontSize: 12 }} />
+            </div>
+          }
+          placement="right"
+          classes={{ tooltip: classes.tooltip }}
+        >
           <ListItem
             component="a"
             target="_blank"
@@ -206,7 +230,15 @@ const MainApp = (props) => {
             />
           </ListItem>
         </Tooltip>
-        <Tooltip title="LinkedIn profile" placement="right" classes={{ tooltip: classes.tooltip }}>
+        <Tooltip
+          title={
+            <div>
+              LinkedIn <LaunchIcon style={{ fontSize: 12 }} />
+            </div>
+          }
+          placement="right"
+          classes={{ tooltip: classes.tooltip }}
+        >
           <ListItem
             component="a"
             target="_blank"
@@ -227,7 +259,15 @@ const MainApp = (props) => {
             />
           </ListItem>
         </Tooltip>
-        <Tooltip title="Learning" placement="right" classes={{ tooltip: classes.tooltip }}>
+        <Tooltip
+          title={
+            <div>
+              Learning <LaunchIcon style={{ fontSize: 12 }} />
+            </div>
+          }
+          placement="right"
+          classes={{ tooltip: classes.tooltip }}
+        >
           <ListItem
             component="a"
             target="_blank"
@@ -261,85 +301,87 @@ const MainApp = (props) => {
 
   return (
     !isAuthenticating && (
-      <div className={classes.root}>
-        <Helmet>
-          <title>Qiwei Yang</title>
-          <meta property="og:title" content="Qiwei Yang's website" />
-          <meta property="og:type" content="website" />
-          <meta name="description" content="Qiwei Yang's website. 杨启维 个人网站" />
-        </Helmet>
-        <CssBaseline />
+      <Root>
+        <div className={classes.root}>
+          <Helmet>
+            <title>Qiwei Yang</title>
+            <meta property="og:title" content="Qiwei Yang's website" />
+            <meta property="og:type" content="website" />
+            <meta name="description" content="Qiwei Yang's website. 杨启维个人网站" />
+          </Helmet>
+          <CssBaseline />
 
-        <Drawer
-          variant="permanent"
-          anchor="left"
-          open={open}
-          className={clsx(classes.drawer, {
-            [classes.drawerOpen]: open,
-            [classes.drawerClose]: !open
-          })}
-          classes={{
-            paper: clsx({
+          <Drawer
+            variant="permanent"
+            anchor="left"
+            open={open}
+            className={clsx(classes.drawer, {
               [classes.drawerOpen]: open,
               [classes.drawerClose]: !open
-            })
-          }}
-        >
-          {drawer}
-        </Drawer>
+            })}
+            classes={{
+              paper: clsx({
+                [classes.drawerOpen]: open,
+                [classes.drawerClose]: !open
+              })
+            }}
+          >
+            {drawer}
+          </Drawer>
 
-        <AppBar
-          position="fixed"
-          className={clsx(classes.appBar, {
-            [classes.appBarShift]: open
-          })}
-          enableColorOnDark
-        >
-          <Toolbar>
-            <IconButton
-              color="inherit"
-              aria-label="Open drawer"
-              onClick={handleDrawerOpen}
-              edge="start"
-              className={clsx(classes.menuButton, open && classes.hide)}
-              size="large"
-            >
-              <MenuIcon />
-            </IconButton>
-            <Typography variant="h6" className={classes.grow}>
-              <Link color="inherit" underline="hover" component={RouterLink} to="/">
-                QIWEI
-              </Link>
-            </Typography>
-
-            {props.userHasAuthenticated ? (
-              <Button color="inherit" onClick={handleLogout}>
-                Logout
-              </Button>
-            ) : (
-              <Fragment>
-                <Button component={RouterLink} to="/signup" color="inherit">
-                  Signup
-                </Button>
-                <Button component={RouterLink} to="/login" color="inherit">
-                  Login
-                </Button>
-              </Fragment>
-            )}
-
-            <Tooltip title="Toggle dark/light mode" placement="bottom" classes={{ tooltip: classes.tooltip }}>
-              <IconButton onClick={colorMode.toggleColorMode} size="large">
-                {theme.palette.mode === 'dark' ? <Brightness7Icon /> : <Brightness4Icon />}
+          <AppBar
+            position="fixed"
+            className={clsx(classes.appBar, {
+              [classes.appBarShift]: open
+            })}
+            enableColorOnDark
+          >
+            <Toolbar>
+              <IconButton
+                color="inherit"
+                aria-label="Open drawer"
+                onClick={handleDrawerOpen}
+                edge="start"
+                className={clsx(classes.menuButton, open && classes.hide)}
+                size="large"
+              >
+                <MenuIcon />
               </IconButton>
-            </Tooltip>
-          </Toolbar>
-        </AppBar>
+              <Typography variant="h6" className={classes.grow}>
+                <Link color="inherit" underline="hover" component={RouterLink} to="/">
+                  QIWEI
+                </Link>
+              </Typography>
 
-        <main className={classes.content}>
-          <div className={classes.toolbar} />
-          <Main />
-        </main>
-      </div>
+              {props.userHasAuthenticated ? (
+                <Button color="inherit" onClick={handleLogout}>
+                  Logout
+                </Button>
+              ) : (
+                <Fragment>
+                  <Button component={RouterLink} to="/signup" color="inherit">
+                    Signup
+                  </Button>
+                  <Button component={RouterLink} to="/login" color="inherit">
+                    Login
+                  </Button>
+                </Fragment>
+              )}
+
+              <Tooltip title="Toggle dark/light mode" placement="bottom" classes={{ tooltip: classes.tooltip }}>
+                <IconButton onClick={colorMode.toggleColorMode} size="large">
+                  {theme.palette.mode === 'dark' ? <Brightness7Icon /> : <Brightness4Icon />}
+                </IconButton>
+              </Tooltip>
+            </Toolbar>
+          </AppBar>
+
+          <main className={classes.content}>
+            <div className={classes.toolbar} />
+            <Main />
+          </main>
+        </div>
+      </Root>
     )
   )
 }

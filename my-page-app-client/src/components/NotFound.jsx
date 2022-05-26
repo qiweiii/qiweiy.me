@@ -1,8 +1,13 @@
 import React from 'react'
-import withStyles from '@mui/styles/withStyles'
+import { styled } from '@mui/material/styles'
+const PREFIX = 'NotFound'
 
-const styles = (theme) => ({
-  root: {
+const classes = {
+  root: `${PREFIX}-root`
+}
+
+const Root = styled('div')(({ theme }) => ({
+  [`&.${classes.root}`]: {
     marginTop: theme.spacing(20),
     alignItems: 'center',
     alignContent: 'center',
@@ -12,16 +17,14 @@ const styles = (theme) => ({
     fontWeight: 200,
     color: '#999'
   }
-})
+}))
 
-function NotFound(props) {
-  const { classes } = props
-
+function NotFound() {
   return (
-    <div className={classes.root}>
+    <Root className={classes.root}>
       <h3>Sorry, page not found</h3>
-    </div>
+    </Root>
   )
 }
 
-export default withStyles(styles)(NotFound)
+export default NotFound

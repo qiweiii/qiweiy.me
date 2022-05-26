@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react'
+import { styled } from '@mui/material/styles'
 import ListItem from '@mui/material/ListItem'
 import Link from '@mui/material/Link'
 import Grid from '@mui/material/Grid'
@@ -15,13 +16,27 @@ import BlogCard from './BlogCard'
 import BlogListItem from './BlogListItem'
 import { getUserBlogs, setListSwitch, setFilter } from '../actions'
 import { Helmet } from 'react-helmet'
-import makeStyles from '@mui/styles/makeStyles'
 
-const useStyles = makeStyles((theme) => ({
-  h1: {
+const PREFIX = 'Blogs'
+
+const classes = {
+  h1: `${PREFIX}-h1`,
+  listContainer: `${PREFIX}-listContainer`,
+  cardContainer: `${PREFIX}-cardContainer`,
+  uploads: `${PREFIX}-uploads`,
+  input: `${PREFIX}-input`,
+  submit: `${PREFIX}-submit`,
+  spinner: `${PREFIX}-spinner`,
+  tools: `${PREFIX}-tools`,
+  formControl: `${PREFIX}-formControl`
+}
+
+const Root = styled('div')(({ theme }) => ({
+  [`& .${classes.h1}`]: {
     paddingLeft: theme.spacing(3)
   },
-  listContainer: {
+
+  [`& .${classes.listContainer}`]: {
     marginTop: theme.spacing(1),
     marginBottom: theme.spacing(8),
     padding: `${theme.spacing(1)} ${theme.spacing(3)} ${theme.spacing(2)}`,
@@ -34,34 +49,41 @@ const useStyles = makeStyles((theme) => ({
       margin: '3% 16% 3% 16%'
     }
   },
-  cardContainer: {
+
+  [`& .${classes.cardContainer}`]: {
     marginTop: theme.spacing(1),
     marginBottom: theme.spacing(8),
     width: '100%',
     padding: `${theme.spacing(1)} 0 ${theme.spacing(2)} ${theme.spacing(3)}`
   },
-  uploads: {
+
+  [`& .${classes.uploads}`]: {
     paddingBottom: '10px'
   },
-  input: {
+
+  [`& .${classes.input}`]: {
     display: 'none'
   },
-  submit: {
+
+  [`& .${classes.submit}`]: {
     marginBottom: 20
   },
-  spinner: {
+
+  [`& .${classes.spinner}`]: {
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
     marginTop: '30px',
     marginBottom: '30px'
   },
-  tools: {
+
+  [`& .${classes.tools}`]: {
     display: 'flex',
     justifyContent: 'flex-end',
     margin: '10px'
   },
-  formControl: {
+
+  [`& .${classes.formControl}`]: {
     margin: '12px'
   }
 }))
@@ -69,8 +91,6 @@ const useStyles = makeStyles((theme) => ({
 const regex = /[\s,_#?/]/g // regex for title in URL
 
 const Blogs = (props) => {
-  const classes = useStyles()
-
   useEffect(() => {
     if (props.userHasAuthenticated) props.getUserBlogs()
   }, [])
@@ -171,7 +191,7 @@ const Blogs = (props) => {
   }
 
   return (
-    <div>
+    <Root>
       {/* change meta */}
       <Helmet>
         <title>Qiwei Yang - Blogs</title>
@@ -225,7 +245,7 @@ const Blogs = (props) => {
       {/* render blogs */}
       {props.userHasAuthenticated && renderUserBlogs()}
       {renderAllBlogs()}
-    </div>
+    </Root>
   )
 }
 
