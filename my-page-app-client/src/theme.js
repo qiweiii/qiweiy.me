@@ -41,12 +41,12 @@ export const getDesignTokens = (mode) => ({
     mode, // mode passed in
     primary: {
       // light: will be calculated from palette.primary.main,
-      main: '#00b0ff'
+      main: '#5bc2e7'
       // dark: will be calculated from palette.primary.main,
       // contrastText: will be calculated to contrast with palette.primary.main
     },
     secondary: {
-      main: '#ff0030'
+      main: '#e7805b'
     },
     // Used by `getContrastText()` to maximize the contrast between
     // the background and the text.
