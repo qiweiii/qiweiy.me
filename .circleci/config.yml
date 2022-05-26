@@ -54,8 +54,9 @@ jobs:
           command: |
             cd my-page-app-client
             sudo apt -y update
-            sudo apt install -y python-pip
-            sudo pip install --upgrade awscli
+            sudo apt install -y python3-pip
+            pip3 --version
+            sudo pip3 install --upgrade awscli
             aws --version
             cat src/config.js
             npm ci
