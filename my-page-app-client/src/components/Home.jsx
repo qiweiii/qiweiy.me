@@ -19,35 +19,41 @@ const classes = {
 
 const Root = styled('div')(({ theme }) => ({
   [`& .${classes.root}`]: {
-    height: '90vh',
+    height: `calc(100vh - 64px)`,
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
-    padding: `${theme.spacing(2)} ${theme.spacing(3)} ${theme.spacing(5)}`,
+    padding: `${theme.spacing(2)} 10% ${theme.spacing(5)}`,
     textAlign: 'center',
-    [theme.breakpoints.up(400)]: {
+    [theme.breakpoints.up('sm')]: {
       marginLeft: 'auto',
       marginRight: 'auto'
     }
   },
   [`& .${classes.paper}`]: {
-    minHeight: 350,
     padding: theme.spacing(2),
     [theme.breakpoints.up('sm')]: {
-      padding: theme.spacing(3)
+      padding: theme.spacing(3),
+      margin: '10%'
     }
   },
   [`& .${classes.avatar}`]: {
     margin: 20,
     width: 80,
     height: 80,
-    marginTop: theme.spacing(3)
+    marginTop: theme.spacing(3),
+    [theme.breakpoints.down('sm')]: {
+      margin: 10
+    }
   },
   [`& .${classes.name}`]: {
     padding: theme.spacing(3),
     fontWeight: 300,
     fontSize: '2rem',
-    lineHeight: 2
+    lineHeight: 2,
+    [theme.breakpoints.down('sm')]: {
+      padding: theme.spacing(1)
+    }
   },
   [`& .${classes.p}`]: {
     maxWidth: 460,
@@ -55,7 +61,10 @@ const Root = styled('div')(({ theme }) => ({
     fontWeight: 300,
     lineHeight: 1.7,
     letterSpacing: 0.1,
-    padding: theme.spacing(2)
+    padding: theme.spacing(2),
+    [theme.breakpoints.down('sm')]: {
+      padding: theme.spacing(1)
+    }
   }
 }))
 
