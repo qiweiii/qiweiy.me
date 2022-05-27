@@ -76,7 +76,7 @@ const Root = styled('div')(({ theme }) => ({
   },
 
   [`& .${classes.button}`]: {
-    margin: theme.spacing(3)
+    margin: theme.spacing(1)
   },
 
   [`& .${classes.spinner}`]: {

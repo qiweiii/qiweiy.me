@@ -17,7 +17,7 @@
 }
 
 .markdown a {
-  color: #03affe;
+  color: #5bc2e7;
   text-decoration: none;
 }
 
@@ -47,6 +47,23 @@ td {
   margin-right: auto;
 }
 
+.markdown p {
+  padding: 0.5em 0;
+}
+
+.markdown p:has(+ ul) {
+  padding-bottom: 0;
+}
+
+.markdown p+ul {
+  margin: 0;
+  margin-bottom: 1em;
+}
+
+.markdown li p {
+  padding: 0;
+}
+
 .markdown pre {
   color: inherit;
 }
@@ -58,6 +75,7 @@ td {
 .markdown pre code {
   background-color: initial;
   font-size: 0.75em !important;
+  padding: 0;
 }
 
 .markdown code {
@@ -106,12 +124,12 @@ td {
   overflow-y: auto;
 }
 
-.toc > .toc-list {
+.toc>.toc-list {
   overflow: hidden;
   position: relative;
 }
 
-.toc > .toc-list li {
+.toc>.toc-list li {
   list-style: none;
 }
 
