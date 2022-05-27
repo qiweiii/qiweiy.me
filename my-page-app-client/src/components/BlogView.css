@@ -16,16 +16,29 @@
   hyphens: auto; */
 }
 
+.markdown h1,
+.markdown h2,
+.markdown h3,
+.markdown h4,
+.markdown h5,
+.markdown h6 {
+  margin: 0.6em 0 0.5em;
+}
+
 .markdown a {
-  color: #5bc2e7;
+  color: #03affe;
   text-decoration: none;
 }
 
-blockquote {
+.markdown blockquote {
   color: rgb(126, 125, 125);
   margin: 0;
-  padding-left: 1.5em;
+  padding-left: 1em;
   border-left: 0.2em rgb(179, 179, 179) solid;
+}
+
+.markdown blockquote p {
+  padding: 0;
 }
 
 tr {
@@ -57,7 +70,7 @@ td {
 
 .markdown p+ul {
   margin: 0;
-  margin-bottom: 1em;
+  margin-bottom: 0.8em;
 }
 
 .markdown li p {

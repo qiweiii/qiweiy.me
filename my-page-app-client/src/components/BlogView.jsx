@@ -127,7 +127,7 @@ const BlogView = (props) => {
     getBlogData()
       .then(() => {
         // add a timeout here because some times tocbot runs before
-        // the markdown content is ready
+        // the markdown html is ready
         setTimeout(() => {
           tocbot.init({
             // Where to render the table of contents.
@@ -140,7 +140,7 @@ const BlogView = (props) => {
             headingsOffset: 64,
             scrollSmoothOffset: -64
           })
-        }, 100)
+        }, 200)
       })
       .catch((e) => {
         console.log(e)
