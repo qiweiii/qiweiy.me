@@ -34,10 +34,7 @@ const Root = styled('div')(({ theme }) => ({
   [`& .${classes.layout}`]: {
     width: 'auto',
     maxWidth: 880,
-    margin: 'auto',
-    [theme.breakpoints.down(1600)]: {
-      margin: '3% 23% 3% 15%'
-    },
+    margin: '3% 22% 3%',
     [theme.breakpoints.down(1300)]: {
       margin: '3% 23% 3% 15%'
     },
