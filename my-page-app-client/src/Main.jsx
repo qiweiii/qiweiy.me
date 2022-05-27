@@ -27,7 +27,7 @@ function Main() {
         }
       }
       // save all tags
-      dispatch(saveTags(Array.from(alltags)))
+      dispatch(saveTags(Array.from(alltags).sort()))
     }
   }, [allBlogsReady, allBlogs, dispatch])
 
