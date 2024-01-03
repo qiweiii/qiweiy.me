@@ -33,7 +33,7 @@
     "@fontsource/roboto": "^4.5.7",
     "@mui/icons-material": "^5.8.0",
     "@mui/material": "^5.8.1",
-    "aws-amplify": "^4.3.23",
+    "aws-amplify": "^6.0.9",
     "clsx": "^1.1.1",
     "disqus-react": "^1.0.10",
     "lodash-es": "^4.17.20",
