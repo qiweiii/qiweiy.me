@@ -26,21 +26,21 @@ jobs:
       - checkout
       - restore_cache:
           keys:
-            - v1-dependencies-{{ checksum "my-page-app-client/package-lock.json" }}
+            - v1-dependencies-{{ checksum "pnpm-lock.yaml" }}
             # fallback to using the latest cache if no exact match is found
             - v1-dependencies-
-      - run: cd my-page-app-client && npm ci
+      - run: pnpm i
       - save_cache:
           paths:
             - node_modules
-          key: v1-dependencies-{{ checksum "my-page-app-client/package-lock.json" }}
+            - client/node_modules
+          key: v1-dependencies-{{ checksum "pnpm-lock.yaml" }}
       - run:
           name: audit
           command: |
-            cd my-page-app-client
-            echo npm audit
+            pnpm audit
 
-  npm_deploy:
+  deploy_frontend:
     executor: node/default
     parameters:
       environment:
@@ -52,15 +52,15 @@ jobs:
       - run:
           name: deploy UI
           command: |
-            cd my-page-app-client
+            cd client
             sudo apt -y update
             sudo apt install -y python3-pip
             pip3 --version
             sudo pip3 install --upgrade awscli
             aws --version
             cat src/config.js
-            npm ci
-            npm run deploy
+            pnpm i
+            pnpm run deploy
 
   # sls_deploy:
   #   executor: node-executor
@@ -69,7 +69,7 @@ jobs:
   #     - run:
   #        name: deploy serverless api
   #        command: |
-  #          cd my-page-app-api
+  #          cd api
   #          sudo npm i -g serverless
   #          npm ci
   #          sls deploy
@@ -83,8 +83,8 @@ workflows:
           name: npm_audit
           requires:
             - secrets_scan
-      - npm_deploy:
-          name: npm_deploy
+      - deploy_frontend:
+          name: deploy_frontend
           environment: dev
           requires:
             - npm_audit

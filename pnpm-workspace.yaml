@@ -1,0 +1,7 @@
+packages:
+  # include packages in subfolders (e.g. apps/ and packages/)
+  - "api"
+  - "client"
+  - "infra"
+  # if required, exclude some directories
+  - "!**/test/**"

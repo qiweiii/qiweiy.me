@@ -1,5 +1,5 @@
 {
-  "name": "infrastructure",
+  "name": "infra",
   "type": "@serverless-stack/resources",
   "stage": "prod",
   "region": "ap-southeast-1",
