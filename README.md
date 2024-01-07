@@ -18,7 +18,7 @@ In 2018, this tech stack was initially learnt from [Serverless Stack tutorial](h
 
 In 2023/2024, I did some refactoring, switched from `npm` to `pnpm`, changed all `sst` CDK constructs and `sls` configs to raw AWS CDK constrcuts, since those 2 libraries were actually making my life more difficult, changed all `js` to `ts`, updated frontend styles, and updated lots of code since there are breaking changes from dependencies.
 
-A new fullstack cdk template is created [here](https://github.com/qiweiii/fullstack-cdk-app).
+A new fullstack cdk template can be found [here](https://github.com/qiweiii/fullstack-cdk-app).
 
 ## Deploy
 
