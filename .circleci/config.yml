@@ -47,18 +47,11 @@ jobs:
         type: string
     environment:
       ENVIRONMENT: << parameters.environment >>
-      VITE_REGION: $REGION
-      VITE_BUCKET: $BUCKET
-      VITE_URL: $URL
-      VITE_USER_POOL_ID: $USER_POOL_ID
-      VITE_APP_CLIENT_ID: $APP_CLIENT_ID
-      VITE_IDENTITY_POOL_ID: $IDENTITY_POOL_ID
     steps:
       - checkout
       - run:
           name: print env
           command: |
-            echo $ENVIRONMENT
             echo $VITE_REGION
             echo $VITE_BUCKET
             echo $VITE_URL

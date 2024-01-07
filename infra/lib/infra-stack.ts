@@ -27,6 +27,7 @@ export class InfraStackQiweiyMe extends Stack {
     // Resource: Amazon Cognito User Pool
     // ========================================================================
     // Migrating to cdk, just reference the existing user pool, no need to re-deploy and migrate users
+    // Cdn stack name: prod-infrastructure-cognito
     const userPool = cognito.UserPool.fromUserPoolId(
       this,
       "qiweiy-me-UserPool",
@@ -84,22 +85,23 @@ export class InfraStackQiweiyMe extends Stack {
     // ========================================================================
     // Resource: Amazon Cognito Identity Pool
     // ========================================================================
-    // Purpose: provide temporary AWS credentials for users who are guests (unauthenticated)
-    // and for users who have been authenticated and received a token.
-
     // Migration to cdk, don't need to recreate the same resource
+    // Cdn stack name: prod-infrastructure-cognito
 
     // ========================================================================
     // Resource: Amazon S3 Bucket
     // ========================================================================
-
+    // Migration to CDK only, Don't need to recreate here
     // For now, my website only need s3://my-page-app-v2-final-deploy for frontend deployment
-    // Don't need to recreate it in cdk
+    // my-page-app-v2-final-deploy is not in any stack, it was created manually
+    // There is a file upload bucket created when following tutorials, but don't have that feature for now
+    // Cdn stack name: prod-infrastructure-s3
 
     // ========================================================================
     // Resource: Amazon DynamoDB Table
     // ========================================================================
     // Migration to cdk, only reference existing table here
+    // Cdn stack name: prod-infrastructure-dynamodb
     const dynamoTable = dynamodb.Table.fromTableName(
       this,
       "qiweiy-me-Table",
@@ -221,12 +223,12 @@ export class InfraStackQiweiyMe extends Stack {
     // ========================================================================
     // Resource: Amplify
     // ========================================================================
-    // No need to recreate in cdk
+    // No backend resource, just use its frontend libraries
 
     // ========================================================================
     // Resource: Cloudfront
     // ========================================================================
-    // No need to recreate in cdk
+    // No need to recreate in cdk, connected to `final-deploy` bucket
 
     // ========================================================================
     // Resource: Export values
