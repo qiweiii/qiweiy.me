@@ -7,7 +7,7 @@
     "start": "vite",
     "build": "vite build",
     "preview": "vite preview",
-    "predeploy": "npm run build",
+    "predeploy": "pnpm run build",
     "deploy": "aws s3 sync build/ s3://my-page-app-v2-final-deploy --delete",
     "postdeploy": "aws cloudfront create-invalidation --distribution-id EW5317GJ38G7K --paths '/*'",
     "format": "prettier --write './**/*.{js,jsx,ts,tsx,css,md,json}' --config ./.prettierrc",

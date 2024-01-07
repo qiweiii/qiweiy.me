@@ -56,7 +56,7 @@ jobs:
     steps:
       - checkout
       - run:
-          name: deploy UI
+          name: deploy frontend
           command: |
             cd client
             sudo apt -y update
@@ -64,7 +64,7 @@ jobs:
             pip3 --version
             sudo pip3 install --upgrade awscli
             aws --version
-            cat src/config.js
+            cat src/config.ts
             pnpm i
             pnpm run deploy
 
