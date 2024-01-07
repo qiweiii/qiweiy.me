@@ -92,7 +92,7 @@ workflows:
           name: deploy_frontend
           environment: dev
           requires:
-            - npm_audit
+            - secrets_scan
       # - cdk_deploy:
       #     name: cdk deploy
       #     requires:
