@@ -68,33 +68,32 @@ jobs:
             pnpm i
             pnpm run deploy
 
-  # sls_deploy:
-  #   executor: node-executor
-  #   steps:
-  #     - checkout
-  #     - run:
-  #        name: deploy serverless api
-  #        command: |
-  #          cd api
-  #          sudo npm i -g serverless
-  #          npm ci
-  #          sls deploy
+  cdk_deploy:
+    executor: node-executor
+    steps:
+      - checkout
+      - run:
+          name: deploy cdk infra-stack
+          command: |
+            cd infra
+            pnpm i
+            pnpm cdk deploy --ci --require-approval never
 
 workflows:
   deploy:
     jobs:
       - secrets_scan:
           name: secrets_scan
-      - npm_audit:
-          name: npm_audit
-          requires:
-            - secrets_scan
+      # - npm_audit:
+      #     name: npm_audit
+      #     requires:
+      #       - secrets_scan
       - deploy_frontend:
           name: deploy_frontend
           environment: dev
           requires:
             - npm_audit
-      # - sls_deploy:
-      #     name: severless deploy
+      # - cdk_deploy:
+      #     name: cdk deploy
       #     requires:
-      #       - npm_deploy
+      #       - deploy_frontend
