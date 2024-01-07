@@ -14,7 +14,7 @@ import HeadingRenderer from './HeadingRenderer'
 import './BlogView.css'
 import { Helmet } from 'react-helmet'
 import tocbot from 'tocbot'
-import { API } from 'aws-amplify'
+import { get } from 'aws-amplify/api'
 import CircularProgress from '@mui/material/CircularProgress'
 import { connect } from 'react-redux'
 
@@ -105,18 +105,18 @@ const BlogView = (props) => {
   const getBlogData = useCallback(async () => {
     // maybe should do string compression and decompression
     const id = location.pathname.split('-').slice(-5).join('-')
-    const res = await API.get('pages', `/pages/${id}`)
-    // console.log(res);
+    const res = await get({ apiName: 'notes', path: `/notes/${id}` }).response
+    const blog = await res?.body?.json()
     setState({
       ...state,
-      editedAt: new Date(res.editedAt).toLocaleDateString('en-US', { hour12: false }),
-      createdAt: new Date(res.createdAt).toLocaleDateString('en-US', { hour12: false }),
-      content: res.content.content,
-      author: res.content.author,
-      title: res.content.title,
-      imageUrl: res.content.image,
-      tags: res.content.tags,
-      id: res.noteId,
+      editedAt: new Date(blog.editedAt).toLocaleDateString('en-US', { hour12: false }),
+      createdAt: new Date(blog.createdAt).toLocaleDateString('en-US', { hour12: false }),
+      content: blog.content?.content,
+      author: blog.content?.author,
+      title: blog.content?.title,
+      imageUrl: blog.content?.image,
+      tags: blog.content?.tags,
+      id: blog.noteId,
       contentReady: true
     })
   }, [])
@@ -140,9 +140,8 @@ const BlogView = (props) => {
           })
         }, 200)
       })
-      .catch((e) => {
-        console.log(e)
-        alert('Blog does not exist.')
+      .catch((error) => {
+        console.error('[BlogView]' + error instanceof Error ? error.message : String(error))
         navigate('/blogs')
       })
   }, [])

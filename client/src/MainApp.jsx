@@ -28,12 +28,13 @@ import Linkedin from 'mdi-material-ui/Linkedin'
 import { Link as RouterLink, useNavigate } from 'react-router-dom'
 import Link from '@mui/material/Link'
 import Main from './Main'
-import { Auth } from 'aws-amplify'
+import { signOut } from 'aws-amplify/auth'
 import Tooltip from '@mui/material/Tooltip'
 import { Helmet } from 'react-helmet'
 import { userAuthSuccess, userLogout } from './actions'
 import { connect } from 'react-redux'
 import { ColorModeContext } from './App'
+import { getAuthenticatedUser } from './lib/amplify'
 
 const drawerWidth = 220
 const PREFIX = 'MainApp'
@@ -141,15 +142,15 @@ const MainApp = (props) => {
   let navigate = useNavigate()
 
   const authUser = useCallback(async () => {
-    await Auth.currentAuthenticatedUser()
+    await getAuthenticatedUser()
     props.userAuthSuccess()
   }, [])
 
   useEffect(() => {
     // refactor async calls: https://devtrium.com/posts/async-functions-useeffect
     authUser()
-      .catch((e) => {
-        console.log(e)
+      .catch((error) => {
+        console.error('[MainApp]' + error instanceof Error ? error.message : String(error))
       })
       .finally(() => {
         setIsAuthenticating(false)
@@ -173,7 +174,7 @@ const MainApp = (props) => {
   }
 
   const handleLogout = async () => {
-    await Auth.signOut()
+    await signOut()
     props.userLogout()
     navigate('/login')
   }

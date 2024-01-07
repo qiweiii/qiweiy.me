@@ -9,9 +9,7 @@ import Input from '@mui/material/Input'
 import InputLabel from '@mui/material/InputLabel'
 import Paper from '@mui/material/Paper'
 import Typography from '@mui/material/Typography'
-import { Auth } from 'aws-amplify'
-import GoogleButton from './GoogleButton'
-import Fab from '@mui/material/Fab'
+import { signIn } from 'aws-amplify/auth'
 import CircularProgress from '@mui/material/CircularProgress'
 import { userAuthSuccess } from '../actions'
 import { connect } from 'react-redux'
@@ -90,7 +88,15 @@ const Login = (props) => {
     event.preventDefault()
     setState({ ...state, isLoading: true })
     try {
-      await Auth.signIn(state.email, state.password)
+      await signIn({
+        username: state.email,
+        password: state.password,
+        options: {
+          userAttributes: {
+            email: state.email
+          }
+        }
+      })
       props.userAuthSuccess()
       setState({ ...state, isLoading: false })
       navigate('/')
@@ -100,20 +106,12 @@ const Login = (props) => {
     }
   }
 
-  const handleGgLogin = () => {
-    props.userAuthSuccess()
-  }
   return (
     <Root className={classes.main}>
       <CssBaseline />
       <Paper className={classes.paper}>
-        <div className={classes.avatars}>
-          <Fab size="small" className={classes.google}>
-            <GoogleButton onLogin={handleGgLogin} />
-          </Fab>
-        </div>
         <Typography component="p" className={classes.p}>
-          Or Be Classic
+          Classic Login
         </Typography>
         <form onSubmit={handleSubmit} className={classes.form}>
           <FormControl value={state.email} onChange={handleChange} margin="normal" required fullWidth>

@@ -5,12 +5,12 @@ import CssBaseline from '@mui/material/CssBaseline'
 import FormControl from '@mui/material/FormControl'
 import Paper from '@mui/material/Paper'
 import TextField from '@mui/material/TextField'
-import { API } from 'aws-amplify'
 import validUrl from 'valid-url'
 import Link from '@mui/material/Link'
 import CircularProgress from '@mui/material/CircularProgress'
 import './NewBlog.css'
 import { useNavigate } from 'react-router-dom'
+import { authedApi } from '../lib/amplify'
 
 const PREFIX = 'NewBlog'
 
@@ -93,7 +93,7 @@ const NewBlog = () => {
   const navigate = useNavigate()
 
   const validateForm = () => {
-    return state.content.length > 0 && state.title.length > 0
+    return state.content?.length > 0 && state.title.length > 0
   }
 
   const handleChange = (name) => (event) => {
@@ -109,10 +109,10 @@ const NewBlog = () => {
         setState({ ...state, image: 'blank' })
       } else {
         alert('not a valid url')
+        setIsLoading(false)
         return false
       }
     }
-    // console.log(state.image);
     try {
       await createBlog({
         content: {
@@ -132,9 +132,12 @@ const NewBlog = () => {
   }
 
   const createBlog = (blog) => {
-    // console.log(blog);
-    return API.post('pages', '/pages', {
-      body: blog
+    return authedApi('post', {
+      apiName: 'notes',
+      path: '/notes',
+      options: {
+        body: blog
+      }
     })
   }
 

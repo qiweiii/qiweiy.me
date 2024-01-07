@@ -19,30 +19,7 @@ import '@fontsource/material-icons'
 import './index.css'
 
 // configure aws amplify, connect to client
-Amplify.configure({
-  Auth: {
-    mandatorySignIn: false,
-    region: config.cognito.REGION,
-    userPoolId: config.cognito.USER_POOL_ID,
-    identityPoolId: config.cognito.IDENTITY_POOL_ID,
-    userPoolWebClientId: config.cognito.APP_CLIENT_ID
-  },
-  // actualy i am not using this bucket, it's for uploading attachment...which i don't have
-  Storage: {
-    region: config.s3.REGION,
-    bucket: config.s3.BUCKET,
-    identityPoolId: config.cognito.IDENTITY_POOL_ID
-  },
-  API: {
-    endpoints: [
-      {
-        name: 'pages',
-        endpoint: config.apiGateway.URL,
-        region: config.apiGateway.REGION
-      }
-    ]
-  }
-})
+Amplify.configure(config)
 
 // set up redux store
 const store = createStore(reducers, composeWithDevTools(applyMiddleware(thunk)))

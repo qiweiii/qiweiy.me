@@ -11,7 +11,7 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined'
 import InputLabel from '@mui/material/InputLabel'
 import Paper from '@mui/material/Paper'
 import Typography from '@mui/material/Typography'
-import { Auth } from 'aws-amplify'
+import { signUp, confirmSignUp, signIn } from 'aws-amplify/auth'
 import CircularProgress from '@mui/material/CircularProgress'
 import { useNavigate } from 'react-router-dom'
 
@@ -102,9 +102,14 @@ const Signup = (props) => {
     event.preventDefault()
     setIsLoading(true)
     try {
-      const newUser = await Auth.signUp({
+      const newUser = await signUp({
         username: data.email,
-        password: data.password
+        password: data.password,
+        options: {
+          userAttributes: {
+            email: data.email
+          }
+        }
       })
       setData({
         ...data,
@@ -120,8 +125,16 @@ const Signup = (props) => {
     event.preventDefault()
     setIsLoading(true)
     try {
-      await Auth.confirmSignUp(data.email, data.confirmationCode)
-      await Auth.signIn(data.email, data.password)
+      await confirmSignUp({ username: data.email, confirmationCode: data.confirmationCode })
+      await signIn({
+        username: data.email,
+        password: data.password,
+        options: {
+          userAttributes: {
+            email: data.email
+          }
+        }
+      })
 
       props.userAuthSuccess()
       navigate('/')

@@ -1,18 +1,20 @@
-import { API } from 'aws-amplify'
+/* eslint-disable no-unused-vars */
+import { get } from 'aws-amplify/api'
+import { authedApi } from '../lib/amplify'
 
 // how do we use the synchronous action creators together with network requests?
 // Use the Redux Thunk middleware
 export const getUserBlogs = () => async (dispatch, getState) => {
   // get current user's blogs
-  const response = await API.get('pages', '/pages').catch((e) => {})
-  if (response) dispatch({ type: 'GET_USER_BLOGS', payload: response })
+  const response = await authedApi('get', { apiName: 'notes', path: '/notes' })
+  if (response) dispatch({ type: 'GET_USER_BLOGS', payload: await response.body.json() })
   dispatch(userBlogsReady())
 }
 
 export const getAllBlogs = () => async (dispatch, getState) => {
   // get all blogs in the table
-  const response = await API.get('pages', '/pages/all').catch((e) => {})
-  if (response) dispatch({ type: 'GET_ALL_BLOGS', payload: response })
+  const response = await get({ apiName: 'notes', path: '/notes/all' }).response
+  if (response) dispatch({ type: 'GET_ALL_BLOGS', payload: await response.body.json() })
   dispatch(allBlogsReady())
 }
 

@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react'
 import { styled } from '@mui/material/styles'
-import { API } from 'aws-amplify'
+import { get } from 'aws-amplify/api'
 import Button from '@mui/material/Button'
 import Paper from '@mui/material/Paper'
 import CssBaseline from '@mui/material/CssBaseline'
@@ -11,6 +11,7 @@ import Link from '@mui/material/Link'
 import CircularProgress from '@mui/material/CircularProgress'
 import { useLocation, useNavigate } from 'react-router-dom'
 import './NewBlog.css'
+import { authedApi } from '../lib/amplify'
 
 const PREFIX = 'BlogEdit'
 
@@ -105,30 +106,29 @@ const BlogEdit = () => {
   const getBlogData = useCallback(async () => {
     setIsLoading(true)
     const id = location.pathname.split('/').slice(-1)
-    const res = await API.get('pages', `/pages/${id}`)
+    const res = await get({ apiName: 'notes', path: `/notes/${id}` }).response
+    const blog = await res?.body?.json()
     setData({
       ...data,
-      title: res.content.title,
-      content: res.content.content,
-      author: res.content.author,
-      image: res.content.image,
-      id: res.noteId,
-      tags: res.content.tags
+      title: blog.content?.title,
+      content: blog.content?.content,
+      author: blog.content?.author,
+      image: blog.content?.image,
+      id: blog.noteId,
+      tags: blog.content?.tags
     })
     setIsLoading(false)
   }, [])
 
   useEffect(() => {
-    getBlogData().catch((e) => {
-      setIsLoading(false)
-      console.log(e)
-      alert('Blog does not exist.')
+    getBlogData().catch((error) => {
+      console.error('[BlogEdit]' + error instanceof Error ? error.message : String(error))
       navigate('/blogs')
     })
   }, [])
 
   const validateForm = () => {
-    return data.content.length > 0 && data.title.length > 0
+    return data.content?.length > 0 && data.title.length > 0
   }
 
   const handleChange = (name) => (event) => {
@@ -136,8 +136,12 @@ const BlogEdit = () => {
   }
 
   const saveNote = (blog) => {
-    return API.put('pages', `/pages/${data.id}`, {
-      body: blog
+    return authedApi('put', {
+      apiName: 'notes',
+      path: `/notes/${data.id}`,
+      options: {
+        body: blog
+      }
     })
   }
 
@@ -150,6 +154,7 @@ const BlogEdit = () => {
         setData({ ...data, image: 'blank' })
       } else {
         alert('not a valid url')
+        setIsLoading(false)
         return false
       }
     }
@@ -172,7 +177,7 @@ const BlogEdit = () => {
   }
 
   const deleteNote = () => {
-    return API.del('pages', `/pages/${data.id}`)
+    return authedApi('del', { apiName: 'notes', path: `/notes/${data.id}` })
   }
 
   const handleDelete = async (event) => {

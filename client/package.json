@@ -4,7 +4,6 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "preinstall": "npx only-allow pnpm",
     "start": "vite",
     "build": "vite build",
     "preview": "vite preview",
@@ -13,7 +12,8 @@
     "postdeploy": "aws cloudfront create-invalidation --distribution-id EW5317GJ38G7K --paths '/*'",
     "format": "prettier --write './**/*.{js,jsx,ts,tsx,css,md,json}' --config ./.prettierrc",
     "lint": "eslint .",
-    "lint:fix": "eslint --fix"
+    "lint:fix": "eslint --fix",
+    "preinstall": "npx only-allow pnpm"
   },
   "browserslist": {
     "production": [
@@ -28,13 +28,14 @@
     ]
   },
   "dependencies": {
+    "@aws-amplify/ui-react": "^6.1.0",
     "@emotion/react": "^11.9.0",
     "@emotion/styled": "^11.8.1",
     "@fontsource/material-icons": "^4.5.4",
     "@fontsource/roboto": "^4.5.7",
     "@mui/icons-material": "^5.8.0",
     "@mui/material": "^5.8.1",
-    "aws-amplify": "^4.3.23",
+    "aws-amplify": "^6.0.10",
     "clsx": "^1.1.1",
     "disqus-react": "^1.0.10",
     "lodash-es": "^4.17.20",

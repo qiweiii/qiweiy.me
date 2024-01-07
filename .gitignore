@@ -25,6 +25,7 @@ coverage
 
 # Compiled binary addons (http://nodejs.org/api/addons.html)
 build
+.build
 
 # Dependency directories
 node_modules
@@ -63,3 +64,5 @@ env.yml
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+
+.sst

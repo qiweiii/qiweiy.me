@@ -110,9 +110,9 @@ const Blogs = (props) => {
                   createdAt={new Date(blog.createdAt).toLocaleDateString('en-US', {
                     hour12: false
                   })}
-                  key={blog.noteId}
+                  key={blog.noteId + i}
                   id={blog.noteId}
-                  link={`/blogs/view/${blog.content.title.replace(regex, '-')}-${blog.noteId}`}
+                  link={`/blogs/view/${blog.content?.title.replace(regex, '-')}-${blog.noteId}`}
                 />
               </Grid>
             )
@@ -134,7 +134,7 @@ const Blogs = (props) => {
                   })}
                   key={blog.noteId}
                   id={blog.noteId}
-                  link={`/blogs/view/${blog.content.title.replace(regex, '-')}-${blog.noteId}`}
+                  link={`/blogs/view/${blog.content?.title.replace(regex, '-')}-${blog.noteId}`}
                 />
               </Grid>
             )
@@ -236,7 +236,7 @@ const Blogs = (props) => {
 const selectVisibleBlogs = (blogs, blogfilter) => {
   if (blogfilter === 'all') return blogs
   return blogs.filter((b) => {
-    if (b.content.tags && b.content.tags.includes(blogfilter)) return true
+    if (b.content?.tags && b.content?.tags.includes(blogfilter)) return true
     return false
   })
 }

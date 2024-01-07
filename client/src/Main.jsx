@@ -18,10 +18,10 @@ function Main() {
     if (allBlogsReady) {
       // get all tags
       let alltags = new Set()
-      for (const blog of [...allBlogs]) {
-        if (blog.content.tags) {
+      for (const blog of allBlogs) {
+        if (blog.content?.tags) {
           // some early blogs did not have tags (value is undefined)
-          blog.content.tags.split(/\s*[,，]\s*/).forEach((elem) => {
+          blog.content?.tags.split(/\s*[,，]\s*/).forEach((elem) => {
             alltags.add(elem)
           })
         }

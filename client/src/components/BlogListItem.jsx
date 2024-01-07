@@ -42,14 +42,14 @@ class BlogListItem extends React.Component {
   onMouseOut = () => this.setState({ shadow: 0 })
 
   getImage() {
-    let img = this.props.content.image
+    let img = this.props.content?.image
     if (img === 'zima') return zima
     if (img === 'blank' || img === '' || img === null || img === undefined) return blank
     return img
   }
 
   trimLength(str, len) {
-    let words = str.trim().split('\n')[0].split(' ')
+    let words = str?.trim().split('\n')[0].split(' ') || []
     let t = ''
     for (var i = 0; i < words.length; i++) {
       t = t + ' ' + words[i]
@@ -76,18 +76,18 @@ class BlogListItem extends React.Component {
             <ListItemText
               primary={
                 <Typography gutterBottom variant="inherit" component="h2" noWrap>
-                  {this.props.content.title}
+                  {this.props.content?.title}
                 </Typography>
               }
               secondary={
                 <Typography component="p" align="right" className={classes.authorDate} noWrap>
-                  Create by {this.trimLength(this.props.content.author, 30)} on {this.props.createdAt}
+                  Create by {this.trimLength(this.props.content?.author, 30)} on {this.props.createdAt}
                 </Typography>
               }
             />
           </ListItem>
         </Box>
-        <TagChips tags={this.props.content.tags} />
+        <TagChips tags={this.props.content?.tags} />
       </Root>
     )
   }

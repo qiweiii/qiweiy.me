@@ -84,17 +84,17 @@ function Home() {
           </Typography>
           <Typography gutterBottom variant="body1" className={classes.p}>
             Worked at
-            {/* <span>
+            <span>
               {' '}
-              <a target="_blank" href="https://www.nervos.org" rel="noreferrer">
-                Nervos Network
+              <a target="_blank" href="https://github.com/AcalaNetwork" rel="noreferrer">
+                Acala
               </a>
               ,{' '}
-            </span> */}
+            </span>
             <span>
               {' '}
               <a target="_blank" href="https://www.crimsoneducation.org" rel="noreferrer">
-                Crimson Education
+                Crimson
               </a>
               ,{' '}
             </span>
