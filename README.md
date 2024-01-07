@@ -36,3 +36,7 @@ cdk deploy
 ## client is auto deployed when push to master
 ## see .circleci/config.yml
 ```
+
+## Image CDN
+
+I use JsDelivr as my image CDN, it's free and fast. I use it to serve out some of the images in blog posts. Images are saved in [this repo](https://github.com/qiweiii/mycdn), and upload to [JsDeliver](https://www.jsdelivr.com/package/gh/qiweiii/myCDN) using a GitHub Action workflow.
