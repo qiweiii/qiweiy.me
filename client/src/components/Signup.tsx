@@ -77,12 +77,18 @@ const Root = styled('div')(({ theme }) => ({
 const Signup = () => {
   const { setUserHasAuthenticated } = useAppData()
   const navigate = useNavigate()
-  const [data, setData] = useState({
+  const [data, setData] = useState<{
+    email: string
+    password: string
+    confirmPassword: string
+    confirmationCode: string
+    newUser: SignUpOutput | null
+  }>({
     email: '',
     password: '',
     confirmPassword: '',
     confirmationCode: '',
-    newUser: {} as SignUpOutput
+    newUser: null
   })
   const [isLoading, setIsLoading] = useState(false)
 
@@ -120,6 +126,9 @@ const Signup = () => {
       })
     } catch (e) {
       alert(e instanceof Error ? e.message : String(e))
+      if (e instanceof Error && e.message === 'An account with the given email already exists.') {
+        navigate('/login')
+      }
     }
     setIsLoading(false)
   }

@@ -92,7 +92,6 @@ const NewBlog = () => {
     tags: ''
   })
   const [isLoading, setIsLoading] = useState(false)
-
   const navigate = useNavigate()
 
   const validateForm = () => {
