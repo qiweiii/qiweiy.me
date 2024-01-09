@@ -11,7 +11,6 @@ import Disqus from 'disqus-react'
 import ReactMarkdown from 'react-markdown'
 import Typography from '@mui/material/Typography'
 import nightOwl from 'react-syntax-highlighter/dist/cjs/styles/prism/night-owl'
-import rehypeExternalLinks from 'rehype-external-links'
 import rehypeRaw from 'rehype-raw'
 import remarkGfm from 'remark-gfm'
 import tocbot from 'tocbot'
@@ -175,7 +174,7 @@ const BlogView = () => {
             <div className={classes.content}>
               <ReactMarkdown
                 className="markdown"
-                rehypePlugins={[rehypeRaw, rehypeExternalLinks({ target: '_blank', rel: 'noopener noreferrer' })]}
+                rehypePlugins={[rehypeRaw]}
                 remarkPlugins={[remarkGfm]}
                 skipHtml={false}
                 // https://github.com/remarkjs/react-markdown#use-custom-components-syntax-highlight

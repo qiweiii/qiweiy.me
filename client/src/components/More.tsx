@@ -6,6 +6,7 @@ const classes = {
   root: `${PREFIX}-root`,
   text: `${PREFIX}-text`,
   h1: `${PREFIX}-h1`,
+  li: `${PREFIX}-li`,
   p: `${PREFIX}-p`
 }
 
@@ -21,11 +22,17 @@ const Root = styled('div')(({ theme }) => ({
     [theme.breakpoints.down(400)]: {
       marginLeft: 'auto',
       marginRight: 'auto'
+    },
+    ul: {
+      paddingInlineStart: 20
     }
   },
   [`& .${classes.text}`]: {
     alignContent: 'center',
     textAlign: 'left'
+  },
+  [`& .${classes.li}`]: {
+    fontWeight: 300
   },
   [`& .${classes.h1}`]: {
     fontWeight: 300
@@ -41,10 +48,10 @@ function More() {
       <div className={classes.text}>
         <h1 className={classes.h1}>Future</h1>
         <ul>
-          <li className={classes.p}>Building interesting profitable fullstack projects.</li>
-          <li className={classes.p}>Working on Ethereum ecosystem.</li>
-          <li className={classes.p}>Crypto quant trading.</li>
-          <li className={classes.p}>More blogs.</li>
+          <li className={classes.li}>Building interesting profitable fullstack projects.</li>
+          <li className={classes.li}>Working on Ethereum & Polkadot ecosystem.</li>
+          <li className={classes.li}>Crypto quant trading.</li>
+          <li className={classes.li}>More blogs.</li>
         </ul>
         <br />
         <p className={classes.p}>

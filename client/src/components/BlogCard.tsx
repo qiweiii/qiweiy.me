@@ -98,7 +98,7 @@ const BlogCard = ({
           <CardActionArea component={RouterLink} to={{ pathname: link }}>
             <CardMedia className={classes.media} component="img" image={getImage(content?.image)} loading="lazy" />
             <CardContent className={classes.cardContent}>
-              <Typography gutterBottom variant="inherit" component="h2" noWrap>
+              <Typography gutterBottom variant="inherit" component="h1" noWrap>
                 {content?.title}
               </Typography>
               <Typography component="p" noWrap className={classes.authorDate}>
