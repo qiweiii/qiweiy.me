@@ -19,8 +19,7 @@ jobs:
             git secrets --register-aws --global
             git secrets --scan
 
-  # https://github.com/facebook/create-react-app/issues/6109
-  npm_audit:
+  audit:
     executor: node/default
     steps:
       - checkout
@@ -39,6 +38,16 @@ jobs:
           name: audit
           command: |
             pnpm audit
+
+  lint:
+    executor: node/default
+    steps:
+      - checkout
+      - run: pnpm i
+      - run:
+          name: lint
+          command: |
+            pnpm lint
 
   deploy_frontend:
     executor: node/default
@@ -87,15 +96,19 @@ workflows:
     jobs:
       - secrets_scan:
           name: secrets_scan
-      # - npm_audit:
-      #     name: npm_audit
-      #     requires:
-      #       - secrets_scan
+      - audit:
+          name: audit
+          requires:
+            - secrets_scan
+      - lint:
+          name: lint
+          requires:
+            - audit
       - deploy_frontend:
           name: deploy_frontend
           environment: dev
           requires:
-            - secrets_scan
+            - lint
       # - cdk_deploy:
       #     name: cdk deploy
       #     requires:

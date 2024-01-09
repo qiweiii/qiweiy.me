@@ -1,15 +1,15 @@
-import * as uuid from "uuid";
+import { v1 } from 'uuid'
 
-import handler from "../libs/handler";
-import dynamoDb from "../libs/dynamodb";
+import dynamoDb from '../libs/dynamodb'
+import handler from '../libs/handler'
 
 export const main = handler(async (event, context) => {
   let data = {
-    content: "",
-  };
+    content: ''
+  }
 
   if (event.body) {
-    data = JSON.parse(event.body);
+    data = JSON.parse(event.body)
   }
 
   const params = {
@@ -17,14 +17,14 @@ export const main = handler(async (event, context) => {
     Item: {
       // The attributes of the item to be created
       userId: context.identityId, // The id of the author
-      noteId: uuid.v1(), // A unique uuid
+      noteId: v1(), // A unique uuid
       content: data.content, // Parsed from request body
       createdAt: Date.now(), // Current Unix timestamp
-      editedAt: Date.now(), // Current Unix timestamp
-    },
-  };
+      editedAt: Date.now() // Current Unix timestamp
+    }
+  }
 
-  await dynamoDb.put(params);
+  await dynamoDb.put(params)
 
-  return JSON.stringify(params.Item);
-});
+  return JSON.stringify(params.Item)
+})

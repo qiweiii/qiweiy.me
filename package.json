@@ -2,10 +2,10 @@
   "name": "qiweiy-me-website",
   "version": "1.0.0",
   "scripts": {
-    "format": "prettier --write './**/*.{js,jsx,ts,tsx,css,md,json}' --config ./.prettierrc",
-    "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
-    "lint:fix": "pnpm lint --fix",
     "preinstall": "npx only-allow pnpm",
+    "format": "prettier --write './**/*.{js,ts,tsx,css,md,json}' --config ./.prettierrc",
+    "lint": "pnpm run -r lint",
+    "lint:fix": "pnpm run -r lint:fix",
     "start:client": "pnpm run --filter client start"
   },
   "devDependencies": {

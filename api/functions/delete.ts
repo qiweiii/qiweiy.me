@@ -1,5 +1,5 @@
-import handler from "../libs/handler";
-import dynamoDb from "../libs/dynamodb";
+import dynamoDb from '../libs/dynamodb'
+import handler from '../libs/handler'
 
 export const main = handler(async (event, context) => {
   const params = {
@@ -7,16 +7,16 @@ export const main = handler(async (event, context) => {
     // 'Key' defines the partition key and sort key of the item to be removed
     // - 'noteId': path parameter
     Key: {
-      noteId: event?.pathParameters?.id,
+      noteId: event?.pathParameters?.id
     },
     // A condition that must be satisfied in order for a conditional update to succeed.
-    ConditionExpression: "userId = :userId",
+    ConditionExpression: 'userId = :userId',
     ExpressionAttributeValues: {
-      ":userId": context.identityId,
-    },
-  };
+      ':userId': context.identityId
+    }
+  }
 
-  await dynamoDb.delete(params);
+  await dynamoDb.delete(params)
 
-  return JSON.stringify({ status: true });
-});
+  return JSON.stringify({ status: true })
+})

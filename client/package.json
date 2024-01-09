@@ -6,6 +6,8 @@
   "scripts": {
     "start": "vite",
     "build": "tsc && vite build",
+    "lint": "tsc --noEmit && eslint . --ext .js,.ts,.tsx && prettier --check .",
+    "lint:fix": "eslint . --ext .js,.ts,.tsx --fix && prettier -w .",
     "preview": "vite preview",
     "predeploy": "pnpm run build",
     "deploy": "aws s3 sync build/ s3://my-page-app-v2-final-deploy --delete",

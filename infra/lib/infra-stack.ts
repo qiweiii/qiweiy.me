@@ -1,43 +1,35 @@
-import { join } from "node:path";
-import { Construct } from "constructs";
+import { AuthorizationType } from 'aws-cdk-lib/aws-apigateway'
 import {
   CfnOutput,
   Stack,
   aws_apigateway as apigateway,
   aws_cognito as cognito,
   aws_dynamodb as dynamodb,
-  aws_lambda as lambda,
-  aws_iam as iam,
-} from "aws-cdk-lib";
-import {
-  NodejsFunction,
-  NodejsFunctionProps,
-} from "aws-cdk-lib/aws-lambda-nodejs";
-import { AuthorizationType } from "aws-cdk-lib/aws-apigateway";
+  aws_lambda as lambda
+} from 'aws-cdk-lib'
+import { Construct } from 'constructs'
+import { NodejsFunction, NodejsFunctionProps } from 'aws-cdk-lib/aws-lambda-nodejs'
+import { join } from 'node:path'
 
-import { EnvStackProps } from "./common";
+import { EnvStackProps } from './common'
 
 export class InfraStackQiweiyMe extends Stack {
   constructor(scope: Construct, id: string, props: EnvStackProps) {
-    super(scope, id, props);
+    super(scope, id, props)
 
-    const { config } = props;
+    const { config } = props
 
     // ========================================================================
     // Resource: Amazon Cognito User Pool
     // ========================================================================
     // Migrating to cdk, just reference the existing user pool, no need to re-deploy and migrate users
     // Cdn stack name: prod-infrastructure-cognito
-    const userPool = cognito.UserPool.fromUserPoolId(
-      this,
-      "qiweiy-me-UserPool",
-      config.USER_POOL_ID
-    );
+    const userPool = cognito.UserPool.fromUserPoolId(this, 'qiweiy-me-UserPool', config.USER_POOL_ID)
     const userPoolClient = cognito.UserPoolClient.fromUserPoolClientId(
       this,
-      "qiweiy-me-UserPoolClient",
+      'qiweiy-me-UserPoolClient',
       config.APP_CLIENT_ID
-    );
+    )
     // Identity pool is also created in old sst constructs, but cannot easily reference it here in cdk
 
     // Roles required to allow authenticated users to access AWS services
@@ -104,121 +96,121 @@ export class InfraStackQiweiyMe extends Stack {
     // Cdn stack name: prod-infrastructure-dynamodb
     const dynamoTable = dynamodb.Table.fromTableName(
       this,
-      "qiweiy-me-Table",
-      "prod-infrastructure-dynamodb-qiweiymeTable787B6469-1JGH1F02JMF15"
-    );
+      'qiweiy-me-Table',
+      'prod-infrastructure-dynamodb-qiweiymeTable787B6469-1JGH1F02JMF15'
+    )
 
     // ========================================================================
     // Resource: Lambda
     // ========================================================================
     // Lambda is ok to recreate from scratch
     const nodeJsFunctionProps: NodejsFunctionProps = {
-      handler: "main",
+      handler: 'main',
       bundling: {
         externalModules: [
-          "@aws-sdk/*", // Use the '@aws-sdk' available in the Lambda runtime
-          "aws-lambda",
-        ],
+          '@aws-sdk/*', // Use the '@aws-sdk' available in the Lambda runtime
+          'aws-lambda'
+        ]
       },
       environment: {
-        tableName: dynamoTable.tableName,
+        tableName: dynamoTable.tableName
       },
-      runtime: lambda.Runtime.NODEJS_18_X,
-    };
+      runtime: lambda.Runtime.NODEJS_18_X
+    }
 
     // lambdas
-    const createLambda = new NodejsFunction(this, "createFunction", {
-      entry: join(__dirname, "../../api/functions/create.ts"),
-      ...nodeJsFunctionProps,
-    });
-    const getLambda = new NodejsFunction(this, "getFunction", {
-      entry: join(__dirname, "../../api/functions/get.ts"),
-      ...nodeJsFunctionProps,
-    });
-    const listLambda = new NodejsFunction(this, "listFunction", {
-      entry: join(__dirname, "../../api/functions/list.ts"),
-      ...nodeJsFunctionProps,
-    });
-    const updateLambda = new NodejsFunction(this, "updateFunction", {
-      entry: join(__dirname, "../../api/functions/update.ts"),
-      ...nodeJsFunctionProps,
-    });
-    const deleteLambda = new NodejsFunction(this, "deleteFunction", {
-      entry: join(__dirname, "../../api/functions/delete.ts"),
-      ...nodeJsFunctionProps,
-    });
-    const scanLambda = new NodejsFunction(this, "scanFunction", {
-      entry: join(__dirname, "../../api/functions/scan.ts"),
-      ...nodeJsFunctionProps,
-    });
+    const createLambda = new NodejsFunction(this, 'createFunction', {
+      entry: join(__dirname, '../../api/functions/create.ts'),
+      ...nodeJsFunctionProps
+    })
+    const getLambda = new NodejsFunction(this, 'getFunction', {
+      entry: join(__dirname, '../../api/functions/get.ts'),
+      ...nodeJsFunctionProps
+    })
+    const listLambda = new NodejsFunction(this, 'listFunction', {
+      entry: join(__dirname, '../../api/functions/list.ts'),
+      ...nodeJsFunctionProps
+    })
+    const updateLambda = new NodejsFunction(this, 'updateFunction', {
+      entry: join(__dirname, '../../api/functions/update.ts'),
+      ...nodeJsFunctionProps
+    })
+    const deleteLambda = new NodejsFunction(this, 'deleteFunction', {
+      entry: join(__dirname, '../../api/functions/delete.ts'),
+      ...nodeJsFunctionProps
+    })
+    const scanLambda = new NodejsFunction(this, 'scanFunction', {
+      entry: join(__dirname, '../../api/functions/scan.ts'),
+      ...nodeJsFunctionProps
+    })
     // db access
-    dynamoTable.grantReadWriteData(createLambda);
-    dynamoTable.grantReadData(getLambda);
-    dynamoTable.grantReadData(listLambda);
-    dynamoTable.grantReadWriteData(updateLambda);
-    dynamoTable.grantReadWriteData(deleteLambda);
-    dynamoTable.grantReadData(scanLambda);
+    dynamoTable.grantReadWriteData(createLambda)
+    dynamoTable.grantReadData(getLambda)
+    dynamoTable.grantReadData(listLambda)
+    dynamoTable.grantReadWriteData(updateLambda)
+    dynamoTable.grantReadWriteData(deleteLambda)
+    dynamoTable.grantReadData(scanLambda)
     // integrate with api gateway
-    const createIntegration = new apigateway.LambdaIntegration(createLambda);
-    const getIntegration = new apigateway.LambdaIntegration(getLambda);
-    const listIntegration = new apigateway.LambdaIntegration(listLambda);
-    const updateIntegration = new apigateway.LambdaIntegration(updateLambda);
-    const deleteIntegration = new apigateway.LambdaIntegration(deleteLambda);
-    const scanIntegration = new apigateway.LambdaIntegration(scanLambda);
+    const createIntegration = new apigateway.LambdaIntegration(createLambda)
+    const getIntegration = new apigateway.LambdaIntegration(getLambda)
+    const listIntegration = new apigateway.LambdaIntegration(listLambda)
+    const updateIntegration = new apigateway.LambdaIntegration(updateLambda)
+    const deleteIntegration = new apigateway.LambdaIntegration(deleteLambda)
+    const scanIntegration = new apigateway.LambdaIntegration(scanLambda)
 
     // ========================================================================
     // API Gateway
     // ========================================================================
     // Purpose: create a REST API
-    const api = new apigateway.RestApi(this, "qiweiy-me-Api", {
-      restApiName: "QiweiyMe-Api",
-      description: "This service serves qiweiy.me",
+    const api = new apigateway.RestApi(this, 'qiweiy-me-Api', {
+      restApiName: 'QiweiyMe-Api',
+      description: 'This service serves qiweiy.me',
       deployOptions: {
-        stageName: "prod",
+        stageName: 'prod',
         metricsEnabled: true,
         loggingLevel: apigateway.MethodLoggingLevel.INFO,
-        dataTraceEnabled: true,
+        dataTraceEnabled: true
       },
-      endpointTypes: [apigateway.EndpointType.EDGE],
-    });
+      endpointTypes: [apigateway.EndpointType.EDGE]
+    })
     // create authorizer
-    const authorizer = new apigateway.CfnAuthorizer(this, "cfnAuth", {
+    const authorizer = new apigateway.CfnAuthorizer(this, 'cfnAuth', {
       restApiId: api.restApiId,
-      name: "QiweiyMeAPIAuthorizer",
+      name: 'QiweiyMeAPIAuthorizer',
       type: apigateway.AuthorizationType.COGNITO,
-      identitySource: "method.request.header.Authorization",
-      providerArns: [userPool.userPoolArn],
-    });
+      identitySource: 'method.request.header.Authorization',
+      providerArns: [userPool.userPoolArn]
+    })
     // add method with authorizer
     const methodOptions = {
       authorizationType: apigateway.AuthorizationType.COGNITO,
       authorizer: {
-        authorizerId: authorizer.ref,
-      },
-    };
+        authorizerId: authorizer.ref
+      }
+    }
     const cors = {
       allowOrigins: apigateway.Cors.ALL_ORIGINS,
       allowMethods: apigateway.Cors.ALL_METHODS,
-      allowHeaders: [...apigateway.Cors.DEFAULT_HEADERS, "identityId"],
-    };
-    const notes = api.root.addResource("notes");
-    notes.addMethod("POST", createIntegration, methodOptions);
-    notes.addMethod("GET", listIntegration, methodOptions);
-    const all = notes.addResource("all");
-    all.addMethod("GET", scanIntegration, {
+      allowHeaders: [...apigateway.Cors.DEFAULT_HEADERS, 'identityId']
+    }
+    const notes = api.root.addResource('notes')
+    notes.addMethod('POST', createIntegration, methodOptions)
+    notes.addMethod('GET', listIntegration, methodOptions)
+    const all = notes.addResource('all')
+    all.addMethod('GET', scanIntegration, {
       // public endpoint, no need authorize
-      authorizationType: AuthorizationType.NONE,
-    });
-    const item = notes.addResource("{id}");
-    item.addMethod("GET", getIntegration, {
+      authorizationType: AuthorizationType.NONE
+    })
+    const item = notes.addResource('{id}')
+    item.addMethod('GET', getIntegration, {
       // public endpoint, no need authorize
-      authorizationType: AuthorizationType.NONE,
-    });
-    item.addMethod("PUT", updateIntegration, methodOptions);
-    item.addMethod("DELETE", deleteIntegration, methodOptions);
-    notes.addCorsPreflight(cors);
-    all.addCorsPreflight(cors);
-    item.addCorsPreflight(cors);
+      authorizationType: AuthorizationType.NONE
+    })
+    item.addMethod('PUT', updateIntegration, methodOptions)
+    item.addMethod('DELETE', deleteIntegration, methodOptions)
+    notes.addCorsPreflight(cors)
+    all.addCorsPreflight(cors)
+    item.addCorsPreflight(cors)
 
     // ========================================================================
     // Resource: Amplify
@@ -233,17 +225,17 @@ export class InfraStackQiweiyMe extends Stack {
     // ========================================================================
     // Resource: Export values
     // ========================================================================
-    new CfnOutput(this, "UserPoolId", {
-      value: userPool.userPoolId,
-    });
-    new CfnOutput(this, "UserPoolClientId", {
-      value: userPoolClient.userPoolClientId,
-    });
-    new CfnOutput(this, "ApiUrl", {
-      value: api.url,
-    });
-    new CfnOutput(this, "ApiName", {
-      value: api.restApiName,
-    });
+    new CfnOutput(this, 'UserPoolId', {
+      value: userPool.userPoolId
+    })
+    new CfnOutput(this, 'UserPoolClientId', {
+      value: userPoolClient.userPoolClientId
+    })
+    new CfnOutput(this, 'ApiUrl', {
+      value: api.url
+    })
+    new CfnOutput(this, 'ApiName', {
+      value: api.restApiName
+    })
   }
 }

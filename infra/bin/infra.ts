@@ -1,14 +1,13 @@
 #!/usr/bin/env node
-import "source-map-support/register";
-import * as cdk from "aws-cdk-lib";
-import { InfraStackQiweiyMe } from "../lib/infra-stack";
-import { getConfig } from "../lib/config";
+import * as cdk from 'aws-cdk-lib'
+import { InfraStackQiweiyMe } from '../lib/infra-stack'
+import { getConfig } from '../lib/config'
 
-const app = new cdk.App();
+const app = new cdk.App()
 
-const config = getConfig();
+const config = getConfig()
 
-new InfraStackQiweiyMe(app, "qiweiyMeWebsiteStack", {
+new InfraStackQiweiyMe(app, 'qiweiyMeWebsiteStack', {
   /* If you don't specify 'env', this stack will be environment-agnostic.
    * Account/Region-dependent features and context lookups will not work,
    * but a single synthesized template can be deployed anywhere. */
@@ -21,5 +20,5 @@ new InfraStackQiweiyMe(app, "qiweiyMeWebsiteStack", {
   // },
 
   /* For more information, see https://docs.aws.amazon.com/cdk/latest/guide/environments.html */
-  config,
-});
+  config
+})

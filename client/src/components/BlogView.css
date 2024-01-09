@@ -68,7 +68,7 @@ td {
   padding-bottom: 0;
 }
 
-.markdown p+ul {
+.markdown p + ul {
   margin: 0;
   margin-bottom: 0.8em;
 }
@@ -137,12 +137,12 @@ td {
   overflow-y: auto;
 }
 
-.toc>.toc-list {
+.toc > .toc-list {
   overflow: hidden;
   position: relative;
 }
 
-.toc>.toc-list li {
+.toc > .toc-list li {
   list-style: none;
 }
 
