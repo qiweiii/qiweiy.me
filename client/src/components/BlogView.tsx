@@ -87,6 +87,19 @@ const Root = styled('div')(({ theme }) => ({
   }
 }))
 
+const TopImage = styled('img')`
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  width: 100%;
+  max-height: 450px;
+  object-fit: cover;
+  margin: 0px;
+  padding: 0px;
+  border-radius: 0px;
+  opacity: 0.9;
+`
+
 const BlogView = () => {
   const { userHasAuthenticated } = useAppData()
   const [state, setState] = useState({
@@ -151,6 +164,8 @@ const BlogView = () => {
 
   return (
     <Root>
+      <TopImage src={state.imageUrl} />
+
       <div>
         <div className="js-toc"></div>
       </div>

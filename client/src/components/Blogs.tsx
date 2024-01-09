@@ -92,15 +92,15 @@ const selectVisibleBlogs = (blogs: Blog[], blogfilter: string) => {
   })
 }
 
+const processBlogs = (blogs: Blog[]) => {
+  return orderBy(blogs, ['createdAt'], ['desc']) // sort
+}
+
 const Blogs = () => {
   const { userBlogs: userBlogsQuery, allBlogs: allBlogsQuery } = useBlogs()
   const { userHasAuthenticated, isBlogsListView, setIsBlogsListView, blogsFilter, setBlogsFilter, tags } = useAppData()
   const userBlogs = selectVisibleBlogs(userBlogsQuery.data || [], blogsFilter)
   const allBlogs = selectVisibleBlogs(allBlogsQuery.data || [], blogsFilter)
-
-  const processBlogs = (blogs: Blog[]) => {
-    return orderBy(blogs, ['createdAt'], ['desc']) // sort
-  }
 
   const handleFilterChange = (e: SelectChangeEvent<string>) => {
     setBlogsFilter(e.target.value)
