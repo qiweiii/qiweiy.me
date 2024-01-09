@@ -1,4 +1,5 @@
 import { defineConfig } from 'vite'
+import path from 'path'
 import react from '@vitejs/plugin-react'
 
 // vite config docs: https://vitejs.dev/config/#root
@@ -20,7 +21,8 @@ export default defineConfig({
       // https://github.com/aws-amplify/amplify-js/issues/9639#issuecomment-1049158526
       // or
       // https://github.com/aws-amplify/amplify-js/issues/9639#issuecomment-1079965178
-      './runtimeConfig': './runtimeConfig.browser'
+      './runtimeConfig': './runtimeConfig.browser',
+      src: path.resolve(__dirname, './src')
     }
   }
 })
