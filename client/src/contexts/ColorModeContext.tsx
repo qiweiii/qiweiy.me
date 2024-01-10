@@ -8,7 +8,9 @@ export const ColorModeProvider = ({ children }: { children: JSX.Element }) => {
   const defaultTheme: PaletteMode = prefersDarkMode ? 'dark' : 'light'
   const [mode, setMode] = useState<PaletteMode>(defaultTheme)
 
-  const toggleMode = () => setMode((prevMode) => (prevMode === 'light' ? 'dark' : 'light'))
+  const toggleMode = () => {
+    setMode((prevMode) => (prevMode === 'light' ? 'dark' : 'light'))
+  }
 
   return <ColorModeContext.Provider value={{ mode, toggleMode }}>{children}</ColorModeContext.Provider>
 }

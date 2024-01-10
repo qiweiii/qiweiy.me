@@ -1,9 +1,9 @@
-import { Fragment, useCallback, useEffect, useState } from 'react'
+import { Fragment, useCallback, useEffect, useMemo, useState } from 'react'
 import { Helmet } from 'react-helmet'
 import { Link as RouterLink, useNavigate } from 'react-router-dom'
+import { ThemeProvider, createTheme, styled } from '@mui/material/styles'
 import { clsx } from 'clsx'
 import { signOut } from 'aws-amplify/auth'
-import { styled, useTheme } from '@mui/material/styles'
 import { useQueryClient } from '@tanstack/react-query'
 import AppBar from '@mui/material/AppBar'
 import BookmarkIcon from '@mui/icons-material/Bookmark'
@@ -33,6 +33,7 @@ import Typography from '@mui/material/Typography'
 
 import { getAllBlogs, getUserBlogs } from 'src/hooks/blogs'
 import { getAuthenticatedUser } from 'src/api/amplify'
+import { getDesignTokens } from 'src/theme'
 import { useAppData } from 'src/hooks/appData'
 import { useColorMode } from 'src/hooks/colorMode'
 import Routes from 'src/route/Routes'
@@ -137,11 +138,14 @@ const Root = styled('div')(({ theme }) => ({
 const Main = () => {
   const [open, setOpen] = useState(false)
   const [isAuthenticating, setIsAuthenticating] = useState(true)
-  const theme = useTheme()
   const { userHasAuthenticated, setUserHasAuthenticated } = useAppData()
   const queryClient = useQueryClient()
-  const colorMode = useColorMode()
+  const { toggleMode } = useColorMode()
   let navigate = useNavigate()
+  const { mode } = useColorMode()
+  // Update the theme only if the mode changes
+  // ThemeProvider only works in this component because only here we can access color mode context
+  const theme = useMemo(() => createTheme(getDesignTokens(mode)), [mode])
 
   // https://tanstack.com/query/latest/docs/react/guides/prefetching
   const prefetchBlogs = async () => {
@@ -321,87 +325,100 @@ const Main = () => {
 
   return (
     !isAuthenticating && (
-      <Root>
-        <div className={classes.root}>
-          <Helmet>
-            <title>Qiwei Yang</title>
-            <meta property="og:title" content="Qiwei Yang's website" />
-            <meta property="og:type" content="website" />
-            <meta name="description" content="Qiwei Yang's website. 杨启维个人网站" />
-          </Helmet>
-          <CssBaseline />
+      <ThemeProvider theme={theme}>
+        <Root>
+          <div className={classes.root}>
+            <Helmet>
+              <title>Qiwei Yang</title>
+              <meta property="og:title" content="Qiwei Yang's website" />
+              <meta property="og:type" content="website" />
+              <meta name="description" content="Qiwei Yang's website. 杨启维个人网站" />
+            </Helmet>
+            <CssBaseline />
 
-          <Drawer
-            variant="permanent"
-            anchor="left"
-            open={open}
-            className={clsx(classes.drawer, {
-              [classes.drawerOpen]: open,
-              [classes.drawerClose]: !open
-            })}
-            classes={{
-              paper: clsx({
+            <Drawer
+              variant="permanent"
+              anchor="left"
+              open={open}
+              className={clsx(classes.drawer, {
                 [classes.drawerOpen]: open,
                 [classes.drawerClose]: !open
-              })
-            }}
-          >
-            {drawer}
-          </Drawer>
+              })}
+              classes={{
+                paper: clsx({
+                  [classes.drawerOpen]: open,
+                  [classes.drawerClose]: !open
+                })
+              }}
+            >
+              {drawer}
+            </Drawer>
 
-          <AppBar
-            position="fixed"
-            className={clsx(classes.appBar, {
-              [classes.appBarShift]: open
-            })}
-            enableColorOnDark
-          >
-            <Toolbar>
-              <IconButton
-                color="inherit"
-                aria-label="Open drawer"
-                onClick={handleDrawerOpen}
-                edge="start"
-                className={clsx(classes.menuButton, open && classes.hide)}
-                size="large"
-              >
-                <MenuIcon />
-              </IconButton>
-              <Typography variant="h6" className={classes.grow}>
-                <Link color="inherit" underline="hover" component={RouterLink} to="/">
-                  QIWEI
-                </Link>
-              </Typography>
-
-              {userHasAuthenticated ? (
-                <Button color="inherit" onClick={handleLogout}>
-                  Logout
-                </Button>
-              ) : (
-                <Fragment>
-                  <Button component={RouterLink} to="/signup" color="inherit">
-                    Signup
-                  </Button>
-                  <Button component={RouterLink} to="/login" color="inherit">
-                    Login
-                  </Button>
-                </Fragment>
-              )}
-
-              <Tooltip title="Toggle dark/light mode" placement="bottom" classes={{ tooltip: classes.tooltip }}>
-                <IconButton onClick={colorMode.toggleMode} size="large">
-                  {theme.palette.mode === 'dark' ? <Brightness7Icon /> : <Brightness4Icon />}
+            <AppBar
+              position="fixed"
+              className={clsx(classes.appBar, {
+                [classes.appBarShift]: open
+              })}
+              enableColorOnDark
+            >
+              <Toolbar>
+                <IconButton
+                  color="inherit"
+                  aria-label="Open drawer"
+                  onClick={handleDrawerOpen}
+                  edge="start"
+                  className={clsx(classes.menuButton, open && classes.hide)}
+                  size="large"
+                >
+                  <MenuIcon />
                 </IconButton>
-              </Tooltip>
-            </Toolbar>
-          </AppBar>
+                <Typography variant="h6" className={classes.grow}>
+                  <Link color="inherit" underline="hover" component={RouterLink} to="/">
+                    QIWEI
+                  </Link>
+                </Typography>
 
-          <main className={classes.content}>
-            <div className={classes.toolbar} />
-            <Routes />
-          </main>
-        </div>
-      </Root>
+                <Tooltip title="Toggle dark/light mode" placement="bottom" classes={{ tooltip: classes.tooltip }}>
+                  <IconButton onClick={toggleMode} size="large">
+                    {theme.palette.mode === 'dark' ? <Brightness7Icon /> : <Brightness4Icon />}
+                  </IconButton>
+                </Tooltip>
+
+                <Tooltip title="Website source code" placement="bottom" classes={{ tooltip: classes.tooltip }}>
+                  <IconButton
+                    size="large"
+                    href="https://github.com/qiweiii/qiweiy.me"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <Github />
+                  </IconButton>
+                </Tooltip>
+
+                {userHasAuthenticated ? (
+                  <Button color="inherit" onClick={handleLogout}>
+                    Logout
+                  </Button>
+                ) : (
+                  <Fragment>
+                    <Button component={RouterLink} to="/signup" color="inherit">
+                      Signup
+                    </Button>
+                    <Button component={RouterLink} to="/login" color="inherit">
+                      Login
+                    </Button>
+                  </Fragment>
+                )}
+              </Toolbar>
+            </AppBar>
+
+            <main className={classes.content}>
+              <div className={classes.toolbar} />
+              <Routes />
+            </main>
+          </div>
+        </Root>
+      </ThemeProvider>
     )
   )
 }

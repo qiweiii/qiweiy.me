@@ -1,6 +1,6 @@
 # qiweiy.me
 
-## Tech stack
+## Tech Stack
 
 A serverless single page restful app built with AWS and React
 - Lambda & API Gateway for serverless api
@@ -16,9 +16,9 @@ A serverless single page restful app built with AWS and React
 
 In 2018, this tech stack was initially learnt from [Serverless Stack tutorial](https://serverless-stack.com/), used [serverless framenwork](https://www.serverless.com/framework/docs/getting-started/) for all resources. In these years, the cloud services have changed a lot. AWS CDK came out and it was gaining popularity. And in 2020, I found [Serverless Stack](https://serverless-stack.com/) has updated their tutorials to use their own AWS CDK constructs library called `sst`. So I decided to migrate my app to use it as well, but I only migrated the ones that are easy to do following the tutorial.
 
-In 2023/2024, I did some refactoring, switched from `npm` to `pnpm`, changed all `sst` CDK constructs and `sls` configs to raw AWS CDK constrcuts, since those 2 libraries were actually making my life more difficult, changed all `js` to `ts`, updated frontend styles, and updated lots of code since there are breaking changes from dependencies.
+In 2023/2024, I did some refactoring, switched from `npm` to `pnpm`, changed all `sst` CDK constructs and `sls` configs to official AWS CDK constrcuts, since those 2 libraries were actually making my life more difficult, changed all `js` to `ts`, updated frontend styles, and updated lots of code since there are breaking changes from dependencies.
 
-A new fullstack cdk template can be found [here](https://github.com/qiweiii/fullstack-cdk-app).
+A more standardized and new fullstack cdk template can be found [here](https://github.com/qiweiii/fullstack-cdk-app).
 
 ## Deploy
 
