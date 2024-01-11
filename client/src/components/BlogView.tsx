@@ -92,7 +92,7 @@ const TopImage = styled('img')`
   background-size: cover;
   background-position: center;
   width: 100%;
-  max-height: 450px;
+  max-height: 750px;
   object-fit: cover;
   margin: 0px;
   padding: 0px;
