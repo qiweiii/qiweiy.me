@@ -35,9 +35,11 @@ const classes = {
 const Root = styled('div')(({ theme }) => ({
   [`& .${classes.layout}`]: {
     width: 'auto',
-    maxWidth: 880,
-    margin: '3% 22% 3%',
-    [theme.breakpoints.down(1300)]: {
+    margin: '3% 28% 3%',
+    [theme.breakpoints.down(1500)]: {
+      margin: '3% 24% 3%'
+    },
+    [theme.breakpoints.down(1350)]: {
       margin: '3% 23% 3% 15%'
     },
     [theme.breakpoints.down(1100)]: {
@@ -63,7 +65,6 @@ const Root = styled('div')(({ theme }) => ({
 
   [`& .${classes.content}`]: {
     minHeight: 400,
-    maxWidth: 880,
     fontSize: '1.15rem',
     lineHeight: '1.8',
     padding: theme.spacing(1)
