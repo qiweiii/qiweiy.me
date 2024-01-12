@@ -36,11 +36,11 @@ const Root = styled('div')(({ theme }) => ({
   [`& .${classes.layout}`]: {
     width: 'auto',
     margin: '3% 28% 3%',
-    [theme.breakpoints.down(1500)]: {
-      margin: '3% 24% 3%'
+    [theme.breakpoints.down(1600)]: {
+      margin: '3% 24% 3% 22%'
     },
-    [theme.breakpoints.down(1350)]: {
-      margin: '3% 23% 3% 15%'
+    [theme.breakpoints.down(1450)]: {
+      margin: '3% 22% 3% 18%'
     },
     [theme.breakpoints.down(1100)]: {
       margin: '3% 10% 3% 8%'
@@ -89,11 +89,11 @@ const Root = styled('div')(({ theme }) => ({
 }))
 
 const TopImage = styled('img')`
+  /* TopImage height depends on device height (in .css) */
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
   width: 100%;
-  max-height: 750px;
   object-fit: cover;
   margin: 0px;
   padding: 0px;
@@ -165,7 +165,7 @@ const BlogView = () => {
 
   return (
     <Root>
-      <TopImage src={state.imageUrl} />
+      <TopImage className="blog-top-img" src={state.imageUrl} />
 
       <div>
         <div className="js-toc"></div>
