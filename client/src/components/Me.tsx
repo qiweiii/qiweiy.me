@@ -80,7 +80,7 @@ function Home() {
             </Typography>
           </Grid>
           <Typography gutterBottom variant="body1" className={classes.p}>
-            Fullstack engineer working from home, with an interest in web, cloud and <strong>blockchain</strong>.{' '}
+            Fullstack engineer working from home, with an interest in web, cloud and blockchain.{' '}
           </Typography>
           <Typography gutterBottom variant="body1" className={classes.p}>
             Worked at
