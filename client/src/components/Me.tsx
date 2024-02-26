@@ -116,7 +116,7 @@ function Home() {
           </Typography>
           <Typography gutterBottom variant="body1" className={classes.p}>
             Computer Science graduate (2021) from{' '}
-            <a target="_blank" href="https://www.unsw.edu.au/" rel="noreferrer">
+            <a target="_blank" href="https://www.unsw.edu.au/about-us" rel="noreferrer">
               UNSW Sydney
             </a>
             .
