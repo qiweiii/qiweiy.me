@@ -3,9 +3,7 @@
   "version": "1.1.0",
   "description": "qiweiy.me backend api",
   "scripts": {
-    "preinstall": "npx only-allow pnpm",
-    "lint": "tsc --noEmit && eslint . --ext .js,.ts && prettier --check .",
-    "lint:fix": "eslint . --ext .js,.ts --fix && prettier -w ."
+    "preinstall": "npx only-allow pnpm"
   },
   "author": "",
   "license": "MIT",

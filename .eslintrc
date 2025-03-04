@@ -6,7 +6,7 @@
   },
   "root": true,
   "extends": ["eslint:recommended", "plugin:import/recommended", "plugin:import/typescript"],
-  "ignorePatterns": ["node_modules", "build", "*.d.ts", "*.out"],
+  "ignorePatterns": ["node_modules", "build", "*.d.ts", "*.out", "*.json"],
   "parser": "@typescript-eslint/parser",
   "parserOptions": {
     "ecmaVersion": "latest",
@@ -14,7 +14,8 @@
   },
   "plugins": ["@typescript-eslint", "import", "sort-imports-es6-autofix"],
   "rules": {
-    "sort-imports-es6-autofix/sort-imports-es6": "warn"
+    "sort-imports-es6-autofix/sort-imports-es6": "warn",
+    "import/default": "warn"
   },
   "settings": {
     "import/resolver": {

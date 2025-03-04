@@ -1,3 +1,4 @@
+import * as tocbot from 'tocbot'
 import { Helmet } from 'react-helmet'
 import { Link as RouterLink, useLocation, useNavigate } from 'react-router-dom'
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter'
@@ -13,7 +14,6 @@ import Typography from '@mui/material/Typography'
 import nightOwl from 'react-syntax-highlighter/dist/cjs/styles/prism/night-owl'
 import rehypeRaw from 'rehype-raw'
 import remarkGfm from 'remark-gfm'
-import * as tocbot from 'tocbot'
 
 import './BlogView.css'
 import { Blog } from 'src/types'

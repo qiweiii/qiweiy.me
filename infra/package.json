@@ -10,9 +10,7 @@
     "build": "tsc",
     "watch": "tsc -w",
     "test": "jest",
-    "cdk": "cdk",
-    "lint": "tsc --noEmit && eslint . --ext .js,.ts && prettier --check .",
-    "lint:fix": "eslint . --ext .js,.ts --fix && prettier -w ."
+    "cdk": "cdk"
   },
   "dependencies": {
     "aws-cdk-lib": "^2.177.0",
