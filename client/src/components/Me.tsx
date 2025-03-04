@@ -14,7 +14,9 @@ const classes = {
   paper: `${PREFIX}-paper`,
   avatar: `${PREFIX}-avatar`,
   name: `${PREFIX}-name`,
-  p: `${PREFIX}-p`
+  p: `${PREFIX}-p`,
+  p1: `${PREFIX}-p1`,
+  p2: `${PREFIX}-p2`
 }
 
 const Root = styled('div')(({ theme }) => ({
@@ -34,7 +36,7 @@ const Root = styled('div')(({ theme }) => ({
     padding: theme.spacing(2),
     [theme.breakpoints.up('sm')]: {
       padding: theme.spacing(3),
-      margin: '10%'
+      margin: '5%'
     }
   },
   [`& .${classes.avatar}`]: {
@@ -65,6 +67,29 @@ const Root = styled('div')(({ theme }) => ({
     [theme.breakpoints.down('sm')]: {
       padding: theme.spacing(1)
     }
+  },
+  [`& .${classes.p1}`]: {
+    maxWidth: 460,
+    fontSize: '1.1rem',
+    fontWeight: 300,
+    lineHeight: 1.7,
+    letterSpacing: 0.1,
+    padding: theme.spacing(3, 2),
+    marginBottom: theme.spacing(3),
+    [theme.breakpoints.down('sm')]: {
+      padding: theme.spacing(2, 1)
+    }
+  },
+  [`& .${classes.p2}`]: {
+    maxWidth: 480,
+    fontSize: '1.1rem',
+    fontWeight: 300,
+    lineHeight: 1.7,
+    letterSpacing: 0.1,
+    padding: theme.spacing(0),
+    [theme.breakpoints.down('sm')]: {
+      padding: theme.spacing(0)
+    }
   }
 }))
 
@@ -80,9 +105,22 @@ function Home() {
             </Typography>
           </Grid>
           <Typography gutterBottom variant="body1" className={classes.p}>
-            Fullstack engineer working from home, with an interest in web, cloud and blockchain.{' '}
+            Full-stack engineer working from home, with an interest in{' '}
+            <Typography variant="body1" fontStyle="italic" display="inline">
+              web, cloud and blockchain
+            </Typography>
+            .
           </Typography>
-          <Typography gutterBottom variant="body1" className={classes.p}>
+          <Typography gutterBottom variant="body1" className={classes.p1}>
+            Building{' '}
+            <a target="_blank" href="https://graypaper.com/" rel="noreferrer">
+              JAM
+            </a>{' '}
+            and {/* <a target="_blank" href="https://qw" rel="noreferrer">  */}
+            qw.build (WIP)
+            {/* </a> */}
+          </Typography>
+          <Typography gutterBottom variant="body1" className={classes.p2}>
             Worked at
             <span>
               {' '}
@@ -105,7 +143,6 @@ function Home() {
               </a>
               ,{' '}
             </span>
-            and
             <span>
               {' '}
               <a target="_blank" href="https://www.huawei.com" rel="noreferrer">
@@ -114,15 +151,15 @@ function Home() {
             </span>
             .
           </Typography>
-          <Typography gutterBottom variant="body1" className={classes.p}>
-            Computer Science graduate (2021) from{' '}
+          <Typography gutterBottom variant="body1" className={classes.p2}>
+            Computer Science grad (2021) from{' '}
             <a target="_blank" href="https://www.unsw.edu.au/about-us" rel="noreferrer">
-              UNSW Sydney
+              UNSW
             </a>
             .
           </Typography>
-          <Typography gutterBottom variant="body1" className={classes.p}>
-            My email: <a href="mailto: yangqiwei97@gmail.com">yangqiwei97@gmail.com</a>.
+          <Typography gutterBottom variant="body1" className={classes.p2}>
+            Email: <a href="mailto: yangqiwei97@gmail.com">yangqiwei97@gmail.com</a>.
           </Typography>
         </Paper>
       </div>
