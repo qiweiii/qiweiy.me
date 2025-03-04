@@ -16,7 +16,7 @@ const config = {
   },
   Storage: {
     S3: {
-      // I am not using s3 for now, this bucket is not used
+      // this bucket is not used
       bucket: import.meta.env.VITE_BUCKET,
       region: import.meta.env.VITE_REGION
     }
