@@ -15,7 +15,7 @@
     "lint:fix": "eslint . --ext .js,.ts --fix && prettier -w ."
   },
   "dependencies": {
-    "aws-cdk-lib": "^2.118.0",
+    "aws-cdk-lib": "^2.177.0",
     "constructs": "^10.3.0",
     "dotenv": "^16.3.1",
     "typescript": "^5.3.3"

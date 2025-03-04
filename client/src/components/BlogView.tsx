@@ -13,7 +13,7 @@ import Typography from '@mui/material/Typography'
 import nightOwl from 'react-syntax-highlighter/dist/cjs/styles/prism/night-owl'
 import rehypeRaw from 'rehype-raw'
 import remarkGfm from 'remark-gfm'
-import tocbot from 'tocbot'
+import * as tocbot from 'tocbot'
 
 import './BlogView.css'
 import { Blog } from 'src/types'
